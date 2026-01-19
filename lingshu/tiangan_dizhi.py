@@ -135,8 +135,12 @@ class GanZhi:
         return cls(gan, zhi)
 
     def get_nayin(self) -> str:
-        """获取纳音五行"""
-        # 六十甲子纳音表
+        """获取纳音五行
+        
+        纳音是根据六十甲子的位置计算得出的五行属性。
+        传统口诀：甲子乙丑海中金，丙寅丁卯炉中火...
+        """
+        # 六十甲子纳音表（按顺序对应六十甲子）
         nayin_table = [
             "海中金", "炉中火", "大林木", "路旁土", "剑锋金",
             "山头火", "涧下水", "城头土", "白蜡金", "杨柳木",
@@ -145,11 +149,14 @@ class GanZhi:
             "覆灯火", "天河水", "大驿土", "钗钏金", "桑柘木",
             "大溪水", "沙中土", "天上火", "石榴木", "大海水"
         ]
-        # 计算六十甲子索引
+        # 计算在六十甲子中的位置
         gan_idx = list(TianGan).index(self.gan)
         zhi_idx = list(DiZhi).index(self.zhi)
-        jiazi_index = (gan_idx * 6 + zhi_idx * 5) % 60 // 2
-        return nayin_table[jiazi_index]
+        # 六十甲子索引公式：根据天干地支位置推算
+        # 使用中国剩余定理求解：满足 x ≡ gan_idx (mod 10) 且 x ≡ zhi_idx (mod 12)
+        jiazi_index = (gan_idx * 6 + zhi_idx * 5) % 60
+        # 纳音每两个甲子共享一个，所以除以2
+        return nayin_table[jiazi_index // 2]
 
     @property
     def wuxing(self) -> Tuple[WuXing, WuXing]:

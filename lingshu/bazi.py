@@ -111,14 +111,21 @@ class BaZi:
         return Pillar(gan, zhi, "月柱")
 
     def _calc_day_pillar(self) -> Pillar:
-        """计算日柱（使用公历日期推算）"""
-        # 简化算法：使用基准日期推算
-        # 2000年1月1日为 戊午日
+        """计算日柱（使用公历日期推算）
+        
+        使用基准日期推算法：
+        - 基准日期：2000年1月1日为戊午日
+        - 戊午在六十甲子中的序号为54（从0开始计数）
+        - 通过计算与基准日期的天数差来推算当前日期的干支
+        """
+        # 基准：2000年1月1日为戊午日
         base_date = datetime(2000, 1, 1)
-        base_index = 54  # 戊午在六十甲子中的索引
+        # 戊午在六十甲子中的位置（0-based索引）
+        # 甲子=0, 乙丑=1, ... 戊午=54
+        BASE_JIAZI_INDEX = 54
         
         days_diff = (self.birth_datetime - base_date).days
-        jiazi_index = (base_index + days_diff) % 60
+        jiazi_index = (BASE_JIAZI_INDEX + days_diff) % 60
         
         gan = TianGan.from_index(jiazi_index)
         zhi = DiZhi.from_index(jiazi_index)
@@ -126,10 +133,19 @@ class BaZi:
         return Pillar(gan, zhi, "日柱")
 
     def _calc_hour_pillar(self) -> Pillar:
-        """计算时柱"""
+        """计算时柱
+        
+        中国传统时辰系统：
+        - 一天分为12个时辰，每个时辰2小时
+        - 子时: 23:00-01:00, 丑时: 01:00-03:00, 寅时: 03:00-05:00...
+        - 注意：子时从前一天23:00开始，所以需要+1来正确对齐
+        """
         hour = self.birth_datetime.hour
         
-        # 时支
+        # 时支：根据小时数计算地支
+        # (hour+1)//2 将24小时制转换为12时辰制
+        # 例：23点 -> (23+1)//2=12, 12%12=0 -> 子时
+        #     1点 -> (1+1)//2=1 -> 丑时
         zhi = DiZhi.from_hour(hour)
         
         # 时干：根据日干推算

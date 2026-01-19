@@ -13,6 +13,10 @@ from .wuyun_liuqi import WuYunLiuQi
 class StockPredictor:
     """股市预测器"""
 
+    # 五行平衡判断阈值
+    VARIANCE_BALANCED_THRESHOLD = 1.0  # 方差小于此值视为平衡
+    WUXING_STRONG_THRESHOLD = 4  # 五行数量达到此值视为过旺
+    
     # 五行对应的行业板块
     WUXING_SECTORS = {
         WuXing.MU: ["农业", "林业", "造纸", "家具", "纺织", "中药"],
@@ -51,10 +55,10 @@ class StockPredictor:
         avg_count = sum(wuxing_count.values()) / len(wuxing_count)
         variance = sum((v - avg_count) ** 2 for v in wuxing_count.values()) / len(wuxing_count)
         
-        if variance < 1.0:
+        if variance < self.VARIANCE_BALANCED_THRESHOLD:
             market_status = "平衡"
             trend = "震荡"
-        elif strongest[1] >= 4:
+        elif strongest[1] >= self.WUXING_STRONG_THRESHOLD:
             market_status = "失衡"
             trend = "单边行情"
         else:
