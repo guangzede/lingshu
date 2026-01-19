@@ -8,13 +8,13 @@ Chinese Astrology and Stock Market Prediction System
 __version__ = "0.1.0"
 __author__ = "guangzede"
 
-from .tiangan_dizhi import TianGan, DiZhi, GanZhi
+from .tiangan_dizhi import TianGan, DiZhi, GanZhi, WuXing, YinYang
 from .wuyun_liuqi import WuYun, LiuQi, WuYunLiuQi
 from .bazi import BaZi, Pillar
 from .stock_prediction import StockPredictor
 
 __all__ = [
-    'TianGan', 'DiZhi', 'GanZhi',
+    'TianGan', 'DiZhi', 'GanZhi', 'WuXing', 'YinYang',
     'WuYun', 'LiuQi', 'WuYunLiuQi',
     'BaZi', 'Pillar',
     'StockPredictor'
