@@ -1,11 +1,14 @@
-export default defineAppConfig({
+export default {
   pages: [
-    'pages/index/index'
+    'pages/index/index',
+    'pages/fortune/index',
+    'pages/armillary/index',
   ],
   window: {
+    navigationBarTitleText: '灵枢',
+    navigationBarBackgroundColor: '#050510',
+    navigationBarTextStyle: 'white',
     backgroundTextStyle: 'light',
-    navigationBarBackgroundColor: '#fff',
-    navigationBarTitleText: 'WeChat',
-    navigationBarTextStyle: 'black'
-  }
-})
+    backgroundColor: '#050510'
+  },
+}

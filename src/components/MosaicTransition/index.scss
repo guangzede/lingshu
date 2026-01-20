@@ -1,0 +1,39 @@
+.mosaic-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+  grid-template-rows: repeat(var(--rows), 1fr);
+  background: #0a0c10;
+  mix-blend-mode: normal;
+  overflow: hidden;
+}
+
+.mosaic-overlay span {
+  background: linear-gradient(135deg, rgba(255, 210, 120, 0.7), rgba(0, 255, 200, 0.45));
+  opacity: 1;
+  animation: mosaic-fall 900ms ease-out forwards;
+  transform: translate3d(0, 0, 0) scale(1);
+  will-change: transform, opacity, filter;
+}
+
+@keyframes mosaic-fall {
+  0% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0px);
+  }
+  40% {
+    opacity: 0.9;
+    transform: translate3d(0, 0, 0) scale(0.9);
+    filter: blur(0.4px);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--tx, 0px), var(--ty, 0px), 0) scale(0.1)
+      rotate(var(--rot, 0deg));
+    filter: blur(2px);
+  }
+}

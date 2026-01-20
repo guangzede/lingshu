@@ -1,30 +1,28 @@
 {
   "compilerOptions": {
-    "target": "es2017",
+    "target": "esnext",
     "module": "commonjs",
+    "lib": ["esnext", "dom"],
+    "jsx": "react-jsx",
     "removeComments": false,
     "preserveConstEnums": true,
     "moduleResolution": "node",
     "experimentalDecorators": true,
-    "noImplicitAny": false,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
-    "outDir": "lib",
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "strictNullChecks": true,
     "sourceMap": true,
-    "rootDir": ".",
-    "jsx": "react-jsx",
-    "allowJs": true,
-    "resolveJsonModule": true,
-    "typeRoots": [
-      "node_modules/@types"
-    ],
+    "baseUrl": ".",
     "paths": {
-      // TS5090 leading './'
-      "@/*": ["./src/*"]
-    }
+      "@/*": ["src/*"]
+    },
+    "typeRoots": ["node_modules/@types"],
+    "allowJs": true,
+    "resolveJsonModule": true
   },
-  "include": ["./src", "./types", "./config"],
+  "include": ["src/**/*", "types/**/*", "config/**/*"],
+  "exclude": ["node_modules", "dist"],
   "compileOnSave": false
 }

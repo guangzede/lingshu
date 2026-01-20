@@ -1,17 +1,14 @@
-import { PropsWithChildren } from 'react'
+import React from 'react'
 import { useLaunch } from '@tarojs/taro'
+import './app.scss'
 
-import './app.less'
-
-function App({ children }: PropsWithChildren<any>) {
+const App: React.FC = (props) => {
   useLaunch(() => {
     console.log('App launched.')
   })
 
-  // children 是将要会渲染的页面
-  return children
+  // props.children is the pages rendered by router
+  return props.children as React.ReactElement
 }
-  
-
 
 export default App

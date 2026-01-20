@@ -1,4 +1,4 @@
 export default {
-  navigationBarTitleText: '灵枢',
+  navigationBarTitleText: '结果页',
   navigationBarBackgroundColor: '#050510',
 };
