@@ -92,7 +92,9 @@ function layoutSymbols(
   height: number
 ) {
   const step = width / symbols.length
-  const centerY = height / 2
+  // 在文字可用区域内（40% 到 60%）居中绘制，避免贴着管道边缘
+  const centerY = height * 0.5
+  const verticalPadding = height * 0.2 // 上下 20% 的内边距，文字占 60% 高度
 
   symbols.forEach((symbol, index) => {
     const x = index * step + step / 2
@@ -102,7 +104,7 @@ function layoutSymbols(
     ctx.fillText(symbol, x, centerY)
 
     // 再绘制发光层（轻微阴影）
-    ctx.shadowBlur = 1
+    ctx.shadowBlur = 2
     ctx.shadowColor = '#FFD700'
     ctx.fillText(symbol, x, centerY)
   })

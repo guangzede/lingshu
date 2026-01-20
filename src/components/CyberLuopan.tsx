@@ -3,44 +3,50 @@ import * as THREE from 'three'
 import { GroupProps, useFrame } from '@react-three/fiber'
 import { generateRingTexture, generateTaijiThreeTexture } from '@/utils/luopanTexture'
 
-const RING_RADII = [1.5, 2.0, 2.5, 3.0, 3.5]
-const TUBE_RADIUS = 0.2
-const RADIAL_SEGMENTS = 4 // keep section rectangular for a flat metal band
-const TUBULAR_SEGMENTS = 64
+// ============ 几何参数配置 ============
+const RING_RADII = [1.5, 2.0, 2.5, 3.0, 3.5] // 5层圆环的半径（从小到大）
+const TUBE_RADIUS = 0.2 // 圆环的"厚度"（管道半径），值越小圆环越扁
+const RADIAL_SEGMENTS = 20 // 圆环截面的分段数（圆的平滑度），值越大越圆滑
+const TUBULAR_SEGMENTS = 128 // 圆环周长的分段数（整圆的平滑度）
 
-// 动画参数
-const IDLE_SPEED = 0.002 // 待机自转速度
-const COMPUTING_SPEED_MIN = 0.08 // 演算最小速度
-const COMPUTING_SPEED_MAX = 0.15 // 演算最大速度
-const IDLE_DAMPING = 0.05 // 待机阻尼（较大，过渡缓慢）
-const COMPUTING_DAMPING = 0.02 // 演算阻尼（较小，加速快）
+// ============ 动画速度参数 ============
+const IDLE_SPEED = 0.002 // 待机状态：圆环极慢自转的速度
+const COMPUTING_SPEED_MIN = 0.08 // 演算状态：最小旋转速度
+const COMPUTING_SPEED_MAX = 0.15 // 演算状态：最大旋转速度（随机变化）
+const IDLE_DAMPING = 0.05 // 待机阻尼：速度变化的"粘滞度"（大=反应慢）
+const COMPUTING_DAMPING = 0.02 // 演算阻尼：速度变化快速（小=反应灵敏）
 
-// 每层旋转速度倍数（让每层以不同速度自转）
+// 每层圆环的相对转速倍数（正数=顺时针，负数=逆时针）
+// 这样做的目的是让5层环以不同方向和速度旋转，看起来更复杂有趣
 const LAYER_SPEED_MULTIPLIERS = [1.0, -0.8, 0.6, -0.5, 0.4]
 
+// ============ 速度向量类型定义 ============
+// 用于存储每层圆环在 X、Y、Z 三个轴上的旋转速度
 interface Velocity {
-  x: number
-  y: number
-  z: number
+  x: number // X轴旋转速度（绕左右轴旋转）
+  y: number // Y轴旋转速度（绕上下轴旋转）
+  z: number // Z轴旋转速度（绕前后轴旋转）
 }
 
+// ============ 组件Props类型 ============
 interface CyberLuopanProps extends GroupProps {
-  isComputing?: boolean
-  animationState?: 'idle' | 'flyIn' | 'rotating' // 动画状态
+  isComputing?: boolean // 是否处于演算状态
+  animationState?: 'idle' | 'flyIn' | 'rotating' // 动画阶段：待机/飞入/旋转
 }
 
 const CyberLuopan: React.FC<CyberLuopanProps> = ({ isComputing = false, animationState = 'idle', ...props }) => {
-  const groupRef = useRef<THREE.Group>(null)
-  const meshesRef = useRef<THREE.Mesh[]>([])
-  const taijiMeshRef = useRef<THREE.Mesh>(null)
+  // ============ React引用（不触发重渲染） ============
+  const groupRef = useRef<THREE.Group>(null) // 整个3D场景容器的引用
+  const meshesRef = useRef<THREE.Mesh[]>([]) // 5层圆环网格对象的引用数组
+  const taijiMeshRef = useRef<THREE.Mesh>(null) // 中心太极图的引用
 
-  // 飞入动画进度（0-1）
+  // 飞入动画进度（0-1）：0表示未开始，1表示完成
   const flyInProgressRef = useRef(0)
 
-  // 生成随机飞入起始位置（每个环独立）
+  // 每层圆环的随机飞入起始位置（离屏幕中心很远的地方）
   const randomStartPositionsRef = useRef<Array<{ x: number; y: number; z: number }>>([])
 
-  // 速度向量引用（不触发重渲染）
+  // 当前速度：每层圆环实时的旋转速度向量
   const velocitiesRef = useRef<Velocity[]>([
     { x: 0, y: 0, z: 0 },
     { x: 0, y: 0, z: 0 },
@@ -49,6 +55,7 @@ const CyberLuopan: React.FC<CyberLuopanProps> = ({ isComputing = false, animatio
     { x: 0, y: 0, z: 0 }
   ])
 
+  // 目标速度：我们想要达到的旋转速度（通过阻尼逐渐靠近这个值）
   const targetVelocitiesRef = useRef<Velocity[]>([
     { x: 0, y: 0, z: 0 },
     { x: 0, y: 0, z: 0 },
@@ -57,124 +64,146 @@ const CyberLuopan: React.FC<CyberLuopanProps> = ({ isComputing = false, animatio
     { x: 0, y: 0, z: 0 }
   ])
 
+  // ============ 初始旋转角度 ============
+  // 在飞入动画之前，为每层圆环设置随机的初始旋转（让场景看起来更立体）
   const initialRotations = useMemo(
     () =>
       RING_RADII.map(() =>
         new THREE.Euler(
-          Math.random() * Math.PI * 2,
-          Math.random() * Math.PI * 2,
-          Math.random() * Math.PI * 2
+          Math.random() * Math.PI * 2, // X轴随机旋转角度（0-360度）
+          Math.random() * Math.PI * 2, // Y轴随机旋转角度
+          Math.random() * Math.PI * 2  // Z轴随机旋转角度
         )
       ),
     []
   )
 
-  // 标准平面旋转（将圆环文字正对窗口，所有圆盘在同一平面）
+  // ============ 平面旋转角度 ============
+  // 飞入动画完成后，所有圆环都应该旋转到"平面"状态（所有文字正对摄像机）
+  // Math.PI / 2 = 90度，X轴旋转90度使圆环平面朝向屏幕
   const flatRotations = useMemo(
     () =>
       RING_RADII.map(() =>
-        new THREE.Euler(Math.PI / 2, 0, 0) // X轴旋转90度，使文字正对摄像机
+        new THREE.Euler(Math.PI / 2, 0, 0) // 只绕X轴旋转90度
       ),
     []
   )
 
+  // ============ 纹理资源 ============
+  // 为每层圆环生成对应的纹理（包含文字：天干、地支、八卦等）
   const textures = useMemo(() => RING_RADII.map((_, i) => generateRingTexture(i)), [])
+  // 中心太极图的纹理（黑白阴阳图）
   const taijiTexture = useMemo(() => generateTaijiThreeTexture(), [])
 
-  // 初始化随机飞入位置（仅一次）
+  // ============ 初始化飞入起始位置 ============
+  // 这个Effect只执行一次，为每层圆环设置一个随机的、离屏幕很远的起始位置
+  // 目的是让圆环看起来像从宇宙边缘飞入屏幕
   useEffect(() => {
     randomStartPositionsRef.current = RING_RADII.map(() => {
-      const distance = 15 + Math.random() * 20 // 15-35 范围的距离
-      const angle = Math.random() * Math.PI * 2 // 随机角度
-      const z = -8 - Math.random() * 8 // -8 到 -16 的 z 坐标
+      const distance = 15 + Math.random() * 20 // 距离屏幕中心15-35单位
+      const angle = Math.random() * Math.PI * 2 // 随机圆周角度
+      const z = -8 - Math.random() * 8 // 深度：-8到-16（负数表示在摄像机后方）
 
       return {
-        x: Math.cos(angle) * distance,
-        y: Math.sin(angle) * distance,
+        x: Math.cos(angle) * distance, // 圆周上的X坐标
+        y: Math.sin(angle) * distance, // 圆周上的Y坐标
         z: z
       }
     })
   }, [])
 
-  // 更新目标速度
+  // ============ 动态更新目标速度 ============
+  // 根据动画状态（idle/flyIn/rotating）和是否演算，计算每层圆环应该旋转的速度
   useEffect(() => {
     targetVelocitiesRef.current = velocitiesRef.current.map((_, i) => {
-      const multiplier = LAYER_SPEED_MULTIPLIERS[i]
+      const multiplier = LAYER_SPEED_MULTIPLIERS[i] // 该层的相对速度倍数
 
-      // 只有在 rotating 状态才旋转
+      // 只有 rotating 状态才会旋转
       if (animationState === 'rotating') {
         if (isComputing) {
-          // 演算模式：Z轴主旋转 + 随机扰动
+          // ========== 演算模式 ==========
+          // Z轴高速旋转 + 少量X/Y轴扰动（造成摇晃感）
           const speed = COMPUTING_SPEED_MIN + Math.random() * (COMPUTING_SPEED_MAX - COMPUTING_SPEED_MIN)
           return {
-            x: (Math.random() - 0.5) * speed * 0.3,
-            y: (Math.random() - 0.5) * speed * 0.3,
-            z: speed * multiplier
+            x: (Math.random() - 0.5) * speed * 0.3, // 随机X轴扰动
+            y: (Math.random() - 0.5) * speed * 0.3, // 随机Y轴扰动
+            z: speed * multiplier // 主旋转轴（可能顺时针或逆时针）
           }
         } else {
-          // 待机模式：纯 Z 轴自转
+          // ========== 待机模式 ==========
+          // 只在Z轴平缓自转，每层以不同方向和速度
           return {
             x: 0,
             y: 0,
-            z: IDLE_SPEED * multiplier
+            z: IDLE_SPEED * multiplier // 待机速度 × 该层倍数
           }
         }
       }
 
-      // idle 和 flyIn 状态不旋转
+      // idle 和 flyIn 状态不旋转（速度为0）
       return { x: 0, y: 0, z: 0 }
     })
   }, [isComputing, animationState])
 
-  // 动画帧更新
+  // ============ 动画帧更新（每帧执行一次） ============
+  // useFrame是React Three Fiber提供的钩子，在每次屏幕刷新时调用
   useFrame(({ camera, clock }) => {
     if (!groupRef.current) return
 
-    // === 飞入动画控制 ===
+    // ========== 飞入动画控制 ==========
+    // 如果处于飞入状态，逐帧增加进度值
     if (animationState === 'flyIn' && flyInProgressRef.current < 1) {
-      flyInProgressRef.current = Math.min(flyInProgressRef.current + 0.02, 1)
+      flyInProgressRef.current = Math.min(flyInProgressRef.current + 0.02, 1) // 每帧增加2%，共50帧完成
     }
 
+    // 选择当前应该使用的阻尼值
     const damping = isComputing ? COMPUTING_DAMPING : IDLE_DAMPING
 
-    // 太极图自旋和面向摄像机
+    // ========== 太极图动画 ==========
     if (taijiMeshRef.current) {
+      // 根据演算状态调整自转速度
       const taijiSpinSpeed = isComputing ? 0.12 : 0.04
-      taijiMeshRef.current.rotation.z += taijiSpinSpeed
+      taijiMeshRef.current.rotation.z += taijiSpinSpeed // Z轴旋转
 
-      const pulsate = Math.sin(clock.getElapsedTime() * 2) * 0.3 + 1
+      // 脉冲发光效果（正弦波控制发光强度）
+      const pulsate = Math.sin(clock.getElapsedTime() * 2) * 0.3 + 1 // 0.7-1.3之间振荡
       const material = taijiMeshRef.current.material as any
       if (material && material.emissiveIntensity !== undefined) {
-        material.emissiveIntensity = 0.8 * pulsate
+        material.emissiveIntensity = 0.8 * pulsate // 发光强度随脉冲变化
       }
 
-      const floatOffset = Math.sin(clock.getElapsedTime() * 0.5) * 0.05
+      // 浮动效果（上下微微摆动）
+      const floatOffset = Math.sin(clock.getElapsedTime() * 0.5) * 0.05 // Z轴上下浮动
       taijiMeshRef.current.position.z = floatOffset
 
+      // 让太极图始终面向摄像机（解决朝向问题）
       taijiMeshRef.current.lookAt(camera.position)
     }
 
-    // 圆环旋转和飞入动画
+    // ========== 圆环动画 ==========
+    // 逐层更新每个圆环的位置、旋转和可见性
     meshesRef.current.forEach((mesh, i) => {
-      // === 飞入动画位置和旋转 ===
+      // ===== 飞入动画位置和旋转 =====
       if (animationState === 'idle') {
-        // 初始状态：圆环在屏幕外，但已在平面状态
+        // 待机状态：圆环在屏幕外，隐藏不显示
         const startPos = randomStartPositionsRef.current[i]
-        mesh.position.copy(startPos as any)
-        mesh.rotation.copy(flatRotations[i])
-        mesh.visible = false
-      } else if (animationState === 'flyIn') {
-        // 飞入动画：从随机位置飞到原点，同时旋转到平面状态
-        const startPos = randomStartPositionsRef.current[i]
-        const progress = flyInProgressRef.current
-        const easeProgress = 1 - Math.pow(1 - progress, 3) // easeOutCubic
+        mesh.position.copy(startPos as any) // 设置到随机远处位置
+        mesh.rotation.copy(flatRotations[i]) // 设置为平面旋转
+        mesh.visible = false // 隐藏（因为还没开始飞入）
 
-        // 位置插值
+      } else if (animationState === 'flyIn') {
+        // 飞入动画状态：圆环从远处飞向屏幕中心
+        const startPos = randomStartPositionsRef.current[i]
+        const progress = flyInProgressRef.current // 0-1的进度值
+        // easeOutCubic：加速度曲线（开始快，后期变慢，让动画看起来更自然）
+        const easeProgress = 1 - Math.pow(1 - progress, 3)
+
+        // 位置插值：从起始位置逐渐飞向原点(0,0,0)
         mesh.position.x = startPos.x * (1 - easeProgress)
         mesh.position.y = startPos.y * (1 - easeProgress)
         mesh.position.z = startPos.z * (1 - easeProgress)
 
-        // 旋转插值（从随机旋转到平面旋转）
+        // 旋转插值：从随机旋转逐渐变为平面旋转
         mesh.rotation.x = THREE.MathUtils.lerp(
           initialRotations[i].x,
           flatRotations[i].x,
@@ -191,22 +220,28 @@ const CyberLuopan: React.FC<CyberLuopanProps> = ({ isComputing = false, animatio
           easeProgress
         )
 
-        mesh.visible = true
+        mesh.visible = true // 显示圆环
+
       } else {
-        // rotating 状态：在原点，保持平面状态（旋转由速度控制）
-        mesh.position.set(0, 0, 0)
-        mesh.visible = true
+        // 旋转状态（rotating）：圆环在原点，只旋转不移动
+        mesh.position.set(0, 0, 0) // 固定在屏幕中心
+        mesh.visible = true // 显示圆环
       }
 
-      // === 旋转动画（仅 rotating 状态） ===
+      // ===== 旋转动画（仅在 rotating 状态） =====
+      // 这里实现速度的平滑过渡（模拟惯性和摩擦力）
       if (animationState === 'rotating') {
-        const vel = velocitiesRef.current[i]
-        const target = targetVelocitiesRef.current[i]
+        const vel = velocitiesRef.current[i] // 当前速度
+        const target = targetVelocitiesRef.current[i] // 目标速度
 
+        // 线性插值：当前速度逐步向目标速度靠近
+        // 公式：新速度 = 旧速度 * (1-阻尼) + 目标速度 * 阻尼
         vel.x = THREE.MathUtils.lerp(vel.x, target.x, damping)
         vel.y = THREE.MathUtils.lerp(vel.y, target.y, damping)
         vel.z = THREE.MathUtils.lerp(vel.z, target.z, damping)
 
+        // 应用速度到旋转角度
+        // 每帧累加速度到旋转角度，实现连续旋转
         mesh.rotation.x += vel.x
         mesh.rotation.y += vel.y
         mesh.rotation.z += vel.z
@@ -214,46 +249,53 @@ const CyberLuopan: React.FC<CyberLuopanProps> = ({ isComputing = false, animatio
     })
   })
 
+  // ============ 渲染结构 ============
   return (
     <group ref={groupRef} {...props}>
-      {/* 中心太极图 */}
+      {/* 中心太极图（黑白阴阳） */}
       <mesh ref={taijiMeshRef} position={[0, 0, 0]} rotation={[0, 0, 0]} renderOrder={100}>
-        <circleGeometry args={[1.2, 64]} />
+        {/* 圆形几何体：半径0.6，64边形（很圆滑） */}
+        <circleGeometry args={[0.6, 64]} />
+        {/* 标准网格材质（支持光照、贴图、发光等） */}
         <meshStandardMaterial
-          map={taijiTexture}
-          transparent={false}
-          side={THREE.DoubleSide}
-          metalness={0.3}
-          roughness={0.5}
-          emissive="#FFD700"
-          emissiveIntensity={0.8}
-          depthTest={false}
+          map={taijiTexture} // 应用纹理
+          transparent={false} // 不透明
+          side={THREE.DoubleSide} // 双面显示（正反两面都能看）
+          metalness={0.3} // 金属度30%（有光泽但不是镜面）
+          roughness={0.5} // 粗糙度50%（不会像镜子一样反射）
+          emissive="#FFD700" // 自发光颜色（金色）
+          emissiveIntensity={0.8} // 自发光强度
+          depthTest={false} // 关闭深度测试（总是显示在最前面）
         />
       </mesh>
 
-      {/* 罗盘环 */}
+      {/* 5层圆环（罗盘层级） */}
       {RING_RADII.map((radius, i) => (
         <mesh
           key={radius}
           ref={(el) => {
+            // 将网格对象存入数组引用中
             if (el) meshesRef.current[i] = el
           }}
-          rotation={initialRotations[i]}
-          renderOrder={i}
+          rotation={initialRotations[i]} // 初始随机旋转
+          renderOrder={i} // 渲染顺序（内层先绘制，外层后绘制）
         >
+          {/* 圆环(甜甜圈)几何体 */}
+          {/* 参数：[大半径, 管道半径, 径向分段数, 周向分段数] */}
           <torusGeometry
             args={[radius, TUBE_RADIUS, RADIAL_SEGMENTS, TUBULAR_SEGMENTS]}
           />
+          {/* 标准网格材质（支持贴图发光） */}
           <meshStandardMaterial
-            metalness={0.9}
-            roughness={0.3}
-            map={textures[i]}
-            emissive="#FFD700"
-            emissiveMap={textures[i]}
-            emissiveIntensity={2.5}
-            transparent
-            opacity={1.0}
-            alphaTest={0.1}
+            metalness={0.9} // 90%金属（高度反光）
+            roughness={0.3} // 30%粗糙（有金属光泽）
+            map={textures[i]} // 应用纹理贴图（文字）
+            emissive="#FFD700" // 自发光颜色（金色）
+            emissiveMap={textures[i]} // 自发光贴图（根据纹理的亮度自发光）
+            emissiveIntensity={2.5} // 自发光强度很高（明亮的金色发光）
+            transparent // 启用透明度支持
+            opacity={1.0} // 完全不透明
+            alphaTest={0.1} // 透明度测试阈值（小于0.1的像素完全透明）
           />
         </mesh>
       ))}
