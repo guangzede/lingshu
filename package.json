@@ -40,6 +40,7 @@
   "author": "",
   "dependencies": {
     "@babel/runtime": "^7.24.4",
+    "@react-three/drei": "^9.122.0",
     "@react-three/fiber": "^8.13.0",
     "@supabase/supabase-js": "^2.0.0",
     "@tarojs/components": "4.1.10",
@@ -58,6 +59,7 @@
     "@tarojs/shared": "4.1.10",
     "@tarojs/taro": "4.1.10",
     "@tarojs/webpack5-runner": "^4.1.10",
+    "lunar-javascript": "^1.7.7",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "three": "^0.160.0"
@@ -68,7 +70,7 @@
     "@babel/preset-react": "^7.24.1",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
-      "@pmmmwh/react-refresh-webpack-plugin": "^0.5.11",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.11",
     "@tarojs/cli": "4.1.10",
     "@tarojs/plugin-generator": "4.1.10",
     "@tarojs/vite-runner": "4.1.10",

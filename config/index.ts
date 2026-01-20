@@ -1,3 +1,5 @@
+import path from 'path'
+
 export default {
   projectName: 'lingshu-app',
   date: '2026-01-20',
@@ -24,6 +26,10 @@ export default {
   },
   cache: {
     enable: true
+  },
+  // 路径别名，支持 @ 指向 src 目录
+  alias: {
+    '@': path.resolve(__dirname, '..', 'src')
   },
   mini: {},
   h5: {

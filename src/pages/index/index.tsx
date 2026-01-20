@@ -1,5 +1,6 @@
 import React, { useMemo, useState, Suspense } from 'react'
 import { View, Text, Button } from '@tarojs/components'
+import Taro from '@tarojs/taro'
 import MosaicTransition from '../../components/MosaicTransition'
 import FortunePage from '../fortune'
 import THEME from '../../constants/theme'
@@ -21,6 +22,10 @@ const IndexPage: React.FC = () => {
     setTimeout(() => {
       setShowFortune(true)
     }, transitionDuration * 0.6)
+  }
+
+  const handleGoLuopan = () => {
+    Taro.navigateTo({ url: '/pages/luopan/index' })
   }
 
   const handleBack = () => {
@@ -98,6 +103,13 @@ const IndexPage: React.FC = () => {
                   <Text className="info-value">v4.2.0</Text>
                 </View>
               </View>
+
+              <Button
+                className="secondary-button"
+                onClick={handleGoLuopan}
+              >
+                <Text className="button-text">查看赛博罗盘</Text>
+              </Button>
             </View>
           </View>
         </>

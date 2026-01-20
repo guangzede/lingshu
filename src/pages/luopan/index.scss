@@ -1,0 +1,142 @@
+.luopan-page {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #050510;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+
+  // 横屏布局：罗盘在左侧占主要空间，控制面板在右侧
+  @media (orientation: landscape) {
+    flex-direction: row;
+  }
+
+  // 竖屏布局：罗盘在上方，控制面板在下方
+  @media (orientation: portrait) {
+    flex-direction: column;
+  }
+}
+
+.canvas-container {
+  flex: 1;
+  inset: 0;
+  position: absolute;
+
+  // 横屏时占满整个高度
+  @media (orientation: landscape) {
+    min-height: 100vh;
+    height: 100vh;
+    flex: 1;
+  }
+
+  // 竖屏时保持原有比例
+  @media (orientation: portrait) {
+    min-height: 60vh;
+    height: auto;
+  }
+}
+
+.control-panel {
+  display: flex;
+  padding: 40rpx;
+  background: linear-gradient(180deg, transparent, rgba(5, 5, 16, 0.95));
+  text-align: center;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  // 横屏时：固定宽度，靠右侧，垂直居中
+  @media (orientation: landscape) {
+    width: 400rpx;
+    min-width: 400rpx;
+    height: 100vh;
+    background: linear-gradient(90deg, transparent, rgba(5, 5, 16, 0.95));
+    padding: 60rpx 40rpx;
+  }
+
+  // 竖屏时：全宽，靠底部
+  @media (orientation: portrait) {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.title {
+  font-size: 56rpx;
+  color: #FFD700;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 16rpx;
+  text-shadow: 0 0 20rpx rgba(255, 215, 0, 0.6);
+}
+
+.subtitle {
+  font-size: 28rpx;
+  color: #00F0FF;
+  display: block;
+  margin-bottom: 40rpx;
+  letter-spacing: 4rpx;
+}
+
+.status {
+  margin-bottom: 32rpx;
+  padding: 16rpx 32rpx;
+  background-color: rgba(62, 39, 35, 0.8);
+  border: 2rpx solid #FFD700;
+  border-radius: 16rpx;
+  display: inline-block;
+}
+
+.status-text {
+  font-size: 32rpx;
+  color: #FFD700;
+  font-weight: bold;
+}
+
+.start-button {
+  width: 100%;
+  max-width: 500rpx;
+  height: 88rpx;
+  background-color: #FFD700 !important;
+  color: #050510 !important;
+  font-size: 32rpx;
+  font-weight: bold;
+  border-radius: 16rpx;
+  border: none;
+  box-shadow: 0 8rpx 24rpx rgba(255, 215, 0, 0.3);
+
+  &[disabled] {
+    opacity: 0.5;
+    background-color: #666 !important;
+  }
+}
+
+.button-group {
+  display: flex;
+  flex-direction: row;
+  gap: 20rpx;
+  width: 100%;
+  justify-content: center;
+  margin-top: 20rpx;
+}
+
+.control-button {
+  flex: 1;
+  max-width: 200rpx;
+  height: 80rpx;
+  background-color: #FFD700 !important;
+  color: #050510 !important;
+  font-size: 28rpx;
+  font-weight: bold;
+  border-radius: 12rpx;
+  border: none;
+  box-shadow: 0 6rpx 20rpx rgba(255, 215, 0, 0.3);
+
+  &[disabled] {
+    opacity: 0.3;
+    background-color: #444 !important;
+  }
+}

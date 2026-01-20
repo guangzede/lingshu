@@ -3,6 +3,7 @@ export default {
     'pages/index/index',
     'pages/fortune/index',
     'pages/armillary/index',
+    'pages/luopan/index',
   ],
   window: {
     navigationBarTitleText: '灵枢',
