@@ -12,6 +12,73 @@
   overflow: hidden;
 }
 
+.yin-yang {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: linear-gradient(90deg, #f4f4f4 50%, #0a0a0a 50%);
+  box-shadow: 0 0 50px rgba(255, 215, 0, 0.08), 0 0 80px rgba(0, 240, 255, 0.08);
+  overflow: hidden;
+  z-index: 2;
+  animation: spin-slow 16s linear infinite;
+}
+
+.yin-yang::before,
+.yin-yang::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  transform: translateX(-50%);
+}
+
+.yin-yang::before {
+  top: 0;
+  background: radial-gradient(circle, #0a0a0a 20%, #0a0a0a 20%, transparent 22%);
+  background-color: #f4f4f4;
+}
+
+.yin-yang::after {
+  bottom: 0;
+  background: radial-gradient(circle, #f4f4f4 20%, #f4f4f4 20%, transparent 22%);
+  background-color: #0a0a0a;
+}
+
+@keyframes spin-slow {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.overlay-toggle {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 4;
+  background: rgba(0, 0, 0, 0.55) !important;
+  color: #f6f7fb !important;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 6px 10px;
+  font-size: 12px;
+}
+
+.star-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.65;
+  mix-blend-mode: screen;
+}
+
 /* 背景噪点层 */
 .bg-noise {
   position: absolute;
@@ -20,7 +87,7 @@
     url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="3.5" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
   opacity: 0.035;
   pointer-events: none;
-  z-index: 1;
+  z-index: 2;
 }
 
 /* 径向渐变背景 */
@@ -34,185 +101,155 @@
     transparent 70%
   );
   pointer-events: none;
-  z-index: 2;
+  z-index: 1;
+}
+
+.menu-page {
+  position: relative;
+  z-index: 5;
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(135deg, rgba(11, 15, 23, 0.9) 0%, rgba(15, 22, 36, 0.85) 50%, rgba(14, 19, 32, 0.9) 100%);
+  color: #f6f7fb;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 48px 24px;
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.menu-header {
+  text-align: center;
+}
+
+.menu-logo {
+  font-size: 64px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.menu-sub {
+  margin-top: 8px;
+  font-size: 18px;
+  letter-spacing: 5px;
+  color: rgba(246, 247, 251, 0.7);
+}
+
+.menu-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  width: 100%;
+  max-width: 480px;
+}
+
+.menu-button {
+  background: rgba(255, 255, 255, 0.08);
+  color: #f6f7fb;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 18px 20px;
+  font-size: 20px;
+  font-weight: 650;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+.menu-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+@media (min-width: 768px) {
+  .menu-page {
+    padding: 96px 32px;
+    gap: 64px;
+  }
+
+  .menu-logo {
+    font-size: 80px;
+  }
+
+  .menu-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
 }
 
 /* 浑天仪容器 */
 .armillary-container {
   position: absolute;
   top: 15%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 600rpx;
-  height: 600rpx;
-  z-index: 3;
-  pointer-events: none;
-  opacity: 0.6;
-}
-
-/* 顶部标题区 */
-.header {
-  position: relative;
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 120rpx;
-  text-align: center;
-}
-
-.logo {
-  font-size: 120rpx;
-  font-weight: 900;
-  color: #FFD700;
-  display: block;
-  letter-spacing: 16rpx;
-  text-shadow:
-    0 0 40rpx rgba(255, 215, 0, 0.6),
-    0 0 80rpx rgba(255, 215, 0, 0.3);
-  margin-bottom: 24rpx;
-}
-
-.tagline {
-  font-size: 24rpx;
-  color: rgba(255, 255, 255, 0.5);
-  letter-spacing: 8rpx;
-  display: block;
-  font-weight: 300;
-}
-
-/* ========== 玻璃拟态控制面板 ========== */
-.control-panel {
-  position: relative;
-  z-index: 10;
-  width: 100%;
-  padding: 0 40rpx 60rpx;
-  box-sizing: border-box;
-}
-
-.panel-inner {
-  background: rgba(20, 25, 35, 0.7);
-  backdrop-filter: blur(40rpx) saturate(180%);
-  -webkit-backdrop-filter: blur(40rpx) saturate(180%);
-  border: 2rpx solid rgba(255, 215, 0, 0.15);
-  border-radius: 32rpx;
-  padding: 60rpx 48rpx;
-  box-shadow:
-    0 16rpx 64rpx rgba(0, 0, 0, 0.5),
-    inset 0 2rpx 4rpx rgba(255, 215, 0, 0.1);
-}
-
-.panel-title {
-  display: block;
-  font-size: 32rpx;
-  color: rgba(255, 255, 255, 0.9);
-  font-weight: 600;
-  margin-bottom: 12rpx;
-  text-align: center;
-}
-
-.panel-subtitle {
-  display: block;
-  font-size: 24rpx;
-  color: rgba(255, 255, 255, 0.4);
-  text-align: center;
-  margin-bottom: 48rpx;
-  letter-spacing: 2rpx;
-}
-
-/* 启动按钮 */
-.launch-button {
-  position: relative;
-  width: 100%;
-  height: 100rpx;
-  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-  border: none;
-  border-radius: 20rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16rpx;
-  margin-bottom: 48rpx;
-  box-shadow:
-    0 8rpx 32rpx rgba(255, 215, 0, 0.4),
-    inset 0 2rpx 4rpx rgba(255, 255, 255, 0.3);
-  transition: all 0.3s ease;
-  overflow: hidden;
-}
-
-.launch-button::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.3) 50%,
-    transparent 100%
-  );
-  transform: translateX(-100%);
-  animation: shimmer 3s infinite;
-}
-
-@keyframes shimmer {
-  to {
-    transform: translateX(100%);
+  .menu-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0b0f17 0%, #0f1624 50%, #0e1320 100%);
+    color: #f6f7fb;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding: 48px 24px;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
-}
 
-.launch-button-hover {
-  transform: scale(0.98);
-  box-shadow:
-    0 4rpx 16rpx rgba(255, 215, 0, 0.5),
-    inset 0 2rpx 4rpx rgba(255, 255, 255, 0.2);
-}
-
-.button-text {
-  font-size: 36rpx;
-  font-weight: bold;
-  color: #050510;
-  letter-spacing: 4rpx;
-}
-
-.button-icon {
-  font-size: 40rpx;
-  animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-    transform: scale(1);
+  .menu-header {
+    text-align: center;
   }
-  50% {
-    opacity: 0.7;
-    transform: scale(1.2);
+
+  .menu-logo {
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: 2px;
   }
-}
 
-/* 信息网格 */
-.info-grid {
-  display: flex;
-  justify-content: space-between;
-  gap: 24rpx;
-}
+  .menu-sub {
+    margin-top: 8px;
+    font-size: 14px;
+    letter-spacing: 4px;
+    color: rgba(246, 247, 251, 0.7);
+  }
 
-.info-item {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8rpx;
-  padding: 24rpx 16rpx;
-  background: rgba(255, 215, 0, 0.05);
-  border: 1rpx solid rgba(255, 215, 0, 0.2);
-  border-radius: 16rpx;
-}
+  .menu-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    width: 100%;
+    max-width: 480px;
+  }
 
-.info-label {
-  font-size: 20rpx;
-  color: rgba(255, 255, 255, 0.4);
-  letter-spacing: 1rpx;
+  .menu-button {
+    background: rgba(255, 255, 255, 0.08);
+    color: #f6f7fb;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    padding: 14px 16px;
+    font-size: 16px;
+    font-weight: 600;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  }
+
+  .menu-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  @media (min-width: 768px) {
+    .menu-page {
+      padding: 96px 32px;
+      gap: 56px;
+    }
+
+    .menu-logo {
+      font-size: 60px;
+    }
+
+    .menu-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+  }
 }
 
 .info-value {

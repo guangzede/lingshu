@@ -1,0 +1,88 @@
+.liuyao-page {
+  padding: 16px;
+  color: #fff;
+  background: #050510;
+  min-height: 100vh;
+}
+
+.yao-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.mode-row {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.btn-active {
+  border: 1px solid #00f0ff;
+  color: #00f0ff;
+}
+.yao-index {
+  width: 36px;
+  font-weight: 700;
+}
+.yao-state {
+  min-width: 40px;
+}
+.yao-bar {
+  position: relative;
+  width: 72px;
+  height: 10px;
+  border-radius: 6px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.9),
+    rgba(255, 255, 255, 0.7)
+  );
+}
+.yao-bar.yin {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.9) 0 42%,
+    rgba(255, 255, 255, 0) 42% 58%,
+    rgba(255, 255, 255, 0.9) 58% 100%
+  );
+}
+.yao-bar.moving::after {
+  content: "";
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  transform: translateY(-50%);
+}
+.yao-bar.yang.moving::after {
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #9ffcff 0, #20e3ff 60%, rgba(32, 227, 255, 0));
+  box-shadow: 0 0 10px rgba(32, 227, 255, 0.8);
+}
+.yao-bar.yin.moving::after {
+  background:
+    linear-gradient(45deg, transparent 45%, #ff7bd9 45%, #ff7bd9 55%, transparent 55%),
+    linear-gradient(-45deg, transparent 45%, #ff7bd9 45%, #ff7bd9 55%, transparent 55%);
+  box-shadow: 0 0 10px rgba(255, 123, 217, 0.8);
+}
+.hexagram-table{display:flex;flex-direction:column;gap:8px;margin-top:8px;overflow-x:auto;padding-bottom:6px}
+.hex-row{display:grid;grid-template-columns:70px 72px 120px 70px 86px 64px 50px 12px 120px 70px 86px 64px 50px;align-items:center;gap:6px;padding:6px 4px;border-bottom:1px solid rgba(255,255,255,0.05);min-width:920px}
+.hex-header{font-weight:700;color:#9ffcff;border-bottom:1px solid rgba(255,255,255,0.15)}
+.hex-names{font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,0.1)}
+.hex-names-left{grid-column:1 / 8;text-align:center}
+.hex-names-right{grid-column:9 / 14;text-align:center}
+.separator{border-left:1px solid rgba(255,255,255,0.12);height:100%}
+.yao-info{font-size:12px;color:#ccc}
+
+@media (min-width: 768px) {
+  .liuyao-page {
+    padding: 24px;
+  }
+  .yao-line {
+    gap: 12px;
+  }
+}

@@ -2,66 +2,10 @@
  * 罗盘纹理生成工厂
  * 在内存中动态绘制高清透明纹理，避免加载大图片
  */
+import { LUOPAN_LAYERS as STRUCTURED_LAYERS, LuopanSegment } from '@/constants/luopanData'
 
-/** 罗盘层级定义 */
-export interface LuopanLayer {
-  id: number
-  name: string
-  symbols: string[]
-  radius: number
-}
-
-/** 罗盘层级配置 */
-export const LUOPAN_LAYERS: LuopanLayer[] = [
-  {
-    id: 0,
-    name: '天干',
-    symbols: ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'],
-    radius: 1.5
-  },
-  {
-    id: 1,
-    name: '地支',
-    symbols: ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'],
-    radius: 2.0
-  },
-  {
-    id: 2,
-    name: '八卦',
-    symbols: ['☰', '☱', '☲', '☳', '☴', '☵', '☶', '☷'],
-    radius: 2.5
-  },
-  {
-    id: 3,
-    name: '二十四山',
-    symbols: [
-      '壬', '子', '癸',
-      '丑', '艮', '寅',
-      '甲', '卯', '乙',
-      '辰', '巽', '巳',
-      '丙', '午', '丁',
-      '未', '坤', '申',
-      '庚', '酉', '辛',
-      '戌', '乾', '亥'
-    ],
-    radius: 3.0
-  },
-  {
-    id: 4,
-    name: '六十四卦',
-    symbols: [
-      '䷀', '䷁', '䷂', '䷃', '䷄', '䷅', '䷆', '䷇',
-      '䷈', '䷉', '䷊', '䷋', '䷌', '䷍', '䷎', '䷏',
-      '䷐', '䷑', '䷒', '䷓', '䷔', '䷕', '䷖', '䷗',
-      '䷘', '䷙', '䷚', '䷛', '䷜', '䷝', '䷞', '䷟',
-      '䷠', '䷡', '䷢', '䷣', '䷤', '䷥', '䷦', '䷧',
-      '䷨', '䷩', '䷪', '䷫', '䷬', '䷭', '䷮', '䷯',
-      '䷰', '䷱', '䷲', '䷳', '䷴', '䷵', '䷶', '䷷',
-      '䷸', '䷹', '䷺', '䷻', '䷼', '䷽', '䷾', '䷿'
-    ],
-    radius: 3.5
-  }
-]
+// 将结构化数据导出给兼容调用方
+export const LUOPAN_LAYERS = STRUCTURED_LAYERS
 
 /**
  * F1.1.1 画布初始化
@@ -85,28 +29,44 @@ function createTransparentCanvas(width: number, height: number): HTMLCanvasEleme
  * F1.1.2 符箓排版算法
  * 均匀分布字符在画布上
  */
-function layoutSymbols(
+function layoutSegmentsByDegree(
   ctx: CanvasRenderingContext2D,
-  symbols: string[],
+  segments: LuopanSegment[],
   width: number,
   height: number
 ) {
-  const step = width / symbols.length
-  // 在文字可用区域内（40% 到 60%）居中绘制，避免贴着管道边缘
+  if (segments.length === 0) return
+
+  // 按角度排序，并计算每段的弧长占比
+  const sorted = [...segments].sort((a, b) => a.degree - b.degree)
+  const spans = sorted.map((seg, idx) => {
+    const next = sorted[(idx + 1) % sorted.length]
+    const span = ((next.degree - seg.degree + 360) % 360) || (360 / sorted.length)
+    return span
+  })
+
   const centerY = height * 0.5
-  const verticalPadding = height * 0.2 // 上下 20% 的内边距，文字占 60% 高度
+  let cursor = 0
 
-  symbols.forEach((symbol, index) => {
-    const x = index * step + step / 2
+  sorted.forEach((seg, idx) => {
+    const spanDeg = spans[idx]
+    const blockWidth = (spanDeg / 360) * width
+    const xCenter = cursor + blockWidth / 2
 
-    // 先绘制清晰的主体文字（无阴影）
+    // 使用分段颜色（空亡置灰）
+    const baseColor = seg.isVoid ? '#666666' : (seg.color || '#FFD700')
+    ctx.fillStyle = baseColor
+
+    // 主体文字
     ctx.shadowBlur = 0
-    ctx.fillText(symbol, x, centerY)
+    ctx.fillText(seg.label, xCenter, centerY)
 
-    // 再绘制发光层（轻微阴影）
+    // 轻微发光层
     ctx.shadowBlur = 2
     ctx.shadowColor = '#FFD700'
-    ctx.fillText(symbol, x, centerY)
+    ctx.fillText(seg.label, xCenter, centerY)
+
+    cursor += blockWidth
   })
 }
 
@@ -115,31 +75,20 @@ function layoutSymbols(
  * 设置金色霓虹发光样式
  */
 function applyGoldenGlowStyle(ctx: CanvasRenderingContext2D, fontSize: number = 60) {
-  // 字体：宋体增强仪式感，加大粗细
   ctx.font = `900 ${fontSize}px 'Songti SC', 'SimSun', serif`
-
-  // 金色填充
   ctx.fillStyle = '#FFD700'
-
-  // 明确禁用描边
   ctx.lineWidth = 0
   ctx.strokeStyle = 'transparent'
-
-  // 初始不设置阴影（在 layoutSymbols 中双重绘制）
   ctx.shadowBlur = 0
-
-  // 文本对齐
   ctx.textBaseline = 'middle'
   ctx.textAlign = 'center'
 }
 
-/**
- * F1.1.4 特殊图层处理
- * 根据层级 ID 调整字体大小和样式
- */
-function getLayerFontSize(layerId: number): number {
-  const fontSizes = [60, 55, 50, 45, 40]
-  return fontSizes[layerId] || 50
+function pickFontSize(count: number): number {
+  if (count <= 10) return 60
+  if (count <= 24) return 50
+  if (count <= 64) return 38
+  return 32
 }
 
 /**
@@ -148,25 +97,21 @@ function getLayerFontSize(layerId: number): number {
  * @returns Canvas 元素，可转为 CanvasTexture
  */
 export function generateLuopanTexture(layerId: number): HTMLCanvasElement {
-  const layer = LUOPAN_LAYERS.find(l => l.id === layerId)
+  const layer = LUOPAN_LAYERS[layerId]
   if (!layer) {
-    throw new Error(`无效的层级 ID: ${layerId}`)
+    throw new Error(`无效的层级索引: ${layerId}`)
   }
 
-  // 画布尺寸：长条形 2048x128
   const width = 2048
-  const height = 128
+  const height = 140
 
-  // F1.1.1: 初始化透明画布
   const canvas = createTransparentCanvas(width, height)
   const ctx = canvas.getContext('2d')!
 
-  // F1.1.3: 应用金色发光样式
-  const fontSize = getLayerFontSize(layerId)
+  const fontSize = pickFontSize(layer.segments.length)
   applyGoldenGlowStyle(ctx, fontSize)
 
-  // F1.1.2: 排版符号
-  layoutSymbols(ctx, layer.symbols, width, height)
+  layoutSegmentsByDegree(ctx, layer.segments, width, height)
 
   return canvas
 }
@@ -176,7 +121,7 @@ export function generateLuopanTexture(layerId: number): HTMLCanvasElement {
  * @returns 5 个 Canvas 元素数组
  */
 export function generateAllTextures(): HTMLCanvasElement[] {
-  return LUOPAN_LAYERS.map(layer => generateLuopanTexture(layer.id))
+  return LUOPAN_LAYERS.map((_, idx) => generateLuopanTexture(idx))
 }
 
 /**
@@ -191,16 +136,13 @@ export function canvasToDataURL(canvas: HTMLCanvasElement): string {
  * 生成 Three.js CanvasTexture
  */
 export function generateRingTexture(layerId: number): any {
-  // 注意：在小程序环境中，需要适配 Canvas API
   if (typeof document === 'undefined') {
-    // 小程序环境处理（返回 mock 或使用 Taro Canvas）
     console.warn('小程序环境暂不支持 Canvas 纹理生成')
     return null
   }
 
   const canvas = generateLuopanTexture(layerId)
 
-  // 动态导入 Three.js CanvasTexture（避免在小程序环境出错）
   try {
     const THREE = require('three')
     return new THREE.CanvasTexture(canvas)

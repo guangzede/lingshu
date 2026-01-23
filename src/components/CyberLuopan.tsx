@@ -2,11 +2,13 @@ import React, { useMemo, useRef, useEffect } from 'react'
 import * as THREE from 'three'
 import { GroupProps, useFrame } from '@react-three/fiber'
 import { generateRingTexture, generateTaijiThreeTexture } from '@/utils/luopanTexture'
+import { LUOPAN_LAYERS as DATA_LAYERS } from '@/constants/luopanData'
 
 // ============ 几何参数配置 ============
-const RING_RADII = [1.5, 2.0, 2.5, 3.0, 3.5] // 5层圆环的半径（从小到大）
-const TUBE_RADIUS = 0.2 // 圆环的"厚度"（管道半径），值越小圆环越扁
-const RADIAL_SEGMENTS = 20 // 圆环截面的分段数（圆的平滑度），值越大越圆滑
+const LAYER_COUNT = DATA_LAYERS.length
+const RING_RADII = DATA_LAYERS.map((_, idx) => 1.2 + idx * 0.55) // 根据层数动态生成半径
+const TUBE_RADIUS = 0.9 // 圆环的"厚度"（管道半径），值越小圆环越扁
+const RADIAL_SEGMENTS = 12 // 圆环截面的分段数（圆的平滑度），值越大越圆滑
 const TUBULAR_SEGMENTS = 128 // 圆环周长的分段数（整圆的平滑度）
 
 // ============ 动画速度参数 ============
@@ -17,8 +19,9 @@ const IDLE_DAMPING = 0.05 // 待机阻尼：速度变化的"粘滞度"（大=反
 const COMPUTING_DAMPING = 0.02 // 演算阻尼：速度变化快速（小=反应灵敏）
 
 // 每层圆环的相对转速倍数（正数=顺时针，负数=逆时针）
-// 这样做的目的是让5层环以不同方向和速度旋转，看起来更复杂有趣
-const LAYER_SPEED_MULTIPLIERS = [1.0, -0.8, 0.6, -0.5, 0.4]
+// 通过基础序列循环分配，让不同层方向和速度有差异感
+const BASE_SPEEDS = [1.0, -0.8, 0.6, -0.5, 0.4]
+const LAYER_SPEED_MULTIPLIERS = Array.from({ length: LAYER_COUNT }, (_, idx) => BASE_SPEEDS[idx % BASE_SPEEDS.length])
 
 // ============ 速度向量类型定义 ============
 // 用于存储每层圆环在 X、Y、Z 三个轴上的旋转速度
@@ -37,7 +40,7 @@ interface CyberLuopanProps extends GroupProps {
 const CyberLuopan: React.FC<CyberLuopanProps> = ({ isComputing = false, animationState = 'idle', ...props }) => {
   // ============ React引用（不触发重渲染） ============
   const groupRef = useRef<THREE.Group>(null) // 整个3D场景容器的引用
-  const meshesRef = useRef<THREE.Mesh[]>([]) // 5层圆环网格对象的引用数组
+  const meshesRef = useRef<THREE.Mesh[]>([]) // 圆环网格对象的引用数组（层数由数据决定）
   const taijiMeshRef = useRef<THREE.Mesh>(null) // 中心太极图的引用
 
   // 飞入动画进度（0-1）：0表示未开始，1表示完成
@@ -47,22 +50,10 @@ const CyberLuopan: React.FC<CyberLuopanProps> = ({ isComputing = false, animatio
   const randomStartPositionsRef = useRef<Array<{ x: number; y: number; z: number }>>([])
 
   // 当前速度：每层圆环实时的旋转速度向量
-  const velocitiesRef = useRef<Velocity[]>([
-    { x: 0, y: 0, z: 0 },
-    { x: 0, y: 0, z: 0 },
-    { x: 0, y: 0, z: 0 },
-    { x: 0, y: 0, z: 0 },
-    { x: 0, y: 0, z: 0 }
-  ])
+  const velocitiesRef = useRef<Velocity[]>(Array.from({ length: LAYER_COUNT }, () => ({ x: 0, y: 0, z: 0 })))
 
   // 目标速度：我们想要达到的旋转速度（通过阻尼逐渐靠近这个值）
-  const targetVelocitiesRef = useRef<Velocity[]>([
-    { x: 0, y: 0, z: 0 },
-    { x: 0, y: 0, z: 0 },
-    { x: 0, y: 0, z: 0 },
-    { x: 0, y: 0, z: 0 },
-    { x: 0, y: 0, z: 0 }
-  ])
+  const targetVelocitiesRef = useRef<Velocity[]>(Array.from({ length: LAYER_COUNT }, () => ({ x: 0, y: 0, z: 0 })))
 
   // ============ 初始旋转角度 ============
   // 在飞入动画之前，为每层圆环设置随机的初始旋转（让场景看起来更立体）
@@ -225,7 +216,7 @@ const CyberLuopan: React.FC<CyberLuopanProps> = ({ isComputing = false, animatio
       } else {
         // 旋转状态（rotating）：圆环在原点，只旋转不移动
         mesh.position.set(0, 0, 0) // 固定在屏幕中心
-        mesh.visible = true // 显示圆环
+        // mesh.visible = true // 显示圆环
       }
 
       // ===== 旋转动画（仅在 rotating 状态） =====
@@ -254,22 +245,22 @@ const CyberLuopan: React.FC<CyberLuopanProps> = ({ isComputing = false, animatio
     <group ref={groupRef} {...props}>
       {/* 中心太极图（黑白阴阳） */}
       <mesh ref={taijiMeshRef} position={[0, 0, 0]} rotation={[0, 0, 0]} renderOrder={100}>
-        {/* 圆形几何体：半径0.6，64边形（很圆滑） */}
-        <circleGeometry args={[0.6, 64]} />
-        {/* 标准网格材质（支持光照、贴图、发光等） */}
+        {/* 厚版太极圆盘：半径0.6，高度0.12，64边形 */}
+        <cylinderGeometry args={[0.6, 0.6, 0.12, 64]} />
+        {/* 金属质感材质，贴图和自发光 */}
         <meshStandardMaterial
-          map={taijiTexture} // 应用纹理
-          transparent={false} // 不透明
-          side={THREE.DoubleSide} // 双面显示（正反两面都能看）
-          metalness={0.3} // 金属度30%（有光泽但不是镜面）
-          roughness={0.5} // 粗糙度50%（不会像镜子一样反射）
-          emissive="#FFD700" // 自发光颜色（金色）
-          emissiveIntensity={0.8} // 自发光强度
-          depthTest={false} // 关闭深度测试（总是显示在最前面）
+          map={taijiTexture}
+          transparent={false}
+          side={THREE.DoubleSide}
+          metalness={0.65}
+          roughness={0.35}
+          emissive="#FFD700"
+          emissiveIntensity={0.9}
+          depthTest={false}
         />
       </mesh>
 
-      {/* 5层圆环（罗盘层级） */}
+      {/* 圆环（罗盘层级，层数随数据动态生成） */}
       {RING_RADII.map((radius, i) => (
         <mesh
           key={radius}
@@ -287,8 +278,8 @@ const CyberLuopan: React.FC<CyberLuopanProps> = ({ isComputing = false, animatio
           />
           {/* 标准网格材质（支持贴图发光） */}
           <meshStandardMaterial
-            metalness={0.9} // 90%金属（高度反光）
-            roughness={0.3} // 30%粗糙（有金属光泽）
+            metalness={1.0} // 提升金属感
+            roughness={0.25}
             map={textures[i]} // 应用纹理贴图（文字）
             emissive="#FFD700" // 自发光颜色（金色）
             emissiveMap={textures[i]} // 自发光贴图（根据纹理的亮度自发光）

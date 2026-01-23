@@ -1,10 +1,7 @@
-* {
+page {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-page {
   background-color: #050510;
   color: #FFFFFF;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -12,6 +9,17 @@ page {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+view,
+text,
+button,
+input,
+textarea,
+image,
+swiper,
+swiper-item {
+  box-sizing: border-box;
 }
 
 text {
@@ -30,7 +38,7 @@ button {
   }
 }
 
-/* 赛博道教主题 */
+/* Cyber Daoist theme */
 .cyberpunk-border {
   border: 2rpx solid #FFD700;
 }

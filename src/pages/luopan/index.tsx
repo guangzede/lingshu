@@ -30,7 +30,7 @@ const LuopanPage: React.FC = () => {
       {/* 3D 罗盘场景 */}
       <View className="canvas-container">
         <Canvas
-          camera={{ position: [0, 15, 0], fov: 60 }}
+          camera={{ position: [0, 100, 0.01], fov: 400 }}
           style={{
             background: THEME.DarkBg,
             width: '100%',
@@ -47,12 +47,14 @@ const LuopanPage: React.FC = () => {
 
           {/* 拖拽旋转控制器 */}
           <OrbitControls
-            enableZoom={true}
+            enableZoom
             enablePan={false}
-            enableRotate={true}
-            minDistance={8}
-            maxDistance={20}
-            zoomSpeed={0.5}
+            enableRotate
+            minDistance={6}
+            maxDistance={12}
+            minPolarAngle={0}
+            maxPolarAngle={Math.PI / 3}
+            zoomSpeed={0.6}
             rotateSpeed={0.8}
           />
         </Canvas>
@@ -60,8 +62,8 @@ const LuopanPage: React.FC = () => {
 
       {/* 控制面板 */}
       <View className="control-panel" style={{ display: 'flex' }}>
-        <Text className="title">赛博罗盘</Text>
-        <Text className="subtitle">机械环枢 · 磁悬浮流转</Text>
+        {/* <Text className="title">赛博罗盘</Text>
+        <Text className="subtitle">机械环枢 · 磁悬浮流转</Text> */}
 
         <View className="button-group">
           <Button

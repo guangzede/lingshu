@@ -1,119 +1,144 @@
-import React, { useMemo, useState, Suspense } from 'react'
-import { View, Text, Button } from '@tarojs/components'
-import Taro from '@tarojs/taro'
-import MosaicTransition from '../../components/MosaicTransition'
-import FortunePage from '../fortune'
-import THEME from '../../constants/theme'
+import React from 'react'
+import { View, Text, Button, Canvas } from '@tarojs/components'
+import Taro, { nextTick } from '@tarojs/taro'
 import './index.scss'
 
-// 懒加载浑天仪组件（仅 H5 环境）
-const ArmillaryLazy = React.lazy(() => import('../../components/ArmillarySphere'))
+const menuItems = [
+  { label: '体验旧版首页', url: '/pages/experience/index' },
+  { label: '赛博罗盘', url: '/pages/luopan/index' },
+  { label: '六爻排盘', url: '/pages/Liuyao/index' },
+  { label: '三维浑天仪', url: '/pages/armillary/index' },
+  { label: '占卜卡片', url: '/pages/fortune/index' }
+]
 
 const IndexPage: React.FC = () => {
-  const [showTransition, setShowTransition] = useState(false)
-  const [showFortune, setShowFortune] = useState(false)
-
-  const transitionDuration = 900
-  const isH5 = useMemo(() => process.env.TARO_ENV === 'h5', [])
-
-  const handleNavigate = () => {
-    if (showTransition) return
-    setShowTransition(true)
-    setTimeout(() => {
-      setShowFortune(true)
-    }, transitionDuration * 0.6)
+  const handleNav = (url: string) => {
+    Taro.navigateTo({ url })
   }
 
-  const handleGoLuopan = () => {
-    Taro.navigateTo({ url: '/pages/luopan/index' })
-  }
+  const [showOverlay, setShowOverlay] = React.useState(true)
 
-  const handleBack = () => {
-    if (showTransition) return
-    setShowTransition(true)
-    setTimeout(() => {
-      setShowFortune(false)
-    }, transitionDuration * 0.6)
-  }
+  React.useEffect(() => {
+    if (!showOverlay) return
 
-  const overlay = useMemo(
-    () =>
-      showTransition ? (
-        <MosaicTransition
-          duration={transitionDuration}
-          onFinish={() => setShowTransition(false)}
-        />
-      ) : null,
-    [showTransition, transitionDuration]
-  )
+    let cleanup: (() => void) | undefined
+
+    const init = () => {
+      const query = Taro.createSelectorQuery()
+      query.select('#starfield').fields({ node: true, size: true }).exec((res) => {
+        const data = res?.[0]
+        if (!data || !data.node) return
+
+        const canvas = data.node as any
+        const ctx = canvas.getContext('2d')
+        if (!ctx) return
+
+        const sysInfo = Taro.getSystemInfoSync()
+        const dpr = sysInfo.pixelRatio || 1
+        const width = data.width || sysInfo.windowWidth
+        const height = data.height || sysInfo.windowHeight
+        canvas.width = width * dpr
+        canvas.height = height * dpr
+        ctx.scale(dpr, dpr)
+
+        const cx = width / 2
+        const cy = height / 2
+        const maxDist = Math.max(width, height) * 0.78
+
+        const createStar = () => {
+          const angle = Math.random() * Math.PI * 2
+          const speed = 0.45 + Math.random() * 0.65
+          const depth = Math.random() * 1.6 + 0.6
+          return {
+            x: cx + (Math.random() * 8 - 4),
+            y: cy + (Math.random() * 8 - 4),
+            dx: Math.cos(angle) * speed,
+            dy: Math.sin(angle) * speed,
+            z: depth,
+            size: Math.random() * 1.2 + 0.5
+          }
+        }
+
+        const stars = new Array(1000).fill(0).map(createStar)
+
+        const raf = (canvas as any).requestAnimationFrame?.bind(canvas) || requestAnimationFrame
+        const caf = (canvas as any).cancelAnimationFrame?.bind(canvas) || cancelAnimationFrame
+        let frameId: number | undefined
+
+        const render = () => {
+          ctx.clearRect(0, 0, width, height)
+          stars.forEach((s) => {
+            s.x += s.dx * s.z
+            s.y += s.dy * s.z
+
+            const dx = s.x - cx
+            const dy = s.y - cy
+            const dist = Math.sqrt(dx * dx + dy * dy)
+            if (dist > maxDist) {
+              const reset = createStar()
+              s.x = reset.x
+              s.y = reset.y
+              s.dx = reset.dx
+              s.dy = reset.dy
+              s.z = reset.z
+              s.size = reset.size
+            }
+
+            const tail = Math.min(10, 5 * s.z)
+            const alpha = 0.3 + Math.random() * 0.25
+            ctx.strokeStyle = `rgba(255, 255, 255, ${alpha})`
+            ctx.lineWidth = 0.5 * s.z
+            ctx.beginPath()
+            ctx.moveTo(s.x, s.y)
+            ctx.lineTo(s.x - s.dx * tail, s.y - s.dy * tail)
+            ctx.stroke()
+          })
+          frameId = raf ? raf(render) : undefined
+        }
+
+        frameId = raf ? raf(render) : undefined
+
+        cleanup = () => {
+          if (frameId !== undefined && caf) caf(frameId)
+        }
+      })
+    }
+
+    nextTick(init)
+
+    return () => {
+      if (cleanup) cleanup()
+    }
+  }, [showOverlay])
 
   return (
     <View className="index-page">
-      {/* 背景噪点层 */}
-      <View className="bg-noise" />
-      <View className="bg-gradient" />
-
-      {/* 浑天仪 3D 场景 - 仅 H5 */}
-      {isH5 && (
-        <View className="armillary-container">
-          <Suspense fallback={<View />}>
-            <ArmillaryLazy width="100%" height="100%" />
-          </Suspense>
-        </View>
-      )}
-
-      {overlay}
-
-      {showFortune ? (
-        <FortunePage onBack={handleBack} />
-      ) : (
+      {showOverlay && (
         <>
-          {/* 顶部标题区 */}
-          <View className="header">
-            <Text className="logo">灵枢</Text>
-            <Text className="tagline">CYBER · DIVINATION · SYSTEM</Text>
-          </View>
-
-          {/* 底部玻璃拟态操作面板 */}
-          <View className="control-panel">
-            <View className="panel-inner">
-              <Text className="panel-title">时空界面已就绪</Text>
-              <Text className="panel-subtitle">准备启动命理演算引擎</Text>
-
-              <Button
-                className="launch-button"
-                onClick={handleNavigate}
-                hoverClass="launch-button-hover"
-              >
-                <Text className="button-text">启动时空</Text>
-                <Text className="button-icon">⚡</Text>
-              </Button>
-
-              <View className="info-grid">
-                <View className="info-item">
-                  <Text className="info-label">量子态</Text>
-                  <Text className="info-value">稳定</Text>
-                </View>
-                <View className="info-item">
-                  <Text className="info-label">灵能指数</Text>
-                  <Text className="info-value">99.7%</Text>
-                </View>
-                <View className="info-item">
-                  <Text className="info-label">道法版本</Text>
-                  <Text className="info-value">v4.2.0</Text>
-                </View>
-              </View>
-
-              <Button
-                className="secondary-button"
-                onClick={handleGoLuopan}
-              >
-                <Text className="button-text">查看赛博罗盘</Text>
-              </Button>
-            </View>
-          </View>
+          <Canvas type="2d" id="starfield" canvasId="starfield" className="star-canvas" disableScroll />
+          <View className="bg-gradient" />
+          <View className="bg-noise" />
+          <View className="yin-yang" />
         </>
       )}
+
+      <Button className="overlay-toggle" size="mini" onClick={() => setShowOverlay((v) => !v)}>
+        {showOverlay ? '关闭蒙层' : '开启蒙层'}
+      </Button>
+
+      <View className="menu-page">
+        <View className="menu-header">
+          <Text className="menu-logo">灵枢</Text>
+          <Text className="menu-sub">占·演·观</Text>
+        </View>
+        <View className="menu-list">
+          {menuItems.map((item) => (
+            <Button key={item.url} className="menu-button" onClick={() => handleNav(item.url)}>
+              {item.label}
+            </Button>
+          ))}
+        </View>
+      </View>
     </View>
   )
 }
