@@ -13,6 +13,10 @@ export default {
     {
       root: 'pages/Liuyao',
       pages: ['index']
+    },
+    {
+      root: 'pages/LiuyaoHistory',
+      pages: ['index']
     }
   ],
   window: {

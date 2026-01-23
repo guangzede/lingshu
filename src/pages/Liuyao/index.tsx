@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, Button, Picker, Input } from '@tarojs/components'
+import Taro from '@tarojs/taro'
 import THEME from '@/constants/theme'
 import { useLiuyaoStore } from '@/store/liuyao'
 import './index.scss'
@@ -17,6 +18,7 @@ const LiuyaoPage: React.FC = () => {
     result,
     dateValue,
     timeValue,
+    isLoadingHistory,
     setLineState,
     setDateValue,
     setTimeValue,
@@ -38,40 +40,46 @@ const LiuyaoPage: React.FC = () => {
     <View className="liuyao-page">
       <Text style={{ fontSize: '18px', fontWeight: 'bold', color: THEME.Gold }}>六爻排盘</Text>
 
-      <View className="mode-row">
-        <Button size="mini" className={mode === 'manual' ? 'btn-active' : ''} onClick={() => setMode('manual')}>手动输入</Button>
-        <Button size="mini" className={mode === 'count' ? 'btn-active' : ''} onClick={() => setMode('count')}>报数起卦</Button>
-        <Button size="mini" className={mode === 'auto' ? 'btn-active' : ''} onClick={() => setMode('auto')}>自动排盘</Button>
-      </View>
+      {!isLoadingHistory && (
+        <>
+          <View className="mode-row">
+            <Button size="mini" className={mode === 'manual' ? 'btn-active' : ''} onClick={() => setMode('manual')}>手动输入</Button>
+            <Button size="mini" className={mode === 'count' ? 'btn-active' : ''} onClick={() => setMode('count')}>报数起卦</Button>
+            <Button size="mini" className={mode === 'auto' ? 'btn-active' : ''} onClick={() => setMode('auto')}>自动排盘</Button>
+          </View>
+
+          <View className="input-section">
+            <View className="datetime-row">
+              <Text className="input-label" style={{ fontSize: '15px' }}>日期</Text>
+              <Picker mode="date" value={dateValue} end={todayStr} onChange={(e) => setDateValue(e.detail.value)}>
+                <View className="picker-box">{dateValue}</View>
+              </Picker>
+              <Text className="input-label" style={{ fontSize: '15px' }}>时间</Text>
+              <Picker mode="time" value={timeValue} onChange={(e) => setTimeValue(e.detail.value)}>
+                <View className="picker-box">{timeValue}</View>
+              </Picker>
+            </View>
+
+            {mode === 'count' && (
+              <View className="count-input-section">
+                <Text className="input-label" style={{ fontSize: '15px' }}>请输入数字（梅花易数起卦）：</Text>
+                <Input
+                  className="number-input"
+                  type="number"
+                  value={countNumbers}
+                  placeholder="输入任意长度数字"
+                  style={{ fontSize: '15px' }}
+                  onInput={(e) => setCountNumbers(e.detail.value)}
+                />
+              </View>
+            )}
+          </View>
+        </>
+      )}
 
       {/* 输入区 */}
-      <View className="input-section">
-        <View className="datetime-row">
-          <Text className="input-label" style={{ fontSize: '15px' }}>日期</Text>
-          <Picker mode="date" value={dateValue} end={todayStr} onChange={(e) => setDateValue(e.detail.value)}>
-            <View className="picker-box">{dateValue}</View>
-          </Picker>
-          <Text className="input-label" style={{ fontSize: '15px' }}>时间</Text>
-          <Picker mode="time" value={timeValue} onChange={(e) => setTimeValue(e.detail.value)}>
-            <View className="picker-box">{timeValue}</View>
-          </Picker>
-        </View>
-
-        {mode === 'count' && (
-          <View className="count-input-section">
-            <Text className="input-label" style={{ fontSize: '15px' }}>请输入数字（梅花易数起卦）：</Text>
-            <Input
-              className="number-input"
-              type="number"
-              value={countNumbers}
-              placeholder="输入任意长度数字"
-              style={{ fontSize: '15px' }}
-              onInput={(e) => setCountNumbers(e.detail.value)}
-            />
-          </View>
-        )}
-
-        {mode === 'manual' && YAO_LABEL_ORDER.map((label, displayIndex) => {
+      <View className="input-section" style={isLoadingHistory ? { marginTop: '16px' } : {}}>
+        {(mode === 'manual' || isLoadingHistory) && YAO_LABEL_ORDER.map((label, displayIndex) => {
           const realIndex = lines.length - 1 - displayIndex
           const l = lines[realIndex] || {}
           return (
@@ -270,6 +278,28 @@ const LiuyaoPage: React.FC = () => {
           </View>
         </View>
       )}
+
+      {/* 保存和列表按钮 */}
+      <View style={{ marginTop: '20px', display: 'flex', gap: '10px', justifyContent: 'center', paddingBottom: '20px' }}>
+        <Button
+          onClick={() => {
+            const { saveCurrentCase } = useLiuyaoStore.getState()
+            const id = saveCurrentCase()
+            Taro.showToast({ title: '保存成功', icon: 'success', duration: 1500 })
+          }}
+          style={{ backgroundColor: THEME.Gold, color: '#000', padding: '10px 20px' }}
+        >
+          保存卦例
+        </Button>
+        <Button
+          onClick={() => {
+            Taro.navigateTo({ url: '/pages/LiuyaoHistory/index' })
+          }}
+          style={{ backgroundColor: '#666', color: '#fff', padding: '10px 20px' }}
+        >
+          查看历史
+        </Button>
+      </View>
     </View>
   )
 }
