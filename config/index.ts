@@ -21,11 +21,13 @@ export default {
   compiler: {
     type: 'webpack5',
     prebundle: {
-      enable: false
+      enable: false,
+      // 在预编译中排除three相关库，避免被主包打包
+      exclude: ['@react-three/fiber', '@react-three/drei', 'three']
     }
   },
   cache: {
-    enable: true
+    enable: false
   },
   // 路径别名，支持 @ 指向 src 目录
   alias: {

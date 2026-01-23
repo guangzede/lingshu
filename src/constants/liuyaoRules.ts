@@ -47,7 +47,18 @@ export const TRIGRAM_BRANCH_SEQUENCE: Partial<Record<TrigramName, [Branch, Branc
   '坤': ['未', '巳', '卯', '丑', '亥', '酉'],
   '兑': ['巳', '卯', '丑', '亥', '酉', '未']
 }
-
+// 按八卦定义的六位天干排法（自下而上六位）
+// 仅用于支持复杂的纳甲规则，如果未定义，则回退到 trigramStem 的传统处理
+export const TRIGRAM_STEM_SEQUENCE: Partial<Record<TrigramName, [Stem, Stem, Stem, Stem, Stem, Stem]>> = {
+  '乾': ['甲', '甲', '甲', '壬', '壬', '壬'],
+  '坎': ['戊', '戊', '戊', '戊', '戊', '戊'],
+  '艮': ['丙', '丙', '丙', '丙', '丙', '丙'],
+  '震': ['庚', '庚', '庚', '庚', '庚', '庚'],
+  '巽': ['辛', '辛', '辛', '辛', '辛', '辛'],
+  '离': ['己', '己', '己', '己', '己', '己'],
+  '坤': ['乙', '乙', '乙', '癸', '癸', '癸'],
+  '兑': ['丁', '丁', '丁', '丁', '丁', '丁']
+}
 export const DEFAULT_RULE_SET: SchoolRuleSet = {
   key: 'jingfang-basic',
   name: '京房基础',

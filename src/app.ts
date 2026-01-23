@@ -2,7 +2,11 @@ import React from 'react'
 import { useLaunch } from '@tarojs/taro'
 import './app.scss'
 
-const App: React.FC = (props) => {
+interface AppProps {
+  children?: React.ReactElement
+}
+
+const App: React.FC<AppProps> = (props) => {
   useLaunch(() => {
     console.log('App launched.')
   })

@@ -3,9 +3,17 @@ export default {
     'pages/index/index',
     'pages/experience/index',
     'pages/fortune/index',
-    'pages/armillary/index',
-    'pages/luopan/index',
-    'pages/Liuyao/index'
+    'pages/armillary/index'
+  ],
+  subpackages: [
+    {
+      root: 'pages/luopan',
+      pages: ['index']
+    },
+    {
+      root: 'pages/Liuyao',
+      pages: ['index']
+    }
   ],
   window: {
     navigationBarTitleText: '灵枢',
@@ -14,4 +22,6 @@ export default {
     backgroundTextStyle: 'light',
     backgroundColor: '#050510'
   },
+  permission: {},
+  requiredBackgroundModes: []
 }

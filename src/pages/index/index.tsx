@@ -4,11 +4,12 @@ import Taro, { nextTick } from '@tarojs/taro'
 import './index.scss'
 
 const menuItems = [
-  { label: '体验旧版首页', url: '/pages/experience/index' },
-  { label: '赛博罗盘', url: '/pages/luopan/index' },
   { label: '六爻排盘', url: '/pages/Liuyao/index' },
-  { label: '三维浑天仪', url: '/pages/armillary/index' },
-  { label: '占卜卡片', url: '/pages/fortune/index' }
+  { label: '体验旧版首页(暂弃用)', url: '/pages/experience/index' },
+  { label: '赛博罗盘(未完成)', url: '/pages/luopan/index' },
+  { label: '紫微斗数(未完成)', url: '/pages/armillary/index' },
+  { label: '三维浑天仪(未完成)', url: '/pages/armillary/index' },
+  // { label: '占卜卡片', url: '/pages/fortune/index' }
 ]
 
 const IndexPage: React.FC = () => {
@@ -25,7 +26,7 @@ const IndexPage: React.FC = () => {
 
     const init = () => {
       const query = Taro.createSelectorQuery()
-      query.select('#starfield').fields({ node: true, size: true }).exec((res) => {
+      query.select('#starfield').fields({ node: true, size: true }).exec((res: any) => {
         const data = res?.[0]
         if (!data || !data.node) return
 
@@ -45,21 +46,24 @@ const IndexPage: React.FC = () => {
         const cy = height / 2
         const maxDist = Math.max(width, height) * 0.78
 
+        const stars: any[] = []
+        const maxStars = 200
+
         const createStar = () => {
-          const angle = Math.random() * Math.PI * 2
-          const speed = 0.45 + Math.random() * 0.65
-          const depth = Math.random() * 1.6 + 0.6
           return {
-            x: cx + (Math.random() * 8 - 4),
-            y: cy + (Math.random() * 8 - 4),
-            dx: Math.cos(angle) * speed,
-            dy: Math.sin(angle) * speed,
-            z: depth,
-            size: Math.random() * 1.2 + 0.5
+            x: Math.random() * width,
+            y: Math.random() * height,
+            radius: Math.random() * 1.5 + 0.5,
+            vx: (Math.random() - 0.5) * 0.5,
+            vy: (Math.random() - 0.5) * 0.5,
+            alpha: Math.random(),
+            fadeSpeed: (Math.random() * 0.02) + 0.005
           }
         }
 
-        const stars = new Array(1000).fill(0).map(createStar)
+        for (let i = 0; i < maxStars; i++) {
+          stars.push(createStar())
+        }
 
         const raf = (canvas as any).requestAnimationFrame?.bind(canvas) || requestAnimationFrame
         const caf = (canvas as any).cancelAnimationFrame?.bind(canvas) || cancelAnimationFrame
@@ -67,32 +71,46 @@ const IndexPage: React.FC = () => {
 
         const render = () => {
           ctx.clearRect(0, 0, width, height)
-          stars.forEach((s) => {
-            s.x += s.dx * s.z
-            s.y += s.dy * s.z
 
-            const dx = s.x - cx
-            const dy = s.y - cy
-            const dist = Math.sqrt(dx * dx + dy * dy)
-            if (dist > maxDist) {
-              const reset = createStar()
-              s.x = reset.x
-              s.y = reset.y
-              s.dx = reset.dx
-              s.dy = reset.dy
-              s.z = reset.z
-              s.size = reset.size
+          stars.forEach((s) => {
+            s.x += s.vx
+            s.y += s.vy
+
+            // 简单的边界反弹/循环
+            if (s.x < 0) s.x = width
+            if (s.x > width) s.x = 0
+            if (s.y < 0) s.y = height
+            if (s.y > height) s.y = 0
+
+            // 闪烁效果
+            s.alpha += s.fadeSpeed
+            if (s.alpha > 1 || s.alpha < 0) {
+              s.fadeSpeed = -s.fadeSpeed
             }
 
-            const tail = Math.min(10, 5 * s.z)
-            const alpha = 0.3 + Math.random() * 0.25
-            ctx.strokeStyle = `rgba(255, 255, 255, ${alpha})`
-            ctx.lineWidth = 0.5 * s.z
             ctx.beginPath()
-            ctx.moveTo(s.x, s.y)
-            ctx.lineTo(s.x - s.dx * tail, s.y - s.dy * tail)
-            ctx.stroke()
+            ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2)
+            ctx.fillStyle = `rgba(255, 255, 255, ${Math.abs(s.alpha)})`
+            ctx.fill()
           })
+
+          // 添加连线逻辑：距离近的星星连线
+          ctx.lineWidth = 0.3
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)'
+          for (let i = 0; i < stars.length; i++) {
+            for (let j = i + 1; j < stars.length; j++) {
+              const dx = stars[i].x - stars[j].x
+              const dy = stars[i].y - stars[j].y
+              const dist = Math.sqrt(dx * dx + dy * dy)
+              if (dist < 60) {
+                ctx.beginPath()
+                ctx.moveTo(stars[i].x, stars[i].y)
+                ctx.lineTo(stars[j].x, stars[j].y)
+                ctx.stroke()
+              }
+            }
+          }
+
           frameId = raf ? raf(render) : undefined
         }
 
@@ -122,7 +140,7 @@ const IndexPage: React.FC = () => {
         </>
       )}
 
-      <Button className="overlay-toggle" size="mini" onClick={() => setShowOverlay((v) => !v)}>
+      <Button className="overlay-toggle" size="mini" onClick={() => setShowOverlay((v: boolean) => !v)}>
         {showOverlay ? '关闭蒙层' : '开启蒙层'}
       </Button>
 
