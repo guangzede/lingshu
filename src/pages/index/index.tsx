@@ -4,12 +4,12 @@ import Taro, { nextTick } from '@tarojs/taro'
 import './index.scss'
 
 const menuItems = [
-  { label: '六爻排盘', url: '/pages/Liuyao/index' },
-  { label: '体验旧版首页(暂弃用)', url: '/pages/experience/index' },
-  { label: '赛博罗盘(未完成)', url: '/pages/luopan/index' },
-  { label: '紫微斗数(未完成)', url: '/pages/armillary/index' },
-  { label: '三维浑天仪(未完成)', url: '/pages/armillary/index' },
-  // { label: '占卜卡片', url: '/pages/fortune/index' }
+  { id: 'liuyao', label: '六爻排盘', url: '/pages/Liuyao/index?source=home' },
+  { id: 'experience', label: '体验旧版首页(暂弃用)', url: '/pages/experience/index' },
+  { id: 'luopan', label: '赛博罗盘(未完成)', url: '/pages/luopan/index' },
+  { id: 'ziwei', label: '紫微斗数(未完成)', url: '/pages/armillary/index' },
+  { id: 'armillary', label: '三维浑天仪(未完成)', url: '/pages/armillary/index' },
+  // { id: 'fortune', label: '占卜卡片', url: '/pages/fortune/index' }
 ]
 
 const IndexPage: React.FC = () => {
@@ -18,6 +18,7 @@ const IndexPage: React.FC = () => {
   }
 
   const [showOverlay, setShowOverlay] = React.useState(true)
+  const [isVisible, setIsVisible] = React.useState(true)
 
   React.useEffect(() => {
     if (!showOverlay) return
@@ -25,22 +26,70 @@ const IndexPage: React.FC = () => {
     let cleanup: (() => void) | undefined
 
     const init = () => {
-      const query = Taro.createSelectorQuery()
-      query.select('#starfield').fields({ node: true, size: true }).exec((res: any) => {
-        const data = res?.[0]
-        if (!data || !data.node) return
-
-        const canvas = data.node as any
+      const isH5 = process.env.TARO_ENV === 'h5'
+      
+      if (isH5) {
+        // H5环境：使用传统DOM方式
+        const canvasEl = document.getElementById('starfield')
+        if (!canvasEl) {
+          setTimeout(init, 100)
+          return
+        }
+        
+        // 确保是Canvas元素
+        if (!(canvasEl instanceof HTMLCanvasElement)) {
+          console.error('[H5 Canvas] Element is not a canvas:', canvasEl.tagName)
+          return
+        }
+        
+        const canvas = canvasEl
         const ctx = canvas.getContext('2d')
-        if (!ctx) return
+        if (!ctx) {
+          console.error('[H5 Canvas] Failed to get 2d context')
+          return
+        }
 
-        const sysInfo = Taro.getSystemInfoSync()
-        const dpr = sysInfo.pixelRatio || 1
-        const width = data.width || sysInfo.windowWidth
-        const height = data.height || sysInfo.windowHeight
+        // H5窗口尺寸与DPR
+        const dpr = window.devicePixelRatio || 1
+        const width = window.innerWidth || document.documentElement.clientWidth || 375
+        const height = window.innerHeight || document.documentElement.clientHeight || 667
+        
         canvas.width = width * dpr
         canvas.height = height * dpr
+        canvas.style.width = `${width}px`
+        canvas.style.height = `${height}px`
         ctx.scale(dpr, dpr)
+
+        initStarfield(canvas, ctx, width, height)
+      } else {
+        // 小程序环境：使用Taro标准API
+        const query = Taro.createSelectorQuery()
+        query.select('#starfield').fields({ node: true, size: true }).exec((res: any) => {
+          const data = res?.[0]
+          if (!data || !data.node) {
+            setTimeout(init, 100)
+            return
+          }
+
+          const canvas = data.node as any
+          const ctx = canvas.getContext('2d')
+          if (!ctx) return
+
+          // Weapp窗口尺寸与DPR（优先使用新API，兼容旧API）
+          const win = (Taro as any).getWindowInfo ? (Taro as any).getWindowInfo() : null
+          const dpr = win?.pixelRatio || 1
+          const width = data.width || win?.windowWidth || 375
+          const height = data.height || win?.windowHeight || 667
+          canvas.width = width * dpr
+          canvas.height = height * dpr
+          ctx.scale(dpr, dpr)
+
+          initStarfield(canvas, ctx, width, height)
+        })
+      }
+    }
+    
+    const initStarfield = (canvas: any, ctx: CanvasRenderingContext2D, width: number, height: number) => {
 
         const cx = width / 2
         const cy = height / 2
@@ -90,13 +139,15 @@ const IndexPage: React.FC = () => {
 
             ctx.beginPath()
             ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2)
-            ctx.fillStyle = `rgba(255, 255, 255, ${Math.abs(s.alpha)})`
+            ctx.globalAlpha = Math.abs(s.alpha)
+            ctx.fillStyle = '#ffffff'
             ctx.fill()
+            ctx.globalAlpha = 1
           })
 
           // 添加连线逻辑：距离近的星星连线
           ctx.lineWidth = 0.3
-          ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)'
+          ctx.strokeStyle = '#ffffff'
           for (let i = 0; i < stars.length; i++) {
             for (let j = i + 1; j < stars.length; j++) {
               const dx = stars[i].x - stars[j].x
@@ -106,20 +157,21 @@ const IndexPage: React.FC = () => {
                 ctx.beginPath()
                 ctx.moveTo(stars[i].x, stars[i].y)
                 ctx.lineTo(stars[j].x, stars[j].y)
+                ctx.globalAlpha = 0.15
                 ctx.stroke()
+                ctx.globalAlpha = 1
               }
             }
           }
-
-          frameId = raf ? raf(render) : undefined
-        }
-
         frameId = raf ? raf(render) : undefined
+      }
 
-        cleanup = () => {
-          if (frameId !== undefined && caf) caf(frameId)
-        }
-      })
+      // 启动动画循环并提供清理函数
+      render()
+      cleanup = () => {
+        if (frameId !== undefined && caf) caf(frameId)
+      }
+      
     }
 
     nextTick(init)
@@ -130,7 +182,7 @@ const IndexPage: React.FC = () => {
   }, [showOverlay])
 
   return (
-    <View className="index-page">
+    <View className={`index-page ${isVisible ? 'visible' : ''}`}>
       {showOverlay && (
         <>
           <Canvas type="2d" id="starfield" canvasId="starfield" className="star-canvas" disableScroll />
@@ -151,7 +203,7 @@ const IndexPage: React.FC = () => {
         </View>
         <View className="menu-list">
           {menuItems.map((item) => (
-            <Button key={item.url} className="menu-button" onClick={() => handleNav(item.url)}>
+            <Button key={item.id} className="menu-button" onClick={() => handleNav(item.url)}>
               {item.label}
             </Button>
           ))}

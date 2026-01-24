@@ -1,0 +1,153 @@
+.loading-page {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(135deg, #050510 0%, #0a0a15 50%, #050510 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  overflow: hidden;
+  transition: opacity 0.3s ease-out;
+
+  &.fade-out {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.loading-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+/* 太极图Loading图标 */
+.loading-taiji {
+  width: 120px;
+  height: 120px;
+  position: relative;
+}
+
+.taiji-rotate {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(90deg, #f4f4f4 50%, #0a0a0a 50%);
+  box-shadow:
+    0 0 20px rgba(255, 255, 255, 0.3),
+    0 0 40px rgba(255, 255, 255, 0.2),
+    0 0 60px rgba(255, 215, 0, 0.1);
+  animation: rotate-taiji 2s linear infinite, pulse-light 1.5s ease-in-out infinite;
+  position: relative;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    transform: translateX(-50%);
+  }
+
+  &::before {
+    top: 0;
+    background: radial-gradient(circle, #0a0a0a 15%, #0a0a0a 15%, transparent 17%);
+    background-color: #f4f4f4;
+  }
+
+  &::after {
+    bottom: 0;
+    background: radial-gradient(circle, #f4f4f4 15%, #f4f4f4 15%, transparent 17%);
+    background-color: #0a0a0a;
+  }
+}
+
+@keyframes rotate-taiji {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse-light {
+  0%, 100% {
+    box-shadow:
+      0 0 20px rgba(255, 255, 255, 0.3),
+      0 0 40px rgba(255, 255, 255, 0.2),
+      0 0 60px rgba(255, 215, 0, 0.1);
+  }
+  50% {
+    box-shadow:
+      0 0 30px rgba(255, 255, 255, 0.5),
+      0 0 60px rgba(255, 255, 255, 0.4),
+      0 0 90px rgba(255, 215, 0, 0.2);
+  }
+}
+
+/* 标题 */
+.loading-title {
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: 6px;
+  color: #f6f7fb;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.loading-subtitle {
+  font-size: 18px;
+  letter-spacing: 8px;
+  color: rgba(246, 247, 251, 0.7);
+  margin-top: -16px;
+}
+
+/* 进度条 */
+.progress-container {
+  width: 240px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 16px;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #00f0ff, #ffd700);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+  transition: width 0.1s ease-out;
+  border-radius: 2px;
+}
+
+.progress-text {
+  font-size: 14px;
+  color: rgba(246, 247, 251, 0.6);
+  letter-spacing: 2px;
+}
+
+/* 简化星空背景 */
+.loading-stars {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: #fff;
+  border-radius: 50%;
+  animation: twinkle 2s ease-in-out infinite;
+  opacity: 0.6;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}

@@ -1,11 +1,12 @@
 import React from 'react'
 import { View, Text, Button, Picker, Input } from '@tarojs/components'
-import Taro from '@tarojs/taro'
+import Taro, { useDidShow, getCurrentInstance } from '@tarojs/taro'
 import THEME from '@/constants/theme'
 import { useLiuyaoStore } from '@/store/liuyao'
 import './index.scss'
 import { analyzeBranchRelation, analyzeYaoInteractions } from '@/services/liuyao'
 import { HexagramTable } from './components/HexagramTable'
+import ShakeCoins from './components/ShakeCoins'
 import { analyzeYao } from './hooks/useYaoAnalysis'
 import { usePaipan } from './hooks/usePaipan'
 import { YAO_LABEL_ORDER, YAO_LABELS } from './constants/yaoConstants'
@@ -19,14 +20,19 @@ const LiuyaoPage: React.FC = () => {
     dateValue,
     timeValue,
     isLoadingHistory,
+    question,
     setLineState,
     setDateValue,
     setTimeValue,
+    setQuestion,
+    setIsLoadingHistory,
+    reset,
     compute
   } = useLiuyaoStore((s) => s)
 
-  const [mode, setMode] = React.useState<PaipanMode>('manual')
+  const [mode, setMode] = React.useState<PaipanMode | 'shake'>('manual')
   const [countNumbers, setCountNumbers] = React.useState('')
+  const [shakeStep, setShakeStep] = React.useState(0)
 
   const todayStr = React.useMemo(() => {
     const now = new Date()
@@ -34,7 +40,66 @@ const LiuyaoPage: React.FC = () => {
     return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`
   }, [])
 
-  const { handlePaipan } = usePaipan({ mode, countNumbers, setLineState, compute })
+  const modeForPaipan: PaipanMode = mode === 'shake' ? 'manual' : mode
+  const { handlePaipan } = usePaipan({ mode: modeForPaipan, countNumbers, setLineState, compute })
+  const hasShownRef = React.useRef(false)
+
+  const emptyLines = React.useMemo(() => (
+    [
+      { isYang: true, isMoving: false },
+      { isYang: false, isMoving: false },
+      { isYang: true, isMoving: false },
+      { isYang: false, isMoving: false },
+      { isYang: true, isMoving: false },
+      { isYang: false, isMoving: false }
+    ]
+  ), [])
+
+  // 首页进入时还原到默认状态（带 source=home 参数）；从历史返回时保留结果
+  useDidShow(() => {
+    const source = getCurrentInstance()?.router?.params?.source
+    if (source === 'home') {
+      if (!hasShownRef.current || !isLoadingHistory) {
+        reset()
+        setIsLoadingHistory(false)
+      }
+    }
+    if (!hasShownRef.current) {
+      hasShownRef.current = true
+    }
+  })
+
+  const handleModeChange = (m: PaipanMode | 'shake') => {
+    setMode(m as PaipanMode)
+    if (m === 'shake') {
+      setShakeStep(0)
+      useLiuyaoStore.getState().setLines(emptyLines)
+    }
+    if (m !== 'manual') {
+      setIsLoadingHistory(false)
+    }
+  }
+
+  const applyShakeResult = (heads: number, targetIndex: number) => {
+    const mapping: Record<number, 'taiyang' | 'shaoyang' | 'shaoyin' | 'taiyin'> = {
+      0: 'taiyin',
+      1: 'shaoyang',
+      2: 'shaoyin',
+      3: 'taiyang'
+    }
+    const state = mapping[heads] || 'shaoyang'
+    setLineState(targetIndex, state)
+  }
+
+  const handleShakeDone = (heads: number) => {
+    if (shakeStep >= 6) return
+    applyShakeResult(heads, shakeStep)
+    const nextStep = shakeStep + 1
+    setShakeStep(nextStep)
+    if (nextStep >= 6) {
+      setTimeout(() => compute(), 50)
+    }
+  }
 
   return (
     <View className="liuyao-page">
@@ -43,9 +108,10 @@ const LiuyaoPage: React.FC = () => {
       {!isLoadingHistory && (
         <>
           <View className="mode-row">
-            <Button size="mini" className={mode === 'manual' ? 'btn-active' : ''} onClick={() => setMode('manual')}>手动输入</Button>
-            <Button size="mini" className={mode === 'count' ? 'btn-active' : ''} onClick={() => setMode('count')}>报数起卦</Button>
-            <Button size="mini" className={mode === 'auto' ? 'btn-active' : ''} onClick={() => setMode('auto')}>自动排盘</Button>
+            <Button size="mini" className={mode === 'manual' ? 'btn-active' : ''} onClick={() => handleModeChange('manual')}>手动输入</Button>
+            <Button size="mini" className={mode === 'count' ? 'btn-active' : ''} onClick={() => handleModeChange('count')}>报数起卦</Button>
+            <Button size="mini" className={mode === 'auto' ? 'btn-active' : ''} onClick={() => handleModeChange('auto')}>自动排盘</Button>
+            <Button size="mini" className={mode === 'shake' ? 'btn-active' : ''} onClick={() => handleModeChange('shake' as any)}>摇卦</Button>
           </View>
 
           <View className="input-section">
@@ -58,6 +124,17 @@ const LiuyaoPage: React.FC = () => {
               <Picker mode="time" value={timeValue} onChange={(e) => setTimeValue(e.detail.value)}>
                 <View className="picker-box">{timeValue}</View>
               </Picker>
+            </View>
+
+            <View className="count-input-section">
+              <Text className="input-label" style={{ fontSize: '15px' }}>求测事项：</Text>
+              <Input
+                className="number-input"
+                value={question}
+                placeholder="请输入求测事项"
+                style={{ fontSize: '15px' }}
+                onInput={(e) => setQuestion(e.detail.value)}
+              />
             </View>
 
             {mode === 'count' && (
@@ -77,30 +154,45 @@ const LiuyaoPage: React.FC = () => {
         </>
       )}
 
-      {/* 输入区 */}
-      <View className="input-section" style={isLoadingHistory ? { marginTop: '16px' } : {}}>
-        {(mode === 'manual' || isLoadingHistory) && YAO_LABEL_ORDER.map((label, displayIndex) => {
-          const realIndex = lines.length - 1 - displayIndex
-          const l = lines[realIndex] || {}
-          return (
-            <View key={label} className="line-item">
-              <Text className="line-label">{label}</Text>
-              <Button size="mini" className={`yao-btn ${l.isYang && l.isMoving ? 'yao-btn-active' : ''}`} onClick={() => setLineState(realIndex, 'taiyang')}>太阳</Button>
-              <Button size="mini" className={`yao-btn ${l.isYang && !l.isMoving ? 'yao-btn-active' : ''}`} onClick={() => setLineState(realIndex, 'shaoyang')}>少阳</Button>
-              <Button size="mini" className={`yao-btn ${!l.isYang && !l.isMoving ? 'yao-btn-active' : ''}`} onClick={() => setLineState(realIndex, 'shaoyin')}>少阴</Button>
-              <Button size="mini" className={`yao-btn ${!l.isYang && l.isMoving ? 'yao-btn-active' : ''}`} onClick={() => setLineState(realIndex, 'taiyin')}>太阴</Button>
-            </View>
-          )
-        })}
+      {/* 输入区：根据模式切换 */}
+      {!isLoadingHistory && (
+        <View className="input-section" style={{ marginTop: '16px' }}>
+          {mode === 'manual' && YAO_LABEL_ORDER.map((label, displayIndex) => {
+            const realIndex = lines.length - 1 - displayIndex
+            const l = lines[realIndex] || {}
+            return (
+              <View key={label} className="line-item">
+                <Text className="line-label">{label}</Text>
+                <Button size="mini" className={`yao-btn ${l.isYang && l.isMoving ? 'yao-btn-active' : ''}`} onClick={() => setLineState(realIndex, 'taiyang')}>太阳</Button>
+                <Button size="mini" className={`yao-btn ${l.isYang && !l.isMoving ? 'yao-btn-active' : ''}`} onClick={() => setLineState(realIndex, 'shaoyang')}>少阳</Button>
+                <Button size="mini" className={`yao-btn ${!l.isYang && !l.isMoving ? 'yao-btn-active' : ''}`} onClick={() => setLineState(realIndex, 'shaoyin')}>少阴</Button>
+                <Button size="mini" className={`yao-btn ${!l.isYang && l.isMoving ? 'yao-btn-active' : ''}`} onClick={() => setLineState(realIndex, 'taiyin')}>太阴</Button>
+              </View>
+            )
+          })}
 
-        <View className="action-buttons">
-          <Button onClick={handlePaipan} className="btn-compute">排盘</Button>
+          {mode === 'shake' && (
+            <ShakeCoins step={shakeStep} disabled={shakeStep >= 6} onDone={handleShakeDone} />
+          )}
+
+          {(mode === 'manual' || mode === 'count' || mode === 'auto') && (
+            <View className="action-buttons">
+              <Button onClick={handlePaipan} className="btn-compute">排盘</Button>
+            </View>
+          )}
         </View>
-      </View>
+      )}
 
       {/* 结果区 */}
       {result && (
         <View style={{ marginTop: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          {question ? (
+            <View style={{ padding: '10px', border: '1px solid #333', borderRadius: '8px', backgroundColor: '#0f0f0f' }}>
+              <Text style={{ color: THEME.Gold, fontWeight: 'bold', marginBottom: '4px' }}>求测事项</Text>
+              <Text style={{ color: '#ddd', fontSize: '14px' }}>{question}</Text>
+            </View>
+          ) : null}
+
           <View style={{ padding: '10px', border: '1px solid #333', borderRadius: '8px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
             <View style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <Text>{dateValue} {timeValue}</Text>
@@ -279,27 +371,60 @@ const LiuyaoPage: React.FC = () => {
         </View>
       )}
 
-      {/* 保存和列表按钮 */}
-      <View style={{ marginTop: '20px', display: 'flex', gap: '10px', justifyContent: 'center', paddingBottom: '20px' }}>
-        <Button
-          onClick={() => {
-            const { saveCurrentCase } = useLiuyaoStore.getState()
-            const id = saveCurrentCase()
-            Taro.showToast({ title: '保存成功', icon: 'success', duration: 1500 })
-          }}
-          style={{ backgroundColor: THEME.Gold, color: '#000', padding: '10px 20px' }}
-        >
-          保存卦例
-        </Button>
-        <Button
-          onClick={() => {
-            Taro.navigateTo({ url: '/pages/LiuyaoHistory/index' })
-          }}
-          style={{ backgroundColor: '#666', color: '#fff', padding: '10px 20px' }}
-        >
-          查看历史
-        </Button>
-      </View>
+      {/* 保存和列表按钮：仅在非历史模式显示 */}
+      {!isLoadingHistory && (
+        <View style={{ marginTop: '20px', display: 'flex', gap: '10px', justifyContent: 'center', paddingBottom: '20px' }}>
+          <Button
+            onClick={() => {
+              const { saveCurrentCase } = useLiuyaoStore.getState()
+              const doSave = () => {
+                const id = saveCurrentCase()
+                Taro.showToast({ title: '保存成功', icon: 'success', duration: 1500 })
+                return id
+              }
+
+              if (!question.trim()) {
+                Taro.showModal({
+                  title: '提示',
+                  content: '求测事项为空，确认仍要保存吗？',
+                  confirmText: '保存',
+                  cancelText: '取消',
+                  success: (res) => {
+                    if (res.confirm) doSave()
+                  }
+                })
+              } else {
+                doSave()
+              }
+            }}
+            disabled={!result}
+            style={{ backgroundColor: THEME.Gold, color: '#000', padding: '10px 20px', opacity: result ? 1 : 0.4 }}
+          >
+            保存卦例
+          </Button>
+          <Button
+            onClick={() => {
+              Taro.navigateTo({ url: '/pages/LiuyaoHistory/index' })
+            }}
+            style={{ backgroundColor: '#666', color: '#fff', padding: '10px 20px' }}
+          >
+            查看历史
+          </Button>
+        </View>
+      )}
+
+      {isLoadingHistory && (
+        <View style={{ marginTop: '20px', display: 'flex', gap: '10px', justifyContent: 'center', paddingBottom: '20px' }}>
+          <Button
+            onClick={() => {
+              Taro.navigateTo({ url: '/pages/LiuyaoHistory/index' })
+            }}
+            style={{ backgroundColor: '#666', color: '#fff', padding: '10px 20px' }}
+          >
+            查看历史
+          </Button>
+        </View>
+      )}
     </View>
   )
 }

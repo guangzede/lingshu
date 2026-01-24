@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, Button, ScrollView } from '@tarojs/components'
-import Taro from '@tarojs/taro'
+import Taro, { useDidShow } from '@tarojs/taro'
 import THEME from '@/constants/theme'
 import { useLiuyaoStore } from '@/store/liuyao'
 import './index.scss'
@@ -9,37 +9,44 @@ interface HistoryItem {
   id: string
   dateValue: string
   timeValue: string
+  question: string
   remark?: string
   createdAt: number
+  baseHexName?: string
+  variantHexName?: string
 }
 
 const LiuyaoHistoryPage: React.FC = () => {
   const { getSavedCases, loadCase, deleteCase } = useLiuyaoStore((s) => s)
   const [cases, setCases] = React.useState<HistoryItem[]>([])
 
-  React.useEffect(() => {
-    // 页面显示时加载数据
-    const loadCases = () => {
-      const saved = getSavedCases()
-      setCases(saved)
-    }
-    loadCases()
-
-    // 监听页面显示事件
-    Taro.useDidShow(() => {
-      loadCases()
-    })
+  const loadCases = React.useCallback(() => {
+    const saved = getSavedCases()
+    setCases(saved)
   }, [getSavedCases])
+
+  React.useEffect(() => {
+    // 首次进入页面加载数据
+    loadCases()
+  }, [loadCases])
+
+  // 监听页面显示事件（小程序前台切换/返回该页时触发）
+  useDidShow(() => {
+    loadCases()
+  })
 
   const handleLoadCase = (id: string) => {
     const success = loadCase(id)
     if (success) {
-      Taro.showToast({ title: '加载成功', icon: 'success', duration: 1000 })
-      setTimeout(() => {
-        Taro.navigateBack()
-      }, 1000)
+      // 数据完整则返回上一页（Liuyao）以免增加页面栈
+      Taro.navigateBack({ delta: 1 })
     } else {
-      Taro.showToast({ title: '加载失败', icon: 'error', duration: 1500 })
+      // 校验异常才提示
+      Taro.showModal({
+        title: '加载失败',
+        content: '保存的卦例数据不完整或已损坏，无法加载。',
+        showCancel: false
+      })
     }
   }
 
@@ -61,12 +68,6 @@ const LiuyaoHistoryPage: React.FC = () => {
 
   const formatDate = (dateStr: string, timeStr: string) => {
     return `${dateStr} ${timeStr}`
-  }
-
-  const formatTime = (timestamp: number) => {
-    const date = new Date(timestamp)
-    const pad = (n: number) => `${n}`.padStart(2, '0')
-    return `${pad(date.getHours())}:${pad(date.getMinutes())}`
   }
 
   return (
@@ -95,12 +96,21 @@ const LiuyaoHistoryPage: React.FC = () => {
                 }}
               >
                 {/* 基本信息 */}
-                <View style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                <View style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
                   <Text style={{ fontSize: '14px', fontWeight: 'bold', color: '#fff' }}>
-                    {idx + 1}. {formatDate(item.dateValue, item.timeValue)}
+                    {idx + 1}. {item.question || '未填写求测事项'}
                   </Text>
                   <Text style={{ fontSize: '11px', color: '#999' }}>
-                    {formatTime(item.createdAt)}
+                    {formatDate(item.dateValue, item.timeValue)}
+                  </Text>
+                </View>
+
+                <View style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+                  <Text style={{ fontSize: '12px', color: '#bbb' }}>
+                    本卦：{item.baseHexName || '—'}
+                  </Text>
+                  <Text style={{ fontSize: '12px', color: '#bbb' }}>
+                    变卦：{item.variantHexName || '—'}
                   </Text>
                 </View>
 
@@ -147,7 +157,7 @@ const LiuyaoHistoryPage: React.FC = () => {
       {/* 底部返回按钮 */}
       <View style={{ padding: '15px', borderTop: '1px solid #555', backgroundColor: '#1a1a1a' }}>
         <Button
-          onClick={() => Taro.navigateBack()}
+          onClick={() => Taro.redirectTo({ url: '/pages/index/index' })}
           style={{ width: '100%', backgroundColor: '#666', color: '#fff' }}
         >
           返回

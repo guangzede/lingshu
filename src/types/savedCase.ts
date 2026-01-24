@@ -10,14 +10,20 @@ export interface SavedCase {
   timeValue: string // HH:mm
   lines: [LineState, LineState, LineState, LineState, LineState, LineState] // 6个爻的状态
   ruleSetKey: string // 排盘规则集
+  question: string // 求测事项
   remark?: string // 备注（可选）
   createdAt: number // 创建时间戳（毫秒）
+  baseHexName?: string // 本卦名称（存历史列表用）
+  variantHexName?: string // 变卦名称（存历史列表用）
 }
 
 export interface SavedCaseListItem {
   id: string
   dateValue: string
   timeValue: string
+  question: string
   remark?: string
   createdAt: number
+  baseHexName?: string
+  variantHexName?: string
 }
