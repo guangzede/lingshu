@@ -7,6 +7,9 @@ import './index.scss'
 import { analyzeBranchRelation, analyzeYaoInteractions } from '@/services/liuyao'
 import { HexagramTable } from './components/HexagramTable'
 import ShakeCoins from './components/ShakeCoins'
+import QuestionCard from './components/QuestionCard'
+import AIAnalysisCard from './components/AIAnalysisCard'
+import HumanQACard from './components/HumanQACard'
 import { analyzeYao } from './hooks/useYaoAnalysis'
 import { usePaipan } from './hooks/usePaipan'
 import { YAO_LABEL_ORDER, YAO_LABELS } from './constants/yaoConstants'
@@ -141,7 +144,9 @@ const LiuyaoPage: React.FC = () => {
 
   return (
     <View className="liuyao-page">
-      {/* 顶部：极简模式选择器 */}
+
+
+      {/* 顶部：极简模式选择器 - 仅编辑模式 */}
       {!isLoadingHistory && (
         <View className="top-section">
           <View className="mode-selector">
@@ -173,50 +178,7 @@ const LiuyaoPage: React.FC = () => {
 
           {/* 优雅输入区 */}
           <View className="input-area">
-            {/* 求测事项卡片 - 始终展示 */}
-            <View className="glass-card question-card">
-              <View className="card-header">
-                <Text className="card-section-title">求测事项</Text>
-                <Text className="card-section-guide">简述此次占卜的问题</Text>
-              </View>
-              <Input
-                className="question-input"
-                value={question}
-                placeholder="请输入占卜内容..."
-                style={{ height: '52px', lineHeight: '26px' }}
-                onInput={(e) => setQuestion(e.detail.value)}
-              />
-            </View>
             {/* 时间输入区 - 卡片形式 - 仅手动模式 */}
-            {!result && mode === 'manual' && (
-              <View className="glass-card datetime-card">
-                <View className="card-header">
-                  <Text className="card-section-title">求测时间</Text>
-                  <Text className="card-section-guide">点击时间和日期选择</Text>
-                </View>
-                <View className="datetime-inputs">
-                  <View className="input-group">
-                    <Text className="input-label-elegant">日期</Text>
-                    <Picker mode="date" value={dateValue} end={todayStr} onChange={(e) => setDateValue(e.detail.value)}>
-                      <View className="value-with-underline">
-                        <Text className="value-text">{dateValue.replace(/-/g, '年').replace(/年(\d+)$/, '年$1月').replace(/月(\d+)$/, '月$1日')}</Text>
-                        
-                      </View>
-                    </Picker>
-                  </View>
-
-                  <View className="input-group">
-                    <Text className="input-label-elegant">时间</Text>
-                    <Picker mode="time" value={timeValue} onChange={(e) => setTimeValue(e.detail.value)}>
-                      <View className="value-with-underline">
-                        <Text className="value-text">{timeValue}</Text>
-                        
-                      </View>
-                    </Picker>
-                  </View>
-                </View>
-              </View>
-            )}
 
             {mode === 'count' && (
               <View className="glass-card count-input-card">
@@ -238,6 +200,40 @@ const LiuyaoPage: React.FC = () => {
 
         </View>
       )}
+      {!result && mode === 'manual' && (
+        <View className="glass-card datetime-card">
+          <View className="card-header">
+            <Text className="card-section-title">求测时间</Text>
+            <Text className="card-section-guide">点击时间和日期选择</Text>
+          </View>
+          <View className="datetime-inputs">
+            <View className="input-group">
+              <Text className="input-label-elegant">日期</Text>
+              <Picker mode="date" value={dateValue} end={todayStr} onChange={(e) => setDateValue(e.detail.value)}>
+                <View className="value-with-underline">
+                  <Text className="value-text">{dateValue.replace(/-/g, '年').replace(/年(\d+)$/, '年$1月').replace(/月(\d+)$/, '月$1日')}</Text>
+
+                </View>
+              </Picker>
+            </View>
+
+            <View className="input-group">
+              <Text className="input-label-elegant">时间</Text>
+              <Picker mode="time" value={timeValue} onChange={(e) => setTimeValue(e.detail.value)}>
+                <View className="value-with-underline">
+                  <Text className="value-text">{timeValue}</Text>
+
+                </View>
+              </Picker>
+            </View>
+          </View>
+        </View>
+      )}
+
+      {/* 求测事项卡片 - 始终展示（无论是否加载历史） */}
+      <View >
+        <QuestionCard value={question} onChange={setQuestion} readOnly={isLoadingHistory} />
+      </View>
 
       {/* 中部：爻位排盘卡片 - 仅手动模式 */}
       {!isLoadingHistory && !result && mode === 'manual' && (
@@ -250,7 +246,7 @@ const LiuyaoPage: React.FC = () => {
             const realIndex = lines.length - 1 - displayIndex
             const l = lines[realIndex] || {}
             const isMoving = l.isMoving
-            
+
             // 计算爻的状态文字
             const getYaoState = () => {
               if (l.isYang && !l.isMoving) return '少阳'
@@ -320,6 +316,10 @@ const LiuyaoPage: React.FC = () => {
       {/* 底部：结果展示（毛玻璃卡片） */}
       {result && (
         <View className="result-section">
+
+          {/* AI 分析与人工答疑 */}
+          <AIAnalysisCard question={question} result={result} />
+          <HumanQACard question={question} />
 
 
           {/* 干支信息卡片 */}

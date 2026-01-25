@@ -1,0 +1,158 @@
+.human-qa-card {
+  margin: 12px 16px;
+  padding: 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+
+  .card-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 8px;
+
+    .card-title {
+    //   font-size: 20px;
+      font-weight: 700;
+      color: #22d3ee;
+      letter-spacing: 0.5px;
+    }
+    .card-desc {
+    //   font-size: 15px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+  }
+
+  .card-body {
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    .label {
+    //   font-size: 15px;
+      color: rgba(255, 255, 255, 0.68);
+    }
+    .content {
+    //   font-size: 17px;
+      color: #fff;
+      line-height: 1.5;
+    }
+    .tips {
+    //   font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
+      margin-top: 8px;
+    }
+  }
+
+  .primary-btn {
+    background: linear-gradient(90deg, #22d3ee, #3b82f6);
+    color: #0b1021;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    // font-size: 16px;
+  }
+}
+
+// 二维码弹窗
+.qrcode-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease;
+
+  .qrcode-content {
+    background: linear-gradient(135deg, rgba(30, 30, 60, 0.95), rgba(20, 20, 40, 0.98));
+    border-radius: 20px;
+    padding: 24px;
+    width: 90%;
+    min-width: 50vw;
+    max-width: 700px;
+    border: 2px solid rgba(34, 211, 238, 0.3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5),
+                0 0 100px rgba(34, 211, 238, 0.2);
+    animation: scaleIn 0.3s ease;
+
+    .qrcode-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+
+      .qrcode-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #22d3ee;
+        text-shadow: 0 0 20px rgba(34, 211, 238, 0.6);
+      }
+
+      .qrcode-close {
+        font-size: 28px;
+        color: rgba(255, 255, 255, 0.8);
+        cursor: pointer;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        transition: all 0.2s;
+
+        &:active {
+          background: rgba(255, 255, 255, 0.2);
+          transform: scale(0.95);
+        }
+      }
+    }
+
+    .qrcode-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+      background: #fff;
+      padding: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .qrcode-tip {
+      display: block;
+      text-align: center;
+      margin-top: 16px;
+    //   font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
