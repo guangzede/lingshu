@@ -141,132 +141,244 @@ const LiuyaoPage: React.FC = () => {
 
   return (
     <View className="liuyao-page">
-      <Text style={{ fontSize: '18px', fontWeight: 'bold', color: THEME.Gold }}>六爻排盘</Text>
-
+      {/* 顶部：极简模式选择器 */}
       {!isLoadingHistory && (
-        <>
-          <View className="mode-row">
-            <Button size="mini" className={mode === 'manual' ? 'btn-active' : ''} onClick={() => handleModeChange('manual')}>手动输入</Button>
-            <Button size="mini" className={mode === 'count' ? 'btn-active' : ''} onClick={() => handleModeChange('count')}>报数起卦</Button>
-            <Button size="mini" className={mode === 'auto' ? 'btn-active' : ''} onClick={() => handleModeChange('auto')}>自动排盘</Button>
-            <Button size="mini" className={mode === 'shake' ? 'btn-active' : ''} onClick={() => handleModeChange('shake' as any)}>摇卦</Button>
+        <View className="top-section">
+          <View className="mode-selector">
+            <Text
+              className={`mode-tab ${mode === 'manual' ? 'mode-tab-active' : ''}`}
+              onClick={() => handleModeChange('manual')}
+            >
+              手动输入
+            </Text>
+            <Text
+              className={`mode-tab ${mode === 'count' ? 'mode-tab-active' : ''}`}
+              onClick={() => handleModeChange('count')}
+            >
+              报数起卦
+            </Text>
+            <Text
+              className={`mode-tab ${mode === 'auto' ? 'mode-tab-active' : ''}`}
+              onClick={() => handleModeChange('auto')}
+            >
+              自动排盘
+            </Text>
+            <Text
+              className={`mode-tab ${mode === 'shake' ? 'mode-tab-active' : ''}`}
+              onClick={() => handleModeChange('shake' as any)}
+            >
+              摇卦
+            </Text>
           </View>
 
-          <View className="input-section">
-            {!result && (
-              <View className="datetime-row">
-                <Text className="input-label" style={{ fontSize: '15px' }}>日期</Text>
-                <Picker mode="date" value={dateValue} end={todayStr} onChange={(e) => setDateValue(e.detail.value)}>
-                  <View className="picker-box">{dateValue}</View>
-                </Picker>
-                <Text className="input-label" style={{ fontSize: '15px' }}>时间</Text>
-                <Picker mode="time" value={timeValue} onChange={(e) => setTimeValue(e.detail.value)}>
-                  <View className="picker-box">{timeValue}</View>
-                </Picker>
+          {/* 优雅输入区 */}
+          <View className="input-area">
+            {/* 求测事项卡片 - 始终展示 */}
+            <View className="glass-card question-card">
+              <View className="card-header">
+                <Text className="card-section-title">求测事项</Text>
+                <Text className="card-section-guide">简述此次占卜的问题</Text>
               </View>
-            )}
-
-            <View className="count-input-section">
-              <Text className="input-label" style={{ fontSize: '15px' }}>求测事项：</Text>
               <Input
-                className="number-input"
+                className="question-input"
                 value={question}
-                placeholder="请输入求测事项"
-                style={{ fontSize: '20px', padding: '8px 10px', lineHeight: '2em' }}
+                placeholder="请输入占卜内容..."
+                style={{ height: '52px', lineHeight: '26px' }}
                 onInput={(e) => setQuestion(e.detail.value)}
               />
             </View>
+            {/* 时间输入区 - 卡片形式 - 仅手动模式 */}
+            {!result && mode === 'manual' && (
+              <View className="glass-card datetime-card">
+                <View className="card-header">
+                  <Text className="card-section-title">求测时间</Text>
+                  <Text className="card-section-guide">点击时间和日期选择</Text>
+                </View>
+                <View className="datetime-inputs">
+                  <View className="input-group">
+                    <Text className="input-label-elegant">日期</Text>
+                    <Picker mode="date" value={dateValue} end={todayStr} onChange={(e) => setDateValue(e.detail.value)}>
+                      <View className="value-with-underline">
+                        <Text className="value-text">{dateValue.replace(/-/g, '年').replace(/年(\d+)$/, '年$1月').replace(/月(\d+)$/, '月$1日')}</Text>
+                        
+                      </View>
+                    </Picker>
+                  </View>
+
+                  <View className="input-group">
+                    <Text className="input-label-elegant">时间</Text>
+                    <Picker mode="time" value={timeValue} onChange={(e) => setTimeValue(e.detail.value)}>
+                      <View className="value-with-underline">
+                        <Text className="value-text">{timeValue}</Text>
+                        
+                      </View>
+                    </Picker>
+                  </View>
+                </View>
+              </View>
+            )}
 
             {mode === 'count' && (
-              <View className="count-input-section">
-                <Text className="input-label" style={{ fontSize: '15px' }}>请输入数字（梅花易数起卦）：</Text>
+              <View className="glass-card count-input-card">
+                <View className="card-header">
+                  <Text className="card-section-title">报数起卦</Text>
+                  <Text className="card-section-guide">根据数字起卦</Text>
+                </View>
                 <Input
-                  className="number-input"
+                  className="number-input-elegant"
                   type="number"
                   value={countNumbers}
-                  placeholder="输入任意长度数字"
-                  style={{ fontSize: '15px' }}
+                  placeholder="输入任意长度数字（梅花易数）"
+                  style={{ height: '52px', lineHeight: '26px' }}
                   onInput={(e) => setCountNumbers(e.detail.value)}
                 />
               </View>
             )}
           </View>
-        </>
+
+        </View>
       )}
 
-      {/* 输入区：根据模式切换 */}
-      {!isLoadingHistory && (
-        <View className="input-section" style={{ marginTop: '16px' }}>
-          {mode === 'manual' && YAO_LABEL_ORDER.map((label, displayIndex) => {
+      {/* 中部：爻位排盘卡片 - 仅手动模式 */}
+      {!isLoadingHistory && !result && mode === 'manual' && (
+        <View className="glass-card yao-matrix-section">
+          <View className="card-header">
+            <Text className="card-section-title">爻位排盘</Text>
+            <Text className="card-section-guide">点击爻位切换阴阳动静</Text>
+          </View>
+          {YAO_LABEL_ORDER.map((label, displayIndex) => {
             const realIndex = lines.length - 1 - displayIndex
             const l = lines[realIndex] || {}
+            const isMoving = l.isMoving
+            
+            // 计算爻的状态文字
+            const getYaoState = () => {
+              if (l.isYang && !l.isMoving) return '少阳'
+              if (l.isYang && l.isMoving) return '太阳'
+              if (!l.isYang && !l.isMoving) return '少阴'
+              if (!l.isYang && l.isMoving) return '太阴'
+              return ''
+            }
+
             return (
-              <View key={label} className="line-item">
-                <Text className="line-label">{label}</Text>
-                <View className="yao-button-row">
-                  <Button size="mini" className={`yao-btn ${l.isYang && l.isMoving ? 'yao-btn-active' : ''}`} onClick={() => setLineState(realIndex, 'taiyang')}>太阳</Button>
-                  <Button size="mini" className={`yao-btn ${l.isYang && !l.isMoving ? 'yao-btn-active' : ''}`} onClick={() => setLineState(realIndex, 'shaoyang')}>少阳</Button>
-                  <Button size="mini" className={`yao-btn ${!l.isYang && !l.isMoving ? 'yao-btn-active' : ''}`} onClick={() => setLineState(realIndex, 'shaoyin')}>少阴</Button>
-                  <Button size="mini" className={`yao-btn ${!l.isYang && l.isMoving ? 'yao-btn-active' : ''}`} onClick={() => setLineState(realIndex, 'taiyin')}>太阴</Button>
+              <View key={label} className="yao-row">
+                <Text className="yao-label-elegant">{label}（{getYaoState()}）</Text>
+
+                <View
+                  className={`yao-symbol ${l.isYang ? 'yang' : 'yin'} ${isMoving ? 'moving' : ''}`}
+                  onClick={() => {
+                    // 循环切换：少阳 → 太阳 → 少阴 → 太阴 → 少阳
+                    if (l.isYang && !l.isMoving) setLineState(realIndex, 'taiyang')
+                    else if (l.isYang && l.isMoving) setLineState(realIndex, 'shaoyin')
+                    else if (!l.isYang && !l.isMoving) setLineState(realIndex, 'taiyin')
+                    else setLineState(realIndex, 'shaoyang')
+                  }}
+                >
+                  {l.isYang ? (
+                    <View className="yang-line">
+                      <View className="line-segment full" />
+                      {isMoving && <View className="moving-indicator" />}
+                    </View>
+                  ) : (
+                    <View className="yin-line">
+                      <View className="line-segment left" />
+                      <View className="line-segment right" />
+                      {isMoving && <View className="moving-indicator" />}
+                    </View>
+                  )}
                 </View>
               </View>
             )
           })}
-
-          {mode === 'shake' && (
-            <ShakeCoins step={shakeStep} disabled={shakeStep >= 6} onDone={handleShakeDone} />
-          )}
-
-          {(mode === 'manual' || mode === 'count' || mode === 'auto') && (
-            <View className="action-buttons">
-              <Button onClick={handlePaipan} className="btn-compute">排盘</Button>
-            </View>
-          )}
         </View>
       )}
 
-      {/* 结果区 */}
-      {result && (
-        <View style={{ marginTop: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          {question ? (
-            <View style={{ padding: '10px', border: '1px solid #333', borderRadius: '8px', backgroundColor: '#0f0f0f' }}>
-              <Text style={{ color: THEME.Gold, fontWeight: 'bold', marginBottom: '4px' }}>求测事项</Text>
-              <Text style={{ color: '#ddd', fontSize: '14px' }}>{question}</Text>
-            </View>
-          ) : null}
+      {/* 摇卦区域 - 仅摇卦模式 */}
+      {!isLoadingHistory && !result && mode === 'shake' && (
+        <View className="glass-card shake-section">
+          <View className="card-header">
+            <Text className="card-section-title">摇卦起卦</Text>
+            <Text className="card-section-guide">点击铜钱进行摇卦</Text>
+          </View>
+          <ShakeCoins step={shakeStep} disabled={shakeStep >= 6} onDone={handleShakeDone} />
+        </View>
+      )}
 
-          <View style={{ padding: '10px', border: '1px solid #333', borderRadius: '8px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            <View style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      {/* 排盘按钮 */}
+      {!isLoadingHistory && !result && (mode === 'manual' || mode === 'count' || mode === 'auto') && (
+        <View className="divinate-button-container">
+          <View
+            className="divinate-button"
+            onClick={handlePaipan}
+          >
+            <Text className="divinate-text">排盘</Text>
+            <View className="energy-flow" />
+          </View>
+        </View>
+      )}
+
+      {/* 底部：结果展示（毛玻璃卡片） */}
+      {result && (
+        <View className="result-section">
+
+
+          {/* 干支信息卡片 */}
+          <View className="glass-card info-grid-card">
+            <View className="card-header">
+              <Text className="card-section-title">占象信息</Text>
+              <Text className="card-section-guide">时间和神煞信息</Text>
+            </View>
+            <View className="info-row">
               <Text>{dateValue} {timeValue}</Text>
-              <Text>{result.lunar.month}月{result.lunar.day}日{result.lunar.jieQi ? `（${result.lunar.jieQi}）` : ''}</Text>
+              <Text>农历 {result.lunar.month}月{result.lunar.day}日{result.lunar.jieQi ? `（${result.lunar.jieQi}）` : ''}</Text>
             </View>
-            <View style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-              <Text>{result.timeGanZhi.year.stem}{result.timeGanZhi.year.branch}</Text>
-              <Text>{result.timeGanZhi.month.stem}{result.timeGanZhi.month.branch}</Text>
-              <Text>{result.timeGanZhi.day.stem}{result.timeGanZhi.day.branch}</Text>
-              <Text>{result.timeGanZhi.hour.stem}{result.timeGanZhi.hour.branch}</Text>
-              <Text style={{ color: '#ff6b6b' }}>旬空：{result.xunKong[0]} {result.xunKong[1]}</Text>
+
+            <View className="ganzhi-row">
+              <View className="ganzhi-item">
+                <Text className="ganzhi-label">年</Text>
+                <Text className="ganzhi-value">{result.timeGanZhi.year.stem}{result.timeGanZhi.year.branch}</Text>
+              </View>
+              <View className="ganzhi-item">
+                <Text className="ganzhi-label">月</Text>
+                <Text className="ganzhi-value">{result.timeGanZhi.month.stem}{result.timeGanZhi.month.branch}</Text>
+              </View>
+              <View className="ganzhi-item">
+                <Text className="ganzhi-label">日</Text>
+                <Text className="ganzhi-value">{result.timeGanZhi.day.stem}{result.timeGanZhi.day.branch}</Text>
+              </View>
+              <View className="ganzhi-item">
+                <Text className="ganzhi-label">时</Text>
+                <Text className="ganzhi-value">{result.timeGanZhi.hour.stem}{result.timeGanZhi.hour.branch}</Text>
+              </View>
             </View>
-            <View style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
-              <Text>天乙贵人：{Array.isArray(result.shenSha.天乙贵人) ? result.shenSha.天乙贵人.join('、') : result.shenSha.天乙贵人}</Text>
-              <Text>桃花：{result.shenSha.桃花}</Text>
-              <Text>驿马：{result.shenSha.驿马}</Text>
-              <Text>禄神：{result.shenSha.禄神}</Text>
-              <Text>文昌贵人：{result.shenSha.文昌贵人}</Text>
-              <Text>将星：{result.shenSha.将星}</Text>
-              <Text>华盖：{result.shenSha.华盖}</Text>
-              <Text>天医：{result.shenSha.天医}</Text>
-              <Text>咸池：{result.shenSha.咸池}</Text>
-              <Text>孤辰：{result.shenSha.孤辰}</Text>
-              <Text>寡宿：{result.shenSha.寡宿}</Text>
+
+            <View className="xunkong-row">
+              <Text className="xunkong-label">旬空</Text>
+              <Text className="xunkong-value">{result.xunKong[0]}{result.xunKong[1]}</Text>
+            </View>
+
+            <View className="shensha-grid">
+              <View className="shensha-item"><Text className="shensha-key">天乙贵人</Text><Text className="shensha-val">{Array.isArray(result.shenSha.天乙贵人) ? result.shenSha.天乙贵人.join('、') : result.shenSha.天乙贵人}</Text></View>
+              <View className="shensha-item"><Text className="shensha-key">驿马</Text><Text className="shensha-val">{result.shenSha.驿马}</Text></View>
+              <View className="shensha-item highlight-jade"><Text className="shensha-key">禄神</Text><Text className="shensha-val">{result.shenSha.禄神}</Text></View>
+              <View className="shensha-item"><Text className="shensha-key">文昌</Text><Text className="shensha-val">{result.shenSha.文昌贵人}</Text></View>
+              <View className="shensha-item"><Text className="shensha-key">将星</Text><Text className="shensha-val">{result.shenSha.将星}</Text></View>
+              <View className="shensha-item"><Text className="shensha-key">华盖</Text><Text className="shensha-val">{result.shenSha.华盖}</Text></View>
+              <View className="shensha-item highlight-jade"><Text className="shensha-key">天医</Text><Text className="shensha-val">{result.shenSha.天医}</Text></View>
+              <View className="shensha-item"><Text className="shensha-key">孤辰</Text><Text className="shensha-val">{result.shenSha.孤辰}</Text></View>
+              <View className="shensha-item"><Text className="shensha-key">寡宿</Text><Text className="shensha-val">{result.shenSha.寡宿}</Text></View>
+              <View className="shensha-item highlight-red"><Text className="shensha-key">桃花</Text><Text className="shensha-val">{result.shenSha.桃花}</Text></View>
+              <View className="shensha-item highlight-red"><Text className="shensha-key">咸池</Text><Text className="shensha-val">{result.shenSha.咸池}</Text></View>
             </View>
           </View>
 
-          <View className="result-card">
-            <Text className="card-title">本卦/变卦对照（变卦无六神）</Text>
-            <Text className="hex-info">{result.hex.name} · 卦宫：{result.hex.palace} · {result.hex.palaceCategory || ''} {result.youHun ? '· 游魂' : ''}{result.guiHun ? '· 归魂' : ''}</Text>
-            <Text className="hex-info">{result.variant.name} · 卦宫：{result.variant.palace} · {result.variant.palaceCategory || ''}</Text>
-            <Text className="description-text">说明：六亲以卦宫五行为"我"，按每爻地支五行生克判定（无支则回退天干）。</Text>            {(() => {
+          {/* 卦象详细分析卡片 */}
+          <View className="glass-card analysis-card">
+            <View className="card-header">
+              <Text className="card-section-title">六爻详细分析</Text>
+              <Text className="card-section-guide">本卦、变卦及爻位的详细信息</Text>
+            </View>
+            {(() => {
               const allRelations = new Set(['父母', '官鬼', '子孙', '妻财', '兄弟'])
               const existingRelations = new Set(result.yaos.map((y: any) => y.relation).filter(Boolean))
               const missingRelations = Array.from(allRelations).filter(r => !existingRelations.has(r))
@@ -275,21 +387,6 @@ const LiuyaoPage: React.FC = () => {
                 const fushenLines = result.yaos
                   .map((y: any, i: number) => ({ y, i }))
                   .filter(({ y }: any) => y.fuShen && missingRelations.includes(y.fuShen.relation || ''))
-
-                if (fushenLines.length > 0) {
-                  return (
-                    <View className="fushen-notice">
-                      <Text className="fushen-title">缺失六亲及伏神：</Text>
-                      <View className="fushen-list">
-                        {fushenLines.map(({ y, i }: any) => (
-                          <Text key={i} className="fushen-text">
-                            {['初爻', '二爻', '三爻', '四爻', '五爻', '上爻'][i]}：{y.fuShen?.relation || ''}{y.fuShen?.stem || ''}{y.fuShen?.branch || ''}
-                          </Text>
-                        ))}
-                      </View>
-                    </View>
-                  )
-                }
               }
               return null
             })()}            <HexagramTable base={result.yaos} variant={result.variantYaos || result.variant.yaos} baseHex={result.hex} variantHex={result.variant} />
@@ -316,17 +413,19 @@ const LiuyaoPage: React.FC = () => {
               }
 
               return (
-                <View style={{ marginTop: '12px', padding: '10px', border: '1px solid #555', borderRadius: '8px', backgroundColor: '#1a1a1a' }}>
-                  <Text style={{ color: THEME.Gold, fontWeight: 'bold', marginBottom: '10px' }}>日支/时支与本卦地支关系</Text>
+                <View className="branch-relation-section">
+                  <View className="branch-relation-header">
+                    <Text className="branch-relation-title">日支/时支关系</Text>
+                  </View>
 
                   {/* 日支关系 */}
-                  <View style={{ marginBottom: '12px' }}>
-                    <Text style={{ color: '#bbb', fontSize: '13px', marginBottom: '8px', fontWeight: 'bold' }}>日支分析：</Text>
+                  <View className="relation-group">
+                    <Text className="relation-group-title">日支分析：</Text>
                     {dayRelations.map((rel, idx) => {
                       if (!rel.isHarmony && !rel.isClash && !rel.isTriple && !rel.isPunish) return null
                       const relationStr = formatRelation(rel)
                       return (
-                        <Text key={idx} style={{ fontSize: '12px', color: '#ddd', marginBottom: '4px', lineHeight: 1.6 }}>
+                        <Text key={idx} className="relation-item">
                           ({dayBranch})({rel.branch}) {relationStr} · {labelMap[idx]}
                         </Text>
                       )
@@ -334,13 +433,13 @@ const LiuyaoPage: React.FC = () => {
                   </View>
 
                   {/* 时支关系 */}
-                  <View>
-                    <Text style={{ color: '#bbb', fontSize: '13px', marginBottom: '8px', fontWeight: 'bold' }}>时支分析：</Text>
+                  <View className="relation-group">
+                    <Text className="relation-group-title">时支分析：</Text>
                     {hourRelations.map((rel, idx) => {
                       if (!rel.isHarmony && !rel.isClash && !rel.isTriple && !rel.isPunish) return null
                       const relationStr = formatRelation(rel)
                       return (
-                        <Text key={idx} style={{ fontSize: '12px', color: '#ddd', marginBottom: '4px', lineHeight: 1.6 }}>
+                        <Text key={idx} className="relation-item">
                           ({hourBranch})({rel.branch}) {relationStr} · {labelMap[idx]}
                         </Text>
                       )
@@ -368,8 +467,10 @@ const LiuyaoPage: React.FC = () => {
               )
 
               return (
-                <View style={{ marginTop: '12px', padding: '10px', border: '1px solid #555', borderRadius: '8px', backgroundColor: '#1a1a1a' }}>
-                  <Text style={{ color: THEME.Gold, fontWeight: 'bold', marginBottom: '10px' }}>六爻详细分析</Text>
+                <View className="yao-analysis-section">
+                  <View className="yao-analysis-header">
+                    <Text className="yao-analysis-title">爻位动态</Text>
+                  </View>
 
                   {interactions.map((interaction) => {
                     const yao = result.yaos[interaction.yaoIndex] as YaoData
@@ -379,27 +480,27 @@ const LiuyaoPage: React.FC = () => {
                     const analysis = yaoAnalyses[interaction.yaoIndex]
 
                     return (
-                      <View key={interaction.yaoIndex} style={{ marginBottom: '10px', paddingBottom: '10px', borderBottom: '1px solid #444' }}>
-                        <View style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                          <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: '13px' }}>
+                      <View key={interaction.yaoIndex} className="yao-analysis-item">
+                        <View className="yao-analysis-item-header">
+                          <Text className="yao-analysis-label">
                             {interaction.yaoLabel} {interaction.yaoInfo}
-                            {isMoving ? <Text style={{ color: '#ff9800' }}>（动爻）</Text> : null}
+                            {isMoving ? <Text className="moving-tag">（动爻）</Text> : null}
                           </Text>
-                          <Text style={{ fontSize: '12px', color: '#aaa' }}>
+                          <Text className="yao-analysis-strength">
                             {seasonStrength ? `${seasonStrength}` : ''}{seasonStrength && changsheng ? ' · ' : ''}{changsheng}
                           </Text>
                         </View>
 
                         {/* 动爻分析：以当前动爻为主语 */}
                         {isMoving && analysis && analysis.relations.length > 0 && (
-                          <Text style={{ fontSize: '11px', color: '#bbb', marginBottom: '6px', lineHeight: 1.8 }}>
+                          <Text className="yao-analysis-relations">
                             {analysis.yaoBranch}{analysis.yaoWuxing}：{analysis.relations.join('，')}
                           </Text>
                         )}
 
                         {/* 与变卦同位爻的关系（仅动爻显示） */}
                         {isMoving && interaction.variantRelation && (
-                          <Text style={{ fontSize: '11px', color: '#bbb' }}>
+                          <Text className="yao-analysis-variant">
                             与变卦：{interaction.variantRelation}
                           </Text>
                         )}
@@ -415,7 +516,7 @@ const LiuyaoPage: React.FC = () => {
 
       {/* 保存和列表按钮：仅在非历史模式显示 */}
       {!isLoadingHistory && (
-        <View style={{ marginTop: '20px', display: 'flex', gap: '10px', justifyContent: 'center', paddingBottom: '20px' }}>
+        <View style={{ margin: '20px 16px', display: 'flex', gap: '12px', justifyContent: 'center', paddingBottom: '20px' }}>
           <Button
             onClick={() => {
               const { saveCurrentCase } = useLiuyaoStore.getState()
@@ -440,7 +541,7 @@ const LiuyaoPage: React.FC = () => {
               }
             }}
             disabled={!result}
-            style={{ backgroundColor: THEME.Gold, color: '#000', padding: '10px 20px', opacity: result ? 1 : 0.4 }}
+            className="btn-save-case"
           >
             保存卦例
           </Button>
@@ -448,7 +549,7 @@ const LiuyaoPage: React.FC = () => {
             onClick={() => {
               Taro.navigateTo({ url: '/pages/LiuyaoHistory/index' })
             }}
-            style={{ backgroundColor: '#666', color: '#fff', padding: '10px 20px' }}
+            className="btn-view-history"
           >
             查看历史
           </Button>
@@ -456,12 +557,12 @@ const LiuyaoPage: React.FC = () => {
       )}
 
       {isLoadingHistory && (
-        <View style={{ marginTop: '20px', display: 'flex', gap: '10px', justifyContent: 'center', paddingBottom: '20px' }}>
+        <View style={{ margin: '20px 16px', display: 'flex', gap: '12px', justifyContent: 'center', paddingBottom: '20px' }}>
           <Button
             onClick={() => {
               Taro.navigateTo({ url: '/pages/LiuyaoHistory/index' })
             }}
-            style={{ backgroundColor: '#666', color: '#fff', padding: '10px 20px' }}
+            className="btn-view-history"
           >
             查看历史
           </Button>

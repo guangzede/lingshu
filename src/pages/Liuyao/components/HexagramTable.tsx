@@ -24,11 +24,11 @@ export const HexagramTable: React.FC<HexagramTableProps> = ({ base, variant, bas
       <View className="table-header">
         <View className="header-left">
           <Text className="hex-name">{baseHex?.name || '本卦'}</Text>
-          <Text className="section-title">本卦 · {baseHex?.palace || ''} · {baseHex?.palaceCategory || ''}</Text>
+          <Text className="section-title">本卦·{baseHex?.palace || ''}·{baseHex?.palaceCategory || ''}</Text>
         </View>
         <View className="header-right">
           <Text className="hex-name">{variantHex?.name || '变卦'}</Text>
-          <Text className="section-title">变卦 · {variantHex?.palace || ''} · {variantHex?.palaceCategory || ''}</Text>
+          <Text className="section-title">变卦·{variantHex?.palace || ''}·{variantHex?.palaceCategory || ''}</Text>
         </View>
       </View>
       <View className="table-subheader">

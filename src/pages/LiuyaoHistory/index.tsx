@@ -72,79 +72,56 @@ const LiuyaoHistoryPage: React.FC = () => {
 
   return (
     <View className="liuyao-history-page">
-      <View style={{ padding: '15px', borderBottom: `1px solid #555` }}>
-        <Text style={{ fontSize: '18px', fontWeight: 'bold', color: THEME.Gold }}>保存的卦例</Text>
-        <Text style={{ fontSize: '12px', color: '#999', marginTop: '5px' }}>共 {cases.length} 个卦例</Text>
+      <View className="history-header">
+        <Text className="history-title">卜卦记录</Text>
+        <Text className="history-count">共 {cases.length} 条记录</Text>
       </View>
 
       {cases.length === 0 ? (
-        <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '300px' }}>
-          <Text style={{ color: '#999', fontSize: '14px' }}>暂无保存的卦例</Text>
+        <View className="history-empty">
+          <Text className="empty-text">暂无保存的卦例</Text>
         </View>
       ) : (
-        <ScrollView scrollY style={{ height: 'calc(100vh - 120px)' }}>
-          <View style={{ padding: '10px' }}>
+        <ScrollView scrollY className="history-content">
+          <View className="history-list">
             {cases.map((item, idx) => (
-              <View
-                key={item.id}
-                style={{
-                  padding: '15px',
-                  marginBottom: '10px',
-                  border: '1px solid #555',
-                  borderRadius: '8px',
-                  backgroundColor: '#1a1a1a'
-                }}
-              >
-                {/* 基本信息 */}
-                <View style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                  <Text style={{ fontSize: '14px', fontWeight: 'bold', color: '#fff' }}>
+              <View key={item.id} className="case-card">
+                {/* 卦例标题和时间 */}
+                <View className="case-header">
+                  <Text className="case-number-title">
                     {idx + 1}. {item.question || '未填写求测事项'}
                   </Text>
-                  <Text style={{ fontSize: '11px', color: '#999' }}>
+                  <Text className="case-time">
                     {formatDate(item.dateValue, item.timeValue)}
                   </Text>
                 </View>
 
-                <View style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                  <Text style={{ fontSize: '12px', color: '#bbb' }}>
-                    本卦：{item.baseHexName || '—'}
-                  </Text>
-                  <Text style={{ fontSize: '12px', color: '#bbb' }}>
-                    变卦：{item.variantHexName || '—'}
-                  </Text>
+                {/* 卦象信息 */}
+                <View className="hexagram-info">
+                  <View className="hexagram-item">
+                    <Text className="hexagram-label">本卦</Text>
+                    <Text className="hexagram-name">{item.baseHexName || '—'}</Text>
+                  </View>
+                  <View className="hexagram-item">
+                    <Text className="hexagram-label">变卦</Text>
+                    <Text className="hexagram-name">{item.variantHexName || '—'}</Text>
+                  </View>
                 </View>
 
-                {/* 备注（如果有） */}
+                {/* 备注 */}
                 {item.remark && (
-                  <Text style={{ fontSize: '12px', color: '#bbb', marginBottom: '10px' }}>
-                    备注：{item.remark}
-                  </Text>
+                  <View className="remark-section">
+                    <Text className="remark-label">备注</Text>
+                    <Text className="remark-text">{item.remark}</Text>
+                  </View>
                 )}
 
-                {/* 按钮组 */}
-                <View style={{ display: 'flex', gap: '10px' }}>
-                  <Button
-                    size="mini"
-                    onClick={() => handleLoadCase(item.id)}
-                    style={{
-                      flex: 1,
-                      backgroundColor: THEME.Gold,
-                      color: '#000',
-                      fontSize: '12px'
-                    }}
-                  >
+                {/* 操作按钮 */}
+                <View className="case-actions">
+                  <Button className="btn-load" onClick={() => handleLoadCase(item.id)}>
                     加载
                   </Button>
-                  <Button
-                    size="mini"
-                    onClick={() => handleDeleteCase(item.id)}
-                    style={{
-                      flex: 1,
-                      backgroundColor: '#ff6b6b',
-                      color: '#fff',
-                      fontSize: '12px'
-                    }}
-                  >
+                  <Button className="btn-delete" onClick={() => handleDeleteCase(item.id)}>
                     删除
                   </Button>
                 </View>
@@ -155,11 +132,8 @@ const LiuyaoHistoryPage: React.FC = () => {
       )}
 
       {/* 底部返回按钮 */}
-      <View style={{ padding: '15px', borderTop: '1px solid #555', backgroundColor: '#1a1a1a' }}>
-        <Button
-          onClick={() => Taro.redirectTo({ url: '/pages/index/index' })}
-          style={{ width: '100%', backgroundColor: '#666', color: '#fff' }}
-        >
+      <View className="history-footer">
+        <Button className="btn-back" onClick={() => Taro.redirectTo({ url: '/pages/index/index' })}>
           返回
         </Button>
       </View>

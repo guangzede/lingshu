@@ -1,9 +1,730 @@
+/* ========== 六爻排盘页面 - 新中式赛博禅意风格 ========== */
+
 .liuyao-page {
-  padding: 16px;
+  padding: 0;
   color: #fff;
-  background: radial-gradient(ellipse 200% 110% at 50% 0%, #0b1020 0%, #0a0d12 45%, #040609 100%);
+  /* 深邃午夜蓝宇宙背景 + 星尘纹理 */
+  background: 
+    radial-gradient(ellipse 180% 100% at 50% 0%, #0d1428 0%, #070912 55%, #010204 100%);
   min-height: 100vh;
-  font-family: 'Noto Serif SC', serif, 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', serif;
+  position: relative;
+  overflow-x: hidden;
+  
+  /* 添加细微噪点纹理 */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="4.2" numOctaves="4" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+    opacity: 0.08;
+    pointer-events: none;
+    z-index: 1;
+    mix-blend-mode: soft-light;
+  }
+}
+
+/* ========== 顶部区域：极简导航 + 优雅输入 ========== */
+
+.top-section {
+  position: relative;
+  z-index: 10;
+  padding: 20px 16px 24px;
+  background: linear-gradient(180deg, rgba(100, 150, 200, 0.08) 0%, transparent 100%);
+}
+
+/* 模式选择器 - 极简文本标签 */
+.mode-selector {
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+  margin-bottom: 32px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(201, 173, 111, 0.1);
+}
+
+.mode-tab {
+  flex: 1;
+  text-align: center;
+  font-size: 25px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  color: rgba(201, 173, 111, 0.4);
+  padding: 8px 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.mode-tab-active {
+  color: #c9ad6f;
+  font-weight: 500;
+  text-shadow: 0 0 12px rgba(201, 173, 111, 0.4);
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #c9ad6f, transparent);
+    box-shadow: 0 0 8px rgba(201, 173, 111, 0.6);
+  }
+}
+
+/* 输入区域 - 无厚重边框 */
+.input-area {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.datetime-inputs {
+  display: flex;
+  gap: 24px;
+  justify-content: space-between;
+}
+
+.input-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.input-label-elegant {
+  font-size: 25px;
+  color: rgba(201, 173, 111, 0.7);
+  letter-spacing: 1px;
+}
+
+.value-with-underline {
+  position: relative;
+  padding-bottom: 8px;
+}
+
+.value-text {
+  font-size: 24px;
+  color: #f0ede5;
+  letter-spacing: 1px;
+}
+
+
+
+.golden-underline-thick {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(201, 173, 111, 0.6), transparent);
+  box-shadow: 0 0 6px rgba(201, 173, 111, 0.4);
+  margin-top: 8px;
+}
+
+/* 求测事项输入 */
+.question-input-group {
+  position: relative;
+}
+
+.question-input {
+  width: 100% ;
+  font-size: 26px ;
+  color: #f0ede5 ;
+  background: transparent ;
+  border: none ;
+  padding: 12px 0 ;
+  font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', serif ;
+  letter-spacing: 2px ;
+  line-height: 2em ;
+  min-height: 2em ;
+  height: auto ;
+  display: block ;
+  
+  &::placeholder {
+    color: rgba(201, 173, 111, 0.3) ;
+    font-style: italic ;
+  }
+}
+
+/* 报数输入 */
+/* 报数起卦卡片 */
+.count-input-card {
+  margin: 24px 16px;
+}
+
+.number-input-elegant {
+  width: 100% ;
+  font-size: 26px ;
+  color: #f0ede5 ;
+  background: rgba(201, 173, 111, 0.05) ;
+  border: 1px solid rgba(201, 173, 111, 0.2) ;
+  border-radius: 8px ;
+  padding: 12px 16px ;
+  line-height: 2em ;
+  min-height: 2em ;
+  height: auto ;
+  display: block ;
+  
+  &::placeholder {
+    color: rgba(201, 173, 111, 0.4) ;
+  }
+}
+
+/* ========== 中部区域：爻位排盘卡片 ========== */
+
+.yao-matrix-section {
+  position: relative;
+  z-index: 10;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  margin: 24px 16px;
+  
+  .card-section-title {
+    margin-bottom: 8px;
+  }
+}
+
+/* 摇卦区域卡片 */
+.shake-section {
+  position: relative;
+  z-index: 10;
+  padding: 24px;
+  margin: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.yao-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.yao-label-elegant {
+  font-size: 25px;
+  color: #c9ad6f;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* 爻位符号 - 发光玉质效果 */
+.yao-symbol {
+  flex: 1;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.yang-line,
+.yin-line {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+.line-segment {
+  height: 20px;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #f0ede5 0%, #c9ad6f 50%, #8a7545 100%);
+  box-shadow: 
+    0 2px 8px rgba(201, 173, 111, 0.4),
+    0 0 16px rgba(201, 173, 111, 0.2),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 4px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, transparent 50%);
+  }
+  
+  &.full {
+    flex: 1;
+  }
+  
+  &.left,
+  &.right {
+    flex: 1;
+  }
+}
+
+/* 动爻标记 - 朱砂红脉动光晕 */
+.yao-symbol.moving {
+  .line-segment {
+    background: linear-gradient(180deg, #ff6b6b 0%, #d63447 50%, #8b2635 100%);
+    animation: moving-pulse 2s ease-in-out infinite;
+  }
+  
+  .moving-indicator {
+    position: absolute;
+    right: -16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ff6b6b;
+    box-shadow: 
+      0 0 12px rgba(255, 107, 107, 0.8),
+      0 0 24px rgba(255, 107, 107, 0.4);
+    animation: indicator-pulse 2s ease-in-out infinite;
+  }
+}
+
+@keyframes moving-pulse {
+  0%, 100% {
+    box-shadow: 
+      0 2px 8px rgba(255, 107, 107, 0.4),
+      0 0 16px rgba(255, 107, 107, 0.3),
+      inset 0 1px 2px rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    box-shadow: 
+      0 2px 12px rgba(255, 107, 107, 0.6),
+      0 0 24px rgba(255, 107, 107, 0.5),
+      inset 0 1px 2px rgba(255, 255, 255, 0.2);
+  }
+}
+
+@keyframes indicator-pulse {
+  0%, 100% {
+    box-shadow: 
+      0 0 12px rgba(255, 107, 107, 0.8),
+      0 0 24px rgba(255, 107, 107, 0.4);
+    transform: translateY(-50%) scale(1);
+  }
+  50% {
+    box-shadow: 
+      0 0 16px rgba(255, 107, 107, 1),
+      0 0 32px rgba(255, 107, 107, 0.6);
+    transform: translateY(-50%) scale(1.1);
+  }
+}
+
+/* 排盘按钮 - 细长发光能量流 */
+.divinate-button-container {
+  margin-top: 32px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.divinate-button {
+  position: relative;
+  padding: 16px 64px;
+  background: transparent;
+  border: 2px solid rgba(201, 173, 111, 0.5);
+  border-radius: 40px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  font-weight: 600;
+  font-size: 30px;
+  
+  &:active {
+    transform: scale(0.96);
+    border-color: rgba(201, 173, 111, 0.8);
+  }
+}
+
+.divinate-text {
+  font-size: 26px;
+  color: #c9ad6f;
+  font-weight: 500;
+  letter-spacing: 8px;
+  position: relative;
+  z-index: 2;
+  text-shadow: 0 0 12px rgba(201, 173, 111, 0.4);
+}
+
+.energy-flow {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(201, 173, 111, 0.2), 
+    transparent
+  );
+  animation: energy-flow 3s linear infinite;
+}
+
+@keyframes energy-flow {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+
+/* ========== 底部区域：毛玻璃结果卡片 ========== */
+
+.result-section {
+  position: relative;
+  z-index: 10;
+  padding: 24px 16px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* 毛玻璃卡片基础样式 */
+.glass-card {
+  background: rgba(15, 20, 30, 0.4);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(201, 173, 111, 0.2);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    margin-top: 0;
+}
+
+/* 主卦结果卡片 */
+.key-result-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: 1px solid rgba(201, 173, 111, 0.4);
+}
+
+.hex-main {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.hex-name-primary {
+  font-size: 24px;
+  color: #c9ad6f;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-shadow: 0 0 16px rgba(201, 173, 111, 0.4);
+}
+
+.hex-name-secondary {
+  font-size: 22px;
+  color: rgba(201, 173, 111, 0.85);
+  font-weight: 500;
+  letter-spacing: 3px;
+}
+
+.hex-palace-tag {
+  font-size: 22px;
+  color: rgba(201, 173, 111, 0.6);
+  letter-spacing: 1px;
+}
+
+.hex-connection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 8px 0;
+}
+
+.energy-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 173, 111, 0.4), transparent);
+}
+
+.connection-arrow {
+  font-size: 22px;
+  color: rgba(201, 173, 111, 0.6);
+}
+
+
+
+/* 信息网格卡片 */
+.info-grid-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  gap: 16px;
+  width: 100%;
+}
+
+.card-section-title {
+  font-size: 40px;
+  color: #c9ad6f;
+  letter-spacing: 2px;
+  font-weight: 600;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.card-section-guide {
+  font-size: 30px;
+  color: rgba(201, 173, 111, 0.6);
+  letter-spacing: 1px;
+  margin: 0;
+  font-weight: 400;
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.info-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  color: rgba(201, 173, 111, 0.6);
+  gap: 6px;
+}
+
+
+.ganzhi-row {
+  display: flex;
+  gap: 16px;
+  justify-content: space-around;
+}
+
+.ganzhi-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.ganzhi-label {
+  font-size: 22px;
+  color: rgba(201, 173, 111, 0.6);
+}
+
+.ganzhi-value {
+  font-size: 28px;
+  color: #c9ad6f;
+  font-weight: 500;
+  letter-spacing: 2px;
+}
+
+.xunkong-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: rgba(255, 107, 107, 0.08);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 107, 107, 0.2);
+}
+
+.xunkong-label {
+  font-size: 22px;
+  color: rgba(255, 107, 107, 0.8);
+  letter-spacing: 2px;
+}
+
+.xunkong-value {
+  font-size: 24px;
+  color: #ff6b6b;
+  font-weight: 500;
+}
+
+/* 神煞网格 */
+.shensha-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.shensha-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: rgba(201, 173, 111, 0.05);
+  border-radius: 6px;
+  border: 1px solid rgba(201, 173, 111, 0.1);
+  &.highlight-red {
+    background: rgba(255, 107, 107, 0.08);
+    border-color: rgba(255, 107, 107, 0.2);
+    
+    .shensha-key {
+      color: rgba(255, 107, 107, 0.9);
+    }
+    
+    .shensha-val {
+      color: #ff6b6b;
+    }
+  }
+  
+  &.highlight-jade {
+    background: rgba(122, 162, 140, 0.08);
+    border-color: rgba(122, 162, 140, 0.2);
+    
+    .shensha-key {
+      color: rgba(122, 162, 140, 0.9);
+    }
+    
+    .shensha-val {
+      color: #7aa28c;
+    }
+  }
+}
+
+.shensha-key {
+  font-size: 24px;
+  color: rgba(201, 173, 111);
+  letter-spacing: 1px;
+}
+
+.shensha-val {
+  font-size: 26px;
+  color: rgba(240, 237, 229, 0.9);
+  font-weight: 500;
+}
+
+/* 分析卡片 */
+.analysis-card {
+  min-height: 200px;
+}
+
+/* 日支时支关系区域 */
+.branch-relation-section {
+  margin-top: 16px;
+  padding: 16px;
+  background: rgba(201, 173, 111, 0.05);
+  border: 1px solid rgba(201, 173, 111, 0.15);
+  border-radius: 12px;
+}
+
+.branch-relation-header {
+  margin-bottom: 12px;
+}
+
+.branch-relation-title {
+  font-size: 28px;
+  color: #c9ad6f;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+.relation-group {
+  margin-bottom: 12px;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.relation-group-title {
+  color: rgba(201, 173, 111, 0.8);
+  font-weight: 500;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+
+.relation-item {
+  color: rgba(240, 237, 229, 0.9);
+  margin-bottom: 6px;
+  line-height: 1.6;
+  letter-spacing: 0.5px;
+}
+
+/* 爻位分析区域 */
+.yao-analysis-section {
+  margin-top: 16px;
+  padding: 16px;
+  background: rgba(201, 173, 111, 0.05);
+  border: 1px solid rgba(201, 173, 111, 0.15);
+  border-radius: 12px;
+}
+
+.yao-analysis-header {
+  margin-bottom: 12px;
+}
+
+.yao-analysis-title {
+  font-size: 28px;
+  color: #c9ad6f;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+.yao-analysis-item {
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(201, 173, 111, 0.1);
+  
+  &:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+}
+
+.yao-analysis-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.yao-analysis-label {
+  color: #f0ede5;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.moving-tag {
+  color: #ff9800;
+}
+
+.yao-analysis-strength {
+  font-size: 26px;
+  color: rgba(201, 173, 111, 0.7);
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.yao-analysis-relations {
+  color: rgba(240, 237, 229, 0.85);
+  margin-bottom: 6px;
+  line-height: 1.8;
+  letter-spacing: 0.5px;
+}
+
+.yao-analysis-variant {
+  font-size: 22px;
+  color: rgba(240, 237, 229, 0.85);
+  letter-spacing: 0.5px;
 }
 
 .yao-line {
@@ -63,7 +784,7 @@
 
 .input-label {
   color: #d8c37a;
-  font-size: 16px;
+  font-size: 22px;
   letter-spacing: 1px;
   text-shadow: 0 0 8px rgba(201, 178, 106, 0.12);
 }
@@ -139,15 +860,84 @@
   margin-top: 8px;
 }
 
+/* 保存卦例和查看历史按钮 */
+.btn-save-case {
+  flex: 1;
+  background: linear-gradient(135deg, rgba(201, 173, 111, 0.2), rgba(201, 173, 111, 0.1)) !important;
+  color: #c9ad6f !important;
+  border: 1.5px solid rgba(201, 173, 111, 0.4) !important;
+  border-radius: 12px !important;
+  font-size: 26px !important;
+  font-weight: 600 !important;
+  letter-spacing: 2px !important;
+  padding: 14px 20px !important;
+  box-shadow: 
+    0 0 20px rgba(201, 173, 111, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+
+  &::after {
+    border: none !important;
+  }
+
+  &:active {
+    transform: scale(0.97);
+    box-shadow: 
+      0 0 25px rgba(201, 173, 111, 0.25),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    color: rgba(201, 173, 111, 0.4) !important;
+    border-color: rgba(201, 173, 111, 0.15) !important;
+    box-shadow: 0 0 10px rgba(201, 173, 111, 0.05) !important;
+  }
+}
+
+.btn-view-history {
+  flex: 1;
+  background: linear-gradient(135deg, rgba(122, 162, 140, 0.15), rgba(122, 162, 140, 0.08)) !important;
+  color: #7aa28c !important;
+  border: 1.5px solid rgba(122, 162, 140, 0.3) !important;
+  border-radius: 12px !important;
+  font-size: 26px !important;
+  font-weight: 600 !important;
+  letter-spacing: 2px !important;
+  padding: 14px 20px !important;
+  box-shadow: 
+    0 0 20px rgba(122, 162, 140, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+
+  &::after {
+    border: none !important;
+  }
+
+  &:active {
+    transform: scale(0.97);
+    box-shadow: 
+      0 0 25px rgba(122, 162, 140, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+  }
+}
+
 .shake-section {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 16px;
-  border: 1.5px solid rgba(201, 178, 106, 0.2);
+  padding: 20px;
+  border: 1px solid rgba(201, 173, 111, 0.25);
   border-radius: 16px;
-  background: linear-gradient(180deg, rgba(15, 18, 24, 0.3), rgba(12, 15, 20, 0.25));
-  backdrop-filter: blur(6px);
+  background: linear-gradient(
+    135deg,
+    rgba(13, 15, 23, 0.8) 0%,
+    rgba(15, 18, 27, 0.75) 100%
+  );
+  backdrop-filter: blur(20px);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(201, 173, 111, 0.1);
 }
 
 .coins-row {
@@ -243,22 +1033,38 @@ $coin-back: url('https://upload.wikimedia.org/wikipedia/commons/7/78/Qianlong_To
 
 .btn-shake {
   width: 100%;
-  background: linear-gradient(135deg, rgba(0, 240, 255, 0.22), rgba(255, 107, 157, 0.18)) !important;
-  color: #000 !important;
-  font-weight: 800 !important;
-  border: 2px solid transparent !important;
-  border-image: linear-gradient(135deg, #00f0ff, #ff6b9d) 1 !important;
-  border-radius: 14px !important;
-  font-size: 18px !important;
-  padding: 14px !important;
-  box-shadow: 0 6px 16px rgba(0, 240, 255, 0.35) !important;
+  background: linear-gradient(
+    135deg,
+    rgba(201, 173, 111, 0.08) 0%,
+    rgba(201, 173, 111, 0.04) 100%
+  ) !important;
+  color: #c9ad6f !important;
+  font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', serif !important;
+  font-weight: 500 !important;
+  letter-spacing: 6px !important;
+  border: 1px solid rgba(201, 173, 111, 0.35) !important;
+  border-radius: 12px !important;
+  font-size: 24px !important;
+  padding: 16px !important;
+  box-shadow: 
+    0 0 20px rgba(201, 173, 111, 0.15),
+    inset 0 1px 0 rgba(201, 173, 111, 0.1) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 
   &::after { border: none !important; }
 }
 
+.btn-shake:active {
+  transform: scale(0.98);
+  box-shadow: 
+    0 0 15px rgba(201, 173, 111, 0.25),
+    inset 0 1px 0 rgba(201, 173, 111, 0.15) !important;
+}
+
 .btn-shake.disabled {
-  opacity: 0.45;
-  filter: grayscale(0.5);
+  opacity: 0.35;
+  filter: grayscale(0.6);
+  cursor: not-allowed;
 }
 
 .btn-compute {
@@ -326,7 +1132,7 @@ $coin-back: url('https://upload.wikimedia.org/wikipedia/commons/7/78/Qianlong_To
   font-weight: bold !important;
   border: 1.5px solid rgba(201, 178, 106, 0.25) !important;
   border-radius: 6px !important;
-  font-size: 15px !important;
+  font-size: 22px !important;
   padding: 10px !important;
   box-shadow: 0 0 10px rgba(201, 178, 106, 0.12) !important;
 
@@ -546,7 +1352,7 @@ $coin-back: url('https://upload.wikimedia.org/wikipedia/commons/7/78/Qianlong_To
 
 .description-text {
   color: #cfcfcf;
-  font-size: 20px;
+  font-size: 24px;
   margin-bottom: 8px;
 }
 
@@ -559,7 +1365,7 @@ $coin-back: url('https://upload.wikimedia.org/wikipedia/commons/7/78/Qianlong_To
 
 .fushen-title {
   color: #ffd700;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 800;
   margin-bottom: 6px;
 }
@@ -572,7 +1378,7 @@ $coin-back: url('https://upload.wikimedia.org/wikipedia/commons/7/78/Qianlong_To
 
 .fushen-text {
   color: #ffd700;
-  font-size: 20px;
+  font-size: 24px;
   text-shadow: 0 0 10px rgba(255,215,0,0.25);
 }
 
@@ -586,10 +1392,10 @@ $coin-back: url('https://upload.wikimedia.org/wikipedia/commons/7/78/Qianlong_To
 
 .branch-text {
   color: #ccc;
-  font-size: 20px;
+  font-size: 22px;
 }
 
-.yao-info{font-size:12px;color:#ccc;white-space:nowrap}
+.yao-info{font-size:22px;color:#ccc;white-space:nowrap}
 
 @media (min-width: 768px) {
   .liuyao-page {

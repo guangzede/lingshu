@@ -80,6 +80,35 @@ export const ShakeCoins: React.FC<ShakeCoinsProps> = ({ step, disabled, onDone }
         ctxRef.current = ctx
         rafFnRef.current = (canvas as any).requestAnimationFrame?.bind(canvas) || (typeof requestAnimationFrame !== 'undefined' ? requestAnimationFrame.bind(globalThis) : null)
         cafFnRef.current = (canvas as any).cancelAnimationFrame?.bind(canvas) || (typeof cancelAnimationFrame !== 'undefined' ? cancelAnimationFrame.bind(globalThis) : null)
+        sizeRef.current = { w, h }
+        
+        // 初始化时绘制三个静态平铺的金币
+        const radius = Math.min(w, h) * 0.18
+        const centerY = h * 0.5
+        const spacing = radius * 2.4
+        const startX = w * 0.5 - spacing
+        
+        const initialCoins: CoinState[] = [
+          { x: startX, y: centerY, vx: 0, vy: 0, angleZ: 0, angleX: 0, angleY: 0, spinZ: 0, spinX: 0, spinY: 0, tilt: 0, radius },
+          { x: startX + spacing, y: centerY, vx: 0, vy: 0, angleZ: 0, angleX: 0, angleY: 0, spinZ: 0, spinX: 0, spinY: 0, tilt: 0, radius },
+          { x: startX + spacing * 2, y: centerY, vx: 0, vy: 0, angleZ: 0, angleX: 0, angleY: 0, spinZ: 0, spinX: 0, spinY: 0, tilt: 0, radius }
+        ]
+        coinStates.current = initialCoins
+        
+        // 绘制背景
+        ctx.clearRect(0, 0, w, h)
+        const bg = ctx.createLinearGradient(0, 0, 0, h)
+        bg.addColorStop(0, '#0c1118')
+        bg.addColorStop(0.55, '#0b0d10')
+        bg.addColorStop(1, '#08090c')
+        ctx.fillStyle = bg
+        ctx.fillRect(0, 0, w, h)
+        
+        // 绘制三个静态金币
+        for (const coin of initialCoins) {
+          drawCoin(ctx, coin, true)
+        }
+        
         setInitError(null)
         console.log('[ShakeCoins] canvas initialized', w, h, dpr)
       } catch (error) {
@@ -509,15 +538,36 @@ export const ShakeCoins: React.FC<ShakeCoinsProps> = ({ step, disabled, onDone }
 
   return (
     <View className="shake-section">
-      <Text style={{ color: '#ddd', fontSize: '14px' }}>摇卦：点击"摇一摇"六次，依次生成自下而上的六爻</Text>
+      <Text style={{ 
+        color: 'rgba(201, 173, 111, 0.75)', 
+        fontSize: '22px',
+        fontFamily: "'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', serif",
+        letterSpacing: '2px',
+        lineHeight: '1.6'
+      }}>
+        摇卦：点击"摇一摇"六次，依次生成自下而上的六爻
+      </Text>
       <Canvas
         type="2d"
         id={canvasId}
         canvasId={canvasId}
-        style={{ width: '100%', height: '220px', borderRadius: '10px', backgroundColor: '#0b0d10', border: '1px solid rgba(0,240,255,0.2)' }}
+        style={{ 
+          width: '100%', 
+          height: '220px', 
+          borderRadius: '12px', 
+          backgroundColor: 'rgba(8, 10, 16, 0.6)',
+          border: '1px solid rgba(201, 173, 111, 0.15)',
+          boxShadow: 'inset 0 2px 8px rgba(0, 0, 0, 0.3)'
+        }}
       />
       {initError ? (
-        <Text style={{ color: '#ff6b6b', fontSize: '12px' }}>{initError}</Text>
+        <Text style={{ 
+          color: '#ff6b6b', 
+          fontSize: '22px',
+          fontFamily: "'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', serif"
+        }}>
+          {initError}
+        </Text>
       ) : null}
       {step < 6 && (
         <View className="shake-actions">
