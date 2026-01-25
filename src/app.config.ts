@@ -3,7 +3,8 @@ export default {
     'pages/index/index',
     'pages/experience/index',
     'pages/fortune/index',
-    'pages/armillary/index'
+    'pages/armillary/index',
+    'pages/bazi/index'
   ],
   subpackages: [
     {
