@@ -43,14 +43,17 @@ export const usePaipan = ({ mode, countNumbers, setLineState, compute }: UsePaip
 
   // 自动排盘
   const applyAutoMethod = useCallback(() => {
-    const randomLines = Array.from({ length: 6 }, () => ({
-      isYang: Math.random() > 0.5,
-      isMoving: false
-    }))
-    randomLines[Math.floor(Math.random() * 6)].isMoving = true
-    randomLines.forEach((line, i) => {
-      setLineState(i, line.isYang ? (line.isMoving ? 'taiyang' : 'shaoyang') : (line.isMoving ? 'taiyin' : 'shaoyin'))
-    })
+    // 每一爻独立生成：太阴12.5%、少阳37.5%、少阴37.5%、太阳12.5%
+    const pickState = (): 'taiyin' | 'taiyang' | 'shaoyin' | 'shaoyang' => {
+      const r = Math.random()
+      if (r < 0.125) return 'taiyin'
+      if (r < 0.5) return 'shaoyang' // 0.125 + 0.375
+      if (r < 0.875) return 'shaoyin' // 0.5 + 0.375
+      return 'taiyang' // 0.875 + 0.125
+    }
+    for (let i = 0; i < 6; i++) {
+      setLineState(i, pickState())
+    }
   }, [setLineState])
 
   // 统一的排盘处理

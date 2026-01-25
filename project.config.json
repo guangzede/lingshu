@@ -7,7 +7,7 @@
     "urlCheck": true,
     "es6": true,
     "enhance": false,
-    "compileHotReLoad": false,
+    "compileHotReLoad": true,
     "postcss": false,
     "minified": false
   },

@@ -24,6 +24,7 @@ interface LiuyaoState {
   setRuleSetKey: (k: string) => void
   setQuestion: (q: string) => void
   setIsLoadingHistory: (isLoading: boolean) => void
+  setResult: (r: any) => void
   compute: () => void
   reset: () => void
   saveCurrentCase: (remark?: string) => string // 保存当前卦例，返回ID
@@ -98,6 +99,7 @@ export const useLiuyaoStore = create<LiuyaoState>((set, get) => {
     setRuleSetKey: (k) => set({ ruleSetKey: k }),
     setQuestion: (q) => set({ question: q }),
     setIsLoadingHistory: (isLoading) => set({ isLoadingHistory: isLoading }),
+    setResult: (r) => set({ result: r }),
     compute: () => {
       const state = get()
       const result = computeAll(state.lines, { ruleSetKey: state.ruleSetKey, date: state.date })

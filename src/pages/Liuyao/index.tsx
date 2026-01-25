@@ -33,6 +33,7 @@ const LiuyaoPage: React.FC = () => {
   const [mode, setMode] = React.useState<PaipanMode | 'shake'>('manual')
   const [countNumbers, setCountNumbers] = React.useState('')
   const [shakeStep, setShakeStep] = React.useState(0)
+  const modeStatesRef = React.useRef<Record<PaipanMode | 'shake', { lines: any[]; result: any }> | null>(null)
 
   const todayStr = React.useMemo(() => {
     const now = new Date()
@@ -41,7 +42,14 @@ const LiuyaoPage: React.FC = () => {
   }, [])
 
   const modeForPaipan: PaipanMode = mode === 'shake' ? 'manual' : mode
-  const { handlePaipan } = usePaipan({ mode: modeForPaipan, countNumbers, setLineState, compute })
+  const computeAndSave = React.useCallback(() => {
+    compute()
+    const s = useLiuyaoStore.getState()
+    if (!modeStatesRef.current) return
+    modeStatesRef.current[mode] = { lines: s.lines, result: s.result }
+  }, [compute, mode])
+
+  const { handlePaipan } = usePaipan({ mode: modeForPaipan, countNumbers, setLineState, compute: computeAndSave })
   const hasShownRef = React.useRef(false)
 
   const emptyLines = React.useMemo(() => (
@@ -54,6 +62,17 @@ const LiuyaoPage: React.FC = () => {
       { isYang: false, isMoving: false }
     ]
   ), [])
+
+  // 初始化各模式独立状态容器
+  if (!modeStatesRef.current) {
+    const s = useLiuyaoStore.getState()
+    modeStatesRef.current = {
+      manual: { lines: s.lines, result: s.result },
+      count: { lines: emptyLines, result: null },
+      auto: { lines: emptyLines, result: null },
+      shake: { lines: emptyLines, result: null }
+    }
+  }
 
   // 首页进入时还原到默认状态（带 source=home 参数）；从历史返回时保留结果
   useDidShow(() => {
@@ -70,24 +89,43 @@ const LiuyaoPage: React.FC = () => {
   })
 
   const handleModeChange = (m: PaipanMode | 'shake') => {
-    setMode(m as PaipanMode)
-    if (m === 'shake') {
-      setShakeStep(0)
-      useLiuyaoStore.getState().setLines(emptyLines)
+    // 保存当前模式的状态
+    if (modeStatesRef.current) {
+      const s = useLiuyaoStore.getState()
+      modeStatesRef.current[mode] = { lines: s.lines, result: s.result }
     }
+
+    setMode(m as PaipanMode)
+
+    // 切换到目标模式：恢复其独立状态
+    if (modeStatesRef.current) {
+      const saved = modeStatesRef.current[m]
+      if (saved) {
+        const api = useLiuyaoStore.getState()
+        api.setLines(saved.lines)
+        api.setResult(saved.result || null)
+      }
+    }
+
+    // 摇卦步骤根据是否已有结果简化处理
+    if (m === 'shake') {
+      const hasResult = !!modeStatesRef.current?.shake.result
+      setShakeStep(hasResult ? 6 : 0)
+    }
+
     if (m !== 'manual') {
       setIsLoadingHistory(false)
     }
   }
 
   const applyShakeResult = (heads: number, targetIndex: number) => {
-    const mapping: Record<number, 'taiyang' | 'shaoyang' | 'shaoyin' | 'taiyin'> = {
-      0: 'taiyin',
-      1: 'shaoyang',
-      2: 'shaoyin',
-      3: 'taiyang'
-    }
-    const state = mapping[heads] || 'shaoyang'
+    // 摇卦生成的概率与自动排盘一致：太阴12.5%、少阳37.5%、少阴37.5%、太阳12.5%
+    const r = Math.random()
+    let state: 'taiyin' | 'taiyang' | 'shaoyin' | 'shaoyang'
+    if (r < 0.125) state = 'taiyin'
+    else if (r < 0.5) state = 'shaoyang' // 0.125 + 0.375
+    else if (r < 0.875) state = 'shaoyin' // 0.5 + 0.375
+    else state = 'taiyang' // 0.875 + 0.125
     setLineState(targetIndex, state)
   }
 
@@ -115,16 +153,18 @@ const LiuyaoPage: React.FC = () => {
           </View>
 
           <View className="input-section">
-            <View className="datetime-row">
-              <Text className="input-label" style={{ fontSize: '15px' }}>日期</Text>
-              <Picker mode="date" value={dateValue} end={todayStr} onChange={(e) => setDateValue(e.detail.value)}>
-                <View className="picker-box">{dateValue}</View>
-              </Picker>
-              <Text className="input-label" style={{ fontSize: '15px' }}>时间</Text>
-              <Picker mode="time" value={timeValue} onChange={(e) => setTimeValue(e.detail.value)}>
-                <View className="picker-box">{timeValue}</View>
-              </Picker>
-            </View>
+            {!result && (
+              <View className="datetime-row">
+                <Text className="input-label" style={{ fontSize: '15px' }}>日期</Text>
+                <Picker mode="date" value={dateValue} end={todayStr} onChange={(e) => setDateValue(e.detail.value)}>
+                  <View className="picker-box">{dateValue}</View>
+                </Picker>
+                <Text className="input-label" style={{ fontSize: '15px' }}>时间</Text>
+                <Picker mode="time" value={timeValue} onChange={(e) => setTimeValue(e.detail.value)}>
+                  <View className="picker-box">{timeValue}</View>
+                </Picker>
+              </View>
+            )}
 
             <View className="count-input-section">
               <Text className="input-label" style={{ fontSize: '15px' }}>求测事项：</Text>
@@ -132,7 +172,7 @@ const LiuyaoPage: React.FC = () => {
                 className="number-input"
                 value={question}
                 placeholder="请输入求测事项"
-                style={{ fontSize: '15px' }}
+                style={{ fontSize: '20px', padding: '8px 10px', lineHeight: '2em' }}
                 onInput={(e) => setQuestion(e.detail.value)}
               />
             </View>
@@ -163,10 +203,12 @@ const LiuyaoPage: React.FC = () => {
             return (
               <View key={label} className="line-item">
                 <Text className="line-label">{label}</Text>
-                <Button size="mini" className={`yao-btn ${l.isYang && l.isMoving ? 'yao-btn-active' : ''}`} onClick={() => setLineState(realIndex, 'taiyang')}>太阳</Button>
-                <Button size="mini" className={`yao-btn ${l.isYang && !l.isMoving ? 'yao-btn-active' : ''}`} onClick={() => setLineState(realIndex, 'shaoyang')}>少阳</Button>
-                <Button size="mini" className={`yao-btn ${!l.isYang && !l.isMoving ? 'yao-btn-active' : ''}`} onClick={() => setLineState(realIndex, 'shaoyin')}>少阴</Button>
-                <Button size="mini" className={`yao-btn ${!l.isYang && l.isMoving ? 'yao-btn-active' : ''}`} onClick={() => setLineState(realIndex, 'taiyin')}>太阴</Button>
+                <View className="yao-button-row">
+                  <Button size="mini" className={`yao-btn ${l.isYang && l.isMoving ? 'yao-btn-active' : ''}`} onClick={() => setLineState(realIndex, 'taiyang')}>太阳</Button>
+                  <Button size="mini" className={`yao-btn ${l.isYang && !l.isMoving ? 'yao-btn-active' : ''}`} onClick={() => setLineState(realIndex, 'shaoyang')}>少阳</Button>
+                  <Button size="mini" className={`yao-btn ${!l.isYang && !l.isMoving ? 'yao-btn-active' : ''}`} onClick={() => setLineState(realIndex, 'shaoyin')}>少阴</Button>
+                  <Button size="mini" className={`yao-btn ${!l.isYang && l.isMoving ? 'yao-btn-active' : ''}`} onClick={() => setLineState(realIndex, 'taiyin')}>太阴</Button>
+                </View>
               </View>
             )
           })}

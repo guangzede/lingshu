@@ -1,8 +1,9 @@
 .liuyao-page {
   padding: 16px;
   color: #fff;
-  background: #050510;
+  background: radial-gradient(ellipse 200% 110% at 50% 0%, #0b1020 0%, #0a0d12 45%, #040609 100%);
   min-height: 100vh;
+  font-family: 'Noto Serif SC', serif, 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 .yao-line {
@@ -16,32 +17,34 @@
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
-
+  justify-content: space-between;
   button {
     width: auto;
-    padding: 8px 16px;
-    font-size: 25px;
-    font-weight: bold;
-    border: 2px solid #666 !important;
-    background: rgba(255, 255, 255, 0.08) !important;
-    color: #ccc !important;
-    border-radius: 6px !important;
-    transition: all 0.25s ease !important;
+    padding: 10px 18px;
+    font-size: 24px;
+    font-weight: 800;
+    border: 1.5px solid rgba(201, 178, 106, 0.25) !important;
+    background: linear-gradient(180deg, rgba(12, 16, 26, 0.8), rgba(10, 14, 22, 0.75)) !important;
+    color: #e3d39a !important;
+    border-radius: 14px !important;
+    box-shadow: 0 0 16px rgba(201, 178, 106, 0.15), 0 10px 25px rgba(0, 0, 0, 0.35) !important;
+    transition: all 0.2s ease !important;
 
     &::after {
       border: none !important;
     }
 
     &:active {
-      transform: scale(0.95) !important;
+      transform: translateY(1px) !important;
+      box-shadow: 0 0 20px rgba(201, 178, 106, 0.2), 0 8px 20px rgba(0, 0, 0, 0.3) !important;
     }
   }
 }
 .btn-active {
-  border: 2px solid #00f0ff !important;
-  background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(0, 212, 224, 0.15)) !important;
-  color: #00f0ff !important;
-  box-shadow: 0 0 12px rgba(0, 240, 255, 0.4), inset 0 0 8px rgba(0, 240, 255, 0.1) !important;
+  border-color: rgba(201, 178, 106, 0.35) !important;
+  background: linear-gradient(180deg, rgba(40, 35, 20, 0.8), rgba(30, 25, 15, 0.75)) !important;
+  color: #d8c37a !important;
+  box-shadow: 0 0 12px rgba(201, 178, 106, 0.25), inset 0 0 8px rgba(201, 178, 106, 0.08) !important;
 }
 
 .input-section {
@@ -59,59 +62,75 @@
 }
 
 .input-label {
-  color: #ddd;
-  font-size: 14px;
+  color: #d8c37a;
+  font-size: 16px;
+  letter-spacing: 1px;
+  text-shadow: 0 0 8px rgba(201, 178, 106, 0.12);
 }
 
 .picker-box {
-  padding: 6px 10px;
-  border: 1px solid #666;
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.05);
+  padding: 8px 12px;
+  border: 1.5px solid rgba(201, 178, 106, 0.25);
+  border-radius: 10px;
+  background: rgba(15, 18, 24, 0.35);
+  backdrop-filter: blur(6px);
   color: #fff;
-  min-width: 80px;
+  min-width: 100px;
 }
 
 .line-item {
   display: flex;
-  gap: 6px;
+  flex-direction: row;
+  gap: 16px;
   align-items: center;
-  flex-wrap: wrap;
   width: 100%;
+  justify-content: center;
 }
 
 .line-label {
-  min-width: 50px;
-  color: #ddd;
-  font-size: 30px;
-  font-weight: 600;
+  color: #d8c37a;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-shadow: 0 0 12px rgba(201, 178, 106, 0.12);
+  flex-shrink: 0;
+}
+
+.yao-button-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  flex: 1;
 }
 
 .yao-btn {
-  border: 2px solid #666 !important;
-  background: rgba(255, 255, 255, 0.12) !important;
-  color: #ddd !important;
-  border-radius: 6px !important;
-  padding: 8px 16px !important;
-  font-size: 25px !important;
-  font-weight: bold !important;
-  transition: all 0.25s ease !important;
-  min-width: 70px !important;
+  border: 1.5px solid rgba(201, 178, 106, 0.2) !important;
+  background: linear-gradient(180deg, rgba(15, 18, 24, 0.6), rgba(12, 15, 20, 0.5)) !important;
+  color: #d8c37a !important;
+  border-radius: 14px !important;
+  padding: 10px 18px !important;
+  font-size: 24px !important;
+  font-weight: 800 !important;
+  transition: all 0.2s ease !important;
+  min-width: 80px !important;
+  box-shadow: 0 0 12px rgba(201, 178, 106, 0.12), 0 8px 18px rgba(0, 0, 0, 0.3) !important;
 
   &::after {
     border: none !important;
   }
 
   &:active {
-    transform: scale(0.95) !important;
+    transform: translateY(1px) !important;
+    box-shadow: 0 0 14px rgba(201, 178, 106, 0.18), 0 6px 14px rgba(0, 0, 0, 0.25) !important;
   }
 }
 
 .yao-btn-active {
-  border-color: #00f0ff !important;
-  background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(0, 212, 224, 0.15)) !important;
-  color: #00f0ff !important;
-  box-shadow: 0 0 12px rgba(0, 240, 255, 0.4), inset 0 0 8px rgba(0, 240, 255, 0.1) !important;
+  border-color: rgba(201, 178, 106, 0.35) !important;
+  background: linear-gradient(180deg, rgba(40, 35, 20, 0.7), rgba(30, 25, 15, 0.6)) !important;
+  color: #d8c37a !important;
+  box-shadow: 0 0 12px rgba(201, 178, 106, 0.25), inset 0 0 6px rgba(201, 178, 106, 0.08) !important;
 }
 
 .action-buttons {
@@ -124,10 +143,11 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 12px;
-  border: 1px solid rgba(0, 240, 255, 0.2);
-  border-radius: 10px;
-  background: linear-gradient(135deg, rgba(0, 240, 255, 0.08), rgba(0, 212, 224, 0.04));
+  padding: 16px;
+  border: 1.5px solid rgba(201, 178, 106, 0.2);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(15, 18, 24, 0.3), rgba(12, 15, 20, 0.25));
+  backdrop-filter: blur(6px);
 }
 
 .coins-row {
@@ -223,14 +243,15 @@ $coin-back: url('https://upload.wikimedia.org/wikipedia/commons/7/78/Qianlong_To
 
 .btn-shake {
   width: 100%;
-  background: linear-gradient(135deg, #00f0ff, #00d4e0) !important;
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.22), rgba(255, 107, 157, 0.18)) !important;
   color: #000 !important;
-  font-weight: bold !important;
-  border: 2px solid #00f0ff !important;
-  border-radius: 8px !important;
-  font-size: 16px !important;
-  padding: 12px !important;
-  box-shadow: 0 2px 8px rgba(0, 240, 255, 0.3) !important;
+  font-weight: 800 !important;
+  border: 2px solid transparent !important;
+  border-image: linear-gradient(135deg, #00f0ff, #ff6b9d) 1 !important;
+  border-radius: 14px !important;
+  font-size: 18px !important;
+  padding: 14px !important;
+  box-shadow: 0 6px 16px rgba(0, 240, 255, 0.35) !important;
 
   &::after { border: none !important; }
 }
@@ -242,14 +263,15 @@ $coin-back: url('https://upload.wikimedia.org/wikipedia/commons/7/78/Qianlong_To
 
 .btn-compute {
   flex: 1;
-  background: linear-gradient(135deg, #ffd700, #ffed4e) !important;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.28), rgba(233, 207, 122, 0.22)) !important;
   color: #000 !important;
-  font-weight: bold !important;
-  border: 2px solid #ffed4e !important;
-  border-radius: 6px !important;
+  font-weight: 800 !important;
+  border: 2px solid transparent !important;
+  border-image: linear-gradient(135deg, #ffd700, #e9cf7a) 1 !important;
+  border-radius: 14px !important;
   font-size: 30px !important;
-  padding: 10px !important;
-  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3) !important;
+  padding: 12px !important;
+  box-shadow: 0 6px 16px rgba(255, 215, 0, 0.35) !important;
 
   &::after {
     border: none !important;
@@ -258,11 +280,12 @@ $coin-back: url('https://upload.wikimedia.org/wikipedia/commons/7/78/Qianlong_To
 
 .btn-reset {
   flex: 1;
-  background: rgba(255, 255, 255, 0.1) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
   color: #ccc !important;
-  font-weight: bold !important;
-  border: 2px solid #666 !important;
-  border-radius: 6px !important;
+  font-weight: 700 !important;
+  border: 2px solid transparent !important;
+  border-image: linear-gradient(135deg, #666, rgba(255,255,255,0.2)) 1 !important;
+  border-radius: 12px !important;
   font-size: 15px !important;
   padding: 10px !important;
 
@@ -273,10 +296,10 @@ $coin-back: url('https://upload.wikimedia.org/wikipedia/commons/7/78/Qianlong_To
 
 .count-input-section {
   margin-top: 8px;
-  padding: 12px;
-  background: rgba(0, 240, 255, 0.05);
-  border: 1px solid rgba(0, 240, 255, 0.2);
-  border-radius: 8px;
+  padding: 14px;
+  background: rgba(15, 18, 24, 0.3);
+  border: 1.5px solid rgba(201, 178, 106, 0.2);
+  border-radius: 14px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -285,27 +308,27 @@ $coin-back: url('https://upload.wikimedia.org/wikipedia/commons/7/78/Qianlong_To
 .number-input {
   width: 100%;
   padding: 10px 12px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 2px solid #666;
-  border-radius: 6px;
+  background: rgba(15, 18, 24, 0.4);
+  border: 1.5px solid rgba(201, 178, 106, 0.2);
+  border-radius: 10px;
   color: #fff;
   font-size: 16px;
 
   &::placeholder {
-    color: #888;
+    color: #b3b3b3;
   }
 }
 
 .btn-apply-count {
   width: 100%;
-  background: linear-gradient(135deg, #00f0ff, #00d4e0) !important;
-  color: #000 !important;
+  background: linear-gradient(180deg, rgba(40, 35, 20, 0.6), rgba(30, 25, 15, 0.5)) !important;
+  color: #d8c37a !important;
   font-weight: bold !important;
-  border: 2px solid #00f0ff !important;
+  border: 1.5px solid rgba(201, 178, 106, 0.25) !important;
   border-radius: 6px !important;
   font-size: 15px !important;
   padding: 10px !important;
-  box-shadow: 0 2px 8px rgba(0, 240, 255, 0.3) !important;
+  box-shadow: 0 0 10px rgba(201, 178, 106, 0.12) !important;
 
   &::after {
     border: none !important;
@@ -381,15 +404,17 @@ $coin-back: url('https://upload.wikimedia.org/wikipedia/commons/7/78/Qianlong_To
   width: 100%;
   font-size: 26px;
   letter-spacing: -0.2px;
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 6px;
+  border: 1.5px solid rgba(201, 178, 106, 0.15);
+  border-radius: 12px;
   overflow: hidden;
+  background: rgba(15, 18, 24, 0.25);
+  backdrop-filter: blur(6px);
 }
 
 .table-header {
   display: flex;
-  border-bottom: 2px solid rgba(255,255,255,0.2);
-  background: rgba(159, 252, 255, 0.05);
+  border-bottom: 1.5px solid rgba(201, 178, 106, 0.15);
+  background: linear-gradient(90deg, rgba(40, 35, 20, 0.3), rgba(30, 25, 15, 0.2));
 }
 
 .header-left {
@@ -398,7 +423,7 @@ $coin-back: url('https://upload.wikimedia.org/wikipedia/commons/7/78/Qianlong_To
   flex-direction: column;
   align-items: center;
   padding: 6px 4px;
-  border-right: 2px solid rgba(255,255,255,0.2);
+  border-right: 1.5px solid rgba(201, 178, 106, 0.1);
   gap: 2px;
 }
 
@@ -412,28 +437,30 @@ $coin-back: url('https://upload.wikimedia.org/wikipedia/commons/7/78/Qianlong_To
 }
 
 .hex-name {
-  font-weight: 700;
-  color: #fff;
+  font-weight: 900;
   font-size: 28px;
+  color: #d8c37a;
+  letter-spacing: 0.5px;
 }
 
 .section-title {
-  font-weight: 700;
+  font-weight: 800;
   color: #9ffcff;
   font-size: 26px;
+  text-shadow: 0 0 14px rgba(159, 252, 255, 0.35);
 }
 
 .table-subheader {
   display: flex;
-  border-bottom: 1px solid rgba(255,255,255,0.15);
-  background: rgba(159, 252, 255, 0.03);
+  border-bottom: 1px solid rgba(201, 178, 106, 0.1);
+  background: rgba(40, 35, 20, 0.2);
 }
 
 .subheader-left {
   flex: 6;
   display: flex;
   padding: 4px 2px;
-  border-right: 2px solid rgba(255,255,255,0.2);
+  border-right: 1.5px solid rgba(201, 178, 106, 0.1);
   gap: 0;
 }
 
@@ -448,13 +475,13 @@ $coin-back: url('https://upload.wikimedia.org/wikipedia/commons/7/78/Qianlong_To
   flex: 1;
   text-align: center;
   font-size: 24px;
-  color: #aaa;
+  color: #cfcfcf;
   white-space: nowrap;
 }
 
 .table-row {
   display: flex;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(201, 178, 106, 0.05);
   &:last-child {
     border-bottom: none;
   }
@@ -465,7 +492,7 @@ $coin-back: url('https://upload.wikimedia.org/wikipedia/commons/7/78/Qianlong_To
   display: flex;
   align-items: center;
   padding: 3px 2px;
-  border-right: 2px solid rgba(255,255,255,0.2);
+  border-right: 1.5px solid rgba(201, 178, 106, 0.08);
   gap: 0;
 }
 
@@ -482,7 +509,7 @@ $coin-back: url('https://upload.wikimedia.org/wikipedia/commons/7/78/Qianlong_To
   text-align: center;
   white-space: nowrap;
   font-size: 26px;
-  color: #ddd;
+  color: #e6e6e6;
 }
 
 .fushen-cell {
@@ -498,40 +525,43 @@ $coin-back: url('https://upload.wikimedia.org/wikipedia/commons/7/78/Qianlong_To
 }
 
 .result-card {
-  padding: 10px;
-  border: 1px solid #333;
-  border-radius: 8px;
+  padding: 16px;
+  border: 1.5px solid rgba(201, 178, 106, 0.2);
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(15, 18, 24, 0.3), rgba(12, 15, 20, 0.25));
+  box-shadow: 0 8px 16px rgba(0,0,0,0.25), inset 0 0 12px rgba(201,178,106,0.04);
 }
 
 .card-title {
-  color: #9ffcff;
-  font-weight: bold;
-  margin-bottom: 6px;
+  color: #d8c37a;
+  font-weight: 800;
+  margin-bottom: 8px;
+  text-shadow: 0 0 8px rgba(201, 178, 106, 0.12);
 }
 
 .hex-info {
-  color: #ddd;
-  margin-bottom: 4px;
-}
-
-.description-text {
-  color: #aaa;
-  font-size: 20px;
+  color: #e6e6e6;
   margin-bottom: 6px;
 }
 
+.description-text {
+  color: #cfcfcf;
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
 .fushen-notice {
-  margin-top: 6px;
-  padding: 6px;
-  background: rgba(255, 215, 0, 0.1);
-  border-radius: 4px;
+  margin-top: 8px;
+  padding: 8px;
+  background: rgba(255, 215, 0, 0.12);
+  border-radius: 8px;
 }
 
 .fushen-title {
   color: #ffd700;
   font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 4px;
+  font-weight: 800;
+  margin-bottom: 6px;
 }
 
 .fushen-list {
@@ -543,6 +573,7 @@ $coin-back: url('https://upload.wikimedia.org/wikipedia/commons/7/78/Qianlong_To
 .fushen-text {
   color: #ffd700;
   font-size: 20px;
+  text-shadow: 0 0 10px rgba(255,215,0,0.25);
 }
 
 .branch-order {

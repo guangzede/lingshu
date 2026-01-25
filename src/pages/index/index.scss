@@ -1,17 +1,18 @@
-/* ========== 赛博道教首页样式 ========== */
+/* ========== 赛博道教首页样式 - 沉浸式体验 ========== */
 
 .index-page {
   position: relative;
   width: 100%;
   min-height: 100vh;
-  background-color: #050510;
+  /* 深邃的宇宙夜空背景 - 深午夜蓝渐变 */
+  background: radial-gradient(ellipse 180% 100% at 50% 0%, #0d1428 0%, #070912 55%, #010204 100%);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   overflow: hidden;
   opacity: 0;
-  transition: opacity 0.3s ease-in;
+  transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
   &.visible {
     opacity: 1;
@@ -21,25 +22,29 @@
     opacity: 0;
     pointer-events: none;
   }
-}
 
 .yin-yang {
   position: absolute;
-  top: 50%;
+  top:20%;
   left: 50%;
   width: 200px;
   height: 200px;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  background: linear-gradient(90deg, #f4f4f4 50%, #0a0a0a 50%);
+  background: linear-gradient(90deg, #bda369  50%, #0a0a0a 50%);
+  /* 香槟色柔和光晕 + 立体阴影 */
   box-shadow:
     0 0 30px rgba(255, 255, 255, 0.4),
     0 0 60px rgba(255, 255, 255, 0.3),
-    0 0 100px rgba(255, 215, 0, 0.15),
-    0 0 150px rgba(0, 240, 255, 0.1);
+    0 0 80px rgba(212, 175, 100, 0.4),
+    0 0 120px rgba(212, 175, 100, 0.3),
+    0 0 160px rgba(212, 175, 100, 0.15),
+    0 0 200px rgba(212, 175, 100, 0.08),
+    inset 0 2px 15px rgba(255, 255, 255, 0.08),
+    inset 0 -2px 8px rgba(0, 0, 0, 0.15);
   overflow: hidden;
   z-index: 3;
-  animation: spin-slow 16s linear infinite, pulse-glow 3s ease-in-out infinite;
+  animation: yin-yang-rotate 16s linear infinite, pulse-glow 3s ease-in-out infinite;
 }
 
 .yin-yang::before,
@@ -56,33 +61,44 @@
 .yin-yang::before {
   top: 0;
   background: radial-gradient(circle, #0a0a0a 20%, #0a0a0a 20%, transparent 22%);
-  background-color: #f4f4f4;
+  background-color: #bda369 ;
 }
 
 .yin-yang::after {
   bottom: 0;
-  background: radial-gradient(circle, #f4f4f4 20%, #f4f4f4 20%, transparent 22%);
+  background: radial-gradient(circle, #bda369  20%, #f4f4f4 20%, transparent 22%);
   background-color: #0a0a0a;
 }
 
-@keyframes spin-slow {
+@keyframes yin-yang-rotate {
   from { transform: translate(-50%, -50%) rotate(0deg); }
   to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
-@keyframes pulse-glow {
-  0%, 100% { box-shadow:
-    0 0 30px rgba(255, 255, 255, 0.4),
-    0 0 60px rgba(255, 255, 255, 0.3),
-    0 0 100px rgba(255, 215, 0, 0.15),
-    0 0 150px rgba(0, 240, 255, 0.1);
+@keyframes yin-yang-glow {
+  0%, 100% {
+    box-shadow:
+      0 0 30px rgba(255, 255, 255, 0.4),
+      0 0 60px rgba(255, 255, 255, 0.3),
+      0 0 80px rgba(212, 175, 100, 0.3),
+      0 0 120px rgba(212, 175, 100, 0.2),
+      0 0 160px rgba(212, 175, 100, 0.1),
+      0 0 200px rgba(212, 175, 100, 0.05),
+      inset 0 2px 8px rgba(255, 255, 255, 0.08),
+      inset 0 -2px 8px rgba(0, 0, 0, 0.15);
   }
-  50% { box-shadow:
-    0 0 50px rgba(255, 255, 255, 0.6),
-    0 0 90px rgba(255, 255, 255, 0.5),
-    0 0 140px rgba(255, 215, 0, 0.25),
-    0 0 200px rgba(0, 240, 255, 0.2);
+  50% {
+    box-shadow:
+      0 0 40px rgba(255, 255, 255, 0.5),
+      0 0 80px rgba(255, 255, 255, 0.4),
+      0 0 120px rgba(212, 175, 100, 0.5),
+      0 0 160px rgba(212, 175, 100, 0.35),
+      0 0 200px rgba(212, 175, 100, 0.2),
+      0 0 240px rgba(212, 175, 100, 0.1),
+      inset 0 2px 8px rgba(255, 255, 255, 0.08),
+      inset 0 -2px 8px rgba(0, 0, 0, 0.15);
   }
+}
 }
 
 .star-canvas {
@@ -92,208 +108,216 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 10;
+  z-index: 5;
   pointer-events: none;
-  opacity: 1;
+  opacity: 0.85;
   display: block;
   flex-shrink: 0;
   background: transparent;
+  filter: brightness(0.9) contrast(1.0);
 }
 
-/* 背景噪点层 */
+/* 背景噪点层 - 细腻胶片颗粒感 */
 .bg-noise {
   position: absolute;
   inset: 0;
   background-image:
-    url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="3.5" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
-  opacity: 0.035;
+    url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="4.2" numOctaves="4" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+  opacity: 0.12;
   pointer-events: none;
   z-index: 2;
+  mix-blend-mode: soft-light;
 }
 
-/* 径向渐变背景 */
+/* 径向渐变背景 - 香槟色晕染 + 天蓝色过渡蒙版 */
 .bg-gradient {
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    ellipse 80% 50% at 50% 40%,
-    rgba(255, 215, 0, 0.05),
-    rgba(0, 240, 255, 0.02) 40%,
-    transparent 70%
-  );
-  opacity: 0.72;
+  background:
+    /* 天蓝色顶部过渡蒙版 */
+    linear-gradient(180deg, rgba(100, 150, 200, 0.12) 0%, transparent 40%),
+    /* 香槟色太极周围晕染 */
+    radial-gradient(ellipse 140% 90% at 50% 38%, rgba(212, 175, 100, 0.08) 0%, transparent 40%),
+    /* 底部深色渐变 */
+    radial-gradient(ellipse 100% 70% at 50% 70%, rgba(10, 15, 25, 0.4) 0%, transparent 60%);
+  opacity: 0.9;
   pointer-events: none;
-  z-index: 0;
+  z-index: 1;
+  animation: gradient-breathe 50s ease-in-out infinite;
+}
+
+@keyframes gradient-breathe {
+  0%, 100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 .menu-page {
   position: relative;
   z-index: 20;
-  min-height: 100vh;
   width: 100%;
-  // background: linear-gradient(135deg, rgba(11, 15, 23, 0.6) 0%, rgba(15, 22, 36, 0.6) 50%, rgba(14, 19, 32, 0.6) 100%);
-  color: #f6f7fb;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  color: #f3f4f8;
+  /* 大量留白 - 上下 padding 增加呼吸感 */
+  padding: 15vh 16px 8vh 16px;
+  font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', serif, -apple-system, BlinkMacSystemFont;
+}
+
+/* 中心内容区域 - 太极下方 */
+.center-content {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 40px;
-  padding: 48px 24px;
-  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  flex: 1;
+  width: 100%;
+  margin-top: 15vh;
+}
+
+/* 底部操作区域 */
+.bottom-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 0 24px;
+  font-size: 30px;
+  margin-bottom: 6vh;
 }
 
 .menu-header {
   text-align: center;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
 }
 
+/* 主标题 - 优雅古典宋体、哑光金属金、显著拉宽字间距 */
 .menu-logo {
-  font-size: 96px;
-  font-weight: 700;
-  letter-spacing: 3px;
+  font-size: 76px;
+  font-weight: 500;
+  /* 显著拉宽字间距，营造疏朗感 */
+  letter-spacing: 28px;
+  /* 哑光金属金色 */
+  color: #c9ad6f;
+  /* 极微弱的内发光 */
+  text-shadow: 
+    0 0 12px rgba(201, 173, 111, 0.15),
+    0 2px 8px rgba(0, 0, 0, 0.3);
+  line-height: 1.2;
+  font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', 'STSong', serif;
+  /* 确保最后一个字符后的字间距不影响视觉居中 */
+  padding-right: 28px;
 }
 
+/* 副标题 - 与主标题风格一致 */
 .menu-sub {
-  margin-top: 8px;
-  font-size: 27px;
-  letter-spacing: 7px;
-  color: rgba(246, 247, 251, 0.7);
+  font-size: 18px;
+  /* 拉宽字间距 */
+  letter-spacing: 8px;
+  color: rgba(201, 173, 111, 0.85);
+  line-height: 1.6;
+  font-weight: 400;
+  position: relative;
+  z-index: 2;
+  font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', 'STSong', serif;
+  text-shadow: 
+    0 0 10px rgba(201, 173, 111, 0.12),
+    0 1px 6px rgba(0, 0, 0, 0.25);
+  /* 调整右侧 padding 以平衡字间距 */
+  padding-right: 8px;
 }
 
-.menu-list {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
+/* 幽灵按钮 - 胶囊形、细金色描边、完全透明填充 */
+.ghost-button {
+  /* 完全透明背景 */
+  background: transparent !important;
+  /* 细金色发光描边 */
+  border: 1.5px solid rgba(201, 173, 111, 0.6);
+  /* 胶囊形状 - 大圆角 */
+  border-radius: 50px;
+  padding: 18px 48px;
+  font-size: 25px;
+  font-weight: 400;
+  /* 字体风格与标题一致 */
+  color: rgba(201, 173, 111, 0.95);
+  font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', 'STSong', serif;
+  letter-spacing: 6px;
+  /* 微弱发光效果 */
+  box-shadow: 
+    0 0 20px rgba(201, 173, 111, 0.08),
+    inset 0 0 15px rgba(201, 173, 111, 0.03);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  max-width: 280px;
+  min-width: 200px;
+  text-align: center;
+}
+
+/* 按钮悬停/激活效果 */
+.ghost-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
   width: 100%;
-  max-width: 480px;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(201, 173, 111, 0.12), transparent);
+  transition: left 0.6s ease;
+  pointer-events: none;
 }
 
-.menu-button {
-  background: rgba(255, 255, 255, 0.2);
-  color: #f6f7fb;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 14px;
-  padding: 27px 28px;
-  font-size: 40px;
-  font-weight: 700;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+.ghost-button:active {
+  transform: scale(0.97);
+  border-color: rgba(201, 173, 111, 0.85);
+  color: rgba(201, 173, 111, 1);
+  box-shadow: 
+    0 0 30px rgba(201, 173, 111, 0.2),
+    inset 0 0 25px rgba(201, 173, 111, 0.08);
 }
 
-.menu-button:active {
-  transform: translateY(1px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+.ghost-button:active::before {
+  left: 100%;
 }
 
 @media (min-width: 768px) {
   .menu-page {
-    padding: 96px 32px;
-    gap: 64px;
+    padding: 18vh 32px 10vh 32px;
+  }
+
+  .yin-yang {
+    width: 220px;
+    height: 220px;
   }
 
   .menu-logo {
-    font-size: 120px;
-  }
-
-  .menu-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
-  }
-}
-
-/* 浑天仪容器 */
-.armillary-container {
-  position: absolute;
-  top: 15%;
-  .menu-page {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #0b0f17 0%, #0f1624 50%, #0e1320 100%);
-    color: #f6f7fb;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 40px;
-    padding: 48px 24px;
-    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  }
-
-  .menu-header {
-    text-align: center;
-  }
-
-  .menu-logo {
-    font-size: 72px;
-    font-weight: 700;
-    letter-spacing: 3px;
+    font-size: 96px;
+    letter-spacing: 36px;
+    padding-right: 36px;
   }
 
   .menu-sub {
-    margin-top: 8px;
-    font-size: 21px;
-    letter-spacing: 6px;
-    color: rgba(246, 247, 251, 0.7);
+    font-size: 22px;
+    letter-spacing: 12px;
+    padding-right: 12px;
   }
 
-  .menu-list {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 12px;
-    width: 100%;
-    max-width: 480px;
-  }
-
-  .menu-button {
-    background: rgba(255, 255, 255, 0.08);
-    color: #f6f7fb;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 14px;
-    padding: 21px 24px;
-    font-size: 24px;
-    font-weight: 700;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
-  }
-
-  .menu-button:active {
-    transform: translateY(1px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-  }
-
-  @media (min-width: 768px) {
-    .menu-page {
-      padding: 96px 32px;
-      gap: 56px;
-    }
-
-    .menu-logo {
-      font-size: 60px;
-    }
-
-    .menu-list {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-    }
-  }
-}
-
-.info-value {
-  font-size: 28rpx;
-  color: #FFD700;
-  font-weight: 600;
-}
-
-/* 次要按钮 */
-.secondary-button {
-  width: 100%;
-  height: 72rpx;
-  margin-top: 24rpx;
-  background-color: transparent !important;
-  color: #00F0FF !important;
-  border: 2rpx solid #00F0FF;
-  border-radius: 16rpx;
-  font-size: 28rpx;
-  font-weight: bold;
-
-  .button-text {
-    color: #00F0FF;
-    font-size: 28rpx;
+  .ghost-button {
+    font-size: 18px;
+    padding: 20px 56px;
+    max-width: 320px;
   }
 }
