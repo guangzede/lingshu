@@ -1,0 +1,45 @@
+.title-text {
+  font-family: 'Songti SC', 'STSong', serif;
+  text-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700;
+  letter-spacing: 0.1em;
+}
+
+.subtitle-text {
+  font-family: 'Songti SC', 'STSong', serif;
+  text-shadow: 0 0 8px #FFD70099;
+}
+
+.label-text {
+  font-family: 'Songti SC', 'STSong', serif;
+  text-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700;
+}
+
+.column-border {
+  box-shadow: 0 0 20px 2px #FFD70099, 0 0 0 2px #FFD70044 inset;
+  border-color: #FFD700;
+}
+
+.button-selected {
+  background: linear-gradient(to right, #FFD700, #FFFFE0);
+  color: #1A1A1A;
+  box-shadow: 0 0 10px #FFD700;
+}
+
+.button-unselected {
+  background: transparent;
+  color: #FFD700;
+}
+
+.start-button {
+  background: linear-gradient(to bottom, rgba(255, 215, 0, 0.1), transparent);
+  color: #FFD700;
+  font-family: 'Noto Sans SC', 'PingFang SC', sans-serif;
+  text-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700;
+  letter-spacing: 0.1em;
+  box-shadow: 0 0 30px 5px #FFD70099;
+}
+
+.start-button:hover {
+  background: rgba(255, 215, 0, 0.2);
+  color: #FFD700;
+}

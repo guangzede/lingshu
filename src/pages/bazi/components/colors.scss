@@ -1,0 +1,15 @@
+// 五行配色及发光效果
+$color-wood: #4ADE80; // 木
+$color-fire: #F87171; // 火
+$color-earth: #FBBF24; // 土
+$color-metal: #E2E8F0; // 金
+$color-water: #60A5FA; // 水
+
+@mixin glow($color) {
+  text-shadow: 0 0 8px $color, 0 0 16px $color;
+  box-shadow: 0 0 8px $color, 0 0 16px $color;
+}
+
+// 用法示例：
+// color: $color-wood;
+// @include glow($color-wood);

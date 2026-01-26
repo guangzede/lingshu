@@ -1,0 +1,24 @@
+@import './components/colors.scss';
+
+// 用于八字各模块的五行配色和发光效果
+
+.wood {
+  color: $color-wood;
+  @include glow($color-wood);
+}
+.fire {
+  color: $color-fire;
+  @include glow($color-fire);
+}
+.earth {
+  color: $color-earth;
+  @include glow($color-earth);
+}
+.metal {
+  color: $color-metal;
+  @include glow($color-metal);
+}
+.water {
+  color: $color-water;
+  @include glow($color-water);
+}
