@@ -7,7 +7,7 @@
   width: 100%;
 }
 
-/* ===== Energy Core ===== */
+// ===== Energy Core ===== */
 .energy-core {
   background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.8) 100%);
   border: 1px solid rgba(251, 191, 36, 0.2);
@@ -86,7 +86,7 @@
   opacity: 1;
 }
 
-/* Placeholder Dots */
+// Placeholder Dots */
 .placeholder-dots {
   display: flex;
   gap: 8px;
@@ -117,7 +117,7 @@
   }
 }
 
-/* Input with Button Container */
+// Input with Button Container */
 .input-with-button {
   display: flex;
   align-items: center;
@@ -131,7 +131,7 @@
   border: 1px solid rgba(251, 191, 36, 0.2);
 }
 
-/*统一的输入框样式*/
+//统一的输入框样式*/
 .question-input {
   width: 100%;
   background: rgba(0, 0, 0, 0.4);
@@ -157,7 +157,7 @@
   }
 }
 
-/*标签覆盖层*/
+//标签覆盖层*/
 .tags-overlay {
   position: relative;
   z-index: 2;
@@ -174,7 +174,7 @@
   }
 }
 
-/* Input Button Styles */
+// Input Button Styles */
 .input-button {
   white-space: nowrap;
   background: rgba(251, 191, 36, 0.1);
@@ -197,7 +197,7 @@
   }
 }
 
-/* ===== Stardust Cloud ===== */
+// ===== Stardust Cloud ===== */
 .stardust-cloud {
   background: linear-gradient(135deg, rgba(15, 23, 42, 0.4) 0%, rgba(30, 41, 59, 0.4) 100%);
   border: 1px solid rgba(251, 191, 36, 0.1);
@@ -252,7 +252,7 @@
   }
 }
 
-/* Keywords Grid */
+// Keywords Grid */
 .keywords-grid {
   display: flex;
   flex-wrap: wrap;
@@ -319,7 +319,7 @@
   pointer-events: none;
 }
 
-/* Responsive */
+// Responsive */
 @media (max-width: 640px) {
 
   .keyword-item {

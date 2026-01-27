@@ -1,9 +1,9 @@
-/* ========== 六爻排盘页面 - 新中式赛博禅意风格 ========== */
+// ========== 六爻排盘页面 - 新中式赛博禅意风格 ========== //
 
 .liuyao-page {
   padding: 0;
   color: #fff;
-  /* 深邃午夜蓝宇宙背景 + 星尘纹理 */
+  // 深邃午夜蓝宇宙背景 + 星尘纹理
   background:
     radial-gradient(ellipse 180% 100% at 50% 0%, #0d1428 0%, #070912 55%, #010204 100%);
   min-height: 100vh;
@@ -11,7 +11,7 @@
   position: relative;
   overflow-x: hidden;
 
-  /* 添加细微噪点纹理 */
+  // 添加细微噪点纹理
   &::before {
     content: '';
     position: absolute;
@@ -24,7 +24,7 @@
   }
 }
 
-/* ========== 顶部区域：极简导航 + 优雅输入 ========== */
+// ========== 顶部区域：极简导航 + 优雅输入 ========== //
 
 .top-section {
   position: relative;
@@ -33,7 +33,7 @@
   background: linear-gradient(180deg, rgba(100, 150, 200, 0.08) 0%, transparent 100%);
 }
 
-/* 模式选择器 - 极简文本标签 */
+// 模式选择器 - 极简文本标签
 .mode-selector {
   display: flex;
   justify-content: space-between;
@@ -78,7 +78,7 @@
   }
 }
 
-/* 输入区域 - 无厚重边框 */
+// 输入区域 - 无厚重边框 */
 .input-area {
   display: flex;
   flex-direction: column;
@@ -125,7 +125,7 @@
   margin-top: 8px;
 }
 
-/* 求测事项输入 */
+// 求测事项输入 */
 .question-input-group {
   position: relative;
 }
@@ -150,8 +150,8 @@
   }
 }
 
-/* 报数输入 */
-/* 报数起卦卡片 */
+// 报数输入 */
+// 报数起卦卡片 */
 .count-input-card {
   margin: 24px 16px;
 }
@@ -174,7 +174,7 @@
   }
 }
 
-/* ========== 中部区域：爻位排盘卡片 ========== */
+// ========== 中部区域：爻位排盘卡片 ========== */
 
 .yao-matrix-section {
   position: relative;
@@ -190,7 +190,7 @@
   }
 }
 
-/* 摇卦区域卡片 */
+// 摇卦区域卡片 */
 .shake-section {
   position: relative;
   z-index: 10;
@@ -218,7 +218,7 @@
   flex-shrink: 0;
 }
 
-/* 爻位符号 - 发光玉质效果 */
+// 爻位符号 - 发光玉质效果 */
 .yao-symbol {
   flex: 1;
   height: 48px;
@@ -272,7 +272,6 @@
   }
 }
 
-/* 动爻标记 - 朱砂红脉动光晕 */
 .yao-symbol.moving {
   .line-segment {
     background: linear-gradient(180deg, #ff6b6b 0%, #d63447 50%, #8b2635 100%);
@@ -310,7 +309,6 @@
   }
 }
 
-/* 排盘按钮 - 细长发光能量流 */
 .divinate-button-container {
   margin-top: 32px;
   width: 100%;
@@ -367,7 +365,6 @@
   100% { left: 200%; }
 }
 
-/* ========== 底部区域：毛玻璃结果卡片 ========== */
 
 .result-section {
   position: relative;
@@ -378,7 +375,6 @@
   gap: 16px;
 }
 
-/* 毛玻璃卡片基础样式 */
 .glass-card {
   background: rgba(15, 20, 30, 0.4);
   backdrop-filter: blur(20px);
@@ -393,7 +389,6 @@
     margin-top: 0;
 }
 
-/* 主卦结果卡片 */
 .key-result-card {
   display: flex;
   flex-direction: column;
@@ -450,7 +445,6 @@
 
 
 
-/* 信息网格卡片 */
 .info-grid-card {
   display: flex;
   flex-direction: column;
@@ -545,7 +539,7 @@
   font-weight: 500;
 }
 
-/* 神煞网格 */
+// 神煞网格 */
 .shensha-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -599,12 +593,12 @@
   font-weight: 500;
 }
 
-/* 分析卡片 */
+// 分析卡片 */
 .analysis-card {
   min-height: 200px;
 }
 
-/* 日支时支关系区域 */
+// 日支时支关系区域 */
 .branch-relation-section {
   margin-top: 16px;
   padding: 16px;
@@ -646,7 +640,7 @@
   letter-spacing: 0.5px;
 }
 
-/* 爻位分析区域 */
+// 爻位分析区域 */
 .yao-analysis-section {
   margin-top: 16px;
   padding: 16px;
@@ -848,7 +842,7 @@
   margin-top: 8px;
 }
 
-/* 保存卦例和查看历史按钮 */
+// 保存卦例和查看历史按钮 */
 .btn-save-case {
   flex: 1;
   background: linear-gradient(135deg, rgba(201, 173, 111, 0.2), rgba(201, 173, 111, 0.1)) !important;

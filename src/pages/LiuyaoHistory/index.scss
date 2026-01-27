@@ -7,7 +7,7 @@
   overflow: hidden;
 }
 
-/* 页面头部 */
+// 页面头部 */
 .history-header {
   padding: 20px;
   border-bottom: 1px solid rgba(201, 173, 111, 0.15);
@@ -31,7 +31,7 @@
   letter-spacing: 1px;
 }
 
-/* 空状态 */
+// 空状态 */
 .history-empty {
   display: flex;
   justify-content: center;
@@ -46,24 +46,24 @@
   letter-spacing: 1px;
 }
 
-/* 列表容器 */
+// 列表容器 */
 .history-content {
   flex: 1;
   overflow-y: auto;
-  
-  /* 自定义滚动条 */
+
+  // 自定义滚动条 */
   &::-webkit-scrollbar {
     width: 8px;
   }
-  
+
   &::-webkit-scrollbar-track {
     background: rgba(201, 173, 111, 0.05);
   }
-  
+
   &::-webkit-scrollbar-thumb {
     background: rgba(201, 173, 111, 0.2);
     border-radius: 4px;
-    
+
     &:hover {
       background: rgba(201, 173, 111, 0.3);
     }
@@ -77,13 +77,13 @@
   flex-direction: column;
 }
 
-/* 卦例卡片 */
+// 卦例卡片 */
 .case-card {
   padding: 16px;
   border-radius: 16px;
   background: linear-gradient(135deg, rgba(201, 173, 111, 0.08) 0%, rgba(122, 162, 140, 0.05) 100%);
   border: 1.5px solid rgba(201, 173, 111, 0.15);
-  box-shadow: 
+  box-shadow:
     0 4px 16px rgba(0, 0, 0, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
@@ -91,13 +91,13 @@
 
   &:active {
     transform: scale(0.98);
-    box-shadow: 
+    box-shadow:
       0 4px 20px rgba(201, 173, 111, 0.15),
       inset 0 1px 0 rgba(255, 255, 255, 0.08);
   }
 }
 
-/* 卦例头部信息 */
+// 卦例头部信息 */
 .case-header {
   display: flex;
   justify-content: space-between;
@@ -125,7 +125,7 @@
   letter-spacing: 0.5px;
 }
 
-/* 卦象信息 */
+// 卦象信息 */
 .hexagram-info {
   display: flex;
   gap: 16px;
@@ -161,7 +161,7 @@
   letter-spacing: 1px;
 }
 
-/* 备注部分 */
+// 备注部分 */
 .remark-section {
   margin-bottom: 12px;
   padding: 10px 12px;
@@ -188,7 +188,7 @@
   word-break: break-word;
 }
 
-/* 操作按钮 */
+// 操作按钮 */
 .case-actions {
   display: flex;
   gap: 10px;
@@ -205,7 +205,7 @@
   font-weight: 600 !important;
   letter-spacing: 2px !important;
   padding: 10px 12px !important;
-  box-shadow: 
+  box-shadow:
     0 0 15px rgba(201, 173, 111, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
@@ -216,7 +216,7 @@
 
   &:active {
     transform: scale(0.96);
-    box-shadow: 
+    box-shadow:
       0 0 20px rgba(201, 173, 111, 0.2),
       inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
   }
@@ -232,7 +232,7 @@
   font-weight: 600 !important;
   letter-spacing: 2px !important;
   padding: 10px 12px !important;
-  box-shadow: 
+  box-shadow:
     0 0 15px rgba(255, 107, 107, 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
@@ -243,13 +243,13 @@
 
   &:active {
     transform: scale(0.96);
-    box-shadow: 
+    box-shadow:
       0 0 20px rgba(255, 107, 107, 0.15),
       inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
   }
 }
 
-/* 页面底部 */
+// 页面底部 */
 .history-footer {
   padding: 16px 20px;
   border-top: 1px solid rgba(201, 173, 111, 0.15);
@@ -267,7 +267,7 @@
   font-weight: 600 !important;
   letter-spacing: 2px !important;
   padding: 14px 20px !important;
-  box-shadow: 
+  box-shadow:
     0 0 15px rgba(122, 162, 140, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
@@ -278,7 +278,7 @@
 
   &:active {
     transform: scale(0.97);
-    box-shadow: 
+    box-shadow:
       0 0 20px rgba(122, 162, 140, 0.2),
       inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
   }
