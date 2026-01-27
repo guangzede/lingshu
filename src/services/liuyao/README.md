@@ -248,3 +248,7 @@ import { computeAll } from '@/services/liuyao'
 4. **向后兼容**：现有代码无需修改
 
 这为后续功能迭代和团队协作打下了良好基础。
+
+## deepSeek API 密钥
+
+1. sk-c4a5a166346e40439b6ac8ed20dac9c9

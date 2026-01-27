@@ -45,13 +45,14 @@ function buildDate(dateValue: string, timeValue: string): Date {
   return new Date(`${dateValue}T${timeValue}:00`)
 }
 
+// 地天泰卦：上卦为地（坤卦，三个阴爻），下卦为天（乾卦，三个阳爻）
 const defaultLines: LineInput[] = [
-  { isYang: true, isMoving: false },
-  { isYang: false, isMoving: false },
-  { isYang: true, isMoving: false },
-  { isYang: false, isMoving: false },
-  { isYang: true, isMoving: false },
-  { isYang: false, isMoving: false }
+  { isYang: false, isMoving: false }, // 上六（阴）
+  { isYang: false, isMoving: false }, // 六五（阴）
+  { isYang: false, isMoving: false }, // 六四（阴）
+  { isYang: true, isMoving: false },  // 九三（阳）
+  { isYang: true, isMoving: false },  // 九二（阳）
+  { isYang: true, isMoving: false }   // 初九（阳）
 ]
 
 export const useLiuyaoStore = create<LiuyaoState>((set, get) => {

@@ -4,7 +4,7 @@ import Taro, { nextTick } from '@tarojs/taro'
 import './index.scss'
 
 const menuItems = [
-  { id: 'bazi', label: '八字排盘', url: '/pages/bazi/index' },
+  // { id: 'bazi', label: '八字排盘', url: '/pages/bazi/index' },
   { id: 'liuyao', label: '六爻排盘', url: '/pages/Liuyao/index?source=home' },
   // { id: 'experience', label: '体验旧版首页(暂弃用)', url: '/pages/experience/index' },
   // { id: 'luopan', label: '赛博罗盘(未完成)', url: '/pages/luopan/index' },
@@ -29,7 +29,7 @@ const IndexPage: React.FC = () => {
 
     const init = () => {
       const isH5 = process.env.TARO_ENV === 'h5'
-      
+
       if (isH5) {
         // H5环境：使用传统DOM方式
         const getCanvasEl = (): HTMLCanvasElement | null => {
@@ -75,7 +75,7 @@ const IndexPage: React.FC = () => {
         const dpr = window.devicePixelRatio || 1
         const width = window.innerWidth || document.documentElement.clientWidth || 375
         const height = window.innerHeight || document.documentElement.clientHeight || 667
-        
+
         canvas.width = width * dpr
         canvas.height = height * dpr
         canvas.style.width = `${width}px`
@@ -110,7 +110,7 @@ const IndexPage: React.FC = () => {
         })
       }
     }
-    
+
     const initStarfield = (canvas: any, ctx: CanvasRenderingContext2D, width: number, height: number) => {
 
         const cx = width / 2
@@ -195,7 +195,7 @@ const IndexPage: React.FC = () => {
       cleanup = () => {
         if (frameId !== undefined && caf) caf(frameId)
       }
-      
+
     }
 
     nextTick(init)

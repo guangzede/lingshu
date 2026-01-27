@@ -1,0 +1,43 @@
+@use '../../../../styles/variables.scss' as *;
+
+.branch-relation-section {
+  margin: $spacing-md 0;
+  padding: $spacing-md;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: $border-radius-lg;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.branch-relation-header {
+  margin-bottom: $spacing-md;
+  padding-bottom: $spacing-sm;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.branch-relation-title {
+  font-size: $font-size-lg;
+  font-weight: 600;
+  color: $color-text-primary;
+}
+
+.relation-group {
+  margin-bottom: $spacing-md;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.relation-group-title {
+  font-size: $font-size-md;
+  color: $color-text-secondary;
+  margin-bottom: $spacing-sm;
+  display: block;
+}
+
+.relation-item {
+  display: block;
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  margin-bottom: $spacing-xs;
+  line-height: 1.4;
+}

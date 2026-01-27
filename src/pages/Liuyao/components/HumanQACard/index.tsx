@@ -13,7 +13,7 @@ const HumanQACard: React.FC<HumanQACardProps> = ({ question }) => {
 
   const handleConsult = () => {
     Taro.setClipboardData({
-      data: 'zhang26898',
+      data: '530070136',
       success: () => {
         Taro.showToast({
           title: '微信号已复制到剪贴板。\n请前往微信“添加朋友”粘贴搜索。',
@@ -43,9 +43,9 @@ const HumanQACard: React.FC<HumanQACardProps> = ({ question }) => {
           <Text className="card-desc">针对当前盘面，提供定制化的人工解读服务。</Text>
         </View>
         <View className="card-body">
-          <Text className="label">求测事项</Text>
+          <Text className="label">此刻想法</Text>
           <Text className="content">{question || '暂无填写'}</Text>
-          <Text className="tips">注：咨询内容仅供学术探讨与决策参考。</Text>
+          <Text className="tips">注：咨询内容仅供学术探讨或娱乐化参考。</Text>
         </View>
         <Button className="primary-btn" onClick={handleConsult}>
           预约人工咨询
@@ -57,12 +57,12 @@ const HumanQACard: React.FC<HumanQACardProps> = ({ question }) => {
         <View className="qrcode-modal" onClick={handleClose}>
           <View className="qrcode-content" onClick={handleContentClick}>
             <View className="qrcode-header">
-              <Text className="qrcode-title">扫码咨询真人</Text>
+              <Text className="qrcode-title">共同学习</Text>
               <Text className="qrcode-close" onClick={handleClose}>✕</Text>
             </View>
-            <Image 
-              className="qrcode-image" 
-              src={qrcodeImg} 
+            <Image
+              className="qrcode-image"
+              src={qrcodeImg}
               mode="widthFix"
               showMenuByLongpress
             />

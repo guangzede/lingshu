@@ -1,0 +1,49 @@
+@use '../../styles/variables.scss' as *;
+@use '../../styles/mixins.scss' as *;
+
+.ai-assistant {
+  padding: $spacing-lg;
+
+  .ai-response-section {
+    margin-top: $spacing-lg;
+
+    .ai-response-content {
+      font-size: $font-size-xl;
+      line-height: 1.6;
+      color: $color-text-secondary;
+      background: $color-bg-card;
+      padding: $spacing-lg;
+      border-radius: $border-radius-xxl;
+      min-height: 200rpx;
+      border: 1px solid $color-border;
+    }
+
+    .loading-animation {
+      font-size: $font-size-xl;
+      text-align: center;
+      color: $color-text-tertiary;
+      padding: $spacing-lg;
+    }
+  }
+
+  .error-section {
+    font-size: $font-size-lg;
+    text-align: center;
+    color: #ff6b6b;
+  }
+
+  .primary-btn {
+    width: 100%;
+    height: 80rpx;
+    @include button-primary;
+    margin-top: $spacing-lg;
+  }
+
+  .copy-btn {
+    @include button-accent;
+    width: auto;
+    margin: $spacing-lg auto 0;
+    padding: 12rpx 24rpx;
+    font-size: $font-size-lg;
+  }
+}

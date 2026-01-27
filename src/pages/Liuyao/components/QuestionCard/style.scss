@@ -39,19 +39,7 @@
   margin-top: 4px;
 }
 
-/* Tags Container */
-.tags-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  min-height: 50px;
-  align-items: center;
-  padding: 12px;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 12px;
-  border: 1px solid rgba(251, 191, 36, 0.1);
-  margin-bottom: 12px;
-}
+
 
 .selected-tag {
   display: inline-flex;
@@ -129,14 +117,22 @@
   }
 }
 
-/* Manual Input */
-.manual-input-wrapper {
+/* Input with Button Container */
+.input-with-button {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
 }
 
-.question-input.manual {
+.input-container {
+  flex: 1;
+  position: relative;
+}
+
+/*统一的输入框样式*/
+.question-input {
+  width: 100%;
   background: rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(251, 191, 36, 0.2);
   border-radius: 8px;
@@ -144,13 +140,43 @@
   color: #fbbf24;
   font-size: 28px;
   font-family: inherit;
+  min-height: 50px;
 
-  &::placeholder {
-    color: rgba(251, 191, 36, 0.4);
+  &.manual {
+    &::placeholder {
+      color: rgba(251, 191, 36, 0.4);
+    }
+  }
+
+  &.tags-mode {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
   }
 }
 
-.back-button {
+/*标签覆盖层*/
+.tags-overlay {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  padding: 12px;
+  min-height: 50px;
+  pointer-events: none;
+
+  .selected-tag {
+    pointer-events: auto;
+  }
+}
+
+/* Input Button Styles */
+.input-button {
+  white-space: nowrap;
   background: rgba(251, 191, 36, 0.1);
   border: 1px solid rgba(251, 191, 36, 0.3);
   border-radius: 8px;
@@ -164,30 +190,6 @@
   &:hover {
     background: rgba(251, 191, 36, 0.2);
     box-shadow: 0 0 12px rgba(251, 191, 36, 0.2);
-  }
-
-  &:active {
-    transform: scale(0.98);
-  }
-}
-
-/* Manual Trigger Button */
-.manual-trigger-button {
-  background: rgba(251, 191, 36, 0.08);
-  border: 1px solid rgba(251, 191, 36, 0.2);
-  border-radius: 8px;
-  padding: 10px 14px;
-  color: rgba(251, 191, 36, 0.8);
-  font-size: 24px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  width: 100%;
-  outline: none;
-
-  &:hover {
-    background: rgba(251, 191, 36, 0.15);
-    color: #fbbf24;
-    border-color: rgba(251, 191, 36, 0.4);
   }
 
   &:active {

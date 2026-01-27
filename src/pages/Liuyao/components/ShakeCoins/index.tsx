@@ -127,6 +127,14 @@ export const ShakeCoins: React.FC<ShakeCoinsProps> = ({ step, disabled, onDone }
       } catch (error) {
         console.error('Canvas init error:', error)
         setInitError(`初始化失败: ${error instanceof Error ? error.message : String(error)}`)
+        // 延迟重试，最多尝试3次
+        if (!init.retryCount) init.retryCount = 0
+        if (init.retryCount < 3) {
+          init.retryCount++
+          setTimeout(() => {
+            init()
+          }, 500)
+        }
       }
     }
 
@@ -304,15 +312,7 @@ export const ShakeCoins: React.FC<ShakeCoinsProps> = ({ step, disabled, onDone }
     ctx.arc(0, 0, r, 0, Math.PI * 2)
     ctx.fill()
 
-    // 暗角 vignetting
-    const vignette = ctx.createRadialGradient(0, 0, r * 0.2, 0, 0, r * 1.1)
-    vignette.addColorStop(0, 'rgba(0,0,0,0)')
-    vignette.addColorStop(0.7, 'rgba(0,0,0,0.15)')
-    vignette.addColorStop(1, 'rgba(0,0,0,0.4)')
-    ctx.fillStyle = vignette
-    ctx.beginPath()
-    ctx.arc(0, 0, r, 0, Math.PI * 2)
-    ctx.fill()
+    // 移除暗角效果，避免金币上出现黑色阴影
 
     // 金币纹理，增加表面细节
     ctx.save()
@@ -594,7 +594,9 @@ export const ShakeCoins: React.FC<ShakeCoinsProps> = ({ step, disabled, onDone }
         drawCoin(ctx, { ...c, x: px, y: py }, frontFace)
         // 投影阴影贴合桌面透视，更真实的阴影效果
         ctx.save()
-        const { px: sx, py: sy } = projectToTable(c.x, floorY + 4)
+        // 使用金币的实际位置计算阴影位置
+        const { px: coinPx, py: coinPy } = projectToTable(c.x, c.y)
+        const { px: sx, py: sy } = projectToTable(c.x, floorY + 2)
         const shadowScale = 1 - Math.abs(Math.cos(c.angleX + cameraPitch)) * 0.15
         const shadowWidth = c.radius * 1.35 * shadowScale
         const shadowHeight = c.radius * 0.3 * shadowScale
@@ -610,7 +612,8 @@ export const ShakeCoins: React.FC<ShakeCoinsProps> = ({ step, disabled, onDone }
         ctx.fillStyle = shadowGrad
         ctx.globalAlpha = 0.8
         ctx.beginPath()
-        ctx.ellipse(sx + c.vx * 0.01, sy + 2, shadowWidth, shadowHeight, -planeSkew * 1, 0, Math.PI * 2)
+        // 阴影位置基于金币的实际位置，不添加额外偏移
+        ctx.ellipse(sx, sy, shadowWidth, shadowHeight, -planeSkew * 1, 0, Math.PI * 2)
         ctx.fill()
         ctx.restore()
       })

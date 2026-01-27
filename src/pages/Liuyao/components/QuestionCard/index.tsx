@@ -31,10 +31,10 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ value, onChange, readOnly =
     if (readOnly && value && value.trim()) {
       // 解析 value 字符串（格式：label1 · label2 · label3）
       const labels = value.split(' · ').map(l => l.trim()).filter(l => l)
-      
+
       if (labels.length > 0) {
         const newSelections: Selection[] = []
-        
+
         // Step 0: 查找分类
         const category = WORD_TREE.category.find((c: any) => c.label === labels[0])
         if (category) {
@@ -44,12 +44,12 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ value, onChange, readOnly =
             label: category.label,
             desc: category.desc
           })
-          
+
           // Step 1: 查找详细场景
           if (labels[1]) {
             const categoryId = category.id as CategoryId
             const details = WORD_TREE.detail[categoryId]
-            const detail = Array.isArray(details) 
+            const detail = Array.isArray(details)
               ? details.find((d: any) => d.label === labels[1])
               : null
             if (detail) {
@@ -59,7 +59,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ value, onChange, readOnly =
                 label: detail.label,
                 desc: detail.desc
               })
-              
+
               // Step 2: 查找问题
               if (labels[2]) {
                 const questions = WORD_TREE.question[categoryId] || WORD_TREE.question.common
@@ -78,7 +78,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ value, onChange, readOnly =
             }
           }
         }
-        
+
         setSelections(newSelections)
         setStep((newSelections.length - 1) as Step)
       }
@@ -115,7 +115,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ value, onChange, readOnly =
 
   const handleKeywordClick = (keyword: any) => {
     if (readOnly || !keyword?.id || !keyword?.label) return
-    
+
     const newSelection: Selection = {
       step,
       id: keyword.id,
@@ -139,12 +139,12 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ value, onChange, readOnly =
 
   const handleTagClick = (indexToRemove: number) => {
     if (readOnly) return
-    
+
     // 移除此标签及之后的所有标签
     const newSelections = selections.slice(0, indexToRemove)
     setSelections(newSelections)
     setStep((indexToRemove) as Step)
-    
+
     // 重置手动输入或最终查询
     if (indexToRemove === 0) {
       onChange('')
@@ -170,79 +170,74 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ value, onChange, readOnly =
       {/* ==================== Energy Core: Input Area ==================== */}
       <View className="glass-card question-card energy-core">
         <View className="card-header">
-          <Text className="card-section-title">求测事项</Text>
-          <Text className="card-section-guide">
-            {readOnly 
+          <Text className="card-section-title">记录此刻心情</Text>
+          {/* <Text className="card-section-guide">
+            {readOnly
               ? '📋 仅查看 - 已加载的卦例不可修改'
-              : manualMode 
+              : manualMode
               ? '手动输入占卜内容'
-              : isCompleted 
+              : isCompleted
               ? '关键词已集合，可随时修改'
               : '点击泡泡组装问题'}
-          </Text>
+          </Text> */}
         </View>
 
-        {/* Manual Input Mode */}
-        {manualMode ? (
-          <View className="manual-input-wrapper">
+        {/*统一的输入组件*/}
+        <View className="input-with-button">
+          {/*输入容器*/}
+          <View className="input-container">
+            {/*根据 manualMode 状态渲染不同内容*/}
             <Input
-              className="question-input manual"
-              value={manualInput}
-              placeholder="请输入占卜内容..."
-              disabled={readOnly}
-              style={{ height: '52px', lineHeight: '26px' }}
-              onInput={(e) => handleManualInput(e.detail.value)}
+              className={`question-input ${manualMode ? 'manual' : 'tags-mode'}`}
+              value={manualMode ? manualInput : selections.map(s => s.label).join(' · ')}
+              placeholder={manualMode ? "请输入占卜内容..." : "请选择关键词..."}
+              disabled={readOnly || !manualMode}
+              style={{ height: '52px', lineHeight: '26px', width: '100%' }}
+              onInput={(e) => manualMode && handleManualInput(e.detail.value)}
             />
-            <View
-              onClick={() => !readOnly && setManualMode(false)}
-              className="back-button"
-              style={{ opacity: readOnly ? 0.5 : 1, cursor: readOnly ? 'not-allowed' : 'pointer' }}
-            >
-              返回选择
-            </View>
-          </View>
-        ) : (
-          <>
-            {/* Selected Tags Container */}
-            <View className="tags-container">
-              {selections.map((selection, idx) => (
-                <View
-                  key={`tag-${selection.step}-${selection.id}`}
-                  onClick={() => handleTagClick(idx)}
-                  className="selected-tag"
-                  style={{ opacity: readOnly ? 0.7 : 1, cursor: readOnly ? 'default' : 'pointer' }}
-                >
-                  <View className="tag-content">
-                    <Text className="tag-text">{selection.label}</Text>
-                    {selection.desc && (
-                      <Text className="tag-desc">{selection.desc}</Text>
-                    )}
+
+            {/*标签模式下的标签显示*/}
+            {!manualMode && (
+              <View className="tags-overlay">
+                {selections.map((selection, idx) => (
+                  <View
+                    key={`tag-${selection.step}-${selection.id}`}
+                    onClick={() => handleTagClick(idx)}
+                    className="selected-tag"
+                    style={{ opacity: readOnly ? 0.7 : 1, cursor: readOnly ? 'default' : 'pointer' }}
+                  >
+                    <View className="tag-content">
+                      <Text className="tag-text">{selection.label}</Text>
+                      {selection.desc && (
+                        <Text className="tag-desc">{selection.desc}</Text>
+                      )}
+                    </View>
+                    {!readOnly && <Text className="tag-close">✕</Text>}
                   </View>
-                  {!readOnly && <Text className="tag-close">✕</Text>}
-                </View>
-              ))}
+                ))}
 
-              {/* Placeholder dots when empty */}
-              {selections.length === 0 && (
-                <View className="placeholder-dots">
-                  <View></View>
-                  <View></View>
-                  <View></View>
-                </View>
-              )}
-            </View>
-
-            {/* Manual Input Trigger Button */}
-            {!isCompleted && !readOnly && (
-              <View
-                onClick={() => setManualMode(true)}
-                className="manual-trigger-button"
-              >
-                手动输入
+                {/* Placeholder dots when empty */}
+                {selections.length === 0 && (
+                  <View className="placeholder-dots">
+                    <View></View>
+                    <View></View>
+                    <View></View>
+                  </View>
+                )}
               </View>
             )}
-          </>
-        )}
+          </View>
+
+          {/*切换按钮*/}
+          {!readOnly && (
+            <View
+              onClick={() => setManualMode(!manualMode)}
+              className="input-button"
+            >
+              {manualMode ? '返回选择' : '手动输入'}
+            </View>
+          )}
+        </View>
 
         {/* ==================== Stardust Cloud: Keyword Selection ==================== */}
         {showCloud && (

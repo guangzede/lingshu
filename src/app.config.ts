@@ -4,7 +4,8 @@ export default {
     'pages/experience/index',
     'pages/fortune/index',
     'pages/armillary/index',
-    'pages/bazi/index'
+    'pages/bazi/index',
+    'pages/testPage/index'
   ],
   subpackages: [
     {
@@ -17,6 +18,10 @@ export default {
     },
     {
       root: 'pages/LiuyaoHistory',
+      pages: ['index']
+    },
+    {
+      root: 'pages/testPage',
       pages: ['index']
     }
   ],

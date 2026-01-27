@@ -1,0 +1,40 @@
+@use '../../../../styles/variables.scss' as *;
+
+.bottom-buttons-container {
+  margin: $spacing-lg 16px;
+  display: flex;
+  gap: $spacing-md;
+  justify-content: center;
+  padding-bottom: $spacing-lg;
+}
+
+.btn-save-case {
+  flex: 1;
+  padding: $spacing-md;
+  background: $gradient-primary;
+  color: white;
+  border: none;
+  border-radius: $border-radius-lg;
+  font-size: $font-size-lg;
+  font-weight: 600;
+  &::after {
+    border: none;
+  }
+  &:disabled {
+    opacity: 0.6;
+  }
+}
+
+.btn-view-history {
+  flex: 1;
+  padding: $spacing-md;
+  background: rgba(255, 255, 255, 0.1);
+  color: $color-text-primary;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: $border-radius-lg;
+  font-size: $font-size-lg;
+  font-weight: 600;
+  &::after {
+    border: none;
+  }
+}

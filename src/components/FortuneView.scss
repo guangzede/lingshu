@@ -1,40 +1,73 @@
+@use '../styles/variables.scss' as *;
+@use '../styles/mixins.scss' as *;
+
+.fortune-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-xxxl;
+  min-height: 100vh;
+
+  .fortune-text {
+    font-size: $font-size-xxxl;
+    text-align: center;
+    margin-bottom: $spacing-xxl;
+    line-height: 1.5;
+    color: $color-text-primary;
+  }
+
+  .fortune-button {
+    @include button-primary;
+    padding: $spacing-lg $spacing-xl;
+    border-radius: $border-radius-full;
+    margin-top: $spacing-lg;
+  }
+}
+
 .fortune-page {
   min-height: 100vh;
-  background: #050510;
-  color: #fff;
+  background: $color-bg-primary;
+  color: $color-text-primary;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .container {
-  padding: 24px;
-  border: 1px solid #333;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.04);
+  padding: $spacing-xl;
+  border: 1px solid $color-border-light;
+  border-radius: $border-radius-lg;
+  @include glass-effect;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: $spacing-md;
   min-width: 260px;
   max-width: 420px;
 }
 
 .title {
-  font-size: 20px;
+  font-size: $font-size-xxxl;
   font-weight: 700;
+  color: $color-text-primary;
 }
 
 .result-box {
   border: 1px dashed rgba(255, 255, 255, 0.3);
-  border-radius: 10px;
-  padding: 12px;
+  border-radius: $border-radius-md;
+  padding: $spacing-md;
 }
 
 .result-text {
-  color: #cfd8dc;
+  color: $color-text-secondary;
 }
 
 .back-button {
   background: #1e88e5;
-  color: #fff;
+  color: $color-text-primary;
+  border-radius: $border-radius-md;
+  padding: $spacing-sm $spacing-md;
+  &::after {
+    border: none;
+  }
 }

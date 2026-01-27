@@ -1,0 +1,73 @@
+@use '../../../../styles/variables.scss' as *;
+
+.yao-analysis-section {
+  margin: $spacing-md 0;
+  padding: $spacing-md;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: $border-radius-lg;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.yao-analysis-header {
+  margin-bottom: $spacing-md;
+  padding-bottom: $spacing-sm;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.yao-analysis-title {
+  font-size: $font-size-lg;
+  font-weight: 600;
+  color: $color-text-primary;
+}
+
+.yao-analysis-item {
+  margin-bottom: $spacing-md;
+  padding: $spacing-sm;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: $border-radius-md;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.yao-analysis-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: $spacing-sm;
+}
+
+.yao-analysis-label {
+  font-size: $font-size-md;
+  color: $color-text-secondary;
+  flex: 1;
+}
+
+.moving-tag {
+  color: $color-accent;
+  font-size: $font-size-sm;
+  margin-left: $spacing-xs;
+}
+
+.yao-analysis-strength {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  text-align: right;
+  max-width: 120px;
+}
+
+.yao-analysis-relations {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  line-height: 1.4;
+  margin-bottom: $spacing-xs;
+  display: block;
+}
+
+.yao-analysis-variant {
+  font-size: $font-size-sm;
+  color: $color-accent;
+  line-height: 1.4;
+  display: block;
+}

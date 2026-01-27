@@ -1,0 +1,158 @@
+@use './variables.scss' as *;
+
+// 玻璃态效果混合宏
+@mixin glass-effect($bg: $glass-bg, $border: $glass-border, $blur: $glass-blur) {
+  background: $bg;
+  border: 1px solid $border;
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+}
+
+// 卡片样式混合宏
+@mixin card-style() {
+  @include glass-effect;
+  border-radius: $border-radius-xl;
+  padding: $spacing-md;
+  box-shadow: $shadow-lg;
+}
+
+// 按钮样式混合宏
+@mixin button-primary() {
+  background: $gradient-primary;
+  color: white;
+  border: none;
+  border-radius: $border-radius-lg;
+  font-weight: 700;
+  font-size: $font-size-xl;
+  &::after {
+    border: none;
+  }
+  &:disabled {
+    opacity: 0.6;
+  }
+}
+
+// 按钮次要样式混合宏
+@mixin button-secondary() {
+  background: $gradient-secondary;
+  color: #0b1021;
+  border: none;
+  border-radius: $border-radius-lg;
+  font-weight: 700;
+  font-size: $font-size-xl;
+  &::after {
+    border: none;
+  }
+  &:disabled {
+    opacity: 0.6;
+  }
+}
+
+// 按钮 accent 样式混合宏
+@mixin button-accent() {
+  background: $gradient-accent;
+  color: white;
+  border: none;
+  border-radius: $border-radius-lg;
+  font-weight: 700;
+  font-size: $font-size-xl;
+  &::after {
+    border: none;
+  }
+  &:disabled {
+    opacity: 0.6;
+  }
+}
+
+// 文字发光效果混合宏
+@mixin text-glow($color: $color-accent, $strength: 0.3) {
+  text-shadow: 0 0 10rpx rgba($color, $strength);
+}
+
+// 标题样式混合宏
+@mixin heading-style($size: $font-size-xl, $color: $color-accent, $glow: true) {
+  font-size: $size;
+  font-weight: bold;
+  color: $color;
+  @if $glow {
+    @include text-glow;
+  }
+}
+
+// 响应式设计混合宏
+@mixin responsive($breakpoint) {
+  @if $breakpoint == 'sm' {
+    @media (max-width: 375px) {
+      @content;
+    }
+  } @else if $breakpoint == 'md' {
+    @media (max-width: 768px) {
+      @content;
+    }
+  } @else if $breakpoint == 'lg' {
+    @media (max-width: 1024px) {
+      @content;
+    }
+  }
+}
+
+// 输入框样式混合宏
+@mixin input-style() {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: $border-radius-md;
+  padding: $spacing-md;
+  color: $color-text-primary;
+  font-size: $font-size-lg;
+  &::placeholder {
+    color: $color-text-tertiary;
+  }
+  &:focus {
+    outline: none;
+    border-color: $color-accent;
+    box-shadow: 0 0 0 2px rgba($color-accent, 0.2);
+  }
+}
+
+// 代码块样式混合宏
+@mixin code-block() {
+  background: $color-bg-code;
+  border: 1px solid $color-border-light;
+  border-radius: $border-radius-md;
+  padding: $spacing-md;
+  font-family: 'Courier New', monospace;
+  font-size: $font-size-lg;
+  line-height: 1.4;
+  overflow-x: auto;
+}
+
+// 引用块样式混合宏
+@mixin quote-block() {
+  border-left: 4px solid $color-accent;
+  background: $color-bg-quote;
+  padding: $spacing-md;
+  border-radius: 0 $border-radius-md $border-radius-md 0;
+  color: $color-text-secondary;
+  font-style: italic;
+}
+
+// 卡片头部样式混合宏
+@mixin card-header-style() {
+  .card-header {
+    margin-bottom: $spacing-md;
+  }
+
+  .card-section-title {
+    font-size: $font-size-xl;
+    font-weight: 700;
+    color: $color-text-primary;
+    margin-bottom: $spacing-xs;
+    display: block;
+  }
+
+  .card-section-guide {
+    font-size: $font-size-sm;
+    color: $color-text-tertiary;
+    display: block;
+  }
+}
