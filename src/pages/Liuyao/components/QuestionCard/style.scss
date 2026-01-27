@@ -128,13 +128,13 @@
 .input-container {
   flex: 1;
   position: relative;
+  border: 1px solid rgba(251, 191, 36, 0.2);
 }
 
 /*统一的输入框样式*/
 .question-input {
   width: 100%;
   background: rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(251, 191, 36, 0.2);
   border-radius: 8px;
   padding: 12px;
   color: #fbbf24;

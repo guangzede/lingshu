@@ -1,7 +1,6 @@
 import React from 'react'
 import { View, Text, Button, ScrollView } from '@tarojs/components'
 import Taro, { useDidShow } from '@tarojs/taro'
-import THEME from '@/constants/theme'
 import { useLiuyaoStore } from '@/store/liuyao'
 import './index.scss'
 
@@ -73,8 +72,8 @@ const LiuyaoHistoryPage: React.FC = () => {
   return (
     <View className="liuyao-history-page">
       <View className="history-header">
-        <Text className="history-title">卜卦记录</Text>
-        <Text className="history-count">共 {cases.length} 条记录</Text>
+        <Text className="history-title">复盘</Text>
+        <Text className="history-count">共 {cases.length} 条锦囊</Text>
       </View>
 
       {cases.length === 0 ? (
@@ -89,7 +88,7 @@ const LiuyaoHistoryPage: React.FC = () => {
                 {/* 卦例标题和时间 */}
                 <View className="case-header">
                   <Text className="case-number-title">
-                    {idx + 1}. {item.question || '未填写求测事项'}
+                    {idx + 1}. {item.question || '未记录您的想法'}
                   </Text>
                   <Text className="case-time">
                     {formatDate(item.dateValue, item.timeValue)}

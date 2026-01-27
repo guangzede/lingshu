@@ -45,7 +45,7 @@ const BottomButtons: React.FC<BottomButtonsProps> = ({ isLoadingHistory, hasResu
           onClick={handleViewHistory}
           className="btn-view-history"
         >
-          查看历史
+          返回卦簿
         </Button>
       </View>
     )
@@ -58,13 +58,13 @@ const BottomButtons: React.FC<BottomButtonsProps> = ({ isLoadingHistory, hasResu
         disabled={!hasResult}
         className="btn-save-case"
       >
-        保存卦例
+        保存案例
       </Button>
       <Button
         onClick={handleViewHistory}
         className="btn-view-history"
       >
-        查看历史
+        查看卦薄
       </Button>
     </View>
   )

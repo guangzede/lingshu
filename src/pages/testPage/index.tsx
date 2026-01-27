@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 
+import './index.scss'
+
 // 导入所有组件
 import AIAnalysisCard from '../Liuyao/components/AIAnalysisCard';
 import BottomButtons from '../Liuyao/components/BottomButtons';

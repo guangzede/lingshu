@@ -19,10 +19,6 @@ export default {
     {
       root: 'pages/LiuyaoHistory',
       pages: ['index']
-    },
-    {
-      root: 'pages/testPage',
-      pages: ['index']
     }
   ],
   window: {

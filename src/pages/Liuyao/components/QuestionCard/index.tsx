@@ -62,7 +62,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ value, onChange, readOnly =
 
               // Step 2: 查找问题
               if (labels[2]) {
-                const questions = WORD_TREE.question[categoryId] || WORD_TREE.question.common
+                const questions = WORD_TREE.question[categoryId]
                 const question = Array.isArray(questions)
                   ? questions.find((q: any) => q.label === labels[2])
                   : null
@@ -108,7 +108,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ value, onChange, readOnly =
       // Step 2: 根据分类ID获取问题，没有则回退到 common
       const categoryId = selections[0]?.id as CategoryId
       const categoryQuestions = WORD_TREE.question[categoryId]
-      const questions = categoryQuestions || WORD_TREE.question.common
+      const questions = categoryQuestions
       return Array.isArray(questions) ? questions : []
     }
   }
@@ -170,7 +170,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ value, onChange, readOnly =
       {/* ==================== Energy Core: Input Area ==================== */}
       <View className="glass-card question-card energy-core">
         <View className="card-header">
-          <Text className="card-section-title">记录此刻心情</Text>
+          <Text className="card-section-title">记录思绪</Text>
           {/* <Text className="card-section-guide">
             {readOnly
               ? '📋 仅查看 - 已加载的卦例不可修改'
@@ -256,7 +256,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ value, onChange, readOnly =
               )}
             </View>
 
-            <View className="cloud-guide-text">点击下方泡泡继续组装问题</View>
+            <View className="cloud-guide-text">点击下方泡泡组合最符合您的想法</View>
 
             <View className="keywords-grid">
               {currentKeywords.map((keyword) => (
