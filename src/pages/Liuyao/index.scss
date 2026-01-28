@@ -33,24 +33,15 @@
   background: linear-gradient(180deg, rgba(100, 150, 200, 0.08) 0%, transparent 100%);
 }
 
-// 模式选择器 - 极简文本标签
-.mode-selector {
-  display: flex;
-  justify-content: space-between;
-  gap: 4px;
-  margin-bottom: 32px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid rgba(201, 173, 111, 0.1);
-}
+
 
 .mode-tab {
   flex: 1;
   text-align: center;
   font-size: 25px;
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: 2px;
-  color: rgba(201, 173, 111, 0.4);
-  padding: 8px 4px;
+  color: rgba(255, 255, 255, 1);
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
@@ -61,9 +52,9 @@
 }
 
 .mode-tab-active {
-  color: #c9ad6f;
+  color: #fff;
   font-weight: 500;
-  text-shadow: 0 0 12px rgba(201, 173, 111, 0.4);
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
 
   &::after {
     content: '';
@@ -476,7 +467,7 @@
   margin: 0;
   font-weight: 400;
   flex-shrink: 0;
-  text-align: right;
+  text-align: left;
 }
 
 .info-row {
@@ -539,47 +530,6 @@
   font-weight: 500;
 }
 
-// 神煞网格 */
-.shensha-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-}
-
-.shensha-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 12px;
-  background: rgba(201, 173, 111, 0.05);
-  border-radius: 6px;
-  border: 1px solid rgba(201, 173, 111, 0.1);
-  &.highlight-red {
-    background: rgba(255, 107, 107, 0.08);
-    border-color: rgba(255, 107, 107, 0.2);
-
-    .shensha-key {
-      color: rgba(255, 107, 107, 0.9);
-    }
-
-    .shensha-val {
-      color: #ff6b6b;
-    }
-  }
-
-  &.highlight-jade {
-    background: rgba(122, 162, 140, 0.08);
-    border-color: rgba(122, 162, 140, 0.2);
-
-    .shensha-key {
-      color: rgba(122, 162, 140, 0.9);
-    }
-
-    .shensha-val {
-      color: #7aa28c;
-    }
-  }
-}
 
 .shensha-key {
   font-size: 24px;
@@ -633,12 +583,6 @@
   letter-spacing: 1px;
 }
 
-.relation-item {
-  color: rgba(240, 237, 229, 0.9);
-  margin-bottom: 6px;
-  line-height: 1.6;
-  letter-spacing: 0.5px;
-}
 
 // 爻位分析区域 */
 .yao-analysis-section {

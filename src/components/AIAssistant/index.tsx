@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { View, Button, Text, ScrollView } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
+import { deepseekChat } from '@/services/aiClient';
 import './index.scss';
 
 interface AIAssistantProps {
@@ -17,150 +18,94 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
   const [aiResponse, setAiResponse] = useState('');
   const [error, setError] = useState('');
   const fullResponseRef = useRef('');
+  const [elapsed, setElapsed] = useState(0);
+  const [currentTip, setCurrentTip] = useState('');
+  const tipTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const elapsedTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const tipIndexRef = useRef(0);
 
   const DEEPSEEK_API_KEY = 'sk-c4a5a166346e40439b6ac8ed20dac9c9';
 
-  // 流式请求实现 - 修复版本
+  const tips = [
+    '提示：正在一次性拉去AI计算结果，耗时可能较长。',
+    '建议：保持网络稳定，避免切出页面。',
+    '说明：生成报告通常需要 20-40 秒。',
+    '马上完成：感谢您的耐心等待！',
+    // '可选：用 H5 端体验流式输出。',
+  ];
+
+  React.useEffect(() => {
+    if (isGenerating) {
+      setElapsed(0);
+      tipIndexRef.current = 0;
+      setCurrentTip(tips[0]);
+
+      if (elapsedTimerRef.current) clearInterval(elapsedTimerRef.current);
+      if (tipTimerRef.current) clearInterval(tipTimerRef.current);
+
+      elapsedTimerRef.current = setInterval(() => {
+        setElapsed((prev) => prev + 1);
+      }, 1000);
+
+      tipTimerRef.current = setInterval(() => {
+        tipIndexRef.current = (tipIndexRef.current + 1) % tips.length;
+        setCurrentTip(tips[tipIndexRef.current]);
+      }, 3000);
+    } else {
+      if (elapsedTimerRef.current) {
+        clearInterval(elapsedTimerRef.current);
+        elapsedTimerRef.current = null;
+      }
+      if (tipTimerRef.current) {
+        clearInterval(tipTimerRef.current);
+        tipTimerRef.current = null;
+      }
+    }
+
+    return () => {
+      if (elapsedTimerRef.current) clearInterval(elapsedTimerRef.current);
+      if (tipTimerRef.current) clearInterval(tipTimerRef.current);
+    };
+  }, [isGenerating]);
+
+  // 流式（Web）与非流式（小程序等）统一封装调用
   const callDeepSeekAPIStream = async (prompt: string) => {
     setAiResponse('🔮 AI 正在为您分析卦象...\n\n');
     fullResponseRef.current = '🔮 AI 正在为您分析卦象...\n\n';
-
     try {
-      // 检查是否在小程序环境中（Taro 环境）
-      const isTaroEnv = typeof Taro !== 'undefined' && Taro.getEnv;
-
-      if (isTaroEnv) {
-        // 小程序环境不支持原生 fetch 流式，改用非流式请求
-        const aiResult = await callDeepSeekAPINonStream(prompt);
-        setAiResponse(aiResult);
-        return aiResult;
-      }
-
-      // Web 环境使用 fetch 流式
-      // @ts-ignore
-      const response = await fetch('https://api.deepseek.com/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${DEEPSEEK_API_KEY}`
-        },
-        body: JSON.stringify({
-          model: 'deepseek-chat',
-          messages: [
-            {
-              role: 'system',
-              content: '你是一位精通六爻预测的命理专家，请根据用户提供的六爻排盘信息进行专业解读。'
-            },
-            {
-              role: 'user',
-              content: prompt
-            }
-          ],
-          stream: true,
-          temperature: 0.7,
-          max_tokens: 1000
-        })
-      });
-
-      if (!response.body) throw new Error('流式响应不被支持');
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder('utf-8');
-      let done = false;
-
-      // 使用防抖来优化UI更新
-      let updateTimer: NodeJS.Timeout | null = null;
-      const updateUI = () => {
-        if (updateTimer) clearTimeout(updateTimer);
-        updateTimer = setTimeout(() => {
+      const result = await deepseekChat({
+        apiKey: DEEPSEEK_API_KEY,
+        prompt,
+        stream: true,
+        maxTokens: 1000,
+        onDelta: (text) => {
+          fullResponseRef.current += text;
           setAiResponse(fullResponseRef.current);
-        }, 50); // 50ms 防抖
-      };
-
-      while (!done) {
-        const { value, done: readerDone } = await reader.read();
-        done = readerDone;
-        if (value) {
-          const chunk = decoder.decode(value, { stream: true });
-          chunk.split('\n').forEach(line => {
-            if (!line.trim()) return;
-            try {
-              if (line.startsWith('data: ')) {
-                const jsonStr = line.slice(6);
-                if (jsonStr === '[DONE]') return;
-                const data = JSON.parse(jsonStr);
-                const delta = data.choices?.[0]?.delta;
-                if (typeof delta?.content === 'string' && delta.content) {
-                  fullResponseRef.current += delta.content;
-                  updateUI();
-                }
-              }
-            } catch (e) {
-              // 跳过非 JSON 行
-            }
-          });
-        }
-      }
-
-      // 确保最后的更新
-      if (updateTimer) clearTimeout(updateTimer);
-      setAiResponse(fullResponseRef.current);
-      return fullResponseRef.current.replace('🔮 AI 正在为您分析卦象...\n\n', '');
+        },
+      });
+      // 确保最终结果展示（小程序会一次性回调）
+      setAiResponse(fullResponseRef.current || result);
+      return (fullResponseRef.current || result).replace('🔮 AI 正在为您分析卦象...\n\n', '');
     } catch (err: any) {
       throw err;
     }
   };
 
-  // 非流式请求实现
+  // 非流式调用（统一走公共方法）
   const callDeepSeekAPINonStream = async (prompt: string): Promise<string> => {
-    try {
-      const response = await Taro.request({
-        url: 'https://api.deepseek.com/chat/completions',
-        method: 'POST',
-        header: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${DEEPSEEK_API_KEY}`
-        },
-        data: {
-          model: 'deepseek-chat',
-          messages: [
-            {
-              role: 'system',
-              content: '你是一位精通六爻预测的命理专家，请根据用户提供的六爻排盘信息进行专业解读。'
-            },
-            {
-              role: 'user',
-              content: prompt
-            }
-          ],
-          stream: false,
-          temperature: 0.7,
-          max_tokens: 100
-        },
-        timeout: 30000
-      });
-      if (response.statusCode === 200) {
-        const data = response.data as any;
-        if (data.choices && data.choices[0]?.message?.content) {
-          return data.choices[0].message.content;
-        } else {
-          throw new Error('API 返回格式异常');
-        }
-      } else if (response.statusCode === 401) {
-        throw new Error('API 密钥无效，请检查配置');
-      } else if (response.statusCode === 429) {
-        throw new Error('请求频率过高，请稍后再试');
-      } else {
-        throw new Error(`API 请求失败: ${response.statusCode}`);
-      }
-    } catch (err: any) {
-      throw err;
-    }
+    const result = await deepseekChat({
+      apiKey: DEEPSEEK_API_KEY,
+      prompt,
+      stream: true,
+      maxTokens: 100,
+    });
+    return result;
   };
 
   const handleGenerateAIAnalysis = async () => {
     if (!result || !question) {
       Taro.showToast({
-        title: '请先完成排盘',
+        title: '请把您的思绪记录下来否则AI无法生成报告',
         icon: 'none',
         duration: 2000
       });
@@ -214,10 +159,25 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
           className="ai-response-content"
           scrollY
           scrollIntoView="bottom"
-          style={{ maxHeight: '400px', minHeight: '200px', marginTop: '8px' }}
+          style={{ maxHeight: '60vh', minHeight: '40vh', marginTop: '8px' }}
         >
           {isGenerating ? (
-            <View className="loading-animation">🔄 正在生成，请稍候...</View>
+            <View className="loading-panel">
+              <View className="loading-spinner" />
+              <Text className="loading-title">正在生成分析报告</Text>
+              <Text className="loading-subtitle">
+                {Taro.getEnv && Taro.getEnv() === Taro.ENV_TYPE.WEAPP
+                  ? '小程序端不支持流式，将一次性返回'
+                  : '正在流式生成…'}
+              </Text>
+              <Text className="loading-elapsed">已等待 {elapsed} 秒</Text>
+              <View className="loading-tips">{currentTip}</View>
+              <View className="skeleton">
+                <View className="skeleton-line" />
+                <View className="skeleton-line" />
+                <View className="skeleton-line short" />
+              </View>
+            </View>
           ) : (
             <MarkdownRenderer content={aiResponse} />
           )}
@@ -243,7 +203,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
         onClick={handleGenerateAIAnalysis}
         disabled={isGenerating}
       >
-        {isGenerating ? 'AI 分析中...' : (isFromHistory ? '重新解读' : '生成 AI 解读')}
+        {isGenerating ? 'AI 解读中...' : (isFromHistory ? '重新解读' : '生成分析报告')}
       </Button>
     </View>
   );

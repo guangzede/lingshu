@@ -36,8 +36,8 @@ const YaoMatrix: React.FC<YaoMatrixProps> = ({
   return (
     <View className="glass-card yao-matrix-section">
       <View className="card-header">
-        <Text className="card-section-title">爻位排盘</Text>
-        <Text className="card-section-guide">点击爻位切换阴阳动静</Text>
+        <Text className="card-section-title">六爻模型</Text>
+        <Text className="card-section-guide">点击条目切换阴阳状态</Text>
       </View>
       {YAO_LABEL_ORDER.map((label, displayIndex) => {
         const realIndex = lines.length - 1 - displayIndex

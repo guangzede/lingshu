@@ -2,7 +2,7 @@ import type { Branch, Stem, Yao } from '@/types/liuyao'
 import { BRANCH_ORDER, BRANCH_WUXING, CHANGSHENG_SEQ, CN_TO_WUXING, GENERATES, OVERCOMES, STEM_WUXING, WUXING_CN, type Changsheng, type WuXing } from './constants'
 
 export function getRelation(src: WuXing, tgt: WuXing): 'generate' | 'overcome' | 'countered' | 'generated' | 'same'
-export function getRelation(self: WuXing, yaoBranch?: Branch, yaoStem?: Stem): '父母' | '兄弟' | '子孙' | '妻财' | '官鬼' | undefined
+export function getRelation(self: WuXing, yaoBranch?: Branch, yaoStem?: Stem): '父母' | '兄弟' | '子孙' | '妻财' | '官星' | undefined
 export function getRelation(src: WuXing, tgt?: Branch | Stem | WuXing): any {
   if (typeof tgt === 'string' && ['wood', 'fire', 'earth', 'metal', 'water'].includes(tgt)) {
     // tgt is WuXing
@@ -11,7 +11,7 @@ export function getRelation(src: WuXing, tgt?: Branch | Stem | WuXing): any {
     if (GENERATES[me] === tgt) return '子孙'
     if (GENERATES[tgt as WuXing] === me) return '父母'
     if (OVERCOMES[me] === tgt) return '妻财'
-    if (OVERCOMES[tgt as WuXing] === me) return '官鬼'
+    if (OVERCOMES[tgt as WuXing] === me) return '官星'
     return undefined
   } else {
     // tgt is Branch or Stem

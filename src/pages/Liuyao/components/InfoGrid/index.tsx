@@ -14,13 +14,12 @@ const InfoGrid: React.FC<InfoGridProps> = ({ result, dateValue, timeValue }) => 
     <View className="glass-card info-grid-card">
       <View className="card-header">
         <Text className="card-section-title">占象信息</Text>
-        <Text className="card-section-guide">时间和神煞信息</Text>
+        <Text className="card-section-guide">仅供娱乐参考</Text>
       </View>
       <View className="info-row">
-        <View className="clickable-time">
           <Text>{dateValue} {timeValue}</Text>
-        </View>
         <Text>农历 {result.lunar.month}月{result.lunar.day}日{result.lunar.jieQi ? `（${result.lunar.jieQi}）` : ''}</Text>
+
       </View>
 
       <View className="ganzhi-row">

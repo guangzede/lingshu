@@ -1,3 +1,3 @@
 export default definePageConfig({
-  navigationBarTitleText: '六爻排盘',
+  navigationBarTitleText: '六爻',
 })

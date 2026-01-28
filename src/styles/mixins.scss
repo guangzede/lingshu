@@ -140,19 +140,22 @@
 @mixin card-header-style() {
   .card-header {
     margin-bottom: $spacing-md;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
   }
 
   .card-section-title {
     font-size: $font-size-xl;
     font-weight: 700;
-    color: $color-text-primary;
+    color:$color-accent;
     margin-bottom: $spacing-xs;
     display: block;
   }
 
   .card-section-guide {
     font-size: $font-size-sm;
-    color: $color-text-tertiary;
+    color: $color-text-primary;
     display: block;
   }
 }

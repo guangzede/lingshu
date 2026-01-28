@@ -18,11 +18,73 @@
       border: 1px solid $color-border;
     }
 
-    .loading-animation {
-      font-size: $font-size-xl;
-      text-align: center;
-      color: $color-text-tertiary;
+    .loading-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: $spacing-md;
       padding: $spacing-lg;
+      text-align: center;
+    }
+
+    .loading-spinner {
+      width: 80rpx;
+      height: 80rpx;
+      border: 6rpx solid rgba(255, 215, 0, 0.25);
+      border-top: 6rpx solid #FFD700;
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+    }
+
+    .loading-title {
+      font-size: $font-size-xxl;
+      color: $color-text-primary;
+    }
+
+    .loading-subtitle {
+      font-size: $font-size-lg;
+      color: $color-text-tertiary;
+    }
+
+    .loading-elapsed {
+      font-size: $font-size-lg;
+      color: $color-text-secondary;
+    }
+
+    .loading-tips {
+      font-size: $font-size-md;
+      color: $color-text-tertiary;
+    }
+
+    .skeleton {
+      width: 100%;
+      margin-top: $spacing-md;
+      display: flex;
+      flex-direction: column;
+      gap: 12rpx;
+    }
+
+    .skeleton-line {
+      width: 100%;
+      height: 24rpx;
+      border-radius: 12rpx;
+      background: linear-gradient(90deg, rgba(255,255,255,0.08), rgba(255,255,255,0.18), rgba(255,255,255,0.08));
+      background-size: 200% 100%;
+      animation: shimmer 1.2s ease-in-out infinite;
+    }
+
+    .skeleton-line.short {
+      width: 70%;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
     }
   }
 

@@ -170,7 +170,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ value, onChange, readOnly =
       {/* ==================== Energy Core: Input Area ==================== */}
       <View className="glass-card question-card energy-core">
         <View className="card-header">
-          <Text className="card-section-title">记录思绪</Text>
+          <Text className="card-section-title">决策主题</Text>
           {/* <Text className="card-section-guide">
             {readOnly
               ? '📋 仅查看 - 已加载的卦例不可修改'
@@ -190,7 +190,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ value, onChange, readOnly =
             <Input
               className={`question-input ${manualMode ? 'manual' : 'tags-mode'}`}
               value={manualMode ? manualInput : selections.map(s => s.label).join(' · ')}
-              placeholder={manualMode ? "请输入占卜内容..." : "请选择关键词..."}
+              placeholder={manualMode ? "请输入主题内容..." : "请选择关键词..."}
               disabled={readOnly || !manualMode}
               style={{ height: '52px', lineHeight: '26px', width: '100%' }}
               onInput={(e) => manualMode && handleManualInput(e.detail.value)}
@@ -234,7 +234,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ value, onChange, readOnly =
               onClick={() => setManualMode(!manualMode)}
               className="input-button"
             >
-              {manualMode ? '返回选择' : '手动输入'}
+              {manualMode ? '返回选择' : '添加备注'}
             </View>
           )}
         </View>

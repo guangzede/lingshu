@@ -158,7 +158,7 @@ export function getTimeGanZhi(date: Date) {
 
 // ============= 伏神处理 =============
 function applyFuShen(hex: Hexagram, yaos: [Yao, Yao, Yao, Yao, Yao, Yao], rule: SchoolRuleSet, self: WuXing) {
-  const allRelations = new Set(['父母', '官鬼', '子孙', '妻财', '兄弟'] as const)
+  const allRelations = new Set(['父母', '官星', '子孙', '妻财', '兄弟'] as const)
   const existingRelations = new Set(yaos.map(y => y.relation).filter(Boolean))
   const missingRelations = Array.from(allRelations).filter(r => !existingRelations.has(r))
 

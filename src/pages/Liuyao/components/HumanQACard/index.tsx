@@ -39,16 +39,15 @@ const HumanQACard: React.FC<HumanQACardProps> = ({ question }) => {
     <>
       <View className="human-qa-card glass-card">
         <View className="card-header">
-          <Text className="card-title">专属咨询通道</Text>
-          <Text className="card-desc">针对当前盘面，提供定制化的人工解读服务。</Text>
+          <Text className="card-title">深度咨询</Text>
+          <Text className="card-desc">针对当前盘面，共同探讨易学文化。</Text>
         </View>
         <View className="card-body">
-          <Text className="label">此刻想法</Text>
           <Text className="content">{question || '暂无填写'}</Text>
           <Text className="tips">注：咨询内容仅供学术探讨或娱乐化参考。</Text>
         </View>
         <Button className="primary-btn" onClick={handleConsult}>
-          预约人工咨询
+          预约咨询服务
         </Button>
       </View>
 

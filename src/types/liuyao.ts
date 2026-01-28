@@ -1,7 +1,7 @@
 export type Stem = '甲' | '乙' | '丙' | '丁' | '戊' | '己' | '庚' | '辛' | '壬' | '癸'
 export type Branch = '子' | '丑' | '寅' | '卯' | '辰' | '巳' | '午' | '未' | '申' | '酉' | '戌' | '亥'
 export type SixGod = '青龙' | '朱雀' | '勾陈' | '腾蛇' | '白虎' | '玄武'
-export type Relation = '父母' | '兄弟' | '妻财' | '官鬼' | '子孙'
+export type Relation = '父母' | '兄弟' | '妻财' | '官星' | '子孙'
 export type TrigramName = '乾' | '坤' | '震' | '巽' | '坎' | '离' | '艮' | '兑'
 
 export interface Yao {

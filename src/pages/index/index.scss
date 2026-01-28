@@ -194,8 +194,8 @@
 }
 
 .menu-logo {
-  font-size: 76px;
-  font-weight: 500;
+  font-size: 80px;
+  font-weight: 600;
   letter-spacing: 28px;
   color: #c9ad6f;
   text-shadow:
@@ -203,22 +203,20 @@
     0 2px 8px rgba(0, 0, 0, 0.3);
   line-height: 1.2;
   font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', 'STSong', serif;
-  padding-right: 28px;
 }
 
 .menu-sub {
-  font-size: 25px;
+  font-size: 30px;
   letter-spacing: 8px;
   color: rgba(201, 173, 111, 0.85);
   line-height: 1.6;
-  font-weight: 400;
+  font-weight: 500;
   position: relative;
   z-index: 2;
   font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', 'STSong', serif;
   text-shadow:
     0 0 10px rgba(201, 173, 111, 0.12),
     0 1px 6px rgba(0, 0, 0, 0.25);
-  padding-right: 8px;
 }
 
 .ghost-button {
@@ -278,17 +276,9 @@
     height: 220px;
   }
 
-  .menu-logo {
-    font-size: 96px;
-    letter-spacing: 36px;
-    padding-right: 36px;
-  }
 
-  .menu-sub {
-    font-size: 22px;
-    letter-spacing: 12px;
-    padding-right: 12px;
-  }
+
+
 
   .ghost-button {
     font-size: 18px;

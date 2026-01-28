@@ -19,25 +19,25 @@ const ModeSelector: React.FC<ModeSelectorProps> = ({ mode, onModeChange, isLoadi
           className={`mode-tab ${mode === 'manual' ? 'mode-tab-active' : ''}`}
           onClick={() => onModeChange('manual')}
         >
-          手动输入
+          自选数据
         </Text>
         <Text
           className={`mode-tab ${mode === 'count' ? 'mode-tab-active' : ''}`}
           onClick={() => onModeChange('count')}
         >
-          报数起卦
+          数字分析
         </Text>
         <Text
           className={`mode-tab ${mode === 'auto' ? 'mode-tab-active' : ''}`}
           onClick={() => onModeChange('auto')}
         >
-          自动排盘
+          自动模式
         </Text>
         <Text
           className={`mode-tab ${mode === 'shake' ? 'mode-tab-active' : ''}`}
           onClick={() => onModeChange('shake')}
         >
-          摇卦
+          沉浸模式
         </Text>
       </View>
     </View>

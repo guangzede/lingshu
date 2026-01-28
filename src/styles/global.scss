@@ -1,12 +1,6 @@
 @use './variables.scss' as *;
 @use './mixins.scss' as *;
 
-// 全局重置和基础样式
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
 page {
   margin: 0;

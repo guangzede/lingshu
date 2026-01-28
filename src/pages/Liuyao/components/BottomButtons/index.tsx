@@ -64,7 +64,7 @@ const BottomButtons: React.FC<BottomButtonsProps> = ({ isLoadingHistory, hasResu
         onClick={handleViewHistory}
         className="btn-view-history"
       >
-        查看卦薄
+        历史记录
       </Button>
     </View>
   )

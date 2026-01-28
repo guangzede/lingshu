@@ -133,7 +133,7 @@ const LiuyaoPage: React.FC = () => {
             className="divinate-button"
             onClick={handlePaipan}
           >
-            <Text className="divinate-text">排盘</Text>
+            <Text className="divinate-text">开始推演</Text>
             <View className="energy-flow" />
           </View>
         </View>
