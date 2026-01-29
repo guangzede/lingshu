@@ -104,9 +104,8 @@ const LiuyaoPage: React.FC = () => {
       />
 
       {/* 求测事项卡片 - 始终展示（无论是否加载历史） */}
-      <View>
-        <QuestionCard value={question} onChange={setQuestion} readOnly={isLoadingHistory} />
-      </View>
+      <QuestionCard value={question} onChange={setQuestion} readOnly={isLoadingHistory} />
+
 
       {/* 中部：爻位排盘卡片 - 仅手动模式 */}
       <YaoMatrix
@@ -120,7 +119,7 @@ const LiuyaoPage: React.FC = () => {
         <View className="glass-card shake-section">
           <View className="card-header">
             <Text className="card-section-title">摇卦起卦</Text>
-            <Text className="card-section-guide">点击铜钱进行摇卦</Text>
+            <Text className="card-section-guide">点击进行摇卦</Text>
           </View>
           <ShakeCoins step={shakeStep} disabled={shakeStep >= 6} onDone={handleShakeDone} />
         </View>
