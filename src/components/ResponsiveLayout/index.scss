@@ -1,0 +1,12 @@
+.responsive-layout {
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 2), 1fr);
+  gap: var(--gap, 12px);
+  padding: 8px;
+}
+
+@media (max-width: 720px) {
+  .responsive-layout {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

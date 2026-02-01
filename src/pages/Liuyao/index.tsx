@@ -3,10 +3,10 @@ import { View, Text } from '@tarojs/components'
 import Taro, { useDidShow, getCurrentInstance } from '@tarojs/taro'
 import { useLiuyaoStore } from '@/store/liuyao'
 import './index.scss'
-import { HexagramTable } from './components/HexagramTable'
+import HexagramTable from './components/HexagramTable'
 import ShakeCoins from './components/ShakeCoins'
 import QuestionCard from './components/QuestionCard'
-import AIAnalysisCard from './components/AIAnalysisCard'
+import AIAnalysisCard from '@/components/AIAnalysisCard'
 import HumanQACard from './components/HumanQACard'
 import { usePaipan } from './hooks/usePaipan'
 import { useModeState } from './hooks/useModeState'
@@ -20,6 +20,7 @@ import InfoGrid from './components/InfoGrid'
 import BranchRelation from './components/BranchRelation'
 import YaoAnalysis from './components/YaoAnalysis'
 import BottomButtons from './components/BottomButtons'
+import FiveElementsAnalysis from './components/FiveElementsAnalysis'
 
 // 六爻排盘页面：调用 store 管理行、时间与结果
 const LiuyaoPage: React.FC = () => {
@@ -64,18 +65,19 @@ const LiuyaoPage: React.FC = () => {
   const { handlePaipan } = usePaipan({ mode: modeForPaipan, countNumbers, setLineState, compute: computeAndSave })
 
   // 首页进入时还原到默认状态（带 source=home 参数）；从历史返回时保留结果
-  useDidShow(() => {
-    const source = getCurrentInstance()?.router?.params?.source
-    if (source === 'home') {
-      if (!hasShownRef.current || !isLoadingHistory) {
-        reset()
-        setIsLoadingHistory(false)
-      }
-    }
-    if (!hasShownRef.current) {
-      hasShownRef.current = true
-    }
-  })
+  // useDidShow(() => {
+  //   const source = getCurrentInstance()?.router?.params?.source
+  //   debugger
+  //   if (source === 'home') {
+  //     if (!hasShownRef.current || !isLoadingHistory) {
+  //       reset()
+  //       setIsLoadingHistory(false)
+  //     }
+  //   }
+  //   if (!hasShownRef.current) {
+  //     hasShownRef.current = true
+  //   }
+  // })
 
   return (
     <View className="liuyao-page">
@@ -141,12 +143,12 @@ const LiuyaoPage: React.FC = () => {
       {/* 底部：结果展示（毛玻璃卡片） */}
       {result && (
         <View className="result-section">
-          {/* AI 分析与人工答疑 */}
-          <AIAnalysisCard question={question} result={result} isFromHistory={isLoadingHistory} />
-          <HumanQACard question={question} />
-
+        
           {/* 干支信息卡片 */}
           <InfoGrid result={result} dateValue={dateValue} timeValue={timeValue} />
+
+          {/* 五行能量分析（新组件） */}
+          <FiveElementsAnalysis result={result} />
 
           {/* 卦象详细分析卡片 */}
           <View className="glass-card analysis-card">
@@ -168,6 +170,11 @@ const LiuyaoPage: React.FC = () => {
 
             {/* 爻位动态分析 */}
             <YaoAnalysis result={result} />
+
+              {/* AI 分析与人工答疑 */}
+          <AIAnalysisCard question={question} result={result} isFromHistory={isLoadingHistory} />
+          <HumanQACard question={question} />
+
           </View>
         </View>
       )}

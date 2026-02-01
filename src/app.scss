@@ -3,4 +3,9 @@
 @use './styles/mixins.scss' as *;
 @use './styles/global.scss' as *;
 
+
+body,html {
+  max-width: 750px;
+  margin: 0 auto;
+}
 // 应用特定样式可以在这里添加

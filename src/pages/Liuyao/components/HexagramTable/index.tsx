@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text } from '@tarojs/components'
-import type { YaoData, HexData } from '../types'
-import '../index.scss'
+import type { YaoData, HexData } from '../../types'
+import './index.scss'
 
 interface HexagramTableProps {
   base: YaoData[]
@@ -84,3 +84,6 @@ export const HexagramTable: React.FC<HexagramTableProps> = ({ base, variant, bas
     </View>
   )
 }
+
+
+export default HexagramTable

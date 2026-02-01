@@ -5,7 +5,7 @@ import Taro from '@tarojs/taro';
 import './index.scss'
 
 // 导入所有组件
-import AIAnalysisCard from '../Liuyao/components/AIAnalysisCard';
+import AIAnalysisCard from '@/components/AIAnalysisCard';
 import BottomButtons from '../Liuyao/components/BottomButtons';
 import BranchRelation from '../Liuyao/components/BranchRelation';
 import CountInput from '../Liuyao/components/CountInput';
