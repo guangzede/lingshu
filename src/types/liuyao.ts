@@ -5,7 +5,7 @@ export type Relation = '父母' | '兄弟' | '妻财' | '官星' | '子孙'
 export type TrigramName = '乾' | '坤' | '震' | '巽' | '坎' | '离' | '艮' | '兑'
 
 export interface Yao {
-  index: 1 | 2 | 3 | 4 | 5 | 6 // 底爻为1，上爻为6
+  index: 1 | 2 | 3 | 4 | 5 | 6 // 上爻为1，下爻为6
   isYang: boolean // 阳爻（—）或阴爻（--）
   isMoving: boolean // 动爻（变爻）标记
   stem?: Stem // 纳甲后的天干
@@ -35,7 +35,7 @@ export interface Hexagram {
   palace?: string // 卦宫（八宫）
   palaceCategory?: string // 本宫/一世/游魂/归魂
   element?: string // 卦宫五行
-  shiIndex?: number // 世爻索引（0 底爻-5 上爻）
+  shiIndex?: number // 世爻索引（0 上爻-5 初爻）
   yingIndex?: number // 应爻索引
 }
 

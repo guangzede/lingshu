@@ -70,6 +70,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
 
   // 流式（Web）与非流式（小程序等）统一封装调用
   const callDeepSeekAPIStream = async (prompt: string) => {
+    console.log('[AIAssistant] callDeepSeekAPIStream 被调用，stream=true');
     setAiResponse('🔮 AI 正在为您分析卦象...\n\n');
     fullResponseRef.current = '🔮 AI 正在为您分析卦象...\n\n';
     try {
@@ -79,14 +80,20 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
         stream: true,
         maxTokens: 1000,
         onDelta: (text) => {
+          console.log('[AIAssistant] onDelta 收到数据:', text.substring(0, 50));
           fullResponseRef.current += text;
-          setAiResponse(fullResponseRef.current);
+          // 使用函数式更新确保每次都能触发重新渲染
+          setAiResponse(prev => prev + text);
         },
       });
+      console.log('[AIAssistant] deepseekChat 返回，总长度:', result.length);
       // 确保最终结果展示（小程序会一次性回调）
-      setAiResponse(fullResponseRef.current || result);
+      if (result && result !== fullResponseRef.current) {
+        setAiResponse(result);
+      }
       return (fullResponseRef.current || result).replace('🔮 AI 正在为您分析卦象...\n\n', '');
     } catch (err: any) {
+      console.error('[AIAssistant] callDeepSeekAPIStream 错误:', err);
       throw err;
     }
   };
@@ -102,7 +109,15 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
     return result;
   };
 
-  const handleGenerateAIAnalysis = async () => {
+  const handleGenerateAIAnalysis = React.useCallback(async () => {
+    console.log('[AIAssistant] handleGenerateAIAnalysis 开始，question:', question, 'stream:', stream);
+    
+    // 防止重复点击
+    if (isGenerating) {
+      console.log('[AIAssistant] 正在生成中，忽略重复点击');
+      return;
+    }
+    
     if (!result || !question) {
       Taro.showToast({
         title: '请把您的思绪记录下来否则AI无法生成报告',
@@ -117,6 +132,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
     fullResponseRef.current = '';
     try {
       const prompt = generatePrompt();
+      console.log('[AIAssistant] 生成的 prompt 长度:', prompt.length);
       if (stream) {
         await callDeepSeekAPIStream(prompt);
       } else {
@@ -125,6 +141,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
         setAiResponse(aiResult);
       }
     } catch (err: any) {
+      console.error('[AIAssistant] 生成失败:', err);
       setError(err.message || 'AI 分析失败，请重试');
       setAiResponse('');
       Taro.showToast({
@@ -135,7 +152,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
     } finally {
       setIsGenerating(false);
     }
-  };
+  }, [result, question, generatePrompt, stream, isGenerating]);
 
   const copyToClipboard = () => {
     if (aiResponse) {
@@ -161,7 +178,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
           scrollIntoView="bottom"
           style={{ maxHeight: '60vh', minHeight: '40vh', marginTop: '8px' }}
         >
-          {isGenerating ? (
+          {isGenerating && !aiResponse ? (
             <View className="loading-panel">
               <View className="loading-spinner" />
               <Text className="loading-title">正在生成分析报告</Text>
@@ -179,7 +196,14 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
               </View>
             </View>
           ) : (
-            <MarkdownRenderer content={aiResponse} />
+            <>
+              <MarkdownRenderer content={aiResponse} />
+              {isGenerating && (
+                <View className="streaming-indicator" style={{ marginTop: '8px', color: '#15e0ff', fontSize: '12px' }}>
+                  <Text>● 正在生成中... ({elapsed}s)</Text>
+                </View>
+              )}
+            </>
           )}
           {isGenerating && <View id="bottom"></View>}
         </ScrollView>
@@ -202,6 +226,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
         className="primary-btn"
         onClick={handleGenerateAIAnalysis}
         disabled={isGenerating}
+        style={{ opacity: isGenerating ? 0.6 : 1, cursor: isGenerating ? 'not-allowed' : 'pointer' }}
       >
         {isGenerating ? 'AI 解读中...' : (isFromHistory ? '重新解读' : '生成分析报告')}
       </Button>

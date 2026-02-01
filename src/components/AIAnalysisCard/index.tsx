@@ -35,11 +35,11 @@ const AIAnalysisCard: React.FC<AIAnalysisCardProps> = ({ question, result, isFro
     sections.push(`本卦: ${result.hex?.name || ''}`);
     sections.push(`变卦: ${result.variant?.name || '无'}`);
     sections.push(`卦宫: ${result.hex?.palace || ''} (${result.hex?.palaceCategory || ''})`);
-    sections.push(`世爻: ${result.hex?.shiIndex !== undefined ? ['初爻', '二爻', '三爻', '四爻', '五爻', '上爻'][result.hex.shiIndex] : ''}`);
-    sections.push(`应爻: ${result.hex?.yingIndex !== undefined ? ['初爻', '二爻', '三爻', '四爻', '五爻', '上爻'][result.hex.yingIndex] : ''}`);
+    sections.push(`世爻: ${result.hex?.shiIndex !== undefined ? ['上爻', '五爻', '四爻', '三爻', '二爻', '初爻'][result.hex.shiIndex] : ''}`);
+    sections.push(`应爻: ${result.hex?.yingIndex !== undefined ? ['上爻', '五爻', '四爻', '三爻', '二爻', '初爻'][result.hex.yingIndex] : ''}`);
     sections.push('');
     sections.push('【六爻详细】');
-    const yaoLabels = ['初爻', '二爻', '三爻', '四爻', '五爻', '上爻'];
+    const yaoLabels = ['上爻', '五爻', '四爻', '三爻', '二爻', '初爻'];
     if (result.yaos && Array.isArray(result.yaos)) {
       result.yaos.forEach((yao: any, index: number) => {
         const parts = [

@@ -53,7 +53,7 @@ export interface YaoInteraction {
 }
 
 export function analyzeYaoInteractions(baseYaos: Yao[], variantYaos: Yao[]): YaoInteraction[] {
-  const labelMap: Record<number, string> = { 0: '初爻', 1: '二爻', 2: '三爻', 3: '四爻', 4: '五爻', 5: '上爻' }
+  const labelMap: Record<number, string> = { 0: '上爻', 1: '五爻', 2: '四爻', 3: '三爻', 4: '二爻', 5: '初爻' }
 
   return baseYaos.map((yao, idx) => {
     const yaoInfo = yao.branch ? `${yao.branch}(${yao.fiveElement || '?'})` : '无支'

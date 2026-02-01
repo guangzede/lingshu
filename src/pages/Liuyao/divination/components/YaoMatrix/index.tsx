@@ -40,7 +40,7 @@ const YaoMatrix: React.FC<YaoMatrixProps> = ({
         <Text className="card-section-guide">点击条目切换阴阳状态</Text>
       </View>
       {YAO_LABEL_ORDER.map((label, displayIndex) => {
-        const realIndex = lines.length - 1 - displayIndex
+        const realIndex = displayIndex
         const l = lines[realIndex] || { isYang: false, isMoving: false }
         const isMoving = l.isMoving
 

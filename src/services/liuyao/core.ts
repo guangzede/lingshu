@@ -29,7 +29,12 @@ import {
   STEM_WUXING,
   type WuXing
 } from '@/services/ganzhi/wuxing'
+
+import { BRANCH_WUXING } from '@/services/ganzhi/constants'
+
 import { computeShenSha, computeXunKong } from '@/services/ganzhi/shensha'
+import { LingshuEnergyCalculator, HexagramInput, AnalysisResult } from './fiveEnergy'
+
 
 // ============= 基础工具函数 =============
 function getTrigramName(yaos: [Yao, Yao, Yao]): TrigramName {
@@ -47,7 +52,16 @@ function cloneYao(y: Yao): Yao {
 }
 
 function codeFromYaos(yaos: [Yao, Yao, Yao, Yao, Yao, Yao]) {
-  return yaos.map(y => (y.isYang ? '1' : '0')).join('')
+  // 约定：yaos 为上->下顺序，卦码需要自下而上
+  return [...yaos].reverse().map(y => (y.isYang ? '1' : '0')).join('')
+}
+
+function toTopIndex(bottomIndex: number): number {
+  return 5 - bottomIndex
+}
+
+function toBottomIndex(topIndex: number): number {
+  return 5 - topIndex
 }
 
 function applyPalace(hex: Hexagram) {
@@ -57,8 +71,9 @@ function applyPalace(hex: Hexagram) {
     hex.palace = meta.palace
     hex.palaceCategory = meta.category
     hex.element = meta.element
-    hex.shiIndex = meta.shiIndex
-    hex.yingIndex = meta.yingIndex
+    // meta 索引以初爻为0（自下而上），这里转换为上爻=0
+    hex.shiIndex = toTopIndex(meta.shiIndex)
+    hex.yingIndex = toTopIndex(meta.yingIndex)
     if (!hex.name) hex.name = meta.name
   }
 }
@@ -70,8 +85,10 @@ function applyHexagramName(hex: Hexagram) {
 
 function buildHexagramFromCode(code: string): Hexagram {
   const bits = code.split('').map(c => c === '1')
-  const lines = bits.map((b) => ({ isYang: b, isMoving: false }))
-  return buildHexagram(lines as any)
+  // code 为自下而上，转换为上->下顺序
+  const linesBottom = bits.map((b) => ({ isYang: b, isMoving: false }))
+  const linesTop = [...linesBottom].reverse()
+  return buildHexagram(linesTop as any)
 }
 
 // ============= 核心卦象构建 =============
@@ -84,11 +101,15 @@ export function buildHexagram(lines: Array<{ isYang: boolean; isMoving: boolean 
     isMoving: line.isMoving
   })) as [Yao, Yao, Yao, Yao, Yao, Yao]
 
-  const lowerTriplet: [Yao, Yao, Yao] = [cloneYao(yaos[0]), cloneYao(yaos[1]), cloneYao(yaos[2])]
-  const upperTriplet: [Yao, Yao, Yao] = [cloneYao(yaos[3]), cloneYao(yaos[4]), cloneYao(yaos[5])]
+  // 上->下顺序：上卦在前 3 爻，下卦在后 3 爻
+  const upperTop: [Yao, Yao, Yao] = [cloneYao(yaos[0]), cloneYao(yaos[1]), cloneYao(yaos[2])]
+  const lowerTop: [Yao, Yao, Yao] = [cloneYao(yaos[3]), cloneYao(yaos[4]), cloneYao(yaos[5])]
 
-  const lower: Trigram = { name: getTrigramName(lowerTriplet), yaos: lowerTriplet }
-  const upper: Trigram = { name: getTrigramName(upperTriplet), yaos: upperTriplet }
+  const upperName = getTrigramName([cloneYao(upperTop[2]), cloneYao(upperTop[1]), cloneYao(upperTop[0])])
+  const lowerName = getTrigramName([cloneYao(lowerTop[2]), cloneYao(lowerTop[1]), cloneYao(lowerTop[0])])
+
+  const upper: Trigram = { name: upperName, yaos: upperTop }
+  const lower: Trigram = { name: lowerName, yaos: lowerTop }
 
   const hex = { lower, upper, yaos, palace: `${lower.name}宫` }
   applyHexagramName(hex)
@@ -104,11 +125,14 @@ export function deriveVariant(hex: Hexagram): Hexagram {
     return copy
   }) as [Yao, Yao, Yao, Yao, Yao, Yao]
 
-  const lowerTriplet: [Yao, Yao, Yao] = [cloneYao(changed[0]), cloneYao(changed[1]), cloneYao(changed[2])]
-  const upperTriplet: [Yao, Yao, Yao] = [cloneYao(changed[3]), cloneYao(changed[4]), cloneYao(changed[5])]
+  const upperTop: [Yao, Yao, Yao] = [cloneYao(changed[0]), cloneYao(changed[1]), cloneYao(changed[2])]
+  const lowerTop: [Yao, Yao, Yao] = [cloneYao(changed[3]), cloneYao(changed[4]), cloneYao(changed[5])]
 
-  const lower: Trigram = { name: getTrigramName(lowerTriplet), yaos: lowerTriplet }
-  const upper: Trigram = { name: getTrigramName(upperTriplet), yaos: upperTriplet }
+  const upperName = getTrigramName([cloneYao(upperTop[2]), cloneYao(upperTop[1]), cloneYao(upperTop[0])])
+  const lowerName = getTrigramName([cloneYao(lowerTop[2]), cloneYao(lowerTop[1]), cloneYao(lowerTop[0])])
+
+  const upper: Trigram = { name: upperName, yaos: upperTop }
+  const lower: Trigram = { name: lowerName, yaos: lowerTop }
 
   const variant = { lower, upper, yaos: changed, palace: `${lower.name}宫` }
   applyHexagramName(variant)
@@ -119,15 +143,19 @@ export function deriveVariant(hex: Hexagram): Hexagram {
 
 export function deriveMutual(hex: Hexagram): Hexagram {
   const yaos = hex.yaos
-  const lowerTriplet: [Yao, Yao, Yao] = [cloneYao(yaos[1]), cloneYao(yaos[2]), cloneYao(yaos[3])]
-  const upperTriplet: [Yao, Yao, Yao] = [cloneYao(yaos[2]), cloneYao(yaos[3]), cloneYao(yaos[4])]
+  // 互卦：取第2-4爻为下卦，第3-5爻为上卦（按自下而上规则映射到上->下数组）
+  const lowerTop: [Yao, Yao, Yao] = [cloneYao(yaos[2]), cloneYao(yaos[3]), cloneYao(yaos[4])]
+  const upperTop: [Yao, Yao, Yao] = [cloneYao(yaos[1]), cloneYao(yaos[2]), cloneYao(yaos[3])]
 
-  const lower: Trigram = { name: getTrigramName(lowerTriplet), yaos: lowerTriplet }
-  const upper: Trigram = { name: getTrigramName(upperTriplet), yaos: upperTriplet }
+  const upperName = getTrigramName([cloneYao(upperTop[2]), cloneYao(upperTop[1]), cloneYao(upperTop[0])])
+  const lowerName = getTrigramName([cloneYao(lowerTop[2]), cloneYao(lowerTop[1]), cloneYao(lowerTop[0])])
+
+  const upper: Trigram = { name: upperName, yaos: upperTop }
+  const lower: Trigram = { name: lowerName, yaos: lowerTop }
 
   const combined: [Yao, Yao, Yao, Yao, Yao, Yao] = [
-    cloneYao(lowerTriplet[0]), cloneYao(lowerTriplet[1]), cloneYao(lowerTriplet[2]),
-    cloneYao(upperTriplet[0]), cloneYao(upperTriplet[1]), cloneYao(upperTriplet[2])
+    cloneYao(upperTop[0]), cloneYao(upperTop[1]), cloneYao(upperTop[2]),
+    cloneYao(lowerTop[0]), cloneYao(lowerTop[1]), cloneYao(lowerTop[2])
   ]
 
   const mutual = { lower, upper, yaos: combined, palace: `${lower.name}宫` }
@@ -194,7 +222,11 @@ export function assignSixGods(date: Date, rule: SchoolRuleSet, yaos: [Yao, Yao, 
   const seq = base.sequence
   const startIndex = seq.indexOf(start)
 
-  const result: SixGod[] = yaos.map((_, i) => seq[(startIndex - i + seq.length * 100) % seq.length])
+  // 六神按自下而上顺序循环，数组为上->下时需映射索引
+  const result: SixGod[] = yaos.map((_, i) => {
+    const bottomIndex = toBottomIndex(i)
+    return seq[(startIndex - bottomIndex + seq.length * 100) % seq.length]
+  })
   result.forEach((sg, i) => { yaos[i].sixGod = sg })
 
   return result
@@ -207,33 +239,46 @@ export function mapNaJia(hex: Hexagram, rule: SchoolRuleSet): [Yao, Yao, Yao, Ya
   const upperName = hex.upper.name
   const trigramStem = rule.naJia.trigramStem
 
+  const setAtBottomIndex = (bottomIndex: number, updater: (y: Yao) => void) => {
+    const topIndex = toTopIndex(bottomIndex)
+    updater(res[topIndex])
+  }
+
   // 天干排法
   const lowerStemSeq = TRIGRAM_STEM_SEQUENCE[lowerName]
   const upperStemSeq = TRIGRAM_STEM_SEQUENCE[upperName]
 
   if (lowerStemSeq) {
-    res[0].stem = lowerStemSeq[0]
-    res[1].stem = lowerStemSeq[1]
-    res[2].stem = lowerStemSeq[2]
+    setAtBottomIndex(0, (y) => { y.stem = lowerStemSeq[0] })
+    setAtBottomIndex(1, (y) => { y.stem = lowerStemSeq[1] })
+    setAtBottomIndex(2, (y) => { y.stem = lowerStemSeq[2] })
   } else {
     const lowerStem = trigramStem[lowerName]
     if (Array.isArray(lowerStem)) {
-      res[0].stem = lowerStem[0]; res[1].stem = lowerStem[1]; res[2].stem = lowerStem[2]
+      setAtBottomIndex(0, (y) => { y.stem = lowerStem[0] })
+      setAtBottomIndex(1, (y) => { y.stem = lowerStem[1] })
+      setAtBottomIndex(2, (y) => { y.stem = lowerStem[2] })
     } else {
-      res[0].stem = lowerStem; res[1].stem = lowerStem; res[2].stem = lowerStem
+      setAtBottomIndex(0, (y) => { y.stem = lowerStem })
+      setAtBottomIndex(1, (y) => { y.stem = lowerStem })
+      setAtBottomIndex(2, (y) => { y.stem = lowerStem })
     }
   }
 
   if (upperStemSeq) {
-    res[3].stem = upperStemSeq[3]
-    res[4].stem = upperStemSeq[4]
-    res[5].stem = upperStemSeq[5]
+    setAtBottomIndex(3, (y) => { y.stem = upperStemSeq[3] })
+    setAtBottomIndex(4, (y) => { y.stem = upperStemSeq[4] })
+    setAtBottomIndex(5, (y) => { y.stem = upperStemSeq[5] })
   } else {
     const upperStem = trigramStem[upperName]
     if (Array.isArray(upperStem)) {
-      res[3].stem = upperStem[0]; res[4].stem = upperStem[1]; res[5].stem = upperStem[2]
+      setAtBottomIndex(3, (y) => { y.stem = upperStem[0] })
+      setAtBottomIndex(4, (y) => { y.stem = upperStem[1] })
+      setAtBottomIndex(5, (y) => { y.stem = upperStem[2] })
     } else {
-      res[3].stem = upperStem; res[4].stem = upperStem; res[5].stem = upperStem
+      setAtBottomIndex(3, (y) => { y.stem = upperStem })
+      setAtBottomIndex(4, (y) => { y.stem = upperStem })
+      setAtBottomIndex(5, (y) => { y.stem = upperStem })
     }
   }
 
@@ -241,8 +286,12 @@ export function mapNaJia(hex: Hexagram, rule: SchoolRuleSet): [Yao, Yao, Yao, Ya
   const lowerSeq = TRIGRAM_BRANCH_SEQUENCE[lowerName] || (rule.naJia.branchSequence as Branch[]) || DEFAULT_BRANCH_SEQUENCE
   const upperSeq = TRIGRAM_BRANCH_SEQUENCE[upperName] || (rule.naJia.branchSequence as Branch[]) || DEFAULT_BRANCH_SEQUENCE
 
-  res[0].branch = lowerSeq[0]; res[1].branch = lowerSeq[1]; res[2].branch = lowerSeq[2]
-  res[3].branch = upperSeq[3]; res[4].branch = upperSeq[4]; res[5].branch = upperSeq[5]
+  setAtBottomIndex(0, (y) => { y.branch = lowerSeq[0] })
+  setAtBottomIndex(1, (y) => { y.branch = lowerSeq[1] })
+  setAtBottomIndex(2, (y) => { y.branch = lowerSeq[2] })
+  setAtBottomIndex(3, (y) => { y.branch = upperSeq[3] })
+  setAtBottomIndex(4, (y) => { y.branch = upperSeq[4] })
+  setAtBottomIndex(5, (y) => { y.branch = upperSeq[5] })
 
   return res
 }
@@ -306,6 +355,31 @@ export function computeAll(lines: Array<{ isYang: boolean; isMoving: boolean }>,
 
   const youHun = hex.palaceCategory === '游魂'
   const guiHun = hex.palaceCategory === '归魂'
+  // 能量评分集成
+  // 构造 LingshuEnergyCalculator 所需输入
+  const hexagramInput: HexagramInput = {
+    date: {
+      monthBranch: timeGanZhi.month.branch,
+      dayBranch: timeGanZhi.day.branch,
+      voidBranches: xunKong || [],
+    },
+    lines: withNaJia.map((y, idx) => {
+      const branch = y.branch
+      if (!branch) throw new Error('能量评分缺少地支')
+      const changeBranch = variantNaJia[idx]?.branch
+      return {
+        position: y.index || (idx + 1),
+        name: branch,
+        element: BRANCH_WUXING[branch],
+        branch,
+        isMoving: y.isMoving,
+        changeBranch,
+        changeElement: changeBranch ? BRANCH_WUXING[changeBranch] : undefined,
+      }
+    }),
+    globalPattern: undefined,
+  }
+  const energyAnalysis: AnalysisResult = LingshuEnergyCalculator.analyze(hexagramInput)
 
   return {
     rule,
@@ -325,6 +399,8 @@ export function computeAll(lines: Array<{ isYang: boolean; isMoving: boolean }>,
     youHun,
     guiHun,
     yaos: withNaJia,
-    variantYaos: variantNaJia
+    variantYaos: variantNaJia,
+    energyAnalysis, // 新增能量评分结果
+    // fiveElementCounts,
   }
 }

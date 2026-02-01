@@ -64,6 +64,22 @@
   flex: 1;
 }
 
+.wuxing-tag {
+  display: inline-block;
+  margin-left: $spacing-xs;
+  padding: 0 $spacing-xs;
+  border-radius: $border-radius-sm;
+  font-size: $font-size-xs;
+  line-height: 1.4;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.wuxing-metal { color: $color-wuxing-metal; }
+.wuxing-wood { color: $color-wuxing-wood; }
+.wuxing-water { color: $color-wuxing-water; }
+.wuxing-fire { color: $color-wuxing-fire; }
+.wuxing-earth { color: $color-wuxing-earth; }
+
 .moving-tag {
   color: $color-accent;
   font-size: $font-size-sm;
@@ -90,4 +106,42 @@
   color: $color-accent;
   line-height: 1.4;
   display: block;
+}
+
+.yao-analysis-energy {
+  margin-top: $spacing-xs;
+}
+
+.yao-analysis-energy-score {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  display: block;
+  margin-bottom: $spacing-xs;
+}
+
+.yao-analysis-energy-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-xs;
+}
+
+.energy-tag {
+  font-size: $font-size-xs;
+  padding: 0 $spacing-xs;
+  border-radius: $border-radius-sm;
+  line-height: 1.4;
+  background: rgba(255, 255, 255, 0.06);
+  color: $color-text-tertiary;
+}
+
+.energy-tag-buff {
+  color: #8ef7a0;
+}
+
+.energy-tag-debuff {
+  color: #ff8c8c;
+}
+
+.energy-tag-neutral {
+  color: #ffd78c;
 }

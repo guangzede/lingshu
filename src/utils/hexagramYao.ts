@@ -17,7 +17,7 @@ export interface HexagramTexts {
   name: string
   tuan?: string // 彖曰
   xiang?: string // 象曰
-  yao: string[] // 六爻爻辞，自下而上 index 0 = 初爻
+  yao: string[] // 六爻爻辞，上爻在数组首位
 }
 
 const HEXAGRAM_TEXTS: Record<string, HexagramTexts> = (TEXTS || {}) as unknown as Record<string, HexagramTexts>
@@ -29,26 +29,37 @@ const HEXAGRAM_TEXTS: Record<string, HexagramTexts> = (TEXTS || {}) as unknown a
 export function getHexagramTexts(hexName: string): HexagramTexts {
   // 精确匹配
   const found = HEXAGRAM_TEXTS[hexName]
-  if (found) return found
+  if (found) {
+    return {
+      ...found,
+      yao: [...(found.yao || [])].slice().reverse()
+    }
+  }
 
   // 容错匹配：如果传入的是诸如 "乾为天"、"风地观" 之类的复合名，尝试从现有短名中匹配包含的汉字
   const keys = Object.keys(HEXAGRAM_TEXTS)
   for (const k of keys) {
     if (!k) continue
-    if (hexName.includes(k)) return HEXAGRAM_TEXTS[k]
-    if (k.includes(hexName)) return HEXAGRAM_TEXTS[k]
+    if (hexName.includes(k)) {
+      const hit = HEXAGRAM_TEXTS[k]
+      return { ...hit, yao: [...(hit.yao || [])].slice().reverse() }
+    }
+    if (k.includes(hexName)) {
+      const hit = HEXAGRAM_TEXTS[k]
+      return { ...hit, yao: [...(hit.yao || [])].slice().reverse() }
+    }
   }
   return {
     name: hexName,
     tuan: `彖曰占位：${hexName}`,
     xiang: `象曰占位：${hexName}`,
     yao: [
-      `初爻占位：${hexName}`,
-      `二爻占位：${hexName}`,
-      `三爻占位：${hexName}`,
-      `四爻占位：${hexName}`,
+      `上爻占位：${hexName}`,
       `五爻占位：${hexName}`,
-      `上爻占位：${hexName}`
+      `四爻占位：${hexName}`,
+      `三爻占位：${hexName}`,
+      `二爻占位：${hexName}`,
+      `初爻占位：${hexName}`
     ]
   }
 }
@@ -62,12 +73,12 @@ export function getYaoText(hexName: string, yaoIndex: number): string {
 }
 
 /**
- * 返回逆序的爻辞数组（上爻优先），每项仍然是字符串。
- * 便于需要“逆序排列爻辞”的显示场景。
+ * 返回逆序的爻辞数组（下爻优先），每项仍然是字符串。
+ * 便于需要“自下而上排列爻辞”的显示场景。
  */
 export function getYaoTextsReversed(hexName: string): string[] {
   const h = getHexagramTexts(hexName)
-  // 原始 JSON 中约定 index 0 = 初爻（自下而上），因此逆序为上->下
+  // 当前约定为上->下，逆序为下->上
   return [...h.yao].slice().reverse()
 }
 

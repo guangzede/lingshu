@@ -6,7 +6,7 @@ export interface PalaceHexagram {
   palace: string
   element: string
   category: string // 本宫/一世/二世/三世/四世/五世/游魂/归魂
-  shiIndex: number // 0=初爻 ... 5=上爻
+  shiIndex: number // 0=初爻 ... 5=上爻（自下而上存储）
   yingIndex: number
   upper?: TrigramName
   lower?: TrigramName

@@ -28,12 +28,12 @@ export const OVERCOMES: Record<string, string> = {
 
 // 爻位标签映射
 export const YAO_LABELS: Record<number, string> = {
-  0: '初爻',
-  1: '二爻',
-  2: '三爻',
-  3: '四爻',
-  4: '五爻',
-  5: '上爻'
+  0: '上爻',
+  1: '五爻',
+  2: '四爻',
+  3: '三爻',
+  4: '二爻',
+  5: '初爻'
 }
 
 // 爻位顺序（用于显示）

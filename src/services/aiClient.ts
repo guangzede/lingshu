@@ -40,6 +40,7 @@ export async function deepseekChat(options: DeepseekOptions): Promise<string> {
 
   try {
     const env = typeof Taro !== 'undefined' && Taro.getEnv ? Taro.getEnv() : undefined;
+    console.log('[DeepSeek] 当前环境:', env, 'stream:', stream, 'typeof fetch:', typeof fetch);
 
     // 微信小程序：使用 wx.request（不支持流式，自动降级）
     if (env === Taro.ENV_TYPE.WEAPP) {
@@ -82,6 +83,7 @@ export async function deepseekChat(options: DeepseekOptions): Promise<string> {
 
     // Web 环境：优先使用 fetch 流式；否则走一次性返回
     if (env === Taro.ENV_TYPE.WEB && stream && typeof fetch !== 'undefined') {
+      console.log('[DeepSeek] 进入 Web 流式分支');
       const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -91,6 +93,8 @@ export async function deepseekChat(options: DeepseekOptions): Promise<string> {
         body: JSON.stringify(payload),
       });
 
+      console.log('[DeepSeek] fetch response.ok:', response.ok, 'status:', response.status);
+
       if (!response.ok) {
         if (response.status === 401) throw new Error('API 密钥无效，请检查配置');
         if (response.status === 429) throw new Error('请求频率过高，请稍后再试');
@@ -98,10 +102,12 @@ export async function deepseekChat(options: DeepseekOptions): Promise<string> {
       }
 
       if (!response.body) {
+        console.log('[DeepSeek] response.body 不存在，降级到非流式');
         // 某些浏览器/环境不支持 ReadableStream，降级到非流式
         return await fetchNonStream(url, apiKey, { ...payload, stream: false });
       }
 
+      console.log('[DeepSeek] 开始读取流式数据');
       const reader = response.body.getReader();
       const decoder = new TextDecoder('utf-8');
       let done = false;
@@ -132,9 +138,11 @@ export async function deepseekChat(options: DeepseekOptions): Promise<string> {
           }
         }
       }
+      console.log('[DeepSeek] 流式读取完成，总长度:', fullText.length);
       return fullText;
     }
 
+    console.log('[DeepSeek] 使用非流式方式（Taro.request）');
     // 其它环境或不支持流式：统一走非流式（Taro.request）
     return await fetchViaTaro(url, apiKey, { ...payload, stream: false });
   } catch (err: any) {

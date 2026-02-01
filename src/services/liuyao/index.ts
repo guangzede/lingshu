@@ -18,7 +18,7 @@ export {
   computeShenSha,
   computeXunKong,
   type ShenShaResult
-} from './shensha'
+} from '@/services/ganzhi/shensha'
 
 // 五行相关
 export {
@@ -34,7 +34,7 @@ export {
   GENERATES,
   OVERCOMES,
   type WuXing
-} from './wuxing'
+} from '@/services/ganzhi/wuxing'
 
 // 地支关系
 export {
@@ -43,8 +43,7 @@ export {
   SIX_CLASH,
   TRIPLE_HARMONY,
   TRIPLE_PUNISHMENT
-} from './branch'
-
+} from '@/services/ganzhi/branch'
 // 常量
 export {
   CHANGSHENG_SEQ,

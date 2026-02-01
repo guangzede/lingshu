@@ -22,53 +22,74 @@ const LiuyaoResultPage: React.FC = () => {
         dateValue,
         timeValue,
         question,
-    isLoadingHistory,
-    loadLastResult,
-    saveLastResult
-  } = useLiuyaoStore((s) => s)
+        isLoadingHistory,
+        loadLastResult,
+        saveLastResult,
+        setQuestion
+    } = useLiuyaoStore((s) => s)
+    // 尝试从本地加载结果，如果没有则返回起卦页
+    React.useEffect(() => {
+        if (!result) {
+            const loaded = loadLastResult()
+            if (!loaded) {
+                Taro.redirectTo({
+                    url: '/pages/Liuyao/divination/index'
+                })
+            }
+        } else {
+            // 如果有结果，保存到本地
+            saveLastResult()
+        }
+    }, [])
 
-  // 尝试从本地加载结果，如果没有则返回起卦页
-  React.useEffect(() => {
-    if (!result) {
-      const loaded = loadLastResult()
-      if (!loaded) {
-        Taro.redirectTo({
-          url: '/pages/Liuyao/divination/index'
-        })
-      }
-    } else {
-      // 如果有结果，保存到本地
-      saveLastResult()
-    }
-  }, [])
     if (!result) {
         return null
     }
 
-    // 计算五行数值（避免 useMemo 死循环）
-    const counts = { metal: 0, wood: 0, water: 0, fire: 0, earth: 0 }
-    const elementMap: Record<string, keyof typeof counts> = {
+    // 计算五行能量（base_score 和 final_score）
+    const fiveElementCounts = {
+        metal: { base: 0, final: 0 },
+        wood: { base: 0, final: 0 },
+        water: { base: 0, final: 0 },
+        fire: { base: 0, final: 0 },
+        earth: { base: 0, final: 0 }
+    }
+    const elementMap: Record<string, keyof typeof fiveElementCounts> = {
         '金': 'metal',
         '木': 'wood',
         '水': 'water',
         '火': 'fire',
         '土': 'earth'
     }
-    result.yaos?.forEach((yao: any) => {
-        const element = yao?.fiveElement
-        if (element && elementMap[element]) {
-            counts[elementMap[element]]++
-        }
-    })
-    const fiveElementCounts = counts;
+    const energyLines = result.energyAnalysis?.lines || []
+    if (energyLines.length > 0 && Array.isArray(result.yaos)) {
+        energyLines.forEach((line: any) => {
+            const index = (line.position || 1) - 1
+            const yao = result.yaos?.[index]
+            const element = yao?.fiveElement
+            if (element && elementMap[element]) {
+                fiveElementCounts[elementMap[element]].base += Number(line.base_score || 0)
+                fiveElementCounts[elementMap[element]].final += Number(line.final_score || 0)
+            }
+        })
+    } else {
+        // fallback：无能量评分时按数量统计
+        result.yaos?.forEach((yao: any) => {
+            const element = yao?.fiveElement
+            if (element && elementMap[element]) {
+                fiveElementCounts[elementMap[element]].base++
+                fiveElementCounts[elementMap[element]].final++
+            }
+        })
+    }
 
     return (
         <View className="liuyao-result-page">
 
-            
+
             {/* 决策主体卡片 */}
             <View style={{ margin: '16px 0' }}>
-              <QuestionCard value={question} onChange={() => {}}  />
+                <QuestionCard value={question} onChange={setQuestion} />
             </View>
 
             {/* 干支信息卡片 */}
@@ -89,7 +110,7 @@ const LiuyaoResultPage: React.FC = () => {
                     baseHex={result.hex}
                     variantHex={result.variant}
                 />
- {/* 五行能量分析 */}
+                {/* 五行能量分析 */}
                 <FiveElementsAnalysis
                     metal={fiveElementCounts.metal}
                     wood={fiveElementCounts.wood}
@@ -103,7 +124,7 @@ const LiuyaoResultPage: React.FC = () => {
                 {/* 爻位动态分析 */}
                 <YaoAnalysis result={result} />
 
-               
+
                 {/* AI 分析与人工答疑 */}
                 <AIAnalysisCard question={question} result={result} isFromHistory={isLoadingHistory} />
                 <HumanQACard question={question} />

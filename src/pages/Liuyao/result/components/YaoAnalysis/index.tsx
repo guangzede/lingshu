@@ -36,7 +36,19 @@ const YaoAnalysis: React.FC<YaoAnalysisProps> = ({ result }) => {
         const isMoving = yao?.isMoving
         const seasonStrength = yao?.seasonStrength || ''
         const changsheng = yao?.changsheng || ''
+        const fiveElement = yao?.fiveElement || ''
         const analysis = yaoAnalyses[interaction.yaoIndex]
+        const energyLine = result.energyAnalysis?.lines?.find(
+          (line) => line.position === interaction.yaoIndex + 1
+        )
+        const wuxingClassMap: Record<string, string> = {
+          '金': 'wuxing-metal',
+          '木': 'wuxing-wood',
+          '水': 'wuxing-water',
+          '火': 'wuxing-fire',
+          '土': 'wuxing-earth'
+        }
+        const wuxingClass = fiveElement ? wuxingClassMap[fiveElement] : ''
 
         return (
           <View key={interaction.yaoIndex} className="yao-analysis-item">
@@ -44,6 +56,9 @@ const YaoAnalysis: React.FC<YaoAnalysisProps> = ({ result }) => {
               <Text className="yao-analysis-label">
                 {interaction.yaoLabel} {interaction.yaoInfo}
                 {isMoving ? <Text className="moving-tag">（动爻）</Text> : null}
+                {fiveElement ? (
+                  <Text className={`wuxing-tag ${wuxingClass}`}>五行·{fiveElement}</Text>
+                ) : null}
               </Text>
               <Text className="yao-analysis-strength">
                 {seasonStrength ? (
@@ -77,6 +92,26 @@ const YaoAnalysis: React.FC<YaoAnalysisProps> = ({ result }) => {
               <Text className="yao-analysis-variant">
                 与变卦：{interaction.variantRelation}
               </Text>
+            )}
+
+            {energyLine && (
+              <View className="yao-analysis-energy">
+                <Text className="yao-analysis-energy-score">
+                  初始分：{energyLine.base_score} | 最终分：{energyLine.final_score}（{energyLine.level}）
+                </Text>
+                {energyLine.tags && energyLine.tags.length > 0 && (
+                  <View className="yao-analysis-energy-tags">
+                    {energyLine.tags.map((tag) => (
+                      <Text
+                        key={tag.code}
+                        className={`energy-tag energy-tag-${tag.type}`}
+                      >
+                        {tag.label}
+                      </Text>
+                    ))}
+                  </View>
+                )}
+              </View>
             )}
           </View>
         )

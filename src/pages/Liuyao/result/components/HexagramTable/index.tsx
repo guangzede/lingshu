@@ -47,7 +47,7 @@ export const HexagramTable: React.FC<HexagramTableProps> = ({ base, variant, bas
           <Text className="col-label">世应</Text>
         </View>
       </View>
-      {[5, 4, 3, 2, 1, 0].map((i) => {
+      {[0, 1, 2, 3, 4, 5].map((i) => {
         const y = base[i] || {}
         const v = variant[i] || {}
         const state = getYaoState(y)

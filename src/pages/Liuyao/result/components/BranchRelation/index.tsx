@@ -17,7 +17,7 @@ const BranchRelation: React.FC<BranchRelationProps> = ({ result }) => {
 
   const { dayRelations, hourRelations } = analyzeBranchRelation(dayBranch as any, hourBranch as any, hexBranches as any)
 
-  const labelMap: Record<number, string> = { 0: '初爻', 1: '二爻', 2: '三爻', 3: '四爻', 4: '五爻', 5: '上爻' }
+  const labelMap: Record<number, string> = { 0: '上爻', 1: '五爻', 2: '四爻', 3: '三爻', 4: '二爻', 5: '初爻' }
 
   const formatRelation = (rel: any) => {
     const relations: string[] = []

@@ -55,4 +55,14 @@ export interface LiuyaoResult {
   guiHun: boolean
   yaos: any[]
   variantYaos: any[]
+  energyAnalysis?: {
+    lines: Array<{
+      position: number
+      base_score: number
+      final_score: number
+      level: 'SS' | 'S' | 'A' | 'B' | 'C' | 'F'
+      tags: Array<{ code: string; label: string; type: 'buff' | 'debuff' | 'neutral' }>
+      audit_logs: string[]
+    }>
+  }
 }
