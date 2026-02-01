@@ -7,17 +7,17 @@
   flex-direction: column;
   gap: $spacing-md;
   width: 100%;
-  margin: $spacing-md 16px;
+  margin: $spacing-md $spacing-md;
 }
 
 // ===== Energy Core =====
 .energy-core {
+  @include card-style();
   background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.8) 100%);
   border: 1px solid rgba($color-accent, 0.2);
-  backdrop-filter: blur(10px);
-  padding: $spacing-lg;
   border-radius: $border-radius-xxl;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  padding: $spacing-lg;
 }
 
 .card-header {
