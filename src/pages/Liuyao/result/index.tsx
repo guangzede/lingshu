@@ -80,14 +80,7 @@ const LiuyaoResultPage: React.FC = () => {
                     baseHex={result.hex}
                     variantHex={result.variant}
                 />
-
-                {/* 日支/时支关系分析 */}
-                <BranchRelation result={result} />
-
-                {/* 爻位动态分析 */}
-                <YaoAnalysis result={result} />
-
-                {/* 五行能量分析 */}
+ {/* 五行能量分析 */}
                 <FiveElementsAnalysis
                     metal={fiveElementCounts.metal}
                     wood={fiveElementCounts.wood}
@@ -95,6 +88,13 @@ const LiuyaoResultPage: React.FC = () => {
                     fire={fiveElementCounts.fire}
                     earth={fiveElementCounts.earth}
                 />
+                {/* 日支/时支关系分析 */}
+                <BranchRelation result={result} />
+
+                {/* 爻位动态分析 */}
+                <YaoAnalysis result={result} />
+
+               
                 {/* AI 分析与人工答疑 */}
                 <AIAnalysisCard question={question} result={result} isFromHistory={isLoadingHistory} />
                 <HumanQACard question={question} />

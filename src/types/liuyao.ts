@@ -19,7 +19,7 @@ export interface Yao {
     stem?: Stem
     branch?: Branch
     relation?: Relation
-  }
+  },
 }
 
 export interface Trigram {
