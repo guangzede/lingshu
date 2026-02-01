@@ -3,16 +3,16 @@ import { View, Text } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useLiuyaoStore } from '@/store/liuyao'
 import './index.scss'
-import ShakeCoins from '../components/ShakeCoins'
-import QuestionCard from '../components/QuestionCard'
+import ShakeCoins from './components/ShakeCoins'
+import QuestionCard from './components/QuestionCard'
 import { usePaipan } from '../hooks/usePaipan'
 import { useModeState } from '../hooks/useModeState'
 
 // 导入组件
-import ModeSelector from '../components/ModeSelector'
-import TimeInput from '../components/TimeInput'
-import CountInput from '../components/CountInput'
-import YaoMatrix from '../components/YaoMatrix'
+import ModeSelector from './components/ModeSelector'
+import TimeInput from './components/TimeInput'
+import CountInput from './components/CountInput'
+import YaoMatrix from './components/YaoMatrix'
 
 // 六爻起卦页面
 const LiuyaoDivinationPage: React.FC = () => {

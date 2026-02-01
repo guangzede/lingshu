@@ -1,0 +1,53 @@
+.professional-analysis-card {
+  background: #18181c;
+  border-radius: 12px;
+  margin: 24px 0;
+  padding: 20px 16px 12px 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  color: #f6e7c1;
+  .title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    color: #ffd700;
+    letter-spacing: 2px;
+  }
+  .yao-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .yao-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    &:last-child { border-bottom: none; }
+    .yao-name {
+      font-size: 16px;
+      font-weight: 500;
+      min-width: 48px;
+    }
+    .tag {
+      display: inline-block;
+      font-size: 12px;
+      border-radius: 6px;
+      padding: 2px 8px;
+      margin-left: 4px;
+      &.旺 { background: #ffe066; color: #7c5c00; }
+      &.相 { background: #b6fcd5; color: #006c4f; }
+      &.休 { background: #b3c6ff; color: #003a8c; }
+      &.囚 { background: #ffd6e0; color: #a80036; }
+      &.死 { background: #e0e0e0; color: #444; }
+      &.特殊 {
+        background: #ff4d4f;
+        color: #fff;
+        border: 1.5px solid #ff2d2f;
+        font-weight: bold;
+      }
+      &.进神 { background: #fffbe6; color: #ad6800; border: 1px solid #ffe58f; }
+      &.退神 { background: #e6f7ff; color: #0050b3; border: 1px solid #91d5ff; }
+    }
+  }
+}

@@ -6,17 +6,17 @@ import './index.scss'
 
 // 导入所有组件
 import AIAnalysisCard from '@/components/AIAnalysisCard';
-import BottomButtons from '../Liuyao/components/BottomButtons';
-import BranchRelation from '../Liuyao/components/BranchRelation';
-import CountInput from '../Liuyao/components/CountInput';
-import HumanQACard from '../Liuyao/components/HumanQACard';
-import InfoGrid from '../Liuyao/components/InfoGrid';
-import ModeSelector from '../Liuyao/components/ModeSelector';
-import QuestionCard from '../Liuyao/components/QuestionCard';
+import BottomButtons from '../Liuyao/result/components/BottomButtons';
+import BranchRelation from '../Liuyao/result/components/BranchRelation';
+import CountInput from '../Liuyao/divination/components/CountInput';
+import HumanQACard from '../../components/HumanQACard';
+import InfoGrid from '../Liuyao/result/components/InfoGrid';
+import ModeSelector from '../Liuyao/divination/components/ModeSelector';
+import QuestionCard from '../Liuyao/divination/components/QuestionCard';
 import ShakeCoins from '../Liuyao/components/ShakeCoins';
-import TimeInput from '../Liuyao/components/TimeInput';
-import YaoAnalysis from '../Liuyao/components/YaoAnalysis';
-import YaoMatrix from '../Liuyao/components/YaoMatrix';
+import TimeInput from '../Liuyao/divination/components/TimeInput';
+import YaoAnalysis from '../Liuyao/result/components/YaoAnalysis';
+import YaoMatrix from '../Liuyao/divination/components/YaoMatrix';
 
 // 导入mock数据
 import { mockData, componentMap } from './mockData';

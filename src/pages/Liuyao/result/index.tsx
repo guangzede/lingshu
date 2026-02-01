@@ -3,14 +3,15 @@ import { View, Text } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useLiuyaoStore } from '@/store/liuyao'
 import './index.scss'
-import HexagramTable from '../components/HexagramTable'
+import HexagramTable from './components/HexagramTable'
 import AIAnalysisCard from '@/components/AIAnalysisCard'
-import HumanQACard from '../components/HumanQACard'
-import InfoGrid from '../components/InfoGrid'
-import BranchRelation from '../components/BranchRelation'
-import YaoAnalysis from '../components/YaoAnalysis'
-import BottomButtons from '../components/BottomButtons'
-import FiveElementsAnalysis from '../components/FiveElementsAnalysis'
+import HumanQACard from '@/components/HumanQACard'
+import InfoGrid from './components/InfoGrid'
+import BranchRelation from './components/BranchRelation'
+import YaoAnalysis from './components/YaoAnalysis'
+import BottomButtons from './components/BottomButtons'
+import FiveElementsAnalysis from './components/FiveElementsAnalysis'
+import ProfessionalAnalysisCard from './components/ProfessionalAnalysisCard'
 
 // 六爻排盘结果页面
 const LiuyaoResultPage: React.FC = () => {
@@ -97,6 +98,8 @@ const LiuyaoResultPage: React.FC = () => {
                 {/* AI 分析与人工答疑 */}
                 <AIAnalysisCard question={question} result={result} isFromHistory={isLoadingHistory} />
                 <HumanQACard question={question} />
+                {/* 专业分析卡片：生克制化、旺衰、特殊状态、进退神 */}
+                <ProfessionalAnalysisCard result={result} />
             </View>
 
             {/* 底部按钮区域 */}

@@ -1,8 +1,8 @@
 import React from 'react'
 import { View, Text } from '@tarojs/components'
 import { analyzeYaoInteractions } from '@/services/liuyao'
-import { analyzeYao } from '../../hooks/useYaoAnalysis'
-import type { LiuyaoResult, YaoData } from '../../types'
+import { analyzeYao } from '../../../hooks/useYaoAnalysis'
+import type { LiuyaoResult, YaoData } from '../../../types'
 import './index.scss'
 
 interface YaoAnalysisProps {

@@ -1,5 +1,5 @@
-@use '../../../../styles/variables.scss' as *;
-@use '../../../../styles/mixins.scss' as *;
+@use '../../../../../styles/variables.scss' as *;
+@use '../../../../../styles/mixins.scss' as *;
 
 .hexagram-table {
   display: flex;
@@ -167,25 +167,5 @@
   box-shadow: 0 0 14px rgba(255, 123, 217, 0.75);
 }
 
-.yao-bar.moving::after {
-  content: "";
-  position: absolute;
-  right: 4px;
-  top: 50%;
-  width: 12px;
-  height: 12px;
-  transform: translateY(-50%);
-}
 
-.yao-bar.yang.moving::after {
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #9ffcff 0, #20e3ff 60%, rgba(32, 227, 255, 0));
-  box-shadow: 0 0 10px rgba(32, 227, 255, 0.8);
-}
 
-.yao-bar.yin.moving::after {
-  background:
-    linear-gradient(45deg, transparent 45%, #ff7bd9 45%, #ff7bd9 55%, transparent 55%),
-    linear-gradient(-45deg, transparent 45%, #ff7bd9 45%, #ff7bd9 55%, transparent 55%);
-  box-shadow: 0 0 10px rgba(255, 123, 217, 0.8);
-}
