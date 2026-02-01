@@ -31,6 +31,8 @@ interface LiuyaoState {
   loadCase: (id: string) => boolean // 加载卦例，返回是否成功
   getSavedCases: () => SavedCaseListItem[] // 获取所有已保存的卦例列表
   deleteCase: (id: string) => void // 删除已保存的卦例
+  saveLastResult: () => void // 保存最近一次排盘结果到本地
+  loadLastResult: () => boolean // 加载最近一次排盘结果，返回是否成功
 }
 
 // 将 Date 格式化为 YYYY-MM-DD 与 HH:mm，便于小程序 Picker 使用
@@ -207,6 +209,60 @@ export const useLiuyaoStore = create<LiuyaoState>((set, get) => {
     },
     deleteCase: (id) => {
       deleteCaseFromStorage(id)
+    },
+    saveLastResult: () => {
+      const state = get()
+      if (!state.result) return
+      
+      const lastResult = {
+        dateValue: state.dateValue,
+        timeValue: state.timeValue,
+        lines: state.lines,
+        ruleSetKey: state.ruleSetKey,
+        question: state.question,
+        result: state.result,
+        isLoadingHistory: state.isLoadingHistory,
+        timestamp: Date.now()
+      }
+      
+      try {
+        localStorage.setItem('liuyao_last_result', JSON.stringify(lastResult))
+      } catch (err) {
+        console.error('Failed to save last result', err)
+      }
+    },
+    loadLastResult: () => {
+      try {
+        const saved = localStorage.getItem('liuyao_last_result')
+        if (!saved) return false
+        
+        const lastResult = JSON.parse(saved)
+        if (!lastResult || !lastResult.result) return false
+        
+        // 检查是否过期（24小时）
+        const now = Date.now()
+        const age = now - (lastResult.timestamp || 0)
+        if (age > 24 * 60 * 60 * 1000) {
+          localStorage.removeItem('liuyao_last_result')
+          return false
+        }
+        
+        set({
+          dateValue: lastResult.dateValue,
+          timeValue: lastResult.timeValue,
+          lines: lastResult.lines,
+          ruleSetKey: lastResult.ruleSetKey,
+          question: lastResult.question || '',
+          result: lastResult.result,
+          isLoadingHistory: lastResult.isLoadingHistory || false,
+          date: buildDate(lastResult.dateValue, lastResult.timeValue)
+        })
+        
+        return true
+      } catch (err) {
+        console.error('Failed to load last result', err)
+        return false
+      }
     }
   }
 })

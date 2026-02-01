@@ -14,7 +14,7 @@ export default {
     },
     {
       root: 'pages/Liuyao',
-      pages: ['index']
+      pages: ['index', 'divination/index', 'result/index']
     },
     {
       root: 'pages/LiuyaoHistory',

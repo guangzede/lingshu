@@ -5,7 +5,7 @@ import './index.scss'
 
 const menuItems = [
   // { id: 'bazi', label: '八字排盘', url: '/pages/bazi/index' },
-  { id: 'liuyao', label: '易理推演', url: '/pages/Liuyao/index?source=home' },
+  { id: 'liuyao', label: '易理推演', url: '/pages/Liuyao/divination/index' },
   // { id: 'experience', label: '体验旧版首页(暂弃用)', url: '/pages/experience/index' },
   // { id: 'luopan', label: '赛博罗盘(未完成)', url: '/pages/luopan/index' },
   // { id: 'ziwei', label: '紫微斗数(未完成)', url: '/pages/armillary/index' },

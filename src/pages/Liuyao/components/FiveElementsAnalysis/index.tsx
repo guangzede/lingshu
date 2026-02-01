@@ -24,7 +24,7 @@ const FiveElementsAnalysis: React.FC<Props> = ({ metal=100, wood=70, water=20, f
   )
 
   React.useEffect(() => {
-    const size = 240
+    const size = 300
     const padding = 24
     const radius = size / 2 - padding
     const center = size / 2

@@ -386,7 +386,6 @@
   border-radius: 16px;
   padding: 20px;
 
-  margin: 24px 16px;
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
@@ -897,7 +896,7 @@
     0 0 20px rgba(122, 162, 140, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-
+  margin-top: 0;
   &::after {
     border: none !important;
   }

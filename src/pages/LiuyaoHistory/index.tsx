@@ -37,8 +37,10 @@ const LiuyaoHistoryPage: React.FC = () => {
   const handleLoadCase = (id: string) => {
     const success = loadCase(id)
     if (success) {
-      // 数据完整则返回上一页（Liuyao）以免增加页面栈
-      Taro.navigateBack({ delta: 1 })
+      // 加载成功后跳转到结果页
+      Taro.navigateTo({ 
+        url: '/pages/Liuyao/result/index'
+      })
     } else {
       // 校验异常才提示
       Taro.showModal({
