@@ -12,7 +12,7 @@ import CountInput from '../Liuyao/divination/components/CountInput';
 import HumanQACard from '../../components/HumanQACard';
 import InfoGrid from '../Liuyao/result/components/InfoGrid';
 import ModeSelector from '../Liuyao/divination/components/ModeSelector';
-import QuestionCard from '../Liuyao/divination/components/QuestionCard';
+import QuestionCard from '../Liuyao/components/QuestionCard';
 import ShakeCoins from '../Liuyao/components/ShakeCoins';
 import TimeInput from '../Liuyao/divination/components/TimeInput';
 import YaoAnalysis from '../Liuyao/result/components/YaoAnalysis';

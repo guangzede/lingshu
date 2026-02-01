@@ -1,11 +1,31 @@
 @use '../../../../../styles/variables.scss' as *;
+@use '../../../../../styles/mixins.scss' as *;
+
+
+.strength-wang {
+  color: $color-strength-wang;
+  font-weight: bold;
+}
+.strength-xiang {
+  color: $color-strength-xiang;
+  font-weight: bold;
+}
+.strength-xiu {
+  color: $color-strength-xiu;
+  font-weight: bold;
+}
+.strength-qiu {
+  color: $color-strength-qiu;
+  font-weight: bold;
+}
+.strength-si {
+  color: $color-strength-si;
+  font-weight: bold;
+}
 
 .yao-analysis-section {
   margin: $spacing-md 0;
-  padding: $spacing-md;
-  background: rgba(255, 255, 255, 0.04);
-  border-radius: $border-radius-lg;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  @include card-style();
 }
 
 .yao-analysis-header {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text } from '@tarojs/components'
-import type { PaipanMode } from '../../types'
+import type { PaipanMode } from '../../../types'
 import './index.scss'
 
 interface ModeSelectorProps {

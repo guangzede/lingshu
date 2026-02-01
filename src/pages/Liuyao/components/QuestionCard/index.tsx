@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { View, Text, Input } from '@tarojs/components'
-import { WORD_TREE, type CategoryId } from '../../../constants/questionTree'
+import { WORD_TREE, type CategoryId } from '../../constants/questionTree'
 import './style.scss'
 
 interface QuestionCardProps {

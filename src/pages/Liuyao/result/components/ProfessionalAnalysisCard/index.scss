@@ -1,9 +1,7 @@
+@use '../../../../../styles/mixins.scss' as *;
 .professional-analysis-card {
-  background: #18181c;
-  border-radius: 12px;
+  @include card-style();
   margin: 24px 0;
-  padding: 20px 16px 12px 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   color: #f6e7c1;
   .title {
     font-size: 18px;

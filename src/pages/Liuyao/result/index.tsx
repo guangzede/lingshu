@@ -12,6 +12,8 @@ import YaoAnalysis from './components/YaoAnalysis'
 import BottomButtons from './components/BottomButtons'
 import FiveElementsAnalysis from './components/FiveElementsAnalysis'
 import ProfessionalAnalysisCard from './components/ProfessionalAnalysisCard'
+import QuestionCard from '../components/QuestionCard'
+
 
 // 六爻排盘结果页面
 const LiuyaoResultPage: React.FC = () => {
@@ -62,6 +64,13 @@ const LiuyaoResultPage: React.FC = () => {
 
     return (
         <View className="liuyao-result-page">
+
+            
+            {/* 决策主体卡片 */}
+            <View style={{ margin: '16px 0' }}>
+              <QuestionCard value={question} onChange={() => {}}  />
+            </View>
+
             {/* 干支信息卡片 */}
             <InfoGrid result={result} dateValue={dateValue} timeValue={timeValue} />
 

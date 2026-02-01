@@ -4,7 +4,7 @@ import Taro from '@tarojs/taro'
 import { useLiuyaoStore } from '@/store/liuyao'
 import './index.scss'
 import ShakeCoins from './components/ShakeCoins'
-import QuestionCard from './components/QuestionCard'
+import QuestionCard from '../components/QuestionCard'
 import { usePaipan } from '../hooks/usePaipan'
 import { useModeState } from '../hooks/useModeState'
 

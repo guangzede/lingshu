@@ -46,7 +46,22 @@ const YaoAnalysis: React.FC<YaoAnalysisProps> = ({ result }) => {
                 {isMoving ? <Text className="moving-tag">（动爻）</Text> : null}
               </Text>
               <Text className="yao-analysis-strength">
-                {seasonStrength ? `${seasonStrength}` : ''}{seasonStrength && changsheng ? ' · ' : ''}{changsheng}
+                {seasonStrength ? (
+                  <Text
+                    className={
+                      seasonStrength === '旺' ? 'strength-wang'
+                        : seasonStrength === '相' ? 'strength-xiang'
+                        : seasonStrength === '休' ? 'strength-xiu'
+                        : seasonStrength === '囚' ? 'strength-qiu'
+                        : seasonStrength === '死' ? 'strength-si'
+                        : ''
+                    }
+                  >
+                    {seasonStrength}
+                  </Text>
+                ) : ''}
+                {seasonStrength && changsheng ? ' · ' : ''}
+                {changsheng}
               </Text>
             </View>
 
