@@ -3,9 +3,10 @@
 @use './styles/mixins.scss' as *;
 @use './styles/global.scss' as *;
 
-
 body,html {
-  max-width: 1024px;
-  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 // 应用特定样式可以在这里添加
