@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { View, Text, Button, Image } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import './index.scss'
-import qrcodeImg from './qrcode.jpg'
+
 
 interface HumanQACardProps {
   question: string
@@ -12,6 +12,7 @@ const HumanQACard: React.FC<HumanQACardProps> = ({ question }) => {
   const [showQRCode, setShowQRCode] = useState(false)
 
   const handleConsult = () => {
+    setShowQRCode(true)
     Taro.setClipboardData({
       data: '530070136',
       success: () => {
@@ -20,7 +21,6 @@ const HumanQACard: React.FC<HumanQACardProps> = ({ question }) => {
           icon: 'none',
           duration: 2500
         })
-        setShowQRCode(true)
       }
     })
   }
@@ -61,7 +61,7 @@ const HumanQACard: React.FC<HumanQACardProps> = ({ question }) => {
             </View>
             <Image
               className="qrcode-image"
-              src={qrcodeImg}
+              src={require('./qrcode.jpg')}
               mode="widthFix"
               showMenuByLongpress
             />

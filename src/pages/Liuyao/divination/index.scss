@@ -32,7 +32,7 @@
 .divinate-button {
   position: relative;
   padding: $spacing-lg $spacing-xxl;
-  background: $gradient-secondary;
+  background: $gradient-primary;
   color: #0b1021;
   border: none;
   border-radius: $border-radius-full;
@@ -42,7 +42,8 @@
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
   transition: all 0.3s ease;
-
+  width: 100%;
+  text-align: center;
   &:active {
     transform: scale(0.95);
   }

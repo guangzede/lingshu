@@ -11,7 +11,7 @@ import BranchRelation from './components/BranchRelation'
 import YaoAnalysis from './components/YaoAnalysis'
 import BottomButtons from './components/BottomButtons'
 import FiveElementsAnalysis from './components/FiveElementsAnalysis'
-import ProfessionalAnalysisCard from './components/ProfessionalAnalysisCard'
+// import ProfessionalAnalysisCard from './components/ProfessionalAnalysisCard'
 import QuestionCard from '../components/QuestionCard'
 
 
@@ -46,13 +46,13 @@ const LiuyaoResultPage: React.FC = () => {
         return null
     }
 
-    // 计算五行能量（base_score 和 final_score）
+    // 计算五行能量（仅 base_score）
     const fiveElementCounts = {
-        metal: { base: 0, final: 0 },
-        wood: { base: 0, final: 0 },
-        water: { base: 0, final: 0 },
-        fire: { base: 0, final: 0 },
-        earth: { base: 0, final: 0 }
+        metal: { base: 0 },
+        wood: { base: 0 },
+        water: { base: 0 },
+        fire: { base: 0 },
+        earth: { base: 0 }
     }
     const elementMap: Record<string, keyof typeof fiveElementCounts> = {
         '金': 'metal',
@@ -69,7 +69,6 @@ const LiuyaoResultPage: React.FC = () => {
             const element = yao?.fiveElement
             if (element && elementMap[element]) {
                 fiveElementCounts[elementMap[element]].base += Number(line.base_score || 0)
-                fiveElementCounts[elementMap[element]].final += Number(line.final_score || 0)
             }
         })
     } else {
@@ -78,7 +77,6 @@ const LiuyaoResultPage: React.FC = () => {
             const element = yao?.fiveElement
             if (element && elementMap[element]) {
                 fiveElementCounts[elementMap[element]].base++
-                fiveElementCounts[elementMap[element]].final++
             }
         })
     }
@@ -129,7 +127,7 @@ const LiuyaoResultPage: React.FC = () => {
                 <AIAnalysisCard question={question} result={result} isFromHistory={isLoadingHistory} />
                 <HumanQACard question={question} />
                 {/* 专业分析卡片：生克制化、旺衰、特殊状态、进退神 */}
-                <ProfessionalAnalysisCard result={result} />
+                {/* <ProfessionalAnalysisCard result={result} /> */}
             </View>
 
             {/* 底部按钮区域 */}

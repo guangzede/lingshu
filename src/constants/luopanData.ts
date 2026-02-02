@@ -21,7 +21,7 @@ export interface LuopanLayer {
 }
 
 // 五行配色
-const WUXING_COLORS: Record<WuXing, string> = {
+export const WUXING_COLORS: Record<WuXing, string> = {
   wood: '#2ecc71', // 绿
   fire: '#e74c3c', // 红
   earth: '#c2a661', // 土黄/褐
