@@ -501,42 +501,68 @@ export default function Index() {
   const compassRef = useRef<LingShuCompassRef>(null);
   const [phase, setPhase] = useState<'idle' | 'running' | 'ending'>('idle');
   const startPos = useMemo(() => ({ x: 0, y: 30, z: 0 }), []);
-  const shouldNavigateRef = useRef(false);
-  const targetUrlRef = useRef('');
+  const targetUrlRef = useRef('/pages/Liuyao/divination/index');
+  const pagePreloadedRef = useRef(false);
 
   const handleStart = () => {
     if (!compassRef.current) return;
     setPhase('running');
     compassRef.current.startAnimation();
 
-    // 标记需要导航并设置目标页面
-    shouldNavigateRef.current = true;
-    targetUrlRef.current = '/pages/Liuyao/divination/index';
+    // 立即开始预加载目标页面
+    const targetUrl = targetUrlRef.current;
+    const isH5 = process.env.TARO_ENV === 'h5';
 
-    // 模拟页面加载延迟后自动触发 handleEnd
-    setTimeout(() => {
-      if (shouldNavigateRef.current) {
-        handleEnd();
+    console.log('[Page Preload] 开始预加载页面:', targetUrl);
+
+    if (isH5) {
+      // H5 环境：预加载页面的 JS chunk
+      // 通过动态导入预热路由对应的组块
+      import('@/pages/Liuyao/divination/index')
+        .then(() => {
+          console.log('[Page Preload] H5 页面预加载成功');
+          pagePreloadedRef.current = true;
+        })
+        .catch((err) => {
+          console.warn('[Page Preload] H5 页面预加载失败:', err);
+        });
+
+      // 同时尝试预加载相关依赖
+      import('@/store/liuyao').catch(() => {});
+      import('@/utils/h5Fade').catch(() => {});
+    } else {
+      // 小程序环境：使用平台特定的预加载 API
+      const isWeChat = typeof (wx as any) !== 'undefined';
+      if (isWeChat && (wx as any).preloadPage) {
+        (wx as any).preloadPage({
+          url: targetUrl
+        });
+        console.log('[Page Preload] 微信小程序预加载已触发');
+      } else {
+        console.log('[Page Preload] 该平台不支持预加载，将在跳转时加载');
       }
-    }, 2500); // 2.5秒后自动进入退出动画
+    }
+
+    // 动画播放 2.5 秒后自动进入退出阶段
+    setTimeout(() => {
+      handleEnd();
+    }, 2500);
   };
 
   const handleEnd = () => {
     if (!compassRef.current) return;
     setPhase('ending');
     compassRef.current.endAnimation(() => {
-      console.log("=== 穿越完成 ===");
+      console.log("=== 穿越完成，准备跳转 ===");
 
-      // 如果标记了需要导航，则执行跳转
-      if (shouldNavigateRef.current && targetUrlRef.current) {
-        const isH5 = process.env.TARO_ENV === 'h5';
-        if (isH5) {
-          navigateWithH5Fade(targetUrlRef.current);
-        } else {
-          Taro.navigateTo({ url: targetUrlRef.current });
-        }
-        shouldNavigateRef.current = false;
-        targetUrlRef.current = '';
+      // 动画结束立即跳转（页面应该已经预加载完成）
+      const targetUrl = targetUrlRef.current;
+      const isH5 = process.env.TARO_ENV === 'h5';
+
+      if (isH5) {
+        navigateWithH5Fade(targetUrl);
+      } else {
+        Taro.navigateTo({ url: targetUrl });
       }
     });
   };
