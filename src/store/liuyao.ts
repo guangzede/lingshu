@@ -27,6 +27,7 @@ interface LiuyaoState {
   setResult: (r: any) => void
   compute: () => void
   reset: () => void
+  resetLines: () => void // 仅重置爻位，不重置求测事项
   saveCurrentCase: (remark?: string) => string // 保存当前卦例，返回ID
   loadCase: (id: string) => boolean // 加载卦例，返回是否成功
   getSavedCases: () => SavedCaseListItem[] // 获取所有已保存的卦例列表
@@ -122,6 +123,21 @@ export const useLiuyaoStore = create<LiuyaoState>((set, get) => {
         isLoadingHistory: false
       })
     },
+    resetLines: () => {
+      // 仅重置爻位和日期，不重置求测事项
+      const fresh = new Date()
+      const parts = formatDateParts(fresh)
+      set({
+        lines: defaultLines,
+        date: fresh,
+        dateValue: parts.dateValue,
+        timeValue: parts.timeValue,
+        ruleSetKey: 'jingfang-basic',
+        result: null,
+        isLoadingHistory: false
+        // 保留 question 不变
+      })
+    },
     saveCurrentCase: (remark) => {
       const state = get()
       const computed = state.result || computeAll(state.lines, { ruleSetKey: state.ruleSetKey, date: state.date })
@@ -213,7 +229,7 @@ export const useLiuyaoStore = create<LiuyaoState>((set, get) => {
     saveLastResult: () => {
       const state = get()
       if (!state.result) return
-      
+
       const lastResult = {
         dateValue: state.dateValue,
         timeValue: state.timeValue,
@@ -224,7 +240,7 @@ export const useLiuyaoStore = create<LiuyaoState>((set, get) => {
         isLoadingHistory: state.isLoadingHistory,
         timestamp: Date.now()
       }
-      
+
       try {
         localStorage.setItem('liuyao_last_result', JSON.stringify(lastResult))
       } catch (err) {
@@ -235,10 +251,10 @@ export const useLiuyaoStore = create<LiuyaoState>((set, get) => {
       try {
         const saved = localStorage.getItem('liuyao_last_result')
         if (!saved) return false
-        
+
         const lastResult = JSON.parse(saved)
         if (!lastResult || !lastResult.result) return false
-        
+
         // 检查是否过期（24小时）
         const now = Date.now()
         const age = now - (lastResult.timestamp || 0)
@@ -246,7 +262,7 @@ export const useLiuyaoStore = create<LiuyaoState>((set, get) => {
           localStorage.removeItem('liuyao_last_result')
           return false
         }
-        
+
         set({
           dateValue: lastResult.dateValue,
           timeValue: lastResult.timeValue,
@@ -257,7 +273,7 @@ export const useLiuyaoStore = create<LiuyaoState>((set, get) => {
           isLoadingHistory: lastResult.isLoadingHistory || false,
           date: buildDate(lastResult.dateValue, lastResult.timeValue)
         })
-        
+
         return true
       } catch (err) {
         console.error('Failed to load last result', err)

@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useLiuyaoStore } from '@/store/liuyao'
+import { initH5FadeInOnce } from '@/utils/h5Fade'
 import './index.scss'
 import ShakeCoins from './components/ShakeCoins'
 import QuestionCard from '../components/QuestionCard'
@@ -25,7 +26,7 @@ const LiuyaoDivinationPage: React.FC = () => {
     setDateValue,
     setTimeValue,
     setQuestion,
-    reset,
+    resetLines,
     compute
   } = useLiuyaoStore((s) => s)
 
@@ -62,9 +63,10 @@ const LiuyaoDivinationPage: React.FC = () => {
 
   const { handlePaipan } = usePaipan({ mode: modeForPaipan, countNumbers, setLineState, compute: computeAndSave })
 
-  // 页面首次加载时重置
+  // 页面首次加载时重置爻位（保留求测事项）
   React.useEffect(() => {
-    reset()
+    initH5FadeInOnce()
+    resetLines()
   }, [])
 
   return (

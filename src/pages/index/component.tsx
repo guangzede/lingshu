@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useState, useImperativeHandle, forwardRef, useMemo } from 'react';
 import { View, Text, Button as TaroButton } from '@tarojs/components'; // 引入 Taro 组件
-import Taro from '@tarojs/taro';
-import { navigateWithH5Fade } from '@/utils/h5Fade';
 import * as THREE from 'three';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
@@ -259,7 +257,7 @@ const LingShuCompass = forwardRef<LingShuCompassRef, LingShuCompassProps>(({ onL
 
     const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
     cameraRef.current = camera;
-    const initialZ = fitCameraToObject(camera, 52, window.innerWidth / window.innerHeight);
+    const initialZ = fitCameraToObject(camera, 60, window.innerWidth / window.innerHeight);
     camera.position.set(0, -40, initialZ);
     camera.lookAt(0, 0, 0);
 
@@ -318,7 +316,7 @@ const LingShuCompass = forwardRef<LingShuCompassRef, LingShuCompassProps>(({ onL
       { size: 30, speed: 0.0008, dir: -1, delay: 1.3, offset: -0.13 },
       { size: 38, speed: 0.0006, dir: 1,  delay: 1.6 },
       { size: 44, speed: 0.0012, dir: -1, delay: 1.9, offset: 0.13 },
-      { size: 52, speed: 0.0016, dir: 1,  delay: 2.2 }
+      { size: 52, speed: 0.0008, dir: 1,  delay: 2.2 }
     ];
 
     layerConfigs.forEach((cfg, idx) => {
@@ -425,7 +423,7 @@ const LingShuCompass = forwardRef<LingShuCompassRef, LingShuCompassProps>(({ onL
               const t = state.timeline / 1.0; const ease = easeInOutQuad(t);
               if (cameraRef.current) {
                   const startY = -40; const targetY = 0; const currentY = THREE.MathUtils.lerp(startY, targetY, ease);
-                  const startZ = fitCameraToObject(cameraRef.current, 52, window.innerWidth/window.innerHeight);
+                  const startZ = fitCameraToObject(cameraRef.current, 60, window.innerWidth/window.innerHeight);
                   const targetZ = startZ * 1.2; const currentZ = THREE.MathUtils.lerp(startZ, targetZ, ease);
                   cameraRef.current.position.set(0, currentY, currentZ); cameraRef.current.lookAt(0, 0, 0);
               }
@@ -480,8 +478,6 @@ const LingShuCompass = forwardRef<LingShuCompassRef, LingShuCompassProps>(({ onL
     const handleResize = () => {
       if (cameraRef.current) {
           const aspect = window.innerWidth / window.innerHeight; cameraRef.current.aspect = aspect; cameraRef.current.updateProjectionMatrix();
-          const newZ = fitCameraToObject(cameraRef.current, 52, aspect);
-          cameraRef.current.position.z = newZ;
       }
       renderer.setSize(window.innerWidth, window.innerHeight); composer.setSize(window.innerWidth, window.innerHeight);
     };
@@ -501,43 +497,18 @@ export default function Index() {
   const compassRef = useRef<LingShuCompassRef>(null);
   const [phase, setPhase] = useState<'idle' | 'running' | 'ending'>('idle');
   const startPos = useMemo(() => ({ x: 0, y: 30, z: 0 }), []);
-  const shouldNavigateRef = useRef(false);
-  const targetUrlRef = useRef('');
 
   const handleStart = () => {
     if (!compassRef.current) return;
     setPhase('running');
     compassRef.current.startAnimation();
-
-    // 标记需要导航并设置目标页面
-    shouldNavigateRef.current = true;
-    targetUrlRef.current = '/pages/Liuyao/divination/index';
-
-    // 模拟页面加载延迟后自动触发 handleEnd
-    setTimeout(() => {
-      if (shouldNavigateRef.current) {
-        handleEnd();
-      }
-    }, 2500); // 2.5秒后自动进入退出动画
   };
 
   const handleEnd = () => {
     if (!compassRef.current) return;
     setPhase('ending');
     compassRef.current.endAnimation(() => {
-      console.log("=== 穿越完成 ===");
-
-      // 如果标记了需要导航，则执行跳转
-      if (shouldNavigateRef.current && targetUrlRef.current) {
-        const isH5 = process.env.TARO_ENV === 'h5';
-        if (isH5) {
-          navigateWithH5Fade(targetUrlRef.current);
-        } else {
-          Taro.navigateTo({ url: targetUrlRef.current });
-        }
-        shouldNavigateRef.current = false;
-        targetUrlRef.current = '';
-      }
+        console.log("=== 穿越完成 ===");
     });
   };
 

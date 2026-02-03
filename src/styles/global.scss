@@ -204,3 +204,18 @@ textarea {
 .overflow-auto { overflow: auto; }
 .overflow-x-auto { overflow-x: auto; }
 .overflow-y-auto { overflow-y: auto; }
+
+// H5 页面淡入过渡遮罩
+.h5-fade-overlay {
+  position: fixed;
+  inset: 0;
+  background: #050510;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--h5-fade-duration, 280ms) ease;
+  z-index: 9999;
+}
+
+.h5-fade-overlay.is-active {
+  opacity: 1;
+}
