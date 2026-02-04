@@ -15,6 +15,7 @@ interface LiuyaoState {
   question: string // 求测事项
   result: any
   isLoadingHistory: boolean // 是否在编辑已加载的历史卦例
+  manualMode: boolean // QuestionCard 的手动输入模式状态
   setLines: (lines: LineInput[]) => void
   setLineState: (idx: number, state: 'taiyang' | 'shaoyang' | 'shaoyin' | 'taiyin') => void
   toggleYang: (idx: number) => void
@@ -25,6 +26,7 @@ interface LiuyaoState {
   setQuestion: (q: string) => void
   setIsLoadingHistory: (isLoading: boolean) => void
   setResult: (r: any) => void
+  setManualMode: (v: boolean) => void
   compute: () => void
   reset: () => void
   resetLines: () => void // 仅重置爻位，不重置求测事项
@@ -69,7 +71,8 @@ export const useLiuyaoStore = create<LiuyaoState>((set, get) => {
     ruleSetKey: 'jingfang-basic',
     question: '',
     result: null,
-    isLoadingHistory: false,
+      isLoadingHistory: false,
+      manualMode: false,
     setLines: (lines) => set({ lines }),
     setLineState: (idx, state) => set((current) => {
       const next = [...current.lines]
@@ -104,6 +107,7 @@ export const useLiuyaoStore = create<LiuyaoState>((set, get) => {
     setQuestion: (q) => set({ question: q }),
     setIsLoadingHistory: (isLoading) => set({ isLoadingHistory: isLoading }),
     setResult: (r) => set({ result: r }),
+    setManualMode: (v) => set({ manualMode: v }),
     compute: () => {
       const state = get()
       const result = computeAll(state.lines, { ruleSetKey: state.ruleSetKey, date: state.date })
@@ -120,7 +124,8 @@ export const useLiuyaoStore = create<LiuyaoState>((set, get) => {
         ruleSetKey: 'jingfang-basic',
         question: '',
         result: null,
-        isLoadingHistory: false
+        isLoadingHistory: false,
+        manualMode: false
       })
     },
     resetLines: () => {
@@ -134,7 +139,8 @@ export const useLiuyaoStore = create<LiuyaoState>((set, get) => {
         timeValue: parts.timeValue,
         ruleSetKey: 'jingfang-basic',
         result: null,
-        isLoadingHistory: false
+        isLoadingHistory: false,
+        manualMode: false
         // 保留 question 不变
       })
     },
@@ -149,6 +155,7 @@ export const useLiuyaoStore = create<LiuyaoState>((set, get) => {
         lines: state.lines as [any, any, any, any, any, any],
         ruleSetKey: state.ruleSetKey,
         question: state.question,
+        manualMode: state.manualMode,
         remark,
         createdAt: Date.now(),
         baseHexName: computed?.hex?.name,
@@ -184,6 +191,7 @@ export const useLiuyaoStore = create<LiuyaoState>((set, get) => {
           ruleSetKey: caseData.ruleSetKey,
           date,
           isLoadingHistory: true,
+          manualMode: caseData.manualMode || false,
           question: caseData.question || '',
           result: computed
         })
@@ -236,6 +244,7 @@ export const useLiuyaoStore = create<LiuyaoState>((set, get) => {
         lines: state.lines,
         ruleSetKey: state.ruleSetKey,
         question: state.question,
+        manualMode: state.manualMode,
         result: state.result,
         isLoadingHistory: state.isLoadingHistory,
         timestamp: Date.now()
@@ -269,6 +278,7 @@ export const useLiuyaoStore = create<LiuyaoState>((set, get) => {
           lines: lastResult.lines,
           ruleSetKey: lastResult.ruleSetKey,
           question: lastResult.question || '',
+          manualMode: lastResult.manualMode || false,
           result: lastResult.result,
           isLoadingHistory: lastResult.isLoadingHistory || false,
           date: buildDate(lastResult.dateValue, lastResult.timeValue)

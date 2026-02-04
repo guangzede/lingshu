@@ -86,8 +86,8 @@ const LiuyaoResultPage: React.FC = () => {
 
 
             {/* 决策主体卡片 */}
-            <View style={{ margin: '16px 0' }}>
-                <QuestionCard value={question} onChange={setQuestion} />
+            <View >
+                <QuestionCard value={question} onChange={setQuestion} readOnly={isLoadingHistory} />
             </View>
 
             {/* 干支信息卡片 */}

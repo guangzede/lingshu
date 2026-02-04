@@ -53,8 +53,8 @@ const HumanQACard: React.FC<HumanQACardProps> = ({ question }) => {
 
       {/* 二维码弹窗 */}
       {showQRCode && (
-        <View className="qrcode-modal" onClick={handleClose}>
-          <View className="qrcode-content" onClick={handleContentClick}>
+        <View className="qrcode-modal" onClick={handleClose} onTouchMove={(e) => { e?.stopPropagation?.(); }}>
+          <View className="qrcode-content" onClick={handleContentClick} onTouchMove={(e) => { e?.stopPropagation?.(); }}>
             <View className="qrcode-header">
               <Text className="qrcode-title">共同学习</Text>
               <Text className="qrcode-close" onClick={handleClose}>✕</Text>

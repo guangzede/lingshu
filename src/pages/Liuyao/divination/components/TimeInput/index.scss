@@ -19,7 +19,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: $spacing-sm 0;
+  padding: $spacing-lg;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -38,7 +38,19 @@
   background: rgba(255, 255, 255, 0.04);
   cursor: pointer;
   transition: all 0.2s ease;
-
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.15) 0%, rgba(251, 191, 36, 0.08) 100%);
+  border: 0.025rem solid rgba(251, 191, 36, 0.3);
+  border-radius: 0.3rem;
+  padding: 0.3rem 0.4rem;
+  color: #fbbf24;
+  font-size: 0.7rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  box-shadow: 0 0 0.3rem rgba(251, 191, 36, 0.15);
+  font-weight: 500;
+  outline: none;
+  margin-left: $spacing-sm;
   &:hover {
     background: rgba(255, 255, 255, 0.08);
     transform: translateY(-1px);

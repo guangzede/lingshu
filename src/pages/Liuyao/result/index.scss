@@ -12,6 +12,7 @@
 // 玻璃态卡片样式
 .glass-card {
   @include card-style;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.4) 0%, rgba(30, 41, 59, 0.4) 100%);
 }
 
 // 分析卡片样式

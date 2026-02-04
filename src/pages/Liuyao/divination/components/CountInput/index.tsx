@@ -26,7 +26,7 @@ const CountInput: React.FC<CountInputProps> = ({
           className="number-input-elegant"
           type="number"
           value={countNumbers}
-          placeholder="输入任意长度数字（梅花易数）"
+          placeholder="建议输入3个数字（如：1 2 3）"
           style={{ height: '52px', lineHeight: '26px' }}
           onInput={(e) => onCountNumbersChange(e.detail.value)}
         />

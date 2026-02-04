@@ -13,30 +13,48 @@ export const usePaipan = ({ mode, countNumbers, setLineState, compute }: UsePaip
   const applyCountMethod = useCallback(() => {
     if (!countNumbers || countNumbers.length < 2) return
 
-    const digits = countNumbers.split('').map(d => parseInt(d, 10))
-    const total = digits.reduce((sum, n) => sum + n, 0)
+    let upperNum: number
+    let lowerNum: number
+    let movingLineNum: number
 
-    const upperNum = total % 8 || 8
-    const lowerNum = countNumbers.length % 8 || 8
-    const movingLineNum = total % 6 || 6
+    // 如果是三位数，使用先天八卦数法
+    if (countNumbers.length === 3) {
+      const digits = countNumbers.split('').map(d => parseInt(d, 10))
+      upperNum = digits[0] || 8  // 第一位数为上卦（如果为0则取8）
+      lowerNum = digits[1] || 8  // 第二位数为下卦（如果为0则取8）
+      movingLineNum = (digits[2] % 6) || 6  // 第三位数整除6取余数为动爻
+    } else {
+      // 原有逻辑：非三位数时按照梅花易数方法
+      const digits = countNumbers.split('').map(d => parseInt(d, 10))
+      const total = digits.reduce((sum, n) => sum + n, 0)
+
+      upperNum = total % 8 || 8
+      lowerNum = countNumbers.length % 8 || 8
+      movingLineNum = total % 6 || 6
+    }
 
     const upperTrigram = TRIGRAM_MAP[upperNum]
     const lowerTrigram = TRIGRAM_MAP[lowerNum]
 
-    // 设置六爻
+    // 设置六爻（初爻为第1爻，上爻为第6爻）
+    // 索引反向映射：初爻(1)→索引5，二爻(2)→索引4，三爻(3)→索引3
     lowerTrigram.forEach((isYang, i) => {
-      if (i === movingLineNum - 1) {
-        setLineState(i, isYang ? 'taiyang' : 'taiyin')
+      const yaoNum = i + 1  // 爻序：初爻(1)、二爻(2)、三爻(3)
+      const stateIndex = 5 - i
+      if (yaoNum === movingLineNum) {
+        setLineState(stateIndex, isYang ? 'taiyang' : 'taiyin')
       } else {
-        setLineState(i, isYang ? 'shaoyang' : 'shaoyin')
+        setLineState(stateIndex, isYang ? 'shaoyang' : 'shaoyin')
       }
     })
+    // 四爻(4)→索引2，五爻(5)→索引1，上爻(6)→索引0
     upperTrigram.forEach((isYang, i) => {
-      const idx = i + 3
-      if (idx === movingLineNum - 1) {
-        setLineState(idx, isYang ? 'taiyang' : 'taiyin')
+      const yaoNum = i + 4  // 爻序：四爻(4)、五爻(5)、上爻(6)
+      const stateIndex = 2 - i
+      if (yaoNum === movingLineNum) {
+        setLineState(stateIndex, isYang ? 'taiyang' : 'taiyin')
       } else {
-        setLineState(idx, isYang ? 'shaoyang' : 'shaoyin')
+        setLineState(stateIndex, isYang ? 'shaoyang' : 'shaoyin')
       }
     })
   }, [countNumbers, setLineState])

@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import { useLiuyaoStore } from '@/store/liuyao'
 import { View, Text, Input } from '@tarojs/components'
 import { WORD_TREE, type CategoryId } from '../../constants/questionTree'
 import './style.scss'
@@ -23,76 +24,65 @@ interface Selection {
 const QuestionCard: React.FC<QuestionCardProps> = ({ value, onChange, readOnly = false }) => {
   const [selections, setSelections] = useState<Selection[]>([])
   const [step, setStep] = useState<Step>(0)
-  const [manualMode, setManualMode] = useState(false)
+  const manualMode = useLiuyaoStore((s) => s.manualMode)
+  const setManualMode = useLiuyaoStore((s) => s.setManualMode)
   const [manualInput, setManualInput] = useState(value)
 
-  // 当处于只读模式且有已保存的 value 时，解析并重建 selections
+  // 解析 value 并重建 selections：统一逻辑，非手动模式下均尝试从 value 回显标签
   React.useEffect(() => {
-    if (readOnly && value && value.trim()) {
-      // 解析 value 字符串（格式：label1 · label2 · label3）
-      const labels = value.split(' · ').map(l => l.trim()).filter(l => l)
+    
+    if (manualMode) return
 
-      if (labels.length > 0) {
-        const newSelections: Selection[] = []
+    if (!value || !value.trim()) {
+      // 当 value 为空且非只读，保持空状态；若是只读则也保持空
+      return
+    }
 
-        // Step 0: 查找分类
-        const category = WORD_TREE.category.find((c: any) => c.label === labels[0])
-        if (category) {
-          newSelections.push({
-            step: 0,
-            id: category.id,
-            label: category.label,
-            desc: category.desc
-          })
+    const labels = value.split(' · ').map((l: string) => l.trim()).filter((l: string) => l)
+    if (labels.length === 0) return
 
-          // Step 1: 查找详细场景
-          if (labels[1]) {
-            const categoryId = category.id as CategoryId
-            const details = WORD_TREE.detail[categoryId]
-            const detail = Array.isArray(details)
-              ? details.find((d: any) => d.label === labels[1])
-              : null
-            if (detail) {
-              newSelections.push({
-                step: 1,
-                id: detail.id,
-                label: detail.label,
-                desc: detail.desc
-              })
+    const newSelections: Selection[] = []
+    const category = WORD_TREE.category.find((c: any) => c.label === labels[0])
+    if (category) {
+      newSelections.push({ step: 0, id: category.id, label: category.label, desc: category.desc })
 
-              // Step 2: 查找问题
-              if (labels[2]) {
-                const questions = WORD_TREE.question[categoryId]
-                const question = Array.isArray(questions)
-                  ? questions.find((q: any) => q.label === labels[2])
-                  : null
-                if (question) {
-                  newSelections.push({
-                    step: 2,
-                    id: question.id,
-                    label: question.label,
-                    desc: question.desc
-                  })
-                }
-              }
+      if (labels[1]) {
+        const categoryId = category.id as CategoryId
+        const details = WORD_TREE.detail[categoryId]
+        const detail = Array.isArray(details) ? details.find((d: any) => d.label === labels[1]) : null
+        if (detail) {
+          newSelections.push({ step: 1, id: detail.id, label: detail.label, desc: detail.desc })
+
+          if (labels[2]) {
+            const questions = WORD_TREE.question[categoryId]
+            const question = Array.isArray(questions) ? questions.find((q: any) => q.label === labels[2]) : null
+            if (question) {
+              newSelections.push({ step: 2, id: question.id, label: question.label, desc: question.desc })
             }
           }
         }
-
-        setSelections(newSelections)
-        setStep((newSelections.length - 1) as Step)
       }
+    }
+
+    if (newSelections.length > 0) {
+      setSelections(newSelections)
+      setStep((newSelections.length - 1) as Step)
+    }
+  }, [value, manualMode])
+
+  // 从只读模式切换回可编辑时，仅更新手动输入初始值（不清空 selections，避免覆盖回显）
+  React.useEffect(() => {
+    if (!readOnly) {
+      setManualInput(value)
     }
   }, [readOnly, value])
 
-  // 从只读模式切换回可编辑时，清空旧的选中状态
+  // 当 global manualMode 切换为手动模式时，用当前 value 填充输入框（以便继续编辑）
   React.useEffect(() => {
-    if (!readOnly) {
-      setSelections([])
-      setStep(0)
+    if (manualMode) {
       setManualInput(value)
     }
-  }, [readOnly])
+  }, [manualMode, value])
 
   // 获取当前步骤可用的关键词
   const getCurrentKeywords = (): readonly any[] => {
@@ -189,7 +179,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ value, onChange, readOnly =
             {/*根据 manualMode 状态渲染不同内容*/}
             <Input
               className={`question-input ${manualMode ? 'manual' : 'tags-mode'}`}
-              value={manualMode ? manualInput : selections.map(s => s.label).join(' · ')}
+              value={manualMode ? manualInput : (selections.length > 0 ? selections.map(s => s.label).join(' · ') : (value || ''))}
               placeholder={manualMode ? "请输入主题内容..." : "请选择关键词..."}
               disabled={readOnly || !manualMode}
               style={{ height: '52px', lineHeight: '26px', width: '100%' }}
@@ -216,13 +206,37 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ value, onChange, readOnly =
                   </View>
                 ))}
 
-                {/* Placeholder dots when empty */}
+                {/* When there are no constructed tags, show existing value or placeholder dots */}
                 {selections.length === 0 && (
-                  <View className="placeholder-dots">
-                    <View></View>
-                    <View></View>
-                    <View></View>
-                  </View>
+                  value && value.trim() ? (
+                    <View
+                      className="selected-tag existing-value"
+                      onClick={() => !readOnly && setManualMode(true)}
+                      style={{ cursor: readOnly ? 'default' : 'pointer' }}
+                    >
+                      <View className="tag-content">
+                        <Text className="tag-text">{value}</Text>
+                      </View>
+                      {!readOnly && (
+                        <Text
+                          className="tag-close"
+                          onClick={(e: any) => {
+                            e?.stopPropagation?.()
+                            onChange('')
+                            setManualInput('')
+                          }}
+                        >
+                          ✕
+                        </Text>
+                      )}
+                    </View>
+                  ) : (
+                    <View className="placeholder-dots">
+                      <View></View>
+                      <View></View>
+                      <View></View>
+                    </View>
+                  )
                 )}
               </View>
             )}

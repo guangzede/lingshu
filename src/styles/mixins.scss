@@ -4,8 +4,8 @@
 @mixin glass-effect($bg: $glass-bg, $border: $glass-border, $blur: $glass-blur) {
   background: $bg;
   border: 1px solid $border;
-  backdrop-filter: blur($blur);
-  -webkit-backdrop-filter: blur($blur);
+  // backdrop-filter: blur($blur);
+  // -webkit-backdrop-filter: blur($blur);
 }
 
 // 卡片样式混合宏

@@ -12,6 +12,7 @@ export interface SavedCase {
   ruleSetKey: string // 排盘规则集
   question: string // 求测事项
   remark?: string // 备注（可选）
+  manualMode?: boolean // 保存时的手动输入模式状态
   createdAt: number // 创建时间戳（毫秒）
   baseHexName?: string // 本卦名称（存历史列表用）
   variantHexName?: string // 变卦名称（存历史列表用）
