@@ -3,7 +3,10 @@ export default {
     'pages/index/index',
     'pages/fortune/index',
     'pages/bazi/index',
-    'pages/testPage/index'
+    'pages/testPage/index',
+    'pages/auth/index',
+    'pages/profile/index',
+    'pages/vip/index'
   ],
   subpackages: [
     {

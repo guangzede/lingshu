@@ -1,0 +1,132 @@
+@use '../../styles/variables.scss' as *;
+@use '../../styles/mixins.scss' as *;
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: $color-bg-primary;
+}
+.auth-switch {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 32px;
+  .active {
+    color: $color-accent;
+    font-weight: bold;
+    border-bottom: 2px solid $color-accent;
+  }
+  > view {
+    margin: 0 24px;
+    font-size: 32px;
+    cursor: pointer;
+    padding-bottom: 8px;
+  }
+}
+.auth-form {
+  width: 80vw;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background: $color-bg-card;
+  border-radius: 16px;
+  padding: 32px 24px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+.auth-input {
+  font-size: 28px;
+  padding: 16px;
+  border: 1px solid $color-border;
+  border-radius: 8px;
+  background: $color-bg-primary;
+}
+.auth-btn {
+  background: $color-accent;
+  color: #fff;
+  font-size: 32px;
+  border-radius: 8px;
+  padding: 16px 0;
+}
+.auth-error {
+  color: #ff4d4f;
+  font-size: 24px;
+  text-align: center;
+}
+
+.auth-agreement {
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  color: $color-text-secondary;
+}
+
+.auth-checkbox {
+  width: 28px;
+  height: 28px;
+  border: 1px solid $color-border;
+  border-radius: 6px;
+  margin-right: 12px;
+  background: $color-bg-primary;
+}
+
+.auth-checkbox.checked {
+  background: $color-accent;
+  border-color: $color-accent;
+}
+
+.auth-agreement-text {
+  margin-right: 8px;
+}
+
+.auth-agreement-link {
+  color: $color-accent;
+}
+
+.auth-modal-mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.auth-modal {
+  width: 80vw;
+  max-width: 520px;
+  max-height: 70vh;
+  background: $color-bg-card;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-modal-title {
+  font-size: 28px;
+  color: $color-text-primary;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.auth-modal-content {
+  flex: 1;
+  overflow: auto;
+  font-size: 24px;
+  color: $color-text-secondary;
+  margin-bottom: 16px;
+}
+
+.auth-modal-btn {
+  background: $color-accent;
+  color: #fff;
+  border-radius: 8px;
+  padding: 12px 0;
+}
