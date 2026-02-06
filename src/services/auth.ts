@@ -1,6 +1,6 @@
 import Taro from '@tarojs/taro';
 
-const BASE_URL = 'https://your-backend-api-url'; // TODO: 替换为实际后端地址
+const BASE_URL = process.env.TARO_APP_API_BASE || ''
 
 function getToken() {
   return Taro.getStorageSync('token') || '';

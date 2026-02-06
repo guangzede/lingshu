@@ -8,20 +8,20 @@ export default {
     'pages/profile/index',
     'pages/vip/index'
   ],
-  subpackages: [
-    {
-      root: 'pages/luopan',
-      pages: ['index']
-    },
-    {
-      root: 'pages/Liuyao',
-      pages: ['index', 'divination/index', 'result/index']
-    },
-    {
-      root: 'pages/LiuyaoHistory',
-      pages: ['index']
-    }
-  ],
+  // subpackages: [
+  //   {
+  //     root: 'pages/luopan',
+  //     pages: ['index']
+  //   },
+  //   {
+  //     root: 'pages/Liuyao',
+  //     pages: ['index', 'divination/index', 'result/index']
+  //   },
+  //   {
+  //     root: 'pages/LiuyaoHistory',
+  //     pages: ['index']
+  //   }
+  // ],
   window: {
     navigationBarTitleText: '灵枢',
     navigationBarBackgroundColor: '#050510',

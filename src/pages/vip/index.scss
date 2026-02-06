@@ -2,24 +2,227 @@
 
 .vip-page {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: $color-bg-primary;
-  padding: 48px 0;
+  background: radial-gradient(1200px 600px at 50% -10%, rgba(255, 215, 136, 0.12), transparent),
+    linear-gradient(180deg, #030406 0%, #05090f 45%, #070b12 100%);
+  color: #f5f2e9;
+  padding-bottom: 80px;
 }
-.vip-balance {
-  font-size: 32px;
-  color: $color-accent;
-  margin-bottom: 40px;
+
+.vip-hero {
+  position: relative;
+  padding: 72px 36px 24px;
+  text-align: center;
+  overflow: hidden;
+
+  &__glow {
+    position: absolute;
+    top: -120px;
+    left: 50%;
+    width: 520px;
+    height: 520px;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 214, 146, 0.45), rgba(255, 214, 146, 0) 70%);
+    filter: blur(4px);
+    pointer-events: none;
+  }
+
+  &__title {
+    font-size: 42px;
+    letter-spacing: 0.4em;
+    font-weight: 600;
+    color: #f7e5b1;
+  }
+
+  &__subtitle {
+    margin-top: 12px;
+    font-size: 24px;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  &__card {
+    margin-top: 36px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    padding: 28px 24px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(255, 215, 136, 0.18), rgba(255, 255, 255, 0.04));
+    border: 1px solid rgba(255, 215, 136, 0.35);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
+  }
+
+  &__card-left,
+  &__card-right {
+    text-align: left;
+  }
+
+  &__label {
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.65);
+  }
+
+  &__value {
+    margin-top: 8px;
+    font-size: 36px;
+    font-weight: 600;
+    color: #ffd990;
+  }
+
+  &__hint {
+    margin-top: 6px;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.55);
+  }
 }
-.vip-btn {
-  width: 80vw;
-  max-width: 400px;
-  margin-bottom: 32px;
-  background: $color-accent;
-  color: #fff;
-  font-size: 28px;
-  border-radius: 8px;
-  padding: 20px 0;
+
+.vip-section {
+  padding: 32px 32px 0;
+
+  &__title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #f8e7b7;
+    margin-bottom: 20px;
+    letter-spacing: 0.12em;
+  }
+}
+
+.vip-benefits {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.vip-benefit {
+  padding: 20px 18px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 215, 136, 0.2);
+
+  &__title {
+    font-size: 22px;
+    font-weight: 600;
+    color: #ffe3a0;
+  }
+
+  &__desc {
+    margin-top: 8px;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.6);
+  }
+}
+
+.vip-quota {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+
+  &__item {
+    padding: 16px;
+    border-radius: 14px;
+    background: rgba(8, 10, 15, 0.6);
+    border: 1px solid rgba(255, 215, 136, 0.15);
+  }
+
+  &__full {
+    grid-column: 1 / -1;
+  }
+
+  &__label {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  &__value {
+    margin-top: 8px;
+    font-size: 22px;
+    color: #ffe3a0;
+  }
+}
+
+.vip-exchange {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+
+  &__card {
+    position: relative;
+    padding: 22px 18px 20px;
+    border-radius: 18px;
+    background: linear-gradient(160deg, rgba(255, 236, 198, 0.16), rgba(255, 255, 255, 0.02));
+    border: 1px solid rgba(255, 215, 136, 0.25);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+  }
+
+  &__tag {
+    position: absolute;
+    top: -10px;
+    right: 16px;
+    padding: 4px 10px;
+    font-size: 14px;
+    border-radius: 999px;
+    background: rgba(255, 215, 136, 0.9);
+    color: #2a1f0f;
+  }
+
+  &__title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #ffe5a6;
+  }
+
+  &__desc {
+    margin-top: 8px;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.65);
+  }
+
+  &__price {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    margin: 16px 0;
+  }
+
+  &__price-num {
+    font-size: 30px;
+    font-weight: 600;
+    color: #ffd990;
+  }
+
+  &__price-unit {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 4px;
+  }
+
+  &__btn {
+    width: 100%;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #f7d88b, #c89a3f);
+    color: #2a1e0b;
+    font-weight: 600;
+    font-size: 20px;
+    padding: 12px 0;
+  }
+
+  &__btn--disabled {
+    opacity: 0.5;
+  }
+}
+
+@media (max-width: 640px) {
+  .vip-hero {
+    padding: 56px 24px 24px;
+
+    &__card {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .vip-benefits,
+  .vip-exchange {
+    grid-template-columns: 1fr;
+  }
 }
