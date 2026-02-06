@@ -124,7 +124,7 @@ const LiuyaoResultPage: React.FC = () => {
 
 
                 {/* AI 分析与人工答疑 */}
-                <AIAnalysisCard question={question} result={result} isFromHistory={isLoadingHistory} />
+                {/* <AIAnalysisCard question={question} result={result} isFromHistory={isLoadingHistory} /> */}
                 <HumanQACard question={question} />
                 {/* 专业分析卡片：生克制化、旺衰、特殊状态、进退神 */}
                 {/* <ProfessionalAnalysisCard result={result} /> */}
