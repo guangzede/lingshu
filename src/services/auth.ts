@@ -1,6 +1,7 @@
 import Taro from '@tarojs/taro';
 
-const BASE_URL = process.env.TARO_APP_API_BASE || ''
+const runtimeEnv = typeof process !== 'undefined' ? process.env : {};
+const BASE_URL = (runtimeEnv as any).TARO_APP_API_BASE || ''
 
 function getToken() {
   return Taro.getStorageSync('token') || '';
@@ -47,7 +48,7 @@ async function requestWithAuth(options: Taro.request.Option & { retry?: boolean 
 // 登录
 export async function login(username: string, password: string) {
   const res = await Taro.request({
-    url: `${BASE_URL}/auth/login`,
+    url: `${BASE_URL}/api/auth/login`,
     method: 'POST',
     data: { username, password },
   });
@@ -60,7 +61,7 @@ export async function login(username: string, password: string) {
 // 注册
 export async function register(username: string, password: string, phone: string, inviteCode?: string) {
   const res = await Taro.request({
-    url: `${BASE_URL}/auth/register`,
+    url: `${BASE_URL}/api/auth/register`,
     method: 'POST',
     data: { username, password, phone, inviteCode },
   });
@@ -89,13 +90,13 @@ export async function updateUserInfo(data: any) {
   return unwrapResponse(res);
 }
 
-// token续期（假设有 /auth/refresh-token 接口）
+// token续期（假设有 /api/auth/refresh-token 接口）
 async function refreshToken(): Promise<string | null> {
   const user = getStoredUserInfo();
   if (!user) return null;
   try {
     const res = await Taro.request({
-      url: `${BASE_URL}/auth/refresh-token`,
+      url: `${BASE_URL}/api/auth/refresh-token`,
       method: 'POST',
       data: { username: user.username },
     });
