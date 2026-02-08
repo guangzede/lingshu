@@ -16,6 +16,7 @@ export interface SavedCase {
   createdAt: number // 创建时间戳（毫秒）
   baseHexName?: string // 本卦名称（存历史列表用）
   variantHexName?: string // 变卦名称（存历史列表用）
+  result?: any // 后端排盘结果
 }
 
 export interface SavedCaseListItem {

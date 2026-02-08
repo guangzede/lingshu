@@ -24,8 +24,6 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
   const elapsedTimerRef = useRef<NodeJS.Timeout | null>(null);
   const tipIndexRef = useRef(0);
 
-  const DEEPSEEK_API_KEY = 'sk-c4a5a166346e40439b6ac8ed20dac9c9';
-
   const tips = [
     '提示：正在一次性拉去AI计算结果，耗时可能较长。',
     '建议：保持网络稳定，避免切出页面。',
@@ -75,7 +73,6 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
     fullResponseRef.current = '🔮 AI 正在为您分析卦象...\n\n';
     try {
       const result = await deepseekChat({
-        apiKey: DEEPSEEK_API_KEY,
         prompt,
         stream: true,
         maxTokens: 1000,
@@ -101,7 +98,6 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
   // 非流式调用（统一走公共方法）
   const callDeepSeekAPINonStream = async (prompt: string): Promise<string> => {
     const result = await deepseekChat({
-      apiKey: DEEPSEEK_API_KEY,
       prompt,
       stream: true,
       maxTokens: 100,
@@ -111,13 +107,13 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
 
   const handleGenerateAIAnalysis = React.useCallback(async () => {
     console.log('[AIAssistant] handleGenerateAIAnalysis 开始，question:', question, 'stream:', stream);
-    
+
     // 防止重复点击
     if (isGenerating) {
       console.log('[AIAssistant] 正在生成中，忽略重复点击');
       return;
     }
-    
+
     if (!result || !question) {
       Taro.showToast({
         title: '请把您的思绪记录下来否则AI无法生成报告',

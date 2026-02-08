@@ -51,8 +51,8 @@ export const useModeState = (): ModeStateHook => {
   }, [emptyLines])
 
   // 计算并保存当前模式状态
-  const computeAndSave = React.useCallback(() => {
-    compute()
+  const computeAndSave = React.useCallback(async () => {
+    await compute()
     if (modeStatesRef.current) {
       const s = useLiuyaoStore.getState()
       modeStatesRef.current[mode] = { lines: s.lines, result: s.result }
@@ -109,7 +109,9 @@ export const useModeState = (): ModeStateHook => {
     const nextStep = shakeStep + 1
     setShakeStep(nextStep)
     if (nextStep >= 6) {
-      setTimeout(() => compute(), 50)
+      setTimeout(() => {
+        compute()
+      }, 50)
     }
   }
 

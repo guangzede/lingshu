@@ -1,6 +1,5 @@
 import React from 'react'
 import { View, Text } from '@tarojs/components'
-import { analyzeBranchRelation } from '@/services/liuyao'
 import type { LiuyaoResult } from '@/pages/Liuyao/types'
 import './index.scss'
 
@@ -9,24 +8,14 @@ interface BranchRelationProps {
 }
 
 const BranchRelation: React.FC<BranchRelationProps> = ({ result }) => {
-  const dayBranch = result.timeGanZhi.day.branch
-  const hourBranch = result.timeGanZhi.hour.branch
-  const hexBranches = result.yaos
-    .map((y: any) => y.branch)
-    .filter(Boolean) as string[]
-
-  const { dayRelations, hourRelations } = analyzeBranchRelation(dayBranch as any, hourBranch as any, hexBranches as any)
+  const dayBranch = result.branchRelations?.dayBranch
+  const hourBranch = result.branchRelations?.hourBranch
+  const dayRelations = result.branchRelations?.dayRelations || []
+  const hourRelations = result.branchRelations?.hourRelations || []
 
   const labelMap: Record<number, string> = { 0: '上爻', 1: '五爻', 2: '四爻', 3: '三爻', 4: '二爻', 5: '初爻' }
 
-  const formatRelation = (rel: any) => {
-    const relations: string[] = []
-    if (rel.isClash) relations.push(`六冲`)
-    if (rel.isHarmony) relations.push(`六合`)
-    if (rel.isTriple) relations.push(`三合`)
-    if (rel.isPunish) relations.push(`三刑`)
-    return relations.join('、')
-  }
+  const formatRelation = (rel: any) => rel.relationText || ''
 
   return (
     <View className="branch-relation-section">
@@ -37,7 +26,7 @@ const BranchRelation: React.FC<BranchRelationProps> = ({ result }) => {
       {/* 日支关系 */}
       <View className="relation-group">
         <Text className="relation-group-title">日支分析：</Text>
-        {dayRelations.map((rel, idx) => {
+        {dayRelations.map((rel: any, idx: number) => {
           if (!rel.isHarmony && !rel.isClash && !rel.isTriple && !rel.isPunish) return null
           const relationStr = formatRelation(rel)
           return (
@@ -51,7 +40,7 @@ const BranchRelation: React.FC<BranchRelationProps> = ({ result }) => {
       {/* 时支关系 */}
       <View className="relation-group">
         <Text className="relation-group-title">时支分析：</Text>
-        {hourRelations.map((rel, idx) => {
+        {hourRelations.map((rel: any, idx: number) => {
           if (!rel.isHarmony && !rel.isClash && !rel.isTriple && !rel.isPunish) return null
           const relationStr = formatRelation(rel)
           return (

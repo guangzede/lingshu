@@ -1,12 +1,12 @@
 import Taro from '@tarojs/taro';
+import { getToken } from './auth';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // wx 全局在微信小程序环境可用，这里做一个声明避免 TS 报错
 // 运行时会通过 typeof 判断确保安全访问
 declare const wx: any | undefined;
 
-export interface DeepseekOptions {
-  apiKey: string;
+export interface AIChatOptions {
   prompt: string;
   stream?: boolean;
   systemPrompt?: string;
@@ -15,9 +15,11 @@ export interface DeepseekOptions {
   onDelta?: (text: string) => void; // 流式回调（Web 环境）
 }
 
-export async function deepseekChat(options: DeepseekOptions): Promise<string> {
+const runtimeEnv = typeof process !== 'undefined' ? process.env : {};
+const BASE_URL = (runtimeEnv as any).TARO_APP_API_BASE || 'http://localhost:8787';
+
+export async function deepseekChat(options: AIChatOptions): Promise<string> {
   const {
-    apiKey,
     prompt,
     stream = true,
     systemPrompt = '你是一位精通六爻预测的命理专家，请根据用户提供的六爻排盘信息进行专业解读。',
@@ -26,7 +28,7 @@ export async function deepseekChat(options: DeepseekOptions): Promise<string> {
     onDelta,
   } = options;
 
-  const url = 'https://api.deepseek.com/chat/completions';
+  const url = `${BASE_URL}/api/ai/chat`;
   const payload = {
     model: 'deepseek-chat',
     messages: [
@@ -37,6 +39,11 @@ export async function deepseekChat(options: DeepseekOptions): Promise<string> {
     temperature,
     max_tokens: maxTokens,
   } as const;
+
+  const token = getToken();
+  if (!token) {
+    throw new Error('未授权：请先登录');
+  }
 
   try {
     const env = typeof Taro !== 'undefined' && Taro.getEnv ? Taro.getEnv() : undefined;
@@ -52,14 +59,14 @@ export async function deepseekChat(options: DeepseekOptions): Promise<string> {
           method: 'POST',
           header: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${apiKey}`,
+            Authorization: `Bearer ${token}`,
           },
           data: { ...payload, stream: false },
           success: (res: any) => {
             const status = res?.statusCode ?? res?.status;
             if (status === 200) {
               const data = res.data as any;
-              const content = data?.choices?.[0]?.message?.content;
+              const content = data?.choices?.[0]?.message?.content || data?.data?.choices?.[0]?.message?.content;
               if (typeof content === 'string') {
                 if (onDelta) onDelta(content);
                 resolve(content);
@@ -88,7 +95,7 @@ export async function deepseekChat(options: DeepseekOptions): Promise<string> {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${apiKey}`,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(payload),
       });
@@ -104,7 +111,7 @@ export async function deepseekChat(options: DeepseekOptions): Promise<string> {
       if (!response.body) {
         console.log('[DeepSeek] response.body 不存在，降级到非流式');
         // 某些浏览器/环境不支持 ReadableStream，降级到非流式
-        return await fetchNonStream(url, apiKey, { ...payload, stream: false });
+        return await fetchNonStream(url, token, { ...payload, stream: false });
       }
 
       console.log('[DeepSeek] 开始读取流式数据');
@@ -144,18 +151,18 @@ export async function deepseekChat(options: DeepseekOptions): Promise<string> {
 
     console.log('[DeepSeek] 使用非流式方式（Taro.request）');
     // 其它环境或不支持流式：统一走非流式（Taro.request）
-    return await fetchViaTaro(url, apiKey, { ...payload, stream: false });
+    return await fetchViaTaro(url, token, { ...payload, stream: false });
   } catch (err: any) {
     throw err;
   }
 }
 
-async function fetchNonStream(url: string, apiKey: string, data: any): Promise<string> {
+async function fetchNonStream(url: string, token: string, data: any): Promise<string> {
   const res = await fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${apiKey}`,
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(data),
   });
@@ -165,18 +172,18 @@ async function fetchNonStream(url: string, apiKey: string, data: any): Promise<s
     throw new Error(`API 请求失败: ${res.status}`);
   }
   const body = (await res.json()) as any;
-  const content = body?.choices?.[0]?.message?.content;
+  const content = body?.choices?.[0]?.message?.content || body?.data?.choices?.[0]?.message?.content;
   if (typeof content === 'string') return content;
   throw new Error('API 返回格式异常');
 }
 
-async function fetchViaTaro(url: string, apiKey: string, data: any): Promise<string> {
+async function fetchViaTaro(url: string, token: string, data: any): Promise<string> {
   const response = await Taro.request({
     url,
     method: 'POST',
     header: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${apiKey}`,
+      Authorization: `Bearer ${token}`,
     },
     data,
     timeout: 30000,
@@ -185,7 +192,7 @@ async function fetchViaTaro(url: string, apiKey: string, data: any): Promise<str
   const status = (response as any)?.statusCode ?? (response as any)?.status;
   if (status === 200) {
     const body = (response.data as any) ?? {};
-    const content = body?.choices?.[0]?.message?.content;
+    const content = body?.choices?.[0]?.message?.content || body?.data?.choices?.[0]?.message?.content;
     if (typeof content === 'string') return content;
     throw new Error('API 返回格式异常');
   }

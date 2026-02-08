@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text } from '@tarojs/components'
-import { YAO_LABEL_ORDER } from '../../../constants/yaoConstants'
+const YAO_LABEL_ORDER = ['上爻', '五爻', '四爻', '三爻', '二爻', '初爻']
 import type { LineState } from '../../../types'
 import './index.scss'
 

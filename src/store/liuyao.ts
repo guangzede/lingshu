@@ -1,6 +1,5 @@
 import { create } from 'zustand'
-import { computeAll } from '@/services/liuyao'
-import type { Yao } from '@/types/liuyao'
+import { computeDivination } from '@/services/divination'
 import { saveCaseToStorage, getAllCasesFromStorage, getCaseFromStorage, deleteCaseFromStorage } from '@/utils/caseStorage'
 import type { SavedCase, SavedCaseListItem } from '@/types/savedCase'
 
@@ -27,15 +26,13 @@ interface LiuyaoState {
   setIsLoadingHistory: (isLoading: boolean) => void
   setResult: (r: any) => void
   setManualMode: (v: boolean) => void
-  compute: () => void
+  compute: () => Promise<any | null>
   reset: () => void
   resetLines: () => void // 仅重置爻位，不重置求测事项
   saveCurrentCase: (remark?: string) => string // 保存当前卦例，返回ID
   loadCase: (id: string) => boolean // 加载卦例，返回是否成功
   getSavedCases: () => SavedCaseListItem[] // 获取所有已保存的卦例列表
   deleteCase: (id: string) => void // 删除已保存的卦例
-  saveLastResult: () => void // 保存最近一次排盘结果到本地
-  loadLastResult: () => boolean // 加载最近一次排盘结果，返回是否成功
 }
 
 // 将 Date 格式化为 YYYY-MM-DD 与 HH:mm，便于小程序 Picker 使用
@@ -71,47 +68,81 @@ export const useLiuyaoStore = create<LiuyaoState>((set, get) => {
     ruleSetKey: 'jingfang-basic',
     question: '',
     result: null,
-      isLoadingHistory: false,
-      manualMode: false,
+    isLoadingHistory: false,
+    manualMode: false,
     setLines: (lines) => set({ lines }),
-    setLineState: (idx, state) => set((current) => {
-      const next = [...current.lines]
-      const mapping: Record<typeof state, LineInput> = {
-        taiyang: { isYang: true, isMoving: true },
-        shaoyang: { isYang: true, isMoving: false },
-        shaoyin: { isYang: false, isMoving: false },
-        taiyin: { isYang: false, isMoving: true }
-      }
-      next[idx] = mapping[state]
-      return { lines: next }
-    }),
-    toggleYang: (idx) => set((state) => {
-      const next = [...state.lines]
-      next[idx] = { ...next[idx], isYang: !next[idx].isYang }
-      return { lines: next }
-    }),
-    toggleMoving: (idx) => set((state) => {
-      const next = [...state.lines]
-      next[idx] = { ...next[idx], isMoving: !next[idx].isMoving }
-      return { lines: next }
-    }),
-    setDateValue: (v) => set((state) => ({
-      dateValue: v,
-      date: buildDate(v, state.timeValue)
-    })),
-    setTimeValue: (v) => set((state) => ({
-      timeValue: v,
-      date: buildDate(state.dateValue, v)
-    })),
+    setLineState: (idx, state) => {
+      set((s) => {
+        const next = [...s.lines]
+        let isYang = false
+        let isMoving = false
+        switch (state) {
+          case 'taiyang':
+            isYang = true
+            isMoving = true
+            break
+          case 'shaoyang':
+            isYang = true
+            isMoving = false
+            break
+          case 'shaoyin':
+            isYang = false
+            isMoving = false
+            break
+          case 'taiyin':
+            isYang = false
+            isMoving = true
+            break
+        }
+        next[idx] = { isYang, isMoving }
+        return { lines: next }
+      })
+    },
+    toggleYang: (idx) => {
+      set((s) => {
+        const next = [...s.lines]
+        const current = next[idx]
+        next[idx] = { ...current, isYang: !current.isYang }
+        return { lines: next }
+      })
+    },
+    toggleMoving: (idx) => {
+      set((s) => {
+        const next = [...s.lines]
+        const current = next[idx]
+        next[idx] = { ...current, isMoving: !current.isMoving }
+        return { lines: next }
+      })
+    },
+    setDateValue: (v) => {
+      set({ dateValue: v, date: buildDate(v, get().timeValue) })
+    },
+    setTimeValue: (v) => {
+      set({ timeValue: v, date: buildDate(get().dateValue, v) })
+    },
     setRuleSetKey: (k) => set({ ruleSetKey: k }),
     setQuestion: (q) => set({ question: q }),
     setIsLoadingHistory: (isLoading) => set({ isLoadingHistory: isLoading }),
     setResult: (r) => set({ result: r }),
     setManualMode: (v) => set({ manualMode: v }),
-    compute: () => {
+    compute: async () => {
       const state = get()
-      const result = computeAll(state.lines, { ruleSetKey: state.ruleSetKey, date: state.date })
-      set({ result })
+      try {
+        const result = await computeDivination({
+          lines: state.lines,
+          dateValue: state.dateValue,
+          timeValue: state.timeValue,
+          ruleSetKey: state.ruleSetKey,
+          question: state.question,
+          manualMode: state.manualMode
+        })
+        set({ result })
+        return result
+      } catch (err) {
+        console.error('Failed to compute divination', err)
+        set({ result: null })
+        return null
+      }
     },
     reset: () => {
       const fresh = new Date()
@@ -146,7 +177,7 @@ export const useLiuyaoStore = create<LiuyaoState>((set, get) => {
     },
     saveCurrentCase: (remark) => {
       const state = get()
-      const computed = state.result || computeAll(state.lines, { ruleSetKey: state.ruleSetKey, date: state.date })
+      const computed = state.result
       const id = Date.now().toString()
       const caseData: SavedCase = {
         id,
@@ -159,7 +190,8 @@ export const useLiuyaoStore = create<LiuyaoState>((set, get) => {
         remark,
         createdAt: Date.now(),
         baseHexName: computed?.hex?.name,
-        variantHexName: computed?.variant?.name
+        variantHexName: computed?.variant?.name,
+        result: computed
       }
       saveCaseToStorage(caseData)
       return id
@@ -181,42 +213,26 @@ export const useLiuyaoStore = create<LiuyaoState>((set, get) => {
         }
       }
 
-      try {
-        const date = buildDate(caseData.dateValue, caseData.timeValue)
-        const computed = computeAll(caseData.lines as any, { ruleSetKey: caseData.ruleSetKey, date })
-        set({
-          dateValue: caseData.dateValue,
-          timeValue: caseData.timeValue,
-          lines: caseData.lines,
-          ruleSetKey: caseData.ruleSetKey,
-          date,
-          isLoadingHistory: true,
-          manualMode: caseData.manualMode || false,
-          question: caseData.question || '',
-          result: computed
-        })
-        return true
-      } catch (err) {
-        console.error('Failed to load case', err)
-        return false
-      }
+      const date = buildDate(caseData.dateValue, caseData.timeValue)
+      set({
+        dateValue: caseData.dateValue,
+        timeValue: caseData.timeValue,
+        lines: caseData.lines,
+        ruleSetKey: caseData.ruleSetKey,
+        date,
+        isLoadingHistory: true,
+        manualMode: caseData.manualMode || false,
+        question: caseData.question || '',
+        result: caseData.result || null
+      })
+      return true
     },
     getSavedCases: () => {
       const cases = getAllCasesFromStorage()
       return cases
         .map(c => {
-          let baseHexName = c.baseHexName
-          let variantHexName = c.variantHexName
-          if (!baseHexName || !variantHexName) {
-            try {
-              const date = buildDate(c.dateValue, c.timeValue)
-              const computed = computeAll(c.lines as any, { ruleSetKey: c.ruleSetKey, date })
-              baseHexName = computed?.hex?.name
-              variantHexName = computed?.variant?.name
-            } catch (err) {
-              console.error('Failed to compute hex names for history item', err)
-            }
-          }
+          const baseHexName = c.baseHexName || c.result?.hex?.name
+          const variantHexName = c.variantHexName || c.result?.variant?.name
 
           return {
             id: c.id,
@@ -234,61 +250,5 @@ export const useLiuyaoStore = create<LiuyaoState>((set, get) => {
     deleteCase: (id) => {
       deleteCaseFromStorage(id)
     },
-    saveLastResult: () => {
-      const state = get()
-      if (!state.result) return
-
-      const lastResult = {
-        dateValue: state.dateValue,
-        timeValue: state.timeValue,
-        lines: state.lines,
-        ruleSetKey: state.ruleSetKey,
-        question: state.question,
-        manualMode: state.manualMode,
-        result: state.result,
-        isLoadingHistory: state.isLoadingHistory,
-        timestamp: Date.now()
-      }
-
-      try {
-        localStorage.setItem('liuyao_last_result', JSON.stringify(lastResult))
-      } catch (err) {
-        console.error('Failed to save last result', err)
-      }
-    },
-    loadLastResult: () => {
-      try {
-        const saved = localStorage.getItem('liuyao_last_result')
-        if (!saved) return false
-
-        const lastResult = JSON.parse(saved)
-        if (!lastResult || !lastResult.result) return false
-
-        // 检查是否过期（24小时）
-        const now = Date.now()
-        const age = now - (lastResult.timestamp || 0)
-        if (age > 24 * 60 * 60 * 1000) {
-          localStorage.removeItem('liuyao_last_result')
-          return false
-        }
-
-        set({
-          dateValue: lastResult.dateValue,
-          timeValue: lastResult.timeValue,
-          lines: lastResult.lines,
-          ruleSetKey: lastResult.ruleSetKey,
-          question: lastResult.question || '',
-          manualMode: lastResult.manualMode || false,
-          result: lastResult.result,
-          isLoadingHistory: lastResult.isLoadingHistory || false,
-          date: buildDate(lastResult.dateValue, lastResult.timeValue)
-        })
-
-        return true
-      } catch (err) {
-        console.error('Failed to load last result', err)
-        return false
-      }
-    }
   }
 })

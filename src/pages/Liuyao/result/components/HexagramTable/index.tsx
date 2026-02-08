@@ -1,34 +1,26 @@
 import React from 'react'
 import { View, Text } from '@tarojs/components'
-import type { YaoData, HexData } from '../../types'
+import type { LiuyaoResult } from '../../types'
 import './index.scss'
 
 interface HexagramTableProps {
-  base: YaoData[]
-  variant: YaoData[]
-  baseHex: HexData
-  variantHex: HexData
+  result: LiuyaoResult
 }
 
-export const HexagramTable: React.FC<HexagramTableProps> = ({ base, variant, baseHex, variantHex }) => {
-  const getYaoState = (y: YaoData) => {
-    const isYang = y.isYang !== undefined ? y.isYang : true
-    const isMoving = y.isMoving || false
-    let cls = isYang ? 'yang' : 'yin'
-    if (isMoving) cls += ' moving'
-    return { cls }
-  }
+export const HexagramTable: React.FC<HexagramTableProps> = ({ result }) => {
+  const table = result.hexagramTable
+  if (!table) return null
 
   return (
     <View className="hexagram-table">
       <View className="table-header">
         <View className="header-left">
-          <Text className="hex-name">{baseHex?.name || '本卦'}</Text>
-          <Text className="section-title">本卦·{baseHex?.palace || ''}·{baseHex?.palaceCategory || ''}</Text>
+          <Text className="hex-name">{table.baseHeader.name}</Text>
+          <Text className="section-title">本卦·{table.baseHeader.palace}·{table.baseHeader.palaceCategory}</Text>
         </View>
         <View className="header-right">
-          <Text className="hex-name">{variantHex?.name || '变卦'}</Text>
-          <Text className="section-title">变卦·{variantHex?.palace || ''}·{variantHex?.palaceCategory || ''}</Text>
+          <Text className="hex-name">{table.variantHeader.name}</Text>
+          <Text className="section-title">变卦·{table.variantHeader.palace}·{table.variantHeader.palaceCategory}</Text>
         </View>
       </View>
       <View className="table-subheader">
@@ -47,36 +39,28 @@ export const HexagramTable: React.FC<HexagramTableProps> = ({ base, variant, bas
           <Text className="col-label">世应</Text>
         </View>
       </View>
-      {[0, 1, 2, 3, 4, 5].map((i) => {
-        const y = base[i] || {}
-        const v = variant[i] || {}
-        const state = getYaoState(y)
-        const variantState = getYaoState(v)
-        const baseShi = baseHex?.shiIndex === i
-        const baseYing = baseHex?.yingIndex === i
-        const variantShi = variantHex?.shiIndex === i
-        const variantYing = variantHex?.yingIndex === i
+      {table.rows.map((row) => {
         return (
-          <View key={i} className="table-row">
+          <View key={row.index} className="table-row">
             <View className="row-left">
-              <Text className="cell">{y.sixGod || '--'}</Text>
+              <Text className="cell">{row.left.sixGod}</Text>
               <Text className="cell fushen-cell">
-                {y.fuShen ? `${y.fuShen.relation || ''}${y.fuShen.stem || ''}${y.fuShen.branch || ''}` : ''}
+                {row.left.fuShen}
               </Text>
-              <Text className="cell">{(y.relation || '--')}{y.stem || ''}{y.branch || ''}</Text>
+              <Text className="cell">{row.left.relation}</Text>
               <View className="cell yao-cell">
-                <View className={`yao-bar ${state.cls}`} />
+                <View className={`yao-bar ${row.left.yaoClass}`} />
               </View>
-              <Text className="cell">{y.fiveElement || '--'}</Text>
-              <Text className="cell">{baseShi ? '世' : baseYing ? '应' : ''}</Text>
+              <Text className="cell">{row.left.fiveElement}</Text>
+              <Text className="cell">{row.left.shiYing}</Text>
             </View>
             <View className="row-right">
-              <Text className="cell">{(v.relation || '--')}{v.stem || ''}{v.branch || ''}</Text>
+              <Text className="cell">{row.right.relation}</Text>
               <View className="cell yao-cell">
-                <View className={`yao-bar ${variantState.cls}`} />
+                <View className={`yao-bar ${row.right.yaoClass}`} />
               </View>
-              <Text className="cell">{v.fiveElement || '--'}</Text>
-              <Text className="cell">{variantShi ? '世' : variantYing ? '应' : ''}</Text>
+              <Text className="cell">{row.right.fiveElement}</Text>
+              <Text className="cell">{row.right.shiYing}</Text>
             </View>
           </View>
         )

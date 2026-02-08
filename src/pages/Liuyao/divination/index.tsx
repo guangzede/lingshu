@@ -31,6 +31,7 @@ const LiuyaoDivinationPage: React.FC = () => {
   } = useLiuyaoStore((s) => s)
 
   const [countNumbers, setCountNumbers] = React.useState('')
+  const [isComputing, setIsComputing] = React.useState(false)
 
   // 使用模式状态管理 hook
   const {
@@ -47,19 +48,19 @@ const LiuyaoDivinationPage: React.FC = () => {
     return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`
   }, [])
 
-  const saveLastResult = useLiuyaoStore((s) => s.saveLastResult)
-
-  const computeAndSave = React.useCallback(() => {
-    compute()
-    // 延迟保存，确保 result 已更新
-    setTimeout(() => {
-      saveLastResult()
-      // 计算完成后跳转到结果页
-      Taro.navigateTo({
-        url: '/pages/Liuyao/result/index'
-      })
-    }, 100)
-  }, [compute, saveLastResult])
+  const computeAndSave = React.useCallback(async () => {
+    setIsComputing(true)
+    const result = await compute()
+    if (!result) {
+      Taro.showToast({ title: '排盘失败，请重试', icon: 'none' })
+      setIsComputing(false)
+      return
+    }
+    setIsComputing(false)
+    Taro.navigateTo({
+      url: '/pages/Liuyao/result/index'
+    })
+  }, [compute])
 
   const { handlePaipan } = usePaipan({ mode: modeForPaipan, countNumbers, setLineState, compute: computeAndSave })
 
@@ -125,6 +126,15 @@ const LiuyaoDivinationPage: React.FC = () => {
           >
             <Text className="divinate-text">开始推演</Text>
             <View className="energy-flow" />
+          </View>
+        </View>
+      )}
+
+      {isComputing && (
+        <View className="divination-loading">
+          <View className="divination-loading-card">
+            <Text className="divination-loading-title">正在排盘</Text>
+            <Text className="divination-loading-desc">正在拉取后端计算结果...</Text>
           </View>
         </View>
       )}

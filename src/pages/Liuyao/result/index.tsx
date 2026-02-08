@@ -24,30 +24,40 @@ const LiuyaoResultPage: React.FC = () => {
         timeValue,
         question,
         isLoadingHistory,
-        loadLastResult,
-        saveLastResult,
+        compute,
         setQuestion
     } = useLiuyaoStore((s) => s)
     // 尝试从本地加载结果，如果没有则返回起卦页
     React.useEffect(() => {
         if (!result) {
-            const loaded = loadLastResult()
-            if (!loaded) {
-                Taro.redirectTo({
-                    url: '/pages/Liuyao/divination/index'
-                })
-            }
+            Taro.redirectTo({
+                url: '/pages/Liuyao/divination/index'
+            })
         } else {
-            // 如果有结果，保存到本地
-            saveLastResult()
+            // 如果有结果，保持当前状态
         }
     }, [])
+
+    const refreshAttemptedRef = React.useRef(false)
+
+    React.useEffect(() => {
+        if (!result || !isLoadingHistory || refreshAttemptedRef.current) return
+        const needsBackendRefresh =
+            !result.infoGrid ||
+            !result.hexagramTable ||
+            !result.branchRelations ||
+            !result.yaoUi
+        if (!needsBackendRefresh) return
+        refreshAttemptedRef.current = true
+        compute()
+    }, [result, compute])
 
     if (!result) {
         return null
     }
 
     const isLoggedIn = !!getToken()
+    const redirectTarget = encodeURIComponent('/pages/Liuyao/result/index')
 
     // 计算五行能量（仅 base_score）
     const fiveElementCounts = {
@@ -94,7 +104,7 @@ const LiuyaoResultPage: React.FC = () => {
             </View>
 
             {/* 干支信息卡片 */}
-            <InfoGrid result={result} dateValue={dateValue} timeValue={timeValue} />
+            <InfoGrid result={result} />
 
 
             {/* 卦象详细分析卡片 */}
@@ -105,12 +115,7 @@ const LiuyaoResultPage: React.FC = () => {
                 </View>
 
                 {/* 本卦和变卦表格 */}
-                <HexagramTable
-                    base={result.yaos}
-                    variant={result.variantYaos || result.variant.yaos}
-                    baseHex={result.hex}
-                    variantHex={result.variant}
-                />
+                <HexagramTable result={result} />
                 {/* 五行能量分析 */}
                 <View className={`five-elements-wrap ${isLoggedIn ? '' : 'is-locked'}`}>
                     <View className="five-elements-content">
@@ -125,7 +130,7 @@ const LiuyaoResultPage: React.FC = () => {
                     {!isLoggedIn && (
                         <View
                             className="five-elements-mask"
-                            onClick={() => Taro.redirectTo({ url: '/pages/auth/index' })}
+                            onClick={() => Taro.redirectTo({ url: `/pages/auth/index?redirect=${redirectTarget}` })}
                         >
                             <Text className="five-elements-mask-text">登录后解锁五行能量分析</Text>
                         </View>
@@ -139,7 +144,7 @@ const LiuyaoResultPage: React.FC = () => {
 
 
                 {/* AI 分析与人工答疑 */}
-                {/* <AIAnalysisCard question={question} result={result} isFromHistory={isLoadingHistory} /> */}
+                <AIAnalysisCard question={question} result={result} isFromHistory={isLoadingHistory} />
                 <HumanQACard question={question} />
                 {/* 专业分析卡片：生克制化、旺衰、特殊状态、进退神 */}
                 {/* <ProfessionalAnalysisCard result={result} /> */}

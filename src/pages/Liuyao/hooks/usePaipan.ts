@@ -1,11 +1,20 @@
 import { useCallback } from 'react'
-import { TRIGRAM_MAP } from '../constants/yaoConstants'
+const TRIGRAM_MAP: Record<number, [boolean, boolean, boolean]> = {
+  1: [true, true, true],
+  2: [true, true, false],
+  3: [true, false, true],
+  4: [true, false, false],
+  5: [false, true, true],
+  6: [false, true, false],
+  7: [false, false, true],
+  8: [false, false, false]
+}
 
 interface UsePaipanParams {
   mode: 'manual' | 'count' | 'auto'
   countNumbers: string
   setLineState: (index: number, state: 'taiyang' | 'shaoyang' | 'shaoyin' | 'taiyin') => void
-  compute: () => void
+  compute: () => Promise<any | null>
 }
 
 export const usePaipan = ({ mode, countNumbers, setLineState, compute }: UsePaipanParams) => {
@@ -75,15 +84,17 @@ export const usePaipan = ({ mode, countNumbers, setLineState, compute }: UsePaip
   }, [setLineState])
 
   // 统一的排盘处理
-  const handlePaipan = useCallback(() => {
+  const handlePaipan = useCallback(async () => {
     if (mode === 'auto') {
       applyAutoMethod()
-      setTimeout(() => compute(), 0)
+      await new Promise(resolve => setTimeout(resolve, 0))
+      await compute()
     } else if (mode === 'count') {
       applyCountMethod()
-      setTimeout(() => compute(), 0)
+      await new Promise(resolve => setTimeout(resolve, 0))
+      await compute()
     } else {
-      compute()
+      await compute()
     }
   }, [mode, applyAutoMethod, applyCountMethod, compute])
 

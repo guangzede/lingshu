@@ -13,6 +13,12 @@ export default function RegisterForm() {
   const [agreed, setAgreed] = useState(false);
   const [showAgreement, setShowAgreement] = useState(false);
 
+  const getRedirectTarget = () => {
+    const params = Taro.getCurrentInstance()?.router?.params as Record<string, string> | undefined
+    const redirect = params?.redirect
+    return redirect ? decodeURIComponent(redirect) : '/pages/profile/index'
+  }
+
   const agreementMarkdown = `# 用户协议与隐私政策
 
 欢迎使用灵枢！在注册前请仔细阅读以下条款：
@@ -57,7 +63,7 @@ export default function RegisterForm() {
       const res = await register(username, password, phone, inviteCode);
       if (res?.token) {
         Taro.showToast({ title: '注册成功', icon: 'success' });
-        Taro.redirectTo({ url: '/pages/profile/index' });
+        Taro.redirectTo({ url: getRedirectTarget() });
       } else {
         setError(res?.message || '注册失败');
       }

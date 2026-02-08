@@ -8,10 +8,16 @@ export default function LoginForm() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
+  const getRedirectTarget = () => {
+    const params = Taro.getCurrentInstance()?.router?.params as Record<string, string> | undefined
+    const redirect = params?.redirect
+    return redirect ? decodeURIComponent(redirect) : '/pages/profile/index'
+  }
+
   useEffect(() => {
     const token = getToken();
     if (token) {
-      Taro.redirectTo({ url: '/pages/profile/index' });
+      Taro.redirectTo({ url: getRedirectTarget() });
     }
   }, []);
 
@@ -25,7 +31,7 @@ export default function LoginForm() {
       const res = await login(username, password);
       if (res?.token) {
         Taro.showToast({ title: '登录成功', icon: 'success' });
-        Taro.redirectTo({ url: '/pages/profile/index' });
+        Taro.redirectTo({ url: getRedirectTarget() });
       } else {
         setError(res?.message || '登录失败');
       }
