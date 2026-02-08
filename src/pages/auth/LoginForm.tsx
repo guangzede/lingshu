@@ -1,12 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { View, Input, Button } from '@tarojs/components';
 import Taro from '@tarojs/taro';
-import { login } from '../../services/auth';
+import { login, getToken } from '../../services/auth';
 
 export default function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    const token = getToken();
+    if (token) {
+      Taro.redirectTo({ url: '/pages/profile/index' });
+    }
+  }, []);
 
   const handleLogin = async () => {
     setError('');

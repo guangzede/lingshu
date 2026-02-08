@@ -15,6 +15,11 @@ function setUserInfo(user: any) {
   Taro.setStorageSync('userInfo', user);
 }
 
+function clearAuth() {
+  Taro.removeStorageSync('token');
+  Taro.removeStorageSync('userInfo');
+}
+
 function getStoredUserInfo() {
   return Taro.getStorageSync('userInfo');
 }
@@ -25,19 +30,19 @@ function unwrapResponse(res: any) {
   throw new Error(res.message || '请求失败');
 }
 
-// 通用请求，自动带token，处理token过期自动续期
-async function requestWithAuth(options: Taro.request.Option & { retry?: boolean }): Promise<any> {
+// 通用请求，自动带token
+async function requestWithAuth(options: Taro.request.Option): Promise<any> {
   const token = getToken();
+  if (!token) {
+    clearAuth();
+    throw new Error('未授权：请先登录');
+  }
   const headers = { ...options.header, Authorization: `Bearer ${token}` };
   try {
     const res = await Taro.request({ ...options, header: headers });
-    if (res.statusCode === 401 && !options.retry) {
-      // token过期，尝试自动续期
-      const newToken = await refreshToken();
-      if (newToken) {
-        setToken(newToken);
-        return requestWithAuth({ ...options, retry: true });
-      }
+    if (res.statusCode === 401) {
+      clearAuth();
+      throw new Error(res.data?.message || '未授权：请先登录');
     }
     return res.data;
   } catch (e) {
@@ -83,33 +88,18 @@ export async function fetchUserInfo() {
 // 更新用户信息
 export async function updateUserInfo(data: any) {
   const res = await requestWithAuth({
-    url: `${BASE_URL}/api/member/update`,
+    url: `${BASE_URL}/api/member/profile`,
     method: 'POST',
-    data,
+    data: {
+      phone: data?.phone,
+      nickname: data?.nickname,
+      gender: data?.gender,
+      birthday: data?.birthday,
+    },
   });
   return unwrapResponse(res);
 }
 
-// token续期（假设有 /api/auth/refresh-token 接口）
-async function refreshToken(): Promise<string | null> {
-  const user = getStoredUserInfo();
-  if (!user) return null;
-  try {
-    const res = await Taro.request({
-      url: `${BASE_URL}/api/auth/refresh-token`,
-      method: 'POST',
-      data: { username: user.username },
-    });
-    const data = res.data?.data;
-    if (data?.token) {
-      setToken(data.token);
-      return data.token;
-    }
-    return null;
-  } catch {
-    return null;
-  }
-}
 
 // 会员兑换
 export async function exchangeVip(type: 'weekly' | 'monthly' | 'ticket') {
@@ -123,6 +113,11 @@ export async function exchangeVip(type: 'weekly' | 'monthly' | 'ticket') {
 // 获取用户信息（同步本地）
 export async function getUserInfo() {
   const res = await fetchUserInfo();
+  if (res?.user) {
+    const merged = { ...(getStoredUserInfo() || {}), ...res.user };
+    setUserInfo(merged);
+    return merged;
+  }
   if (res) {
     const merged = { ...(getStoredUserInfo() || {}), ...res };
     setUserInfo(merged);
@@ -131,4 +126,4 @@ export async function getUserInfo() {
   return getStoredUserInfo();
 }
 
-export { getToken, setToken, getStoredUserInfo as getLocalUserInfo, setUserInfo, requestWithAuth };
+export { getToken, setToken, getStoredUserInfo as getLocalUserInfo, setUserInfo, requestWithAuth, clearAuth };

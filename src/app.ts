@@ -1,10 +1,25 @@
 import React from 'react'
-import { useLaunch } from '@tarojs/taro'
+import Taro, { useLaunch } from '@tarojs/taro'
 import './app.scss'
 
 interface AppProps {
   children?: React.ReactElement
 }
+
+const authInterceptor = (chain: any) => {
+  const requestParams = chain.requestParams
+  const token = Taro.getStorageSync('token') || ''
+  const header = {
+    ...requestParams.header,
+    ...(token ? { Authorization: `Bearer ${token}` } : {})
+  }
+  return chain.proceed({
+    ...requestParams,
+    header
+  })
+}
+
+Taro.addInterceptor(authInterceptor)
 
 const App: React.FC<AppProps> = (props) => {
   useLaunch(() => {

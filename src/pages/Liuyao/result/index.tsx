@@ -13,6 +13,7 @@ import BottomButtons from './components/BottomButtons'
 import FiveElementsAnalysis from './components/FiveElementsAnalysis'
 // import ProfessionalAnalysisCard from './components/ProfessionalAnalysisCard'
 import QuestionCard from '../components/QuestionCard'
+import { getToken } from '@/services/auth'
 
 
 // 六爻排盘结果页面
@@ -45,6 +46,8 @@ const LiuyaoResultPage: React.FC = () => {
     if (!result) {
         return null
     }
+
+    const isLoggedIn = !!getToken()
 
     // 计算五行能量（仅 base_score）
     const fiveElementCounts = {
@@ -109,13 +112,25 @@ const LiuyaoResultPage: React.FC = () => {
                     variantHex={result.variant}
                 />
                 {/* 五行能量分析 */}
-                <FiveElementsAnalysis
-                    metal={fiveElementCounts.metal}
-                    wood={fiveElementCounts.wood}
-                    water={fiveElementCounts.water}
-                    fire={fiveElementCounts.fire}
-                    earth={fiveElementCounts.earth}
-                />
+                <View className={`five-elements-wrap ${isLoggedIn ? '' : 'is-locked'}`}>
+                    <View className="five-elements-content">
+                        <FiveElementsAnalysis
+                            metal={fiveElementCounts.metal}
+                            wood={fiveElementCounts.wood}
+                            water={fiveElementCounts.water}
+                            fire={fiveElementCounts.fire}
+                            earth={fiveElementCounts.earth}
+                        />
+                    </View>
+                    {!isLoggedIn && (
+                        <View
+                            className="five-elements-mask"
+                            onClick={() => Taro.redirectTo({ url: '/pages/auth/index' })}
+                        >
+                            <Text className="five-elements-mask-text">登录后解锁五行能量分析</Text>
+                        </View>
+                    )}
+                </View>
                 {/* 日支/时支关系分析 */}
                 <BranchRelation result={result} />
 
