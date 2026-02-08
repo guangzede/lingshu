@@ -1,7 +1,7 @@
 import Taro from '@tarojs/taro';
 
 const runtimeEnv = typeof process !== 'undefined' ? process.env : {};
-const BASE_URL = (runtimeEnv as any).TARO_APP_API_BASE || ''
+const BASE_URL = (runtimeEnv as any).TARO_APP_API_BASE || 'http://localhost:8787';
 
 function getToken() {
   return Taro.getStorageSync('token') || '';

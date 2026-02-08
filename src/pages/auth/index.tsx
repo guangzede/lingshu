@@ -1,8 +1,31 @@
-import { View } from '@tarojs/components';
+import Taro from '@tarojs/taro';
+import { Button, View } from '@tarojs/components';
 import LoginRegisterForm from './LoginRegisterForm';
 import './index.scss';
 
+const runtimeEnv = typeof process !== 'undefined' ? process.env : {};
+const API_BASE = (runtimeEnv as any).TARO_APP_API_BASE || 'http://localhost:8787';
+
 export default function AuthPage() {
+  const handleHealthCheck = async () => {
+    try {
+      const res = await Taro.request({
+        url: `${API_BASE}/api/health`,
+        method: 'GET'
+      });
+      const ok = res.statusCode === 200;
+      Taro.showToast({
+        title: ok ? 'health ok' : `health ${res.statusCode}`,
+        icon: ok ? 'success' : 'none'
+      });
+    } catch (error) {
+      Taro.showToast({
+        title: 'health failed',
+        icon: 'none'
+      });
+    }
+  };
+
   return (
     <View className="auth-page">
       <View className="auth-bg">
@@ -23,6 +46,11 @@ export default function AuthPage() {
         </View>
         <View className="auth-card">
           <LoginRegisterForm />
+          <View className="auth-health">
+            <Button className="auth-health-btn" onClick={handleHealthCheck}>
+              测试健康接口
+            </Button>
+          </View>
         </View>
       </View>
     </View>
