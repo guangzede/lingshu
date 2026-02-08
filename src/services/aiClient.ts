@@ -15,8 +15,7 @@ export interface AIChatOptions {
   onDelta?: (text: string) => void; // 流式回调（Web 环境）
 }
 
-const runtimeEnv = typeof process !== 'undefined' ? process.env : {};
-const BASE_URL = (runtimeEnv as any).TARO_APP_API_BASE || 'http://localhost:8787';
+const BASE_URL = process.env.TARO_APP_API_BASE || 'http://localhost:8787';
 
 export async function deepseekChat(options: AIChatOptions): Promise<string> {
   const {

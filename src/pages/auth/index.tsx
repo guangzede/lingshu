@@ -3,8 +3,7 @@ import { Button, View } from '@tarojs/components';
 import LoginRegisterForm from './LoginRegisterForm';
 import './index.scss';
 
-const runtimeEnv = typeof process !== 'undefined' ? process.env : {};
-const API_BASE = (runtimeEnv as any).TARO_APP_API_BASE || 'http://localhost:8787';
+const API_BASE = process.env.TARO_APP_API_BASE || 'http://localhost:8787';
 
 export default function AuthPage() {
   const handleHealthCheck = async () => {

@@ -1,7 +1,6 @@
 import Taro from '@tarojs/taro';
 
-const runtimeEnv = typeof process !== 'undefined' ? process.env : {};
-const BASE_URL = (runtimeEnv as any).TARO_APP_API_BASE || 'http://localhost:8787';
+const BASE_URL = process.env.TARO_APP_API_BASE || 'http://localhost:8787';
 
 export interface DivinationComputePayload {
   lines: Array<{ isYang: boolean; isMoving: boolean }>;
