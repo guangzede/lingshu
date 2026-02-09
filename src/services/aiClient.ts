@@ -21,9 +21,9 @@ export async function deepseekChat(options: AIChatOptions): Promise<string> {
   const {
     prompt,
     stream = true,
-    systemPrompt = '你是一位精通六爻预测的命理专家，请根据用户提供的六爻排盘信息进行专业解读。',
+    systemPrompt = '你是一位精通六爻预测的命理专家，请根据用户提供的六爻排盘信息进行专业解读。思考过程<think>不要输出给用户。',
     temperature = 0.7,
-    maxTokens = 1000,
+    maxTokens = 1500,
     onDelta,
   } = options;
 
