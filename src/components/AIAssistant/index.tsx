@@ -75,7 +75,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
       const result = await deepseekChat({
         prompt,
         stream: true,
-        maxTokens: 1000,
+        maxTokens: 1800,
         onDelta: (text) => {
           console.log('[AIAssistant] onDelta 收到数据:', text.substring(0, 50));
           fullResponseRef.current += text;
