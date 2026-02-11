@@ -14,6 +14,7 @@ import ModeSelector from './components/ModeSelector'
 import TimeInput from './components/TimeInput'
 import CountInput from './components/CountInput'
 import YaoMatrix from './components/YaoMatrix'
+import AuthStatusBar from '@/components/AuthStatusBar'
 
 // 六爻起卦页面
 const LiuyaoDivinationPage: React.FC = () => {
@@ -72,6 +73,9 @@ const LiuyaoDivinationPage: React.FC = () => {
 
   return (
     <View className="liuyao-divination-page">
+      {/* 认证状态栏 */}
+      <AuthStatusBar />
+      
       {/* 顶部：模式选择器 */}
       <ModeSelector
         mode={mode}

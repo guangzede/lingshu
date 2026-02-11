@@ -14,6 +14,7 @@ import FiveElementsAnalysis from './components/FiveElementsAnalysis'
 // import ProfessionalAnalysisCard from './components/ProfessionalAnalysisCard'
 import QuestionCard from '../components/QuestionCard'
 import { getToken } from '@/services/auth'
+import AuthStatusBar from '@/components/AuthStatusBar'
 
 
 // 六爻排盘结果页面
@@ -104,7 +105,8 @@ const LiuyaoResultPage: React.FC = () => {
 
     return (
         <View className="liuyao-result-page">
-
+            {/* 认证状态栏 */}
+            <AuthStatusBar />
 
             {/* 决策主体卡片 */}
             <View >

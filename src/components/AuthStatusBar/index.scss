@@ -1,0 +1,103 @@
+@use '../../styles/variables.scss' as *;
+@use '../../styles/mixins.scss' as *;
+
+.auth-status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  // 未登录时：固定位置
+  &.unfixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background: linear-gradient(135deg, rgba(220, 38, 38, 0.9) 0%, rgba(185, 28, 28, 0.9) 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+    &:active {
+      background: linear-gradient(135deg, rgba(185, 28, 28, 0.95) 0%, rgba(153, 27, 27, 0.95) 100%);
+    }
+  }
+
+  // 已登录时：静态位置
+  &.logged-in {
+    position: static;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.7) 0%, rgba(30, 41, 59, 0.7) 100%);
+    border: 1px solid rgba(251, 191, 36, 0.25);
+    border-radius: 12px;
+    padding: $spacing-md $spacing-md 0 $spacing-md;
+    box-shadow: 0 4px 12px rgba(251, 191, 36, 0.1);
+
+    &:active {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.9) 100%);
+      box-shadow: 0 6px 16px rgba(251, 191, 36, 0.15);
+    }
+  }
+}
+
+.auth-status-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 $spacing-md;
+
+  // 已登录布局：左右展开
+  &.logged-content {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: $spacing-lg;
+    padding: 0 $spacing-lg;
+    width: 100%;
+  }
+}
+
+.user-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 4px;
+  flex: 1;
+  justify-content: space-between;
+  text-align: center;
+  align-items: center;
+}
+
+.auth-status-text {
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  font-weight: 500;
+}
+
+.username-text {
+  font-size: $font-size-xl;
+  color: $color-accent;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.go-to-text {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  font-weight: 400;
+}
+
+.arrow-icon {
+  font-size: $font-size-huge;
+  color: $color-accent;
+  font-weight: 300;
+  line-height: 1;
+  opacity: 0.8;
+}
+
+// 占位符：防止 fixed 组件遮挡内容
+.auth-status-spacer {
+  height: 44px;
+  width: 100%;
+}

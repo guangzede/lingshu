@@ -124,4 +124,4 @@ export async function getUserInfo() {
   return getStoredUserInfo();
 }
 
-export { getToken, setToken, getStoredUserInfo as getLocalUserInfo, setUserInfo, requestWithAuth, clearAuth };
+export { getToken, setToken, getStoredUserInfo, setUserInfo, requestWithAuth, clearAuth };

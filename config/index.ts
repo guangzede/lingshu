@@ -1,6 +1,7 @@
 import path from 'path'
 import { defineConfig } from '@tarojs/cli'
 import devConfig from './dev'
+import remoteConfig from './remote'
 import prodConfig from './prod'
 
 const config = {
@@ -52,7 +53,7 @@ const config = {
 }
 
 export default defineConfig((merge) => {
-  const envConfig = process.env.NODE_ENV === 'development' ? devConfig : prodConfig
-  debugger
-  return merge({}, config, envConfig)
+  // 根据 API_MODE 选择接口配置：本地或远程
+  const apiConfig = process.env.API_MODE === 'remote' ? remoteConfig : devConfig
+  return merge({}, config, apiConfig)
 })

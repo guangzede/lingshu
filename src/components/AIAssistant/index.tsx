@@ -3,7 +3,7 @@ import { View, Button, Text, ScrollView } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 import { deepseekChat } from '@/services/aiClient';
-import { getLocalUserInfo, getToken } from '@/services/auth';
+import { getStoredUserInfo, getToken } from '@/services/auth';
 import './index.scss';
 
 interface AIAssistantProps {
@@ -141,7 +141,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
     }
 
     // 2. 判断会员状态
-    const localUser = getLocalUserInfo();
+    const localUser = getStoredUserInfo();
     const isVip = localUser?.memberLevel === 1 && localUser?.memberExpireAt > Date.now();
     if (!isVip) {
       const modal = await Taro.showModal({
