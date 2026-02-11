@@ -134,7 +134,7 @@ const LiuyaoDivinationPage: React.FC = () => {
         <View className="divination-loading">
           <View className="divination-loading-card">
             <Text className="divination-loading-title">正在排盘</Text>
-            <Text className="divination-loading-desc">正在拉取后端计算结果...</Text>
+            <Text className="divination-loading-desc">天机推演中...</Text>
           </View>
         </View>
       )}
