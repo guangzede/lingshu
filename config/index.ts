@@ -1,6 +1,9 @@
 import path from 'path'
+import { defineConfig } from '@tarojs/cli'
+import devConfig from './dev'
+import prodConfig from './prod'
 
-export default {
+const config = {
   projectName: 'lingshu-app',
   date: '2026-01-20',
   designWidth: 750,
@@ -47,3 +50,8 @@ export default {
     }
   }
 }
+
+export default defineConfig((merge) => {
+  const envConfig = process.env.NODE_ENV === 'development' ? devConfig : prodConfig
+  return merge({}, config, envConfig)
+})
