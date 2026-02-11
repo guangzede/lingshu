@@ -34,7 +34,7 @@ const IndexPage: React.FC = () => {
     let cleanup: (() => void) | undefined
 
     const init = () => {
-      const isH5 = process.env.TARO_ENV === 'h5'
+      const isH5 = Taro.getEnv() === Taro.ENV_TYPE.WEB
 
       if (isH5) {
         // H5环境：使用传统DOM方式

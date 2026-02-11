@@ -1,7 +1,7 @@
 export default {
   defineConstants: {
-    'process.env.TARO_APP_API_BASE': '""',
-    'process.env.TARO_APP_API_PREFIX': '"/api"'
+    __API_BASE__: '""',
+    __API_PREFIX__: '"/api"'
   },
   devServer: {
     proxy: {

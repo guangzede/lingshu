@@ -1,7 +1,7 @@
 export default {
   defineConstants: {
-    'process.env.TARO_APP_API_BASE': '"https://api.lylingshu.shop"',
-    'process.env.TARO_APP_API_PREFIX': '"/api"'
+    __API_BASE__: '"https://api.lylingshu.shop"',
+    __API_PREFIX__: '"/api"'
   },
   h5: {}
 }

@@ -1,4 +1,3 @@
-const runtimeEnv = typeof process !== 'undefined' ? (runtimeEnv as any) : {};
 import Taro from '@tarojs/taro'
 
 interface H5FadeOptions {
@@ -26,7 +25,7 @@ const ensureOverlay = (duration: number, background: string) => {
 }
 
 export const navigateWithH5Fade = (url: string, options: H5FadeOptions = {}) => {
-  const isH5 = (runtimeEnv as any).TARO_ENV === 'h5'
+  const isH5 = Taro.getEnv() === Taro.ENV_TYPE.WEB
   if (!isH5) {
     Taro.navigateTo({ url })
     return
@@ -63,7 +62,7 @@ export const navigateWithH5Fade = (url: string, options: H5FadeOptions = {}) => 
 }
 
 export const initH5FadeInOnce = (options: H5FadeOptions = {}) => {
-  const isH5 = (runtimeEnv as any).TARO_ENV === 'h5'
+  const isH5 = Taro.getEnv() === Taro.ENV_TYPE.WEB
   if (!isH5 || typeof document === 'undefined') return
 
   let duration = options.duration ?? DEFAULT_DURATION

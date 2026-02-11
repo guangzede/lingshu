@@ -1,5 +1,8 @@
-const API_BASE = process.env.TARO_APP_API_BASE ?? '';
-const API_PREFIX = process.env.TARO_APP_API_PREFIX || '/api';
+declare const __API_BASE__: string
+declare const __API_PREFIX__: string
+
+const API_BASE = __API_BASE__ ?? ''
+const API_PREFIX = __API_PREFIX__ || '/api'
 
 function normalizePrefix(prefix: string) {
   if (!prefix) return '';

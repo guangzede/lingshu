@@ -6,7 +6,7 @@ const ArmillaryLazy = React.lazy(() => import('../../components/ArmillarySphere'
 import './index.scss'
 
 const ArmillaryPage: React.FC = () => {
-  const isH5 = useMemo(() => process.env.TARO_ENV === 'h5', [])
+  const isH5 = useMemo(() => Taro.getEnv() === Taro.ENV_TYPE.WEB, [])
 
   const handleBack = () => {
     Taro.navigateBack()
