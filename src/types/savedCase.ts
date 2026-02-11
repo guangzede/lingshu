@@ -17,6 +17,7 @@ export interface SavedCase {
   baseHexName?: string // 本卦名称（存历史列表用）
   variantHexName?: string // 变卦名称（存历史列表用）
   result?: any // 后端排盘结果
+  aiAnalysis?: string // AI 分析报告内容
 }
 
 export interface SavedCaseListItem {

@@ -53,5 +53,6 @@ const config = {
 
 export default defineConfig((merge) => {
   const envConfig = process.env.NODE_ENV === 'development' ? devConfig : prodConfig
+  debugger
   return merge({}, config, envConfig)
 })

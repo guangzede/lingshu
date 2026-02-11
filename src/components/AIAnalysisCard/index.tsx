@@ -7,9 +7,11 @@ interface AIAnalysisCardProps {
   question: string;
   result: any;
   isFromHistory?: boolean;
+  savedAiAnalysis?: string;
+  onAnalysisGenerated?: (analysis: string) => void;
 }
 
-const AIAnalysisCard: React.FC<AIAnalysisCardProps> = ({ question, result, isFromHistory = false }) => {
+const AIAnalysisCard: React.FC<AIAnalysisCardProps> = ({ question, result, isFromHistory = false, savedAiAnalysis, onAnalysisGenerated }) => {
   const generateAIPrompt = () => {
     if (!result) return '';
     const sections: string[] = [];
@@ -111,7 +113,14 @@ const AIAnalysisCard: React.FC<AIAnalysisCardProps> = ({ question, result, isFro
         <Text className="content">{question || '暂无填写'}</Text>
         <Text className="label" style={{ marginTop: '12px' }}>解读概要:</Text>
         <Text className="content subtle">本卦：{result?.hex?.name ? `${result.hex.name}     变卦： ${result.variant?.name || '—'}` : '等待生成'}</Text>
-        <AIAssistant question={question} result={result} generatePrompt={generateAIPrompt} isFromHistory={isFromHistory} />
+        <AIAssistant
+          question={question}
+          result={result}
+          generatePrompt={generateAIPrompt}
+          isFromHistory={isFromHistory}
+          savedAiAnalysis={savedAiAnalysis}
+          onAnalysisGenerated={onAnalysisGenerated}
+        />
       </View>
     </View>
   );

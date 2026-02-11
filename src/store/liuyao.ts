@@ -29,7 +29,7 @@ interface LiuyaoState {
   compute: () => Promise<any | null>
   reset: () => void
   resetLines: () => void // 仅重置爻位，不重置求测事项
-  saveCurrentCase: (remark?: string) => Promise<string> // 保存当前卦例，返回ID
+  saveCurrentCase: (remark?: string, aiAnalysis?: string) => Promise<string> // 保存当前卦例，返回ID
   loadCase: (id: string) => Promise<boolean> // 加载卦例，返回是否成功
   getSavedCases: () => Promise<SavedCaseListItem[]> // 获取所有已保存的卦例列表
   deleteCase: (id: string) => Promise<boolean> // 删除已保存的卦例
@@ -175,7 +175,7 @@ export const useLiuyaoStore = create<LiuyaoState>((set, get) => {
         // 保留 question 不变
       })
     },
-    saveCurrentCase: async (remark) => {
+    saveCurrentCase: async (remark, aiAnalysis) => {
       const state = get()
       const computed = state.result
       const caseData: Omit<SavedCase, 'id'> = {
@@ -189,7 +189,8 @@ export const useLiuyaoStore = create<LiuyaoState>((set, get) => {
         createdAt: Date.now(),
         baseHexName: computed?.hex?.name,
         variantHexName: computed?.variant?.name,
-        result: computed
+        result: computed,
+        aiAnalysis
       }
       const id = await createCase(caseData)
       return id
@@ -227,7 +228,10 @@ export const useLiuyaoStore = create<LiuyaoState>((set, get) => {
         isLoadingHistory: true,
         manualMode: caseData.manualMode || false,
         question: caseData.question || '',
-        result: caseData.result || null
+        result: {
+          ...(caseData.result || {}),
+          aiAnalysis: caseData.aiAnalysis
+        }
       })
       return true
     },

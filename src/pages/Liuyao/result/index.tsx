@@ -27,6 +27,10 @@ const LiuyaoResultPage: React.FC = () => {
         compute,
         setQuestion
     } = useLiuyaoStore((s) => s)
+
+    // 存储 AI 分析报告
+    const [currentAiAnalysis, setCurrentAiAnalysis] = React.useState<string>('')
+    const [savedAiAnalysis, setSavedAiAnalysis] = React.useState<string>('')
     // 尝试从本地加载结果，如果没有则返回起卦页
     React.useEffect(() => {
         if (!result) {
@@ -34,7 +38,11 @@ const LiuyaoResultPage: React.FC = () => {
                 url: '/pages/Liuyao/divination/index'
             })
         } else {
-            // 如果有结果，保持当前状态
+            // 如果是从历史加载的，恢复 AI 分析报告
+            if (isLoadingHistory && result.aiAnalysis) {
+                setSavedAiAnalysis(result.aiAnalysis)
+                setCurrentAiAnalysis(result.aiAnalysis)
+            }
         }
     }, [])
 
@@ -144,7 +152,13 @@ const LiuyaoResultPage: React.FC = () => {
 
 
                 {/* AI 分析与人工答疑 */}
-                <AIAnalysisCard question={question} result={result} isFromHistory={isLoadingHistory} />
+                <AIAnalysisCard
+                    question={question}
+                    result={result}
+                    isFromHistory={isLoadingHistory}
+                    savedAiAnalysis={savedAiAnalysis}
+                    onAnalysisGenerated={setCurrentAiAnalysis}
+                />
                 <HumanQACard question={question} />
                 {/* 专业分析卡片：生克制化、旺衰、特殊状态、进退神 */}
                 {/* <ProfessionalAnalysisCard result={result} /> */}
@@ -155,6 +169,7 @@ const LiuyaoResultPage: React.FC = () => {
                 isLoadingHistory={isLoadingHistory}
                 hasResult={!!result}
                 question={question}
+                aiAnalysis={currentAiAnalysis}
             />
         </View>
     )

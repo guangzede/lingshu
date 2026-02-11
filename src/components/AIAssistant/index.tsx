@@ -3,7 +3,7 @@ import { View, Button, Text, ScrollView } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 import { deepseekChat } from '@/services/aiClient';
-import { getLocalUserInfo } from '@/services/auth';
+import { getLocalUserInfo, getToken } from '@/services/auth';
 import './index.scss';
 
 interface AIAssistantProps {
@@ -12,11 +12,13 @@ interface AIAssistantProps {
   generatePrompt: () => string;
   stream?: boolean; // 新增参数，控制是否流式
   isFromHistory?: boolean; // 是否来自历史记录
+  savedAiAnalysis?: string; // 已保存的 AI 分析报告
+  onAnalysisGenerated?: (analysis: string) => void; // AI 报告生成后的回调
 }
 
-const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePrompt, stream = true, isFromHistory = false }) => {
+const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePrompt, stream = true, isFromHistory = false, savedAiAnalysis, onAnalysisGenerated }) => {
   const [isGenerating, setIsGenerating] = useState(false);
-  const [aiResponse, setAiResponse] = useState('');
+  const [aiResponse, setAiResponse] = useState(savedAiAnalysis || '');
   const [error, setError] = useState('');
   const fullResponseRef = useRef('');
   const [elapsed, setElapsed] = useState(0);
@@ -24,6 +26,14 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
   const tipTimerRef = useRef<NodeJS.Timeout | null>(null);
   const elapsedTimerRef = useRef<NodeJS.Timeout | null>(null);
   const tipIndexRef = useRef(0);
+
+  // 初始化时加载已保存的 AI 分析报告
+  React.useEffect(() => {
+    if (savedAiAnalysis) {
+      setAiResponse(savedAiAnalysis);
+      fullResponseRef.current = savedAiAnalysis;
+    }
+  }, [savedAiAnalysis]);
 
   const tips = [
     '提示：正在一次性拉去AI计算结果，耗时可能较长。',
@@ -108,7 +118,29 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
 
   const handleGenerateAIAnalysis = React.useCallback(async () => {
     console.log('[AIAssistant] handleGenerateAIAnalysis 开始，question:', question, 'stream:', stream);
-    // 补充会员判断
+
+    // 防止重复点击
+    if (isGenerating) {
+      console.log('[AIAssistant] 正在生成中，忽略重复点击');
+      return;
+    }
+
+    // 1. 先判断登录状态
+    const token = getToken();
+    if (!token) {
+      const modal = await Taro.showModal({
+        title: '需要登录',
+        content: '请先登录后再使用 AI 解读功能',
+        confirmText: '去登录',
+        cancelText: '取消',
+      });
+      if (modal.confirm) {
+        Taro.redirectTo({ url: '/pages/auth/index' });
+      }
+      return;
+    }
+
+    // 2. 判断会员状态
     const localUser = getLocalUserInfo();
     const isVip = localUser?.memberLevel === 1 && localUser?.memberExpireAt > Date.now();
     if (!isVip) {
@@ -121,12 +153,6 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
       if (!modal.confirm) {
         return;
       }
-    }
-
-    // 防止重复点击
-    if (isGenerating) {
-      console.log('[AIAssistant] 正在生成中，忽略重复点击');
-      return;
     }
 
     if (!result || !question) {
@@ -144,12 +170,18 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
     try {
       const prompt = generatePrompt();
       console.log('[AIAssistant] 生成的 prompt 长度:', prompt.length);
+      let finalAnalysis = '';
       if (stream) {
-        await callDeepSeekAPIStream(prompt);
+        finalAnalysis = await callDeepSeekAPIStream(prompt);
       } else {
         setAiResponse('🔮 AI 正在为您分析卦象...\n\n');
         const aiResult = await callDeepSeekAPINonStream(prompt);
         setAiResponse(aiResult);
+        finalAnalysis = aiResult;
+      }
+      // 通知父组件 AI 报告已生成
+      if (finalAnalysis && onAnalysisGenerated) {
+        onAnalysisGenerated(finalAnalysis);
       }
     } catch (err: any) {
       console.error('[AIAssistant] 生成失败:', err);

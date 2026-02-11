@@ -8,15 +8,16 @@ interface BottomButtonsProps {
   isLoadingHistory: boolean
   hasResult: boolean
   question: string
+  aiAnalysis?: string
 }
 
-const BottomButtons: React.FC<BottomButtonsProps> = ({ isLoadingHistory, hasResult, question }) => {
+const BottomButtons: React.FC<BottomButtonsProps> = ({ isLoadingHistory, hasResult, question, aiAnalysis }) => {
   const handleSaveCase = async () => {
     const { saveCurrentCase } = useLiuyaoStore.getState()
     const doSave = async () => {
       try {
         Taro.showLoading({ title: '保存中...' })
-        const id = await saveCurrentCase()
+        const id = await saveCurrentCase(undefined, aiAnalysis)
         Taro.hideLoading()
         Taro.showToast({ title: '保存成功', icon: 'success', duration: 1500 })
         return id
