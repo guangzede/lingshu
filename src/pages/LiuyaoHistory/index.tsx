@@ -18,10 +18,18 @@ interface HistoryItem {
 const LiuyaoHistoryPage: React.FC = () => {
   const { getSavedCases, loadCase, deleteCase } = useLiuyaoStore((s) => s)
   const [cases, setCases] = React.useState<HistoryItem[]>([])
+  const [isLoading, setIsLoading] = React.useState(false)
 
-  const loadCases = React.useCallback(() => {
-    const saved = getSavedCases()
-    setCases(saved)
+  const loadCases = React.useCallback(async () => {
+    setIsLoading(true)
+    try {
+      const saved = await getSavedCases()
+      setCases(saved)
+    } catch (err: any) {
+      Taro.showToast({ title: err?.message || '加载失败', icon: 'none', duration: 2000 })
+    } finally {
+      setIsLoading(false)
+    }
   }, [getSavedCases])
 
   React.useEffect(() => {
@@ -34,11 +42,13 @@ const LiuyaoHistoryPage: React.FC = () => {
     loadCases()
   })
 
-  const handleLoadCase = (id: string) => {
-    const success = loadCase(id)
+  const handleLoadCase = async (id: string) => {
+    Taro.showLoading({ title: '加载中...' })
+    const success = await loadCase(id)
+    Taro.hideLoading()
     if (success) {
       // 加载成功后跳转到结果页
-      Taro.navigateTo({ 
+      Taro.navigateTo({
         url: '/pages/Liuyao/result/index'
       })
     } else {
@@ -57,11 +67,17 @@ const LiuyaoHistoryPage: React.FC = () => {
       content: '确定要删除这个卦例吗？',
       confirmText: '确定',
       cancelText: '取消',
-      success: (res) => {
+      success: async (res) => {
         if (res.confirm) {
-          deleteCase(id)
-          setCases(cases.filter(c => c.id !== id))
-          Taro.showToast({ title: '删除成功', icon: 'success', duration: 1000 })
+          Taro.showLoading({ title: '删除中...' })
+          const ok = await deleteCase(id)
+          Taro.hideLoading()
+          if (ok) {
+            setCases(cases.filter(c => c.id !== id))
+            Taro.showToast({ title: '删除成功', icon: 'success', duration: 1000 })
+          } else {
+            Taro.showToast({ title: '删除失败', icon: 'none', duration: 2000 })
+          }
         }
       }
     })
@@ -78,7 +94,11 @@ const LiuyaoHistoryPage: React.FC = () => {
         <Text className="history-count">共 {cases.length} 条锦囊</Text>
       </View>
 
-      {cases.length === 0 ? (
+      {isLoading ? (
+        <View className="history-empty">
+          <Text className="empty-text">加载中...</Text>
+        </View>
+      ) : cases.length === 0 ? (
         <View className="history-empty">
           <Text className="empty-text">暂无保存的卦例</Text>
         </View>

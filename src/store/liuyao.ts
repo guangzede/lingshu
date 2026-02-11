@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { computeDivination } from '@/services/divination'
-import { saveCaseToStorage, getAllCasesFromStorage, getCaseFromStorage, deleteCaseFromStorage } from '@/utils/caseStorage'
+import { createCase, fetchCaseDetail, fetchCaseList, deleteCaseById } from '@/services/cases'
 import type { SavedCase, SavedCaseListItem } from '@/types/savedCase'
 
 export interface LineInput { isYang: boolean; isMoving: boolean }
@@ -29,10 +29,10 @@ interface LiuyaoState {
   compute: () => Promise<any | null>
   reset: () => void
   resetLines: () => void // 仅重置爻位，不重置求测事项
-  saveCurrentCase: (remark?: string) => string // 保存当前卦例，返回ID
-  loadCase: (id: string) => boolean // 加载卦例，返回是否成功
-  getSavedCases: () => SavedCaseListItem[] // 获取所有已保存的卦例列表
-  deleteCase: (id: string) => void // 删除已保存的卦例
+  saveCurrentCase: (remark?: string) => Promise<string> // 保存当前卦例，返回ID
+  loadCase: (id: string) => Promise<boolean> // 加载卦例，返回是否成功
+  getSavedCases: () => Promise<SavedCaseListItem[]> // 获取所有已保存的卦例列表
+  deleteCase: (id: string) => Promise<boolean> // 删除已保存的卦例
 }
 
 // 将 Date 格式化为 YYYY-MM-DD 与 HH:mm，便于小程序 Picker 使用
@@ -175,12 +175,10 @@ export const useLiuyaoStore = create<LiuyaoState>((set, get) => {
         // 保留 question 不变
       })
     },
-    saveCurrentCase: (remark) => {
+    saveCurrentCase: async (remark) => {
       const state = get()
       const computed = state.result
-      const id = Date.now().toString()
-      const caseData: SavedCase = {
-        id,
+      const caseData: Omit<SavedCase, 'id'> = {
         dateValue: state.dateValue,
         timeValue: state.timeValue,
         lines: state.lines as [any, any, any, any, any, any],
@@ -193,11 +191,17 @@ export const useLiuyaoStore = create<LiuyaoState>((set, get) => {
         variantHexName: computed?.variant?.name,
         result: computed
       }
-      saveCaseToStorage(caseData)
+      const id = await createCase(caseData)
       return id
     },
-    loadCase: (id) => {
-      const caseData = getCaseFromStorage(id)
+    loadCase: async (id) => {
+      let caseData: SavedCase | null = null
+      try {
+        caseData = await fetchCaseDetail(id)
+      } catch (err) {
+        console.error('Failed to fetch case detail:', err)
+        return false
+      }
       // 基础校验：存在性与结构完整
       if (!caseData) return false
       const hasDate = !!caseData.dateValue && !!caseData.timeValue
@@ -227,28 +231,18 @@ export const useLiuyaoStore = create<LiuyaoState>((set, get) => {
       })
       return true
     },
-    getSavedCases: () => {
-      const cases = getAllCasesFromStorage()
-      return cases
-        .map(c => {
-          const baseHexName = c.baseHexName || c.result?.hex?.name
-          const variantHexName = c.variantHexName || c.result?.variant?.name
-
-          return {
-            id: c.id,
-            dateValue: c.dateValue,
-            timeValue: c.timeValue,
-            question: c.question || '',
-            remark: c.remark,
-            createdAt: c.createdAt,
-            baseHexName,
-            variantHexName
-          }
-        })
-        .sort((a, b) => b.createdAt - a.createdAt) // 按时间倒序
+    getSavedCases: async () => {
+      const data = await fetchCaseList()
+      return data.records
     },
-    deleteCase: (id) => {
-      deleteCaseFromStorage(id)
-    },
+    deleteCase: async (id) => {
+      try {
+        await deleteCaseById(id)
+        return true
+      } catch (err) {
+        console.error('Failed to delete case:', err)
+        return false
+      }
+    }
   }
 })

@@ -3,6 +3,7 @@ import { View, Button, Text, ScrollView } from '@tarojs/components';
 import Taro from '@tarojs/taro';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 import { deepseekChat } from '@/services/aiClient';
+import { getLocalUserInfo } from '@/services/auth';
 import './index.scss';
 
 interface AIAssistantProps {
@@ -107,6 +108,20 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
 
   const handleGenerateAIAnalysis = React.useCallback(async () => {
     console.log('[AIAssistant] handleGenerateAIAnalysis 开始，question:', question, 'stream:', stream);
+    // 补充会员判断
+    const localUser = getLocalUserInfo();
+    const isVip = localUser?.memberLevel === 1 && localUser?.memberExpireAt > Date.now();
+    if (!isVip) {
+      const modal = await Taro.showModal({
+        title: '消耗提示',
+        content: '本次解读将消耗 100 灵石，是否继续？',
+        confirmText: '继续',
+        cancelText: '取消',
+      });
+      if (!modal.confirm) {
+        return;
+      }
+    }
 
     // 防止重复点击
     if (isGenerating) {

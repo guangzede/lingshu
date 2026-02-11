@@ -11,12 +11,20 @@ interface BottomButtonsProps {
 }
 
 const BottomButtons: React.FC<BottomButtonsProps> = ({ isLoadingHistory, hasResult, question }) => {
-  const handleSaveCase = () => {
+  const handleSaveCase = async () => {
     const { saveCurrentCase } = useLiuyaoStore.getState()
-    const doSave = () => {
-      const id = saveCurrentCase()
-      Taro.showToast({ title: '保存成功', icon: 'success', duration: 1500 })
-      return id
+    const doSave = async () => {
+      try {
+        Taro.showLoading({ title: '保存中...' })
+        const id = await saveCurrentCase()
+        Taro.hideLoading()
+        Taro.showToast({ title: '保存成功', icon: 'success', duration: 1500 })
+        return id
+      } catch (err: any) {
+        Taro.hideLoading()
+        Taro.showToast({ title: err?.message || '保存失败', icon: 'none', duration: 2000 })
+        return ''
+      }
     }
 
     if (!question.trim()) {
