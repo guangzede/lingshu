@@ -1,5 +1,6 @@
 import Taro from '@tarojs/taro';
 import { getToken } from './auth';
+import { buildApiUrl } from './api';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // wx 全局在微信小程序环境可用，这里做一个声明避免 TS 报错
@@ -15,7 +16,7 @@ export interface AIChatOptions {
   onDelta?: (text: string) => void; // 流式回调（Web 环境）
 }
 
-const BASE_URL = process.env.TARO_APP_API_BASE || 'http://localhost:8787';
+const API_URL = buildApiUrl('/ai/chat');
 
 export async function deepseekChat(options: AIChatOptions): Promise<string> {
   const {
@@ -27,7 +28,7 @@ export async function deepseekChat(options: AIChatOptions): Promise<string> {
     onDelta,
   } = options;
 
-  const url = `${BASE_URL}/api/ai/chat`;
+  const url = API_URL;
   const payload = {
     model: 'deepseek-chat',
     messages: [

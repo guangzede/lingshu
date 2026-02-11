@@ -1,6 +1,5 @@
 import Taro from '@tarojs/taro';
-
-const BASE_URL = process.env.TARO_APP_API_BASE || 'http://localhost:8787';
+import { buildApiUrl } from './api';
 
 export interface DivinationComputePayload {
   lines: Array<{ isYang: boolean; isMoving: boolean }>;
@@ -13,7 +12,7 @@ export interface DivinationComputePayload {
 
 export async function computeDivination(payload: DivinationComputePayload) {
   const res = await Taro.request({
-    url: `${BASE_URL}/api/divination/compute`,
+    url: buildApiUrl('/divination/compute'),
     method: 'POST',
     data: payload,
   });

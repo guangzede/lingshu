@@ -1,15 +1,14 @@
 import Taro from '@tarojs/taro';
 import { Button, View } from '@tarojs/components';
 import LoginRegisterForm from './LoginRegisterForm';
+import { buildApiUrl } from '@/services/api';
 import './index.scss';
-
-const API_BASE = process.env.TARO_APP_API_BASE || 'http://localhost:8787';
 
 export default function AuthPage() {
   const handleHealthCheck = async () => {
     try {
       const res = await Taro.request({
-        url: `${API_BASE}/api/health`,
+        url: buildApiUrl('/health'),
         method: 'GET'
       });
       const ok = res.statusCode === 200;
@@ -46,11 +45,11 @@ export default function AuthPage() {
             </Button>
           </View>
         </View>
-          <View className="auth-features">
-            <View className="auth-feature">灵盘定位：实时观象</View>
-            <View className="auth-feature">案库沉淀：回看推演轨迹</View>
-            <View className="auth-feature">共振提醒：关键时点提示</View>
-          </View>
+        <View className="auth-features">
+          <View className="auth-feature">灵盘定位：实时观象</View>
+          <View className="auth-feature">案库沉淀：回看推演轨迹</View>
+          <View className="auth-feature">共振提醒：关键时点提示</View>
+        </View>
       </View>
     </View>
   );

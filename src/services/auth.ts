@@ -1,6 +1,5 @@
 import Taro from '@tarojs/taro';
-
-const BASE_URL = process.env.TARO_APP_API_BASE || 'http://localhost:8787';
+import { buildApiUrl } from './api';
 
 function getToken() {
   return Taro.getStorageSync('token') || '';
@@ -52,7 +51,7 @@ async function requestWithAuth(options: Taro.request.Option): Promise<any> {
 // 登录
 export async function login(username: string, password: string) {
   const res = await Taro.request({
-    url: `${BASE_URL}/api/auth/login`,
+    url: buildApiUrl('/auth/login'),
     method: 'POST',
     data: { username, password },
   });
@@ -65,7 +64,7 @@ export async function login(username: string, password: string) {
 // 注册
 export async function register(username: string, password: string, phone: string, inviteCode?: string) {
   const res = await Taro.request({
-    url: `${BASE_URL}/api/auth/register`,
+    url: buildApiUrl('/auth/register'),
     method: 'POST',
     data: { username, password, phone, inviteCode },
   });
@@ -78,7 +77,7 @@ export async function register(username: string, password: string, phone: string
 // 获取用户信息
 export async function fetchUserInfo() {
   const res = await requestWithAuth({
-    url: `${BASE_URL}/api/member/status`,
+    url: buildApiUrl('/member/status'),
     method: 'GET',
   });
   return unwrapResponse(res);
@@ -87,7 +86,7 @@ export async function fetchUserInfo() {
 // 更新用户信息
 export async function updateUserInfo(data: any) {
   const res = await requestWithAuth({
-    url: `${BASE_URL}/api/member/profile`,
+    url: buildApiUrl('/member/profile'),
     method: 'POST',
     data: {
       phone: data?.phone,
@@ -103,7 +102,7 @@ export async function updateUserInfo(data: any) {
 // 会员兑换
 export async function exchangeVip(type: 'weekly' | 'monthly' | 'ticket') {
   return requestWithAuth({
-    url: `${BASE_URL}/api/member/exchange`,
+    url: buildApiUrl('/member/exchange'),
     method: 'POST',
     data: { type },
   });
