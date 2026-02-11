@@ -1,10 +1,5 @@
-interface Env {
-  TARO_APP_API_BASE?: string;
-  TARO_APP_API_PREFIX?: string;
-}
-const env: Env = typeof process !== 'undefined' && process.env ? process.env as Env : {};
-const API_BASE = env.TARO_APP_API_BASE ?? '';
-const API_PREFIX = env.TARO_APP_API_PREFIX || '/api';
+const API_BASE = (typeof process !== 'undefined' ? process.env.TARO_APP_API_BASE : '') ?? '';
+const API_PREFIX = (typeof process !== 'undefined' ? process.env.TARO_APP_API_PREFIX : '') || '/api';
 
 function normalizePrefix(prefix: string) {
   if (!prefix) return '';
