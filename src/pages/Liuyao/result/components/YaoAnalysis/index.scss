@@ -1,6 +1,5 @@
-@use '../../../../../styles/variables.scss' as *;
-@use '../../../../../styles/mixins.scss' as *;
-
+@use "../../../../../styles/variables.scss" as *;
+@use "../../../../../styles/mixins.scss" as *;
 
 .strength-wang {
   color: $color-strength-wang;
@@ -74,11 +73,21 @@
   background: rgba(255, 255, 255, 0.06);
 }
 
-.wuxing-metal { color: $color-wuxing-metal; }
-.wuxing-wood { color: $color-wuxing-wood; }
-.wuxing-water { color: $color-wuxing-water; }
-.wuxing-fire { color: $color-wuxing-fire; }
-.wuxing-earth { color: $color-wuxing-earth; }
+.wuxing-metal {
+  color: $color-wuxing-metal;
+}
+.wuxing-wood {
+  color: $color-wuxing-wood;
+}
+.wuxing-water {
+  color: $color-wuxing-water;
+}
+.wuxing-fire {
+  color: $color-wuxing-fire;
+}
+.wuxing-earth {
+  color: $color-wuxing-earth;
+}
 
 .moving-tag {
   color: $color-accent;
@@ -119,29 +128,66 @@
   margin-bottom: $spacing-xs;
 }
 
-.yao-analysis-energy-tags {
+.yao-analysis-tags {
   display: flex;
   flex-wrap: wrap;
   gap: $spacing-xs;
+  margin-top: $spacing-xs;
 }
 
-.energy-tag {
+.yao-tag-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 72px;
   font-size: $font-size-xs;
-  padding: 0 $spacing-xs;
+  padding: 6px 10px;
   border-radius: $border-radius-sm;
   line-height: 1.4;
-  background: rgba(255, 255, 255, 0.06);
-  color: $color-text-tertiary;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: $color-text-secondary;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
 }
 
-.energy-tag-buff {
+.yao-tag-item:active {
+  transform: scale(0.98);
+}
+
+.yao-tag-item:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+}
+
+.yao-tag-label {
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.yao-tag-desc {
+  font-size: 11px;
+  line-height: 1.5;
+  color: $color-text-secondary;
+  padding-top: 4px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.16);
+}
+
+.yao-tag-buff {
   color: #8ef7a0;
+  background: rgba(142, 247, 160, 0.08);
+  border-color: rgba(142, 247, 160, 0.22);
 }
 
-.energy-tag-debuff {
+.yao-tag-debuff {
   color: #ff8c8c;
+  background: rgba(255, 140, 140, 0.08);
+  border-color: rgba(255, 140, 140, 0.22);
 }
 
-.energy-tag-neutral {
+.yao-tag-neutral {
   color: #ffd78c;
+  background: rgba(255, 215, 140, 0.08);
+  border-color: rgba(255, 215, 140, 0.22);
 }

@@ -85,11 +85,11 @@ export interface LiuyaoResult {
     changsheng: string
     relations: string[]
     variantRelation: string
+    tags?: Array<{ code: string; label: string; category: string; type: 'buff' | 'debuff' | 'neutral'; description?: string }>
     energy: {
       baseScore: number
       finalScore: number
       level: string
-      tags: Array<{ code: string; label: string; type: 'buff' | 'debuff' | 'neutral' }>
     } | null
   }>
   infoGrid?: {
@@ -126,7 +126,6 @@ export interface LiuyaoResult {
       base_score: number
       final_score: number
       level: 'SS' | 'S' | 'A' | 'B' | 'C' | 'F'
-      tags: Array<{ code: string; label: string; type: 'buff' | 'debuff' | 'neutral' }>
       audit_logs: string[]
     }>
   }

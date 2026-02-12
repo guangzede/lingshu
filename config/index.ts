@@ -53,10 +53,10 @@ const config = {
 }
 
 export default defineConfig((merge) => {
-  // 根据 API_MODE 选择接口配置：本地或远程
-    const envConfig = process.env.NODE_ENV === 'development' ? devConfig : prodConfig
+  // 在开发环境中允许通过 API_MODE 切换远程或本地；生产环境固定走 prod
+  const isProd = process.env.NODE_ENV === 'production'
+  const apiConfig = process.env.API_MODE === 'remote' ? remoteConfig : devConfig
+  const envConfig = isProd ? prodConfig : apiConfig
 
   return merge({}, config, envConfig)
-  // const apiConfig = process.env.API_MODE === 'remote' ? remoteConfig : devConfig
-  // return merge({}, config, apiConfig)
 })

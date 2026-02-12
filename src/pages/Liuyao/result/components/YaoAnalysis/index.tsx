@@ -1,14 +1,25 @@
 import React from 'react'
 import { View, Text } from '@tarojs/components'
-import type { LiuyaoResult, YaoData } from '../../../types'
+import type { LiuyaoResult } from '../../../types'
 import './index.scss'
 
 interface YaoAnalysisProps {
   result: LiuyaoResult
 }
 
+type TagLike = { code?: string; label: string; type?: string; description?: string }
+
 const YaoAnalysis: React.FC<YaoAnalysisProps> = ({ result }) => {
   const yaoUi = result.yaoUi || []
+  const [expandedTags, setExpandedTags] = React.useState<Record<string, boolean>>({})
+
+  const handleTagClick = (tagKey: string, hasDescription: boolean) => {
+    if (!hasDescription) return
+    setExpandedTags(prev => ({
+      ...prev,
+      [tagKey]: !prev[tagKey]
+    }))
+  }
 
   return (
     <View className="yao-analysis-section">
@@ -17,7 +28,6 @@ const YaoAnalysis: React.FC<YaoAnalysisProps> = ({ result }) => {
       </View>
 
       {yaoUi.map((item: any) => {
-        const yao = result.yaos[item.yaoIndex] as YaoData
         const isMoving = item.isMoving
         const seasonStrength = item.seasonStrength || ''
         const changsheng = item.changsheng || ''
@@ -26,6 +36,20 @@ const YaoAnalysis: React.FC<YaoAnalysisProps> = ({ result }) => {
         const energyLine = item.energy
         const wuxingClass = item.fiveElementClass || ''
         const strengthClass = item.seasonStrengthClass || ''
+        const analysisTags = Array.isArray(item.tags) ? item.tags : []
+        const tagMap: Map<string, TagLike> = new Map()
+
+          ;[...analysisTags].forEach((tag: any) => {
+            if (!tag || !tag.label) return
+            const code = tag.code || tag.label
+            if (typeof code === 'string' && code.startsWith('YAO_POSITION_')) return
+            const key = `${code}-${tag.label}`
+            if (!tagMap.has(key)) {
+              tagMap.set(key, tag)
+            }
+          })
+
+        const mergedTags = Array.from(tagMap.values())
 
         return (
           <View key={item.yaoIndex} className="yao-analysis-item">
@@ -39,9 +63,7 @@ const YaoAnalysis: React.FC<YaoAnalysisProps> = ({ result }) => {
               </Text>
               <Text className="yao-analysis-strength">
                 {seasonStrength ? (
-                  <Text className={strengthClass}>
-                    {seasonStrength}
-                  </Text>
+                  <Text className={strengthClass}>{seasonStrength}</Text>
                 ) : ''}
                 {seasonStrength && changsheng ? ' · ' : ''}
                 {changsheng}
@@ -57,9 +79,7 @@ const YaoAnalysis: React.FC<YaoAnalysisProps> = ({ result }) => {
 
             {/* 与变卦同位爻的关系（仅动爻显示） */}
             {isMoving && item.variantRelation && (
-              <Text className="yao-analysis-variant">
-                与变卦：{item.variantRelation}
-              </Text>
+              <Text className="yao-analysis-variant">与变卦：{item.variantRelation}</Text>
             )}
 
             {energyLine && (
@@ -67,18 +87,23 @@ const YaoAnalysis: React.FC<YaoAnalysisProps> = ({ result }) => {
                 <Text className="yao-analysis-energy-score">
                   初始分：{energyLine.baseScore} | 最终分：{energyLine.finalScore}（{energyLine.level}）
                 </Text>
-                {energyLine.tags && energyLine.tags.length > 0 && (
-                  <View className="yao-analysis-energy-tags">
-                    {energyLine.tags.map((tag: any) => (
-                      <Text
-                        key={tag.code}
-                        className={`energy-tag energy-tag-${tag.type}`}
-                      >
-                        {tag.label}
-                      </Text>
-                    ))}
+              </View>
+            )}
+
+            {mergedTags.length > 0 && (
+              <View className="yao-analysis-tags">
+                {mergedTags.map((tag: any) => (
+                  <View
+                    key={`${tag.code || tag.label}-${tag.label}`}
+                    className={`yao-tag-item yao-tag-${tag.type || 'neutral'}`}
+                    onClick={() => handleTagClick(`${item.yaoIndex}-${tag.code || tag.label}`, !!tag.description)}
+                  >
+                    <Text className="yao-tag-label">{tag.label}</Text>
+                    {tag.description && expandedTags[`${item.yaoIndex}-${tag.code || tag.label}`] && (
+                      <Text className="yao-tag-desc">{tag.description}</Text>
+                    )}
                   </View>
-                )}
+                ))}
               </View>
             )}
           </View>
