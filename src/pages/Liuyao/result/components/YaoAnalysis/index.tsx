@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text } from '@tarojs/components'
+import Taro from '@tarojs/taro'
 import type { LiuyaoResult } from '../../../types'
 import './index.scss'
 
@@ -11,14 +12,14 @@ type TagLike = { code?: string; label: string; type?: string; description?: stri
 
 const YaoAnalysis: React.FC<YaoAnalysisProps> = ({ result }) => {
   const yaoUi = result.yaoUi || []
-  const [expandedTags, setExpandedTags] = React.useState<Record<string, boolean>>({})
 
-  const handleTagClick = (tagKey: string, hasDescription: boolean) => {
-    if (!hasDescription) return
-    setExpandedTags(prev => ({
-      ...prev,
-      [tagKey]: !prev[tagKey]
-    }))
+  const handleTagClick = (tag: TagLike) => {
+    if (!tag.description) return
+    Taro.showToast({
+      title: tag.description,
+      icon: 'none',
+      duration: 2200
+    })
   }
 
   return (
@@ -96,12 +97,9 @@ const YaoAnalysis: React.FC<YaoAnalysisProps> = ({ result }) => {
                   <View
                     key={`${tag.code || tag.label}-${tag.label}`}
                     className={`yao-tag-item yao-tag-${tag.type || 'neutral'}`}
-                    onClick={() => handleTagClick(`${item.yaoIndex}-${tag.code || tag.label}`, !!tag.description)}
+                    onClick={() => handleTagClick(tag)}
                   >
                     <Text className="yao-tag-label">{tag.label}</Text>
-                    {tag.description && expandedTags[`${item.yaoIndex}-${tag.code || tag.label}`] && (
-                      <Text className="yao-tag-desc">{tag.description}</Text>
-                    )}
                   </View>
                 ))}
               </View>
