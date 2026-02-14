@@ -2,12 +2,13 @@ import Taro from '@tarojs/taro';
 import { Button, View } from '@tarojs/components';
 import LoginRegisterForm from './LoginRegisterForm';
 import { buildApiUrl } from '@/services/api';
+import { requestWithLoading } from '@/services/request';
 import './index.scss';
 
 export default function AuthPage() {
   const handleHealthCheck = async () => {
     try {
-      const res = await Taro.request({
+      const res = await requestWithLoading({
         url: buildApiUrl('/health'),
         method: 'GET'
       });

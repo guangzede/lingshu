@@ -165,7 +165,10 @@
 }
 
 .yao-tag-neutral {
-  color: #ffd78c;
+
   background: rgba(255, 215, 140, 0.06);
   border-color: rgba(255, 215, 140, 0.2);
+  .yao-tag-label{
+    color: #ffd78c;
+  }
 }

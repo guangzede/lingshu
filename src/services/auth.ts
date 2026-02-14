@@ -1,5 +1,6 @@
 import Taro from '@tarojs/taro';
 import { buildApiUrl } from './api';
+import { requestWithLoading } from './request';
 
 function getToken() {
   return Taro.getStorageSync('token') || '';
@@ -29,7 +30,7 @@ function unwrapResponse(res: any) {
 }
 
 // 通用请求，自动带token
-async function requestWithAuth(options: Taro.request.Option): Promise<any> {
+async function requestWithAuth(options: Taro.request.Option, loadingText?: string): Promise<any> {
   const token = getToken();
   if (!token) {
     clearAuth();
@@ -37,7 +38,7 @@ async function requestWithAuth(options: Taro.request.Option): Promise<any> {
   }
   const headers = { ...options.header, Authorization: `Bearer ${token}` };
   try {
-    const res = await Taro.request({ ...options, header: headers });
+    const res = await requestWithLoading({ ...options, header: headers }, loadingText);
     if (res.statusCode === 401) {
       clearAuth();
       throw new Error(res.data?.message || '未授权：请先登录');
@@ -50,7 +51,7 @@ async function requestWithAuth(options: Taro.request.Option): Promise<any> {
 
 // 登录
 export async function login(username: string, password: string) {
-  const res = await Taro.request({
+  const res = await requestWithLoading({
     url: buildApiUrl('/auth/login'),
     method: 'POST',
     data: { username, password },
@@ -63,7 +64,7 @@ export async function login(username: string, password: string) {
 
 // 注册
 export async function register(username: string, password: string, phone: string, inviteCode?: string) {
-  const res = await Taro.request({
+  const res = await requestWithLoading({
     url: buildApiUrl('/auth/register'),
     method: 'POST',
     data: { username, password, phone, inviteCode },

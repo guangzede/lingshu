@@ -1,0 +1,106 @@
+@use "../../../../../styles/variables.scss" as *;
+
+.floating-bar {
+  position: fixed;
+  bottom: calc(12px + env(safe-area-inset-bottom));
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  z-index: 100;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  background: $glass-bg;
+  border-top: 1px solid $color-border;
+  backdrop-filter: blur($glass-blur);
+
+  .floating-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: $border-radius-lg;
+    background: $color-bg-card;
+    border: 1px solid $color-border;
+    color: $color-text-primary;
+    font-size: $font-size-global-button;
+    min-width: auto;
+    flex: 0 0 auto;
+    transition: all 0.2s ease;
+    width: auto;
+    margin: 0;
+    &:active {
+      opacity: 0.7;
+      transform: scale(0.95);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-icon {
+      font-size: $font-size-xl;
+      display: block;
+    }
+
+    .btn-label {
+      font-size: $font-size-global-text;
+      white-space: nowrap;
+    }
+
+    &.btn-save:disabled {
+      background: rgba(255, 255, 255, 0.05);
+      opacity: 0.5;
+    }
+  }
+}
+
+/**
+ * 小屏幕调整
+ */
+@media (max-width: 600px) {
+  .floating-bar {
+    bottom: calc(8px + env(safe-area-inset-bottom));
+    padding: 8px 10px;
+    gap: 6px;
+
+    .floating-btn {
+      padding: 6px 10px;
+
+      .btn-icon {
+        font-size: $font-size-lg;
+      }
+
+      .btn-label {
+        font-size: $font-size-sm;
+      }
+    }
+  }
+}
+/**
+ * PC 模式：横向布局，固定在左下角
+ */
+@media (min-width: 1024px) {
+  .floating-bar {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    right: auto;
+    justify-content: flex-start;
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: $border-radius-xl;
+    box-shadow: $shadow-md;
+
+    .floating-btn {
+      padding: 8px 12px;
+      font-size: $font-size-global-button;
+    }
+  }
+}

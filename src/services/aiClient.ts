@@ -1,6 +1,7 @@
 import Taro from '@tarojs/taro';
 import { getToken } from './auth';
 import { buildApiUrl } from './api';
+import { fetchWithLoading, requestWithLoading } from './request';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // wx 全局在微信小程序环境可用，这里做一个声明避免 TS 报错
@@ -158,7 +159,7 @@ export async function deepseekChat(options: AIChatOptions): Promise<string> {
 }
 
 async function fetchNonStream(url: string, token: string, data: any): Promise<string> {
-  const res = await fetch(url, {
+  const res = await fetchWithLoading(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -178,7 +179,7 @@ async function fetchNonStream(url: string, token: string, data: any): Promise<st
 }
 
 async function fetchViaTaro(url: string, token: string, data: any): Promise<string> {
-  const response = await Taro.request({
+  const response = await requestWithLoading({
     url,
     method: 'POST',
     header: {

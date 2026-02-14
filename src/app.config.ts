@@ -3,6 +3,8 @@ export default {
     'pages/index/index',
     'pages/fortune/index',
     'pages/bazi/index',
+    'pages/bazi/result/index',
+    'pages/bazi/history/index',
     'pages/testPage/index',
     'pages/auth/index',
     'pages/profile/index',

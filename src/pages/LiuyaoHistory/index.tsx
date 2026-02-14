@@ -23,7 +23,7 @@ const LiuyaoHistoryPage: React.FC = () => {
   const loadCases = React.useCallback(async () => {
     setIsLoading(true)
     try {
-      const saved = await getSavedCases()
+      const saved = await getSavedCases('加载中...')
       setCases(saved)
     } catch (err: any) {
       Taro.showToast({ title: err?.message || '加载失败', icon: 'none', duration: 2000 })
@@ -43,9 +43,7 @@ const LiuyaoHistoryPage: React.FC = () => {
   })
 
   const handleLoadCase = async (id: string) => {
-    Taro.showLoading({ title: '加载中...' })
-    const success = await loadCase(id)
-    Taro.hideLoading()
+    const success = await loadCase(id, '加载中...')
     if (success) {
       // 加载成功后跳转到结果页
       Taro.navigateTo({
@@ -69,9 +67,7 @@ const LiuyaoHistoryPage: React.FC = () => {
       cancelText: '取消',
       success: async (res) => {
         if (res.confirm) {
-          Taro.showLoading({ title: '删除中...' })
-          const ok = await deleteCase(id)
-          Taro.hideLoading()
+          const ok = await deleteCase(id, '删除中...')
           if (ok) {
             setCases(cases.filter(c => c.id !== id))
             Taro.showToast({ title: '删除成功', icon: 'success', duration: 1000 })

@@ -1,0 +1,91 @@
+.bazi-top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  padding: 12px 10px 6px;
+  backdrop-filter: blur(10px);
+  position: sticky;
+}
+
+.bazi-home-btn {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  border: 1px solid rgba(245, 216, 158, 0.3);
+  background: rgba(245, 216, 158, 0.08);
+  color: rgba(245, 216, 158, 0.85);
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+}
+
+.bazi-top-nav-inner {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  padding: 6px;
+  border-radius: 999px;
+  background: rgba(8, 12, 24, 0.7);
+  border: 1px solid rgba(245, 216, 158, 0.2);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+  width: min(92vw, 420px);
+}
+
+.bazi-top-tab {
+  border: none;
+  background: transparent;
+  color: rgba(245, 216, 158, 0.7);
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.bazi-top-tab.active {
+  background: linear-gradient(120deg, #f8e3b8, #f0c56c);
+  color: #1b1b1b;
+  box-shadow: 0 6px 16px rgba(245, 216, 158, 0.3);
+  font-weight: 600;
+}
+
+.bazi-page.bazi-input-page .bazi-top-nav {
+  padding-top: 16px;
+}
+
+.bazi-page.bazi-input-page .bazi-home-btn {
+  border-color: rgba(0, 0, 0, 0.12);
+  background: #ffffff;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.bazi-page.bazi-result-page .bazi-home-btn {
+  border-color: var(--bazi-border);
+  background: #ffffff;
+  color: var(--bazi-sub);
+}
+
+.bazi-page.bazi-input-page .bazi-top-nav-inner {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+}
+
+.bazi-page.bazi-input-page .bazi-top-nav {
+  background: #f6f4f1;
+}
+
+.bazi-page.bazi-input-page .bazi-top-tab {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.bazi-page.bazi-input-page .bazi-top-tab.active {
+  background: #b08b45;
+  color: #ffffff;
+  box-shadow: 0 8px 16px rgba(176, 139, 69, 0.35);
+}

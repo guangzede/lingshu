@@ -58,7 +58,8 @@ const LiuyaoDivinationPage: React.FC = () => {
       return
     }
     setIsComputing(false)
-    Taro.navigateTo({
+    // ✅ 使用redirectTo替代navigateTo，防止用户返回divination中间态
+    Taro.redirectTo({
       url: '/pages/Liuyao/result/index'
     })
   }, [compute])
@@ -66,16 +67,26 @@ const LiuyaoDivinationPage: React.FC = () => {
   const { handlePaipan } = usePaipan({ mode: modeForPaipan, countNumbers, setLineState, compute: computeAndSave })
 
   // 页面首次加载时重置爻位（保留求测事项）
+  // ✅ 进入时检查：如果不是从history跳过来，就要清空所有
   React.useEffect(() => {
     initH5FadeInOnce()
-    resetLines()
+    const state = useLiuyaoStore.getState()
+    // 仅在非history模式下清空所有状态
+    if (!state.isLoadingHistory) {
+      state.resetAllState()
+    } else {
+      // 如果是从history加载的，仅重置爻位但保留其他信息
+      state.resetLines()
+      // 关闭loading标志，防止返回result时仍认为在history模式
+      state.setIsLoadingHistory(false)
+    }
   }, [])
 
   return (
     <View className="liuyao-divination-page">
       {/* 认证状态栏 */}
       <AuthStatusBar />
-      
+
       {/* 顶部：模式选择器 */}
       <ModeSelector
         mode={mode}

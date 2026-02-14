@@ -1,5 +1,6 @@
 import Taro from '@tarojs/taro';
 import { buildApiUrl } from './api';
+import { requestWithLoading } from './request';
 
 export interface DivinationComputePayload {
   lines: Array<{ isYang: boolean; isMoving: boolean }>;
@@ -11,7 +12,7 @@ export interface DivinationComputePayload {
 }
 
 export async function computeDivination(payload: DivinationComputePayload) {
-  const res = await Taro.request({
+  const res = await requestWithLoading({
     url: buildApiUrl('/divination/compute'),
     method: 'POST',
     data: payload,

@@ -29,10 +29,11 @@ interface LiuyaoState {
   compute: () => Promise<any | null>
   reset: () => void
   resetLines: () => void // 仅重置爻位，不重置求测事项
-  saveCurrentCase: (remark?: string, aiAnalysis?: string) => Promise<string> // 保存当前卦例，返回ID
-  loadCase: (id: string) => Promise<boolean> // 加载卦例，返回是否成功
-  getSavedCases: () => Promise<SavedCaseListItem[]> // 获取所有已保存的卦例列表
-  deleteCase: (id: string) => Promise<boolean> // 删除已保存的卦例
+  saveCurrentCase: (remark?: string, aiAnalysis?: string, loadingText?: string) => Promise<string> // 保存当前卦例，返回ID
+  loadCase: (id: string, loadingText?: string) => Promise<boolean> // 加载卦例，返回是否成功
+  getSavedCases: (loadingText?: string) => Promise<SavedCaseListItem[]> // 获取所有已保存的卦例列表
+  deleteCase: (id: string, loadingText?: string) => Promise<boolean> // 删除已保存的卦例
+  resetAllState: () => void // 完全清空所有状态（用于"新占卜"）
 }
 
 // 将 Date 格式化为 YYYY-MM-DD 与 HH:mm，便于小程序 Picker 使用
@@ -175,7 +176,7 @@ export const useLiuyaoStore = create<LiuyaoState>((set, get) => {
         // 保留 question 不变
       })
     },
-    saveCurrentCase: async (remark, aiAnalysis) => {
+    saveCurrentCase: async (remark, aiAnalysis, loadingText) => {
       const state = get()
       const computed = state.result
       const caseData: Omit<SavedCase, 'id'> = {
@@ -192,13 +193,13 @@ export const useLiuyaoStore = create<LiuyaoState>((set, get) => {
         result: computed,
         aiAnalysis
       }
-      const id = await createCase(caseData)
+      const id = await createCase(caseData, loadingText)
       return id
     },
-    loadCase: async (id) => {
+    loadCase: async (id, loadingText) => {
       let caseData: SavedCase | null = null
       try {
-        caseData = await fetchCaseDetail(id)
+        caseData = await fetchCaseDetail(id, loadingText)
       } catch (err) {
         console.error('Failed to fetch case detail:', err)
         return false
@@ -235,18 +236,34 @@ export const useLiuyaoStore = create<LiuyaoState>((set, get) => {
       })
       return true
     },
-    getSavedCases: async () => {
-      const data = await fetchCaseList()
+    getSavedCases: async (loadingText) => {
+      const data = await fetchCaseList(50, 0, loadingText)
       return data.records
     },
-    deleteCase: async (id) => {
+    deleteCase: async (id, loadingText) => {
       try {
-        await deleteCaseById(id)
+        await deleteCaseById(id, loadingText)
         return true
       } catch (err) {
         console.error('Failed to delete case:', err)
         return false
       }
+    },
+    resetAllState: () => {
+      // 完全清空所有状态（用于"新占卜"时）
+      const fresh = new Date()
+      const parts = formatDateParts(fresh)
+      set({
+        lines: defaultLines,
+        date: fresh,
+        dateValue: parts.dateValue,
+        timeValue: parts.timeValue,
+        ruleSetKey: 'jingfang-basic',
+        question: '',
+        result: null,
+        isLoadingHistory: false,
+        manualMode: false
+      })
     }
   }
 })

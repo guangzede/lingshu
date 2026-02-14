@@ -21,7 +21,7 @@ export const useModeState = (): ModeStateHook => {
     compute
   } = useLiuyaoStore((s) => s)
 
-  const [mode, setMode] = React.useState<PaipanMode | 'shake'>('manual')
+  const [mode, setMode] = React.useState<PaipanMode | 'shake'>('auto')
   const [shakeStep, setShakeStep] = React.useState(0)
   const modeStatesRef = React.useRef<Record<PaipanMode | 'shake', { lines: LineState[]; result: any }> | null>(null)
 

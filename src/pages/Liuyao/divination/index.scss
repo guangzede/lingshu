@@ -1,5 +1,5 @@
-@use '../../../styles/variables.scss' as *;
-@use '../../../styles/mixins.scss' as *;
+@use "../../../styles/variables.scss" as *;
+@use "../../../styles/mixins.scss" as *;
 
 // 六爻起卦页面全局样式
 .liuyao-divination-page {
@@ -7,6 +7,15 @@
   background: $color-bg-primary;
   color: $color-text-primary;
   padding-bottom: $spacing-xl;
+
+  // PC 模式下的布局优化
+  @media (min-width: 1024px) {
+    display: flex;
+    flex-direction: column;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 24px;
+  }
 }
 
 // 玻璃态卡片样式
@@ -20,6 +29,10 @@
   flex-direction: column;
   align-items: center;
   gap: $spacing-md;
+
+  @media (min-width: 1024px) {
+    padding: 0;
+  }
 }
 
 // 排盘按钮样式
@@ -27,6 +40,10 @@
   display: flex;
   justify-content: center;
   margin: $spacing-xl 16px;
+
+  @media (min-width: 1024px) {
+    margin: $spacing-xl 0;
+  }
 }
 
 .divinate-button {
@@ -47,6 +64,14 @@
   &:active {
     transform: scale(0.95);
   }
+
+  @media (min-width: 1024px) {
+    max-width: 400px;
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(251, 191, 36, 0.4);
+    }
+  }
 }
 
 .divinate-text {
@@ -60,7 +85,12 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
   animation: energyFlow 2s infinite;
   z-index: 1;
 }

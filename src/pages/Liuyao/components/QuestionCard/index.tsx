@@ -22,23 +22,24 @@ interface Selection {
 }
 
 const QuestionCard: React.FC<QuestionCardProps> = ({ value, onChange, readOnly = false }) => {
+  const safeValue = typeof value === 'string' ? value : ''
   const [selections, setSelections] = useState<Selection[]>([])
   const [step, setStep] = useState<Step>(0)
   const manualMode = useLiuyaoStore((s) => s.manualMode)
   const setManualMode = useLiuyaoStore((s) => s.setManualMode)
-  const [manualInput, setManualInput] = useState(value)
+  const [manualInput, setManualInput] = useState(safeValue)
 
   // 解析 value 并重建 selections：统一逻辑，非手动模式下均尝试从 value 回显标签
   React.useEffect(() => {
-    
+
     if (manualMode) return
 
-    if (!value || !value.trim()) {
+    if (!safeValue || !safeValue.trim()) {
       // 当 value 为空且非只读，保持空状态；若是只读则也保持空
       return
     }
 
-    const labels = value.split(' · ').map((l: string) => l.trim()).filter((l: string) => l)
+    const labels = safeValue.split(' · ').map((l: string) => l.trim()).filter((l: string) => l)
     if (labels.length === 0) return
 
     const newSelections: Selection[] = []
@@ -68,21 +69,21 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ value, onChange, readOnly =
       setSelections(newSelections)
       setStep((newSelections.length - 1) as Step)
     }
-  }, [value, manualMode])
+  }, [safeValue, manualMode])
 
   // 从只读模式切换回可编辑时，仅更新手动输入初始值（不清空 selections，避免覆盖回显）
   React.useEffect(() => {
     if (!readOnly) {
-      setManualInput(value)
+      setManualInput(safeValue)
     }
-  }, [readOnly, value])
+  }, [readOnly, safeValue])
 
   // 当 global manualMode 切换为手动模式时，用当前 value 填充输入框（以便继续编辑）
   React.useEffect(() => {
     if (manualMode) {
-      setManualInput(value)
+      setManualInput(safeValue)
     }
-  }, [manualMode, value])
+  }, [manualMode, safeValue])
 
   // 获取当前步骤可用的关键词
   const getCurrentKeywords = (): readonly any[] => {
@@ -179,7 +180,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ value, onChange, readOnly =
             {/*根据 manualMode 状态渲染不同内容*/}
             <Input
               className={`question-input ${manualMode ? 'manual' : 'tags-mode'}`}
-              value={manualMode ? manualInput : (selections.length > 0 ? selections.map(s => s.label).join(' · ') : (value || ''))}
+              value={manualMode ? manualInput : (selections.length > 0 ? selections.map(s => s.label).join(' · ') : safeValue)}
               placeholder={manualMode ? "请输入主题内容..." : "请选择关键词..."}
               disabled={readOnly || !manualMode}
               style={{ height: '52px', lineHeight: '26px', width: '100%' }}

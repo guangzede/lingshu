@@ -15,7 +15,7 @@
     "new": "taro new",
     "gen:version": "node scripts/generate-version.js",
     "dev": "npm run build:h5 -- --watch",
-    "dev:local": "npm run build:h5 -- --watch",
+    "dev:local": "cross-env API_MODE=local npm run build:h5 -- --watch",
     "dev:remote": "cross-env API_MODE=remote npm run build:h5 -- --watch",
     "devw": "npm run build:weapp -- --watch",
     "build:weapp": "npm run gen:version && taro build --type weapp && node fix-build.js",
@@ -35,8 +35,7 @@
     "dev:rn": "npm run build:rn -- --watch",
     "dev:qq": "npm run build:qq -- --watch",
     "dev:jd": "npm run build:jd -- --watch",
-    "dev:harmony-hybrid": "npm run build:harmony-hybrid -- --watch"
-    ,
+    "dev:harmony-hybrid": "npm run build:harmony-hybrid -- --watch",
     "test:hexagram": "ts-node test-hexagram.ts"
   },
   "browserslist": [

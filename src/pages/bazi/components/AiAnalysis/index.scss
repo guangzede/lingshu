@@ -1,6 +1,63 @@
-@import '../colors.scss';
-
-// Ai分析样式
 .ai-analysis {
-  // ...
+  position: relative;
+}
+
+.ai-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.ai-hint {
+  font-size: 0.8rem;
+  color: rgba(245, 216, 158, 0.65);
+}
+
+.ai-report {
+  position: relative;
+  min-height: 140px;
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(245, 216, 158, 0.12);
+  background: rgba(8, 12, 24, 0.55);
+  color: rgba(245, 216, 158, 0.9);
+}
+
+.ai-report-wrap {
+  position: relative;
+}
+
+.ai-report.blur {
+  filter: blur(6px);
+  user-select: none;
+}
+
+.ai-text {
+  white-space: pre-line;
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.ai-mask {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 14, 24, 0.55);
+  backdrop-filter: blur(10px);
+  border-radius: 14px;
+  color: #fff4d8;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  text-align: center;
+  pointer-events: none;
+}
+
+.ai-lock-tip {
+  margin-top: 10px;
+  font-size: 0.85rem;
+  color: rgba(245, 216, 158, 0.7);
 }

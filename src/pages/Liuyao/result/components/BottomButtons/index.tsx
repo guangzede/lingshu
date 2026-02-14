@@ -16,13 +16,10 @@ const BottomButtons: React.FC<BottomButtonsProps> = ({ isLoadingHistory, hasResu
     const { saveCurrentCase } = useLiuyaoStore.getState()
     const doSave = async () => {
       try {
-        Taro.showLoading({ title: '保存中...' })
-        const id = await saveCurrentCase(undefined, aiAnalysis)
-        Taro.hideLoading()
+        const id = await saveCurrentCase(undefined, aiAnalysis, '保存中...')
         Taro.showToast({ title: '保存成功', icon: 'success', duration: 1500 })
         return id
       } catch (err: any) {
-        Taro.hideLoading()
         Taro.showToast({ title: err?.message || '保存失败', icon: 'none', duration: 2000 })
         return ''
       }

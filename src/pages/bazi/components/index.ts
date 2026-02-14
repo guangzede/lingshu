@@ -1,9 +1,15 @@
 export { default as UserInput } from './UserInput';
 export { default as FourPillars } from './FourPillars';
 export { default as CoreEnergy } from './CoreEnergy';
+export { default as EnergyFlowDirection } from './EnergyFlowDirection';
 export { default as EnergyFlow } from './EnergyFlow';
+export { default as ExtraInfo } from './ExtraInfo';
 export { default as AuxStars } from './AuxStars';
 export { default as RelationModel } from './RelationModel';
 export { default as LuckTrack } from './LuckTrack';
 export { default as Explore } from './Explore';
 export { default as ContactAuthor } from './ContactAuthor';
+export { default as AiAnalysis } from './AiAnalysis';
+export { default as TopNav } from './TopNav';
+export { default as ResultPanel } from './ResultPanel';
+export { default as HistoryPanel } from './HistoryPanel';

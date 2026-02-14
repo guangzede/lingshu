@@ -1,5 +1,5 @@
-@use '../../../styles/variables.scss' as *;
-@use '../../../styles/mixins.scss' as *;
+@use "../../../styles/variables.scss" as *;
+@use "../../../styles/mixins.scss" as *;
 
 // 六爻结果页面全局样式
 .liuyao-result-page {
@@ -7,12 +7,52 @@
   background: $color-bg-primary;
   color: $color-text-primary;
   padding-bottom: $spacing-xl;
+
+  @media (max-width: 1023px) {
+    padding-bottom: 140px;
+  }
+
+  // PC 布局：两栏设计 (分析 + 历史列表并排)
+  @media (min-width: 1024px) {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    grid-template-rows: auto 1fr;
+    gap: 16px;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 16px;
+    padding-bottom: $spacing-xl;
+  }
+}
+
+// 分析内容主体 (左侧)
+.analysis-main {
+  @media (min-width: 1024px) {
+    grid-column: 1;
+    grid-row: 2;
+    overflow-y: auto;
+    max-height: calc(100vh - 100px);
+  }
+}
+
+// PC 模式下的历史侧栏 (右侧)
+.history-sidebar {
+  @media (min-width: 1024px) {
+    grid-column: 2;
+    grid-row: 2;
+    overflow-y: auto;
+    max-height: calc(100vh - 100px);
+  }
 }
 
 // 玻璃态卡片样式
 .glass-card {
   @include card-style;
-      background: linear-gradient(135deg, rgba(15, 23, 42, 0.4) 0%, rgba(30, 41, 59, 0.4) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(15, 23, 42, 0.4) 0%,
+    rgba(30, 41, 59, 0.4) 100%
+  );
 }
 
 // 分析卡片样式
@@ -42,7 +82,7 @@
 }
 
 .five-elements-mask-text {
-  font-size: 24px;
+  font-size: $font-size-huge;
   color: rgba(255, 255, 255, 0.9);
   letter-spacing: 1px;
 }
@@ -61,7 +101,7 @@
 }
 
 .branch-relation-title {
-  font-size: 28px;
+  font-size: $font-size-huge;
   color: #c9ad6f;
   font-weight: 600;
   letter-spacing: 2px;
@@ -103,7 +143,7 @@
 }
 
 .yao-analysis-title {
-  font-size: 28px;
+  font-size: $font-size-huge;
   color: #c9ad6f;
   font-weight: 600;
   letter-spacing: 2px;
@@ -139,7 +179,7 @@
 }
 
 .yao-analysis-strength {
-  font-size: 26px;
+  font-size: $font-size-xxxl;
   color: rgba(201, 173, 111, 0.7);
   letter-spacing: 0.5px;
   font-weight: 600;
@@ -153,7 +193,7 @@
 }
 
 .yao-analysis-variant {
-  font-size: 22px;
+  font-size: $font-size-xl;
   color: rgba(240, 237, 229, 0.85);
   letter-spacing: 0.5px;
 }
