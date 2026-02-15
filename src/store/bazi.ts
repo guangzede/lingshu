@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { Lunar, Solar } from 'lunar-javascript'
 import Taro from '@tarojs/taro'
 import { computeBazi } from '@/services/bazi'
+import { getToken } from '@/services/auth'
 import { createBaziCase, deleteBaziCaseById, fetchBaziCaseDetail, fetchBaziCaseList, updateBaziCase } from '@/services/baziCases'
 import type { BaziCase, BaziCaseListItem, BaziPillars } from '@/types/baziCase'
 import type { Branch, Stem } from '@/types/liuyao'
@@ -35,6 +36,7 @@ interface BaziState {
   caseName: string
   caseNote: string
   currentCaseId: string | null
+  autoSave: boolean
   result: any
   setBirth: (partial: Partial<BirthInput>) => void
   setCalendar: (v: CalendarType) => void
@@ -50,6 +52,7 @@ interface BaziState {
   setCaseName: (v: string) => void
   setCaseNote: (v: string) => void
   setCurrentCaseId: (v: string | null) => void
+  setAutoSave: (v: boolean) => void
   compute: () => Promise<any | null>
   saveCurrentCase: (loadingText?: string) => Promise<string | null>
   getSavedCases: (loadingText?: string) => Promise<BaziCaseListItem[]>
@@ -177,6 +180,7 @@ export const useBaziStore = create<BaziState>((set, get) => ({
   caseName: '',
   caseNote: '',
   currentCaseId: null,
+  autoSave: true,
   result: null,
   selectedDaYunIndex: 0,
   setSelectedDaYunIndex: (index) => set({ selectedDaYunIndex: index }),
@@ -196,6 +200,7 @@ export const useBaziStore = create<BaziState>((set, get) => ({
   setCaseName: (v) => set({ caseName: v }),
   setCaseNote: (v) => set({ caseNote: v }),
   setCurrentCaseId: (v) => set({ currentCaseId: v }),
+  setAutoSave: (v) => set({ autoSave: v }),
   compute: async () => {
     const state = get()
     try {
@@ -261,6 +266,9 @@ export const useBaziStore = create<BaziState>((set, get) => ({
       const currentYear = new Date().getFullYear()
       const currentIndex = merged.luck?.daYun?.findIndex((dy: any) => dy.startYear && dy.endYear && currentYear >= dy.startYear && currentYear <= dy.endYear)
       set({ result: merged, selectedDaYunIndex: currentIndex >= 0 ? currentIndex : 0 })
+      if (getToken() && get().autoSave) {
+        await get().saveCurrentCase()
+      }
       return merged
     } catch (err: any) {
       console.error('Failed to compute bazi', err)

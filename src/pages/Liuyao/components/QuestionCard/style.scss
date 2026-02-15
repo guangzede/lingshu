@@ -188,6 +188,74 @@
   }
 }
 
+/* ====== Liuyao Theme Override (match BaZi) ====== */
+.liuyao-divination-page .card-section-title,
+.liuyao-result-page .card-section-title {
+  color: #2f2923;
+  text-shadow: none;
+}
+
+.liuyao-divination-page .card-section-guide,
+.liuyao-result-page .card-section-guide {
+  color: #6f6358;
+}
+
+.liuyao-divination-page .question-input,
+.liuyao-result-page .question-input {
+  background: #ffffff;
+  border: 1px solid #e8dfd2;
+  color: #2f2923;
+}
+
+.liuyao-divination-page .selected-tag,
+.liuyao-result-page .selected-tag,
+.liuyao-divination-page .input-button,
+.liuyao-result-page .input-button {
+  background: #ffffff;
+  border: 1px solid #e8dfd2;
+  color: #6f6358;
+  box-shadow: none;
+}
+
+.liuyao-divination-page .stardust-cloud,
+.liuyao-result-page .stardust-cloud {
+  border-color: #e8dfd2;
+  background: #f5f0e8;
+  box-shadow: none;
+}
+
+.liuyao-divination-page .cloud-guide-text,
+.liuyao-result-page .cloud-guide-text,
+.liuyao-divination-page .step-indicator,
+.liuyao-result-page .step-indicator {
+  color: #6f6358;
+}
+
+.liuyao-divination-page .back-arrow,
+.liuyao-result-page .back-arrow {
+  background: #ffffff;
+  border: 1px solid #e8dfd2;
+  color: #6f6358;
+}
+
+.liuyao-divination-page .keyword-item,
+.liuyao-result-page .keyword-item {
+  background: #fffaf3;
+  border: 1px solid #e8dfd2;
+  color: #2f2923;
+  box-shadow: none;
+}
+
+.liuyao-divination-page .keyword-desc,
+.liuyao-result-page .keyword-desc {
+  color: #a09386;
+}
+
+.liuyao-divination-page .keyword-glow,
+.liuyao-result-page .keyword-glow {
+  display: none;
+}
+
 // ===== Stardust Cloud =====
 .stardust-cloud {
   border: 1px solid rgba($color-accent, 0.1);

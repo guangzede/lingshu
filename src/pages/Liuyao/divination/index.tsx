@@ -8,6 +8,7 @@ import ShakeCoins from './components/ShakeCoins'
 import QuestionCard from '../components/QuestionCard'
 import { usePaipan } from '../hooks/usePaipan'
 import { useModeState } from '../hooks/useModeState'
+import TopNav from '../components/TopNav'
 
 // 导入组件
 import ModeSelector from './components/ModeSelector'
@@ -86,6 +87,7 @@ const LiuyaoDivinationPage: React.FC = () => {
     <View className="liuyao-divination-page">
       {/* 认证状态栏 */}
       <AuthStatusBar />
+      <TopNav active="divination" />
 
       {/* 顶部：模式选择器 */}
       <ModeSelector

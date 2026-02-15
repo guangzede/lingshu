@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, View, Text, Button } from '@tarojs/components'
+import { View, Text, Button } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useBaziStore } from '@/store/bazi'
 import type { BaziCaseListItem } from '@/types/baziCase'
@@ -9,6 +9,7 @@ const HistoryPanel: React.FC = () => {
   const { getSavedCases, loadCase, deleteCase, setActiveTab } = useBaziStore((s) => s)
   const [cases, setCases] = React.useState<BaziCaseListItem[]>([])
   const [isLoading, setIsLoading] = React.useState(false)
+  const [query, setQuery] = React.useState('')
 
   const loadCases = React.useCallback(async () => {
     setIsLoading(true)
@@ -64,25 +65,53 @@ const HistoryPanel: React.FC = () => {
     return `${dateStr || '--'} ${timeStr || '--'}`
   }
 
+  const filterValue = query.trim().toLowerCase()
+  const visibleCases = filterValue
+    ? cases.filter((item) => {
+      const values = [
+        item.name,
+        item.note,
+        item.birthDate,
+        item.birthTime
+      ].filter(Boolean).join(' ').toLowerCase()
+      return values.includes(filterValue)
+    })
+    : cases
+
   return (
     <View className="bazi-history-panel">
       <View className="history-header">
         <Text className="history-title">排盘记录</Text>
-        <Text className="history-count">共 {cases.length} 条记录</Text>
+        <Text className="history-count">共 {cases.length} 条记录 · 当前 {visibleCases.length} 条</Text>
+      </View>
+
+      <View className="history-toolbar">
+        <View className="history-search-row">
+          <Text className="history-search-label">搜索</Text>
+          <input
+            className="history-search-input"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="姓名 / 备注 / 日期"
+          />
+          <Button className="history-clear" onClick={() => setQuery('')}>
+            清空
+          </Button>
+        </View>
       </View>
 
       {isLoading ? (
         <View className="history-empty">
           <Text className="empty-text">加载中...</Text>
         </View>
-      ) : cases.length === 0 ? (
+      ) : visibleCases.length === 0 ? (
         <View className="history-empty">
           <Text className="empty-text">暂无保存的排盘记录</Text>
         </View>
       ) : (
-        <ScrollView scrollY className="history-content">
+        <View className="history-content">
           <View className="history-list">
-            {cases.map((item, idx) => (
+            {visibleCases.map((item, idx) => (
               <View key={item.id} className="case-card">
                 <View className="case-header">
                   <Text className="case-number-title">
@@ -111,13 +140,11 @@ const HistoryPanel: React.FC = () => {
               </View>
             ))}
           </View>
-        </ScrollView>
+        </View>
       )}
 
-      <View className="history-footer">
-        <Button className="btn-back" onClick={() => setActiveTab('input')}>
-          返回
-        </Button>
+      <View className="history-note">
+        <Text>提示：记录仅保存在当前账号，支持搜索姓名/备注/日期，删除后不可恢复。</Text>
       </View>
     </View>
   )

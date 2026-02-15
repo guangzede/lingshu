@@ -2,33 +2,42 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background: linear-gradient(135deg, #0c1118 0%, #1a1a2e 100%);
-  color: #fff;
+  background: #f7f4ef;
+  color: #2f2923;
   overflow: hidden;
+}
+
+.liuyao-history-page text {
+  color: inherit;
+}
+
+.liuyao-history-page .liuyao-top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 6;
 }
 
 // 页面头部 */
 .history-header {
   padding: 20px;
-  border-bottom: 1px solid rgba(201, 173, 111, 0.15);
-  background: linear-gradient(180deg, rgba(15, 15, 25, 0.8) 0%, rgba(15, 15, 25, 0.6) 100%);
-  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #e8dfd2;
+  background: #f5f0e8;
 }
 
 .history-title {
   display: block;
-  font-size: 36px;
-  font-weight: 700;
-  color: #c9ad6f;
-  letter-spacing: 2px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #2f2923;
+  letter-spacing: 0.12em;
   margin-bottom: 8px;
 }
 
 .history-count {
   display: block;
-  font-size: 24px;
-  color: rgba(201, 173, 111, 0.6);
-  letter-spacing: 1px;
+  font-size: 0.85rem;
+  color: #6f6358;
+  letter-spacing: 0.08em;
 }
 
 // 空状态 */
@@ -37,13 +46,13 @@
   justify-content: center;
   align-items: center;
   flex: 1;
-  background: linear-gradient(135deg, rgba(12, 17, 24, 0.5) 0%, rgba(26, 26, 46, 0.5) 100%);
+  background: #faf9f6;
 }
 
 .empty-text {
-  font-size: 24px;
-  color: rgba(201, 173, 111, 0.4);
-  letter-spacing: 1px;
+  font-size: 0.9rem;
+  color: #a09386;
+  letter-spacing: 0.08em;
 }
 
 // 列表容器 */
@@ -81,12 +90,10 @@
 .case-card {
   padding: 16px;
   border-radius: 16px;
-  background: linear-gradient(135deg, rgba(201, 173, 111, 0.08) 0%, rgba(122, 162, 140, 0.05) 100%);
-  border: 1.5px solid rgba(201, 173, 111, 0.15);
+  background: #ffffff;
+  border: 1px solid #e8dfd2;
   box-shadow:
-    0 4px 16px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
+    0 10px 24px rgba(31, 26, 21, 0.08);
   transition: all 0.3s ease;
 
   &:active {
@@ -109,20 +116,20 @@
 .case-number-title {
   display: block;
   flex: 1;
-  font-size: 26px;
+  font-size: 0.98rem;
   font-weight: 600;
-  color: #ffffff;
-  letter-spacing: 1px;
+  color: #2f2923;
+  letter-spacing: 0.08em;
   line-height: 1.4;
   word-break: break-word;
 }
 
 .case-time {
   display: block;
-  font-size: 24px;
-  color: rgba(201, 173, 111, 0.6);
+  font-size: 0.82rem;
+  color: #6f6358;
   white-space: nowrap;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.06em;
 }
 
 // 卦象信息 */
@@ -131,8 +138,8 @@
   gap: 16px;
   margin-bottom: 12px;
   padding: 12px 0;
-  border-top: 1px solid rgba(201, 173, 111, 0.1);
-  border-bottom: 1px solid rgba(201, 173, 111, 0.1);
+  border-top: 1px solid #efe6da;
+  border-bottom: 1px solid #efe6da;
 }
 
 .hexagram-item {
@@ -147,43 +154,43 @@
 
 .hexagram-label {
   display: block;
-  font-size: 24px;
-  color: rgba(201, 173, 111, 0.7);
-  letter-spacing: 1px;
+  font-size: 0.85rem;
+  color: #6f6358;
+  letter-spacing: 0.08em;
   font-weight: 500;
 }
 
 .hexagram-name {
   display: block;
-  font-size: 28px;
-  color: #7aa28c;
+  font-size: 0.98rem;
+  color: #2f2923;
   font-weight: 600;
-  letter-spacing: 1px;
+  letter-spacing: 0.08em;
 }
 
 // 备注部分 */
 .remark-section {
   margin-bottom: 12px;
   padding: 10px 12px;
-  background: rgba(122, 162, 140, 0.1);
+  background: #f5f0e8;
   border-radius: 8px;
-  border-left: 3px solid #7aa28c;
+  border-left: 3px solid #b18b4f;
 }
 
 .remark-label {
   display: block;
-  font-size: 18px;
-  color: #7aa28c;
+  font-size: 0.8rem;
+  color: #b18b4f;
   font-weight: 500;
-  letter-spacing: 1px;
+  letter-spacing: 0.08em;
   margin-bottom: 4px;
 }
 
 .remark-text {
   display: block;
-  font-size: 20px;
-  color: rgba(255, 255, 255, 0.8);
-  letter-spacing: 0.5px;
+  font-size: 0.88rem;
+  color: #6f6358;
+  letter-spacing: 0.04em;
   line-height: 1.4;
   word-break: break-word;
 }
@@ -197,13 +204,13 @@
 
 .btn-load {
   flex: 1;
-  background: linear-gradient(135deg, rgba(201, 173, 111, 0.25), rgba(201, 173, 111, 0.15)) !important;
-  color: #c9ad6f !important;
-  border: 1.5px solid rgba(201, 173, 111, 0.4) !important;
+  background: #fff7e8 !important;
+  color: #b18b4f !important;
+  border: 1px solid rgba(177, 139, 79, 0.4) !important;
   border-radius: 10px !important;
-  font-size: 22px !important;
+  font-size: 0.88rem !important;
   font-weight: 600 !important;
-  letter-spacing: 2px !important;
+  letter-spacing: 0.12em !important;
   padding: 10px 12px !important;
   box-shadow:
     0 0 15px rgba(201, 173, 111, 0.1),
@@ -217,20 +224,20 @@
   &:active {
     transform: scale(0.96);
     box-shadow:
-      0 0 20px rgba(201, 173, 111, 0.2),
+      0 0 20px rgba(177, 139, 79, 0.2),
       inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
   }
 }
 
 .btn-delete {
   flex: 1;
-  background: linear-gradient(135deg, rgba(255, 107, 107, 0.2), rgba(255, 107, 107, 0.1)) !important;
-  color: #ff6b6b !important;
-  border: 1.5px solid rgba(255, 107, 107, 0.3) !important;
+  background: #fff2f2 !important;
+  color: #c05a5a !important;
+  border: 1px solid rgba(192, 90, 90, 0.3) !important;
   border-radius: 10px !important;
-  font-size: 22px !important;
+  font-size: 0.88rem !important;
   font-weight: 600 !important;
-  letter-spacing: 2px !important;
+  letter-spacing: 0.12em !important;
   padding: 10px 12px !important;
   margin-top: 0;
   box-shadow:
@@ -253,20 +260,19 @@
 // 页面底部 */
 .history-footer {
   padding: 16px 20px;
-  border-top: 1px solid rgba(201, 173, 111, 0.15);
-  background: linear-gradient(180deg, rgba(15, 15, 25, 0.6) 0%, rgba(15, 15, 25, 0.8) 100%);
-  backdrop-filter: blur(10px);
+  border-top: 1px solid #e8dfd2;
+  background: #f5f0e8;
 }
 
 .btn-back {
   width: 100%;
-  background: linear-gradient(135deg, rgba(122, 162, 140, 0.2), rgba(122, 162, 140, 0.1)) !important;
-  color: #7aa28c !important;
-  border: 1.5px solid rgba(122, 162, 140, 0.3) !important;
+  background: #ffffff !important;
+  color: #6f6358 !important;
+  border: 1px solid #e8dfd2 !important;
   border-radius: 12px !important;
-  font-size: 26px !important;
+  font-size: 0.9rem !important;
   font-weight: 600 !important;
-  letter-spacing: 2px !important;
+  letter-spacing: 0.12em !important;
   padding: 14px 20px !important;
   box-shadow:
     0 0 15px rgba(122, 162, 140, 0.1),

@@ -99,16 +99,16 @@ export const ShakeCoins: React.FC<ShakeCoinsProps> = ({ step, disabled, onDone }
         // 绘制背景
         ctx.clearRect(0, 0, w, h)
         const bg = ctx.createLinearGradient(0, 0, 0, h)
-        bg.addColorStop(0, '#0c1118')
-        bg.addColorStop(0.55, '#0b0d10')
-        bg.addColorStop(1, '#08090c')
+        bg.addColorStop(0, '#f8f4ef')
+        bg.addColorStop(0.55, '#f3ede2')
+        bg.addColorStop(1, '#efe7da')
         ctx.fillStyle = bg
         ctx.fillRect(0, 0, w, h)
 
         // 绘制桌面纹理，增强真实感
         ctx.save()
-        ctx.globalAlpha = 0.05
-        ctx.fillStyle = '#ffffff'
+        ctx.globalAlpha = 0.04
+        ctx.fillStyle = '#7b6a55'
         for (let i = 0; i < 50; i++) {
           const x = Math.random() * w
           const y = Math.random() * h
@@ -167,23 +167,23 @@ export const ShakeCoins: React.FC<ShakeCoinsProps> = ({ step, disabled, onDone }
     grad.addColorStop(1, '#b8860b') // 更深的金色
     ctx.fillStyle = grad
     // 增强描边：深棕色 + 更粗的线宽实现高对比
-    ctx.strokeStyle = 'rgba(101,50,15,0.85)'
-    ctx.lineWidth = 2.1
+    ctx.strokeStyle = 'rgba(90,60,30,0.65)'
+    ctx.lineWidth = 1.8
     ctx.font = '900 18px "Noto Serif SC", serif'
     ctx.textAlign = 'center'
     ctx.textBaseline = 'middle'
     // 增强阴影营造质感
-    ctx.shadowColor = 'rgba(0,0,0,0.72)'
-    ctx.shadowBlur = 8
-    ctx.shadowOffsetX = 2
-    ctx.shadowOffsetY = 2.5
+    ctx.shadowColor = 'rgba(60,40,20,0.45)'
+    ctx.shadowBlur = 6
+    ctx.shadowOffsetX = 1.5
+    ctx.shadowOffsetY = 1.8
     ctx.fillText(text, 0, 0)
     ctx.strokeText(text, 0, 0)
     // 额外的内层高光营造浮雕质感
-    ctx.shadowColor = 'rgba(255,255,255,0.35)'
-    ctx.shadowBlur = 3
-    ctx.shadowOffsetX = -0.8
-    ctx.shadowOffsetY = -0.8
+    ctx.shadowColor = 'rgba(255,255,255,0.3)'
+    ctx.shadowBlur = 2.5
+    ctx.shadowOffsetX = -0.6
+    ctx.shadowOffsetY = -0.6
     ctx.globalAlpha = 0.4
     ctx.fillText(text, 0, 0)
     ctx.restore()
@@ -268,7 +268,7 @@ export const ShakeCoins: React.FC<ShakeCoinsProps> = ({ step, disabled, onDone }
 
     // 内圈厚度
     ctx.lineWidth = r * 0.12
-    ctx.strokeStyle = 'rgba(0,0,0,0.4)'
+    ctx.strokeStyle = 'rgba(90,70,50,0.3)'
     ctx.stroke()
 
     // 方孔：切除（保持清晰）
@@ -281,14 +281,14 @@ export const ShakeCoins: React.FC<ShakeCoinsProps> = ({ step, disabled, onDone }
 
     // 方孔边缘微光 - 更真实的金属边缘
     ctx.save()
-    ctx.strokeStyle = 'rgba(255, 240, 180, 0.9)'
-    ctx.lineWidth = 2.2
+    ctx.strokeStyle = 'rgba(255, 235, 190, 0.9)'
+    ctx.lineWidth = 1.8
     ctx.lineCap = 'square'
     ctx.lineJoin = 'miter'
     ctx.strokeRect(-hole, -hole, hole * 2, hole * 2)
 
     // 方孔内阴影
-    ctx.fillStyle = 'rgba(0,0,0,0.6)'
+    ctx.fillStyle = 'rgba(80,60,40,0.45)'
     ctx.fillRect(-hole + 1, -hole + 1, hole * 2 - 2, hole * 2 - 2)
     ctx.restore()
 
@@ -316,13 +316,13 @@ export const ShakeCoins: React.FC<ShakeCoinsProps> = ({ step, disabled, onDone }
 
     // 金币纹理，增加表面细节
     ctx.save()
-    ctx.globalAlpha = 0.15
+    ctx.globalAlpha = 0.12
     for (let i = 0; i < 150; i++) {
       const rr = Math.random() * r * 0.95
       const theta = Math.random() * Math.PI * 2
       const px = Math.cos(theta) * rr
       const py = Math.sin(theta) * rr
-      ctx.fillStyle = Math.random() > 0.5 ? 'rgba(255,255,255,0.6)' : 'rgba(139,69,19,0.5)'
+      ctx.fillStyle = Math.random() > 0.5 ? 'rgba(255,255,255,0.45)' : 'rgba(139,99,59,0.35)'
       ctx.beginPath()
       ctx.arc(px, py, Math.random() * 1.2 + 0.5, 0, Math.PI * 2)
       ctx.fill()
@@ -369,58 +369,58 @@ export const ShakeCoins: React.FC<ShakeCoinsProps> = ({ step, disabled, onDone }
     })
 
     // 初始化三枚金币的初始状态，增强真实感和多样性
-    const randSpin = () => 12 + Math.random() * 15 // 更随机的旋转速度
+    const randSpin = () => 8 + Math.random() * 10
     const states: CoinState[] = [
       {
         x: w * (0.3 + Math.random() * 0.04), // 随机初始位置
         y: baseY,
-        vx: (Math.random() - 0.5) * 200, // 更随机的水平速度
-        vy: -250 - Math.random() * 150, // 更随机的垂直速度
+        vx: (Math.random() - 0.5) * 140,
+        vy: -200 - Math.random() * 120,
         angleZ: Math.random() * Math.PI * 2,
         angleX: Math.random() * Math.PI * 2,
         angleY: Math.random() * Math.PI * 2,
         spinZ: randSpin() * (Math.random() > 0.5 ? 1 : -1), // 随机旋转方向
         spinX: randSpin() * (Math.random() > 0.5 ? 1 : -1),
         spinY: randSpin() * (Math.random() > 0.5 ? 1 : -1),
-        tilt: (Math.random() - 0.5) * 1.0, // 更大的初始倾斜角度
+        tilt: (Math.random() - 0.5) * 0.7,
         radius
       },
       {
         x: w * (0.48 + Math.random() * 0.04),
         y: baseY,
-        vx: (Math.random() - 0.5) * 200,
-        vy: -280 - Math.random() * 150,
+        vx: (Math.random() - 0.5) * 140,
+        vy: -220 - Math.random() * 120,
         angleZ: Math.random() * Math.PI * 2,
         angleX: Math.random() * Math.PI * 2,
         angleY: Math.random() * Math.PI * 2,
         spinZ: randSpin() * (Math.random() > 0.5 ? 1 : -1),
         spinX: randSpin() * (Math.random() > 0.5 ? 1 : -1),
         spinY: randSpin() * (Math.random() > 0.5 ? 1 : -1),
-        tilt: (Math.random() - 0.5) * 1.0,
+        tilt: (Math.random() - 0.5) * 0.7,
         radius
       },
       {
         x: w * (0.66 + Math.random() * 0.04),
         y: baseY,
-        vx: (Math.random() - 0.5) * 200,
-        vy: -230 - Math.random() * 150,
+        vx: (Math.random() - 0.5) * 140,
+        vy: -190 - Math.random() * 120,
         angleZ: Math.random() * Math.PI * 2,
         angleX: Math.random() * Math.PI * 2,
         angleY: Math.random() * Math.PI * 2,
         spinZ: randSpin() * (Math.random() > 0.5 ? 1 : -1),
         spinX: randSpin() * (Math.random() > 0.5 ? 1 : -1),
         spinY: randSpin() * (Math.random() > 0.5 ? 1 : -1),
-        tilt: (Math.random() - 0.5) * 1.0,
+        tilt: (Math.random() - 0.5) * 0.7,
         radius
       }
     ]
     coinStates.current = states
 
-    const gravity = 800 // px/s^2，增强重力，使金币更快回落，更符合真实物理效果
+    const gravity = 680
     const floorY = baseY
     const safeNow = () => (typeof performance !== 'undefined' && typeof performance.now === 'function') ? performance.now() : Date.now()
     const startTime = safeNow()
-    const duration = 1500 // 增加动画持续时间，让金币有足够的时间完成抛出、旋转和落地的完整过程
+    const duration = 1200
 
     const render = () => {
       const now = safeNow()
@@ -429,14 +429,14 @@ export const ShakeCoins: React.FC<ShakeCoinsProps> = ({ step, disabled, onDone }
 
       ctx.clearRect(0, 0, w, h)
       const bg = ctx.createLinearGradient(0, 0, 0, h)
-      bg.addColorStop(0, '#0c1118')
-      bg.addColorStop(0.55, '#0b0d10')
-      bg.addColorStop(1, '#08090c')
+      bg.addColorStop(0, '#f8f4ef')
+      bg.addColorStop(0.55, '#f3ede2')
+      bg.addColorStop(1, '#efe7da')
       ctx.fillStyle = bg
       ctx.fillRect(0, 0, w, h)
       const tableSheen = ctx.createLinearGradient(0, h * 0.55, 0, h)
-      tableSheen.addColorStop(0, 'rgba(255,255,255,0.04)')
-      tableSheen.addColorStop(1, 'rgba(255,255,255,0.01)')
+      tableSheen.addColorStop(0, 'rgba(177,139,79,0.08)')
+      tableSheen.addColorStop(1, 'rgba(177,139,79,0.02)')
       ctx.fillStyle = tableSheen
       ctx.fillRect(0, h * 0.55, w, h * 0.45)
 
@@ -600,13 +600,13 @@ export const ShakeCoins: React.FC<ShakeCoinsProps> = ({ step, disabled, onDone }
         const shadowScale = 1 - Math.abs(Math.cos(c.angleX + cameraPitch)) * 0.15
         const shadowWidth = c.radius * 1.35 * shadowScale
         const shadowHeight = c.radius * 0.3 * shadowScale
-        const shadowAlpha = Math.max(0.15, 0.4 - Math.abs(c.vy) * 0.0005) // 阴影透明度随高度变化
+        const shadowAlpha = Math.max(0.12, 0.32 - Math.abs(c.vy) * 0.0005)
 
         // 更真实的阴影渐变
         const shadowGrad = ctx.createRadialGradient(sx, sy, shadowHeight * 0.1, sx, sy, shadowWidth)
-        shadowGrad.addColorStop(0, `rgba(0,0,0,${shadowAlpha * 1.2})`)
-        shadowGrad.addColorStop(0.3, `rgba(0,0,0,${shadowAlpha})`)
-        shadowGrad.addColorStop(0.7, `rgba(0,0,0,${shadowAlpha * 0.5})`)
+        shadowGrad.addColorStop(0, `rgba(60,45,30,${shadowAlpha * 1.2})`)
+        shadowGrad.addColorStop(0.3, `rgba(60,45,30,${shadowAlpha})`)
+        shadowGrad.addColorStop(0.7, `rgba(60,45,30,${shadowAlpha * 0.5})`)
         shadowGrad.addColorStop(1, 'rgba(0,0,0,0)')
 
         ctx.fillStyle = shadowGrad
@@ -707,34 +707,21 @@ export const ShakeCoins: React.FC<ShakeCoinsProps> = ({ step, disabled, onDone }
 
   return (
     <View className="shake-section">
-      <Text style={{
-        color: 'rgba(201, 173, 111, 0.75)',
-        fontSize: '22px',
-        fontFamily: "'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', serif",
-        letterSpacing: '2px',
-        lineHeight: '1.6'
-      }}>
+      <Text className="shake-tip">
         摇卦：点击"摇一摇"六次，依次生成自下而上的六爻
       </Text>
       <Canvas
         type="2d"
         id={canvasId}
         canvasId={canvasId}
+        className="shake-canvas"
         style={{
           width: '100%',
-          height: '220px',
-          borderRadius: '12px',
-          backgroundColor: 'rgba(8, 10, 16, 0.6)',
-          border: '1px solid rgba(201, 173, 111, 0.15)',
-          boxShadow: 'inset 0 2px 8px rgba(0, 0, 0, 0.3)'
+          height: '220px'
         }}
       />
       {initError ? (
-        <Text style={{
-          color: '#ff6b6b',
-          fontSize: '22px',
-          fontFamily: "'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', serif"
-        }}>
+        <Text className="shake-error">
           {initError}
         </Text>
       ) : null}

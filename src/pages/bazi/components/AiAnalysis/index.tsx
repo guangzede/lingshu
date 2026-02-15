@@ -97,8 +97,21 @@ const AiAnalysis: React.FC = () => {
     }
   }
 
-  const displayText = isUnlocked ? report : (report || preview)
   const placeholder = '登录后可生成AI详解2026年运势报告，涵盖流年、大运、用神与关键提示。'
+
+  const previewDisplay = (() => {
+    if (status === 'loading') return '正在生成摘要...'
+    if (status === 'error') return `生成失败：${error}`
+    if (status === 'done') return preview || '暂无摘要预览'
+    return '生成后将在这里展示摘要重点'
+  })()
+
+  const fullDisplay = (() => {
+    if (status === 'loading') return '正在生成报告...'
+    if (status === 'error') return `生成失败：${error}`
+    if (status === 'done') return report || preview || placeholder
+    return placeholder
+  })()
 
   return (
     <section className="bazi-section ai-analysis">
@@ -106,27 +119,32 @@ const AiAnalysis: React.FC = () => {
         <div className="section-title">AI详解2026年运势报告</div>
         <div className="ai-actions">
           <button className="bazi-primary-btn" onClick={handleGenerate}>生成报告</button>
-          {!isLoggedIn && <span className="ai-hint">未登录用户仅展示模糊预览</span>}
+          {!isLoggedIn && <span className="ai-hint">未登录仅展示摘要与模糊全文</span>}
         </div>
 
-        <div className="ai-report-wrap">
-          <div className={`ai-report ${!isLoggedIn ? 'blur' : ''}`}>
-            {status === 'loading' && <div className="ai-text">正在生成报告...</div>}
-            {status === 'error' && <div className="ai-text">生成失败：{error}</div>}
-            {status === 'idle' && <div className="ai-text">{placeholder}</div>}
-            {status === 'done' && <div className="ai-text">{displayText || placeholder}</div>}
+        <div className="ai-report-grid">
+          <div className="ai-panel">
+            <div className="ai-panel-title">摘要预览</div>
+            <div className="ai-panel-body">{previewDisplay}</div>
           </div>
 
-          {!isLoggedIn && (
-            <div className="ai-mask">
-              <div>登录后解锁完整内容</div>
+          <div className="ai-panel ai-panel-full">
+            <div className="ai-panel-title">完整报告</div>
+            <div className={`ai-panel-body ${isLoggedIn && isUnlocked ? '' : 'blur'}`}>
+              {fullDisplay}
             </div>
-          )}
+            {!isLoggedIn && (
+              <div className="ai-mask">
+                <div>登录后解锁完整内容</div>
+              </div>
+            )}
+            {isLoggedIn && !isUnlocked && status === 'done' && (
+              <div className="ai-mask">
+                <div>充值会员后可解锁全文（暂未开放充值）</div>
+              </div>
+            )}
+          </div>
         </div>
-
-        {isLoggedIn && status === 'done' && !isUnlocked && (
-          <div className="ai-lock-tip">已生成完整报告，充值会员后可解锁全文（暂未开放充值）</div>
-        )}
       </div>
     </section>
   )

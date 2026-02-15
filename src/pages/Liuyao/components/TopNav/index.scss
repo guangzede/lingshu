@@ -1,4 +1,4 @@
-.bazi-top-nav {
+.liuyao-top-nav {
   position: sticky;
   top: 0;
   z-index: 6;
@@ -6,50 +6,47 @@
   justify-content: center;
   padding: 14px 12px 8px;
   backdrop-filter: blur(10px);
+  background: #f7f4ef;
 }
 
-.bazi-home-btn {
+.liuyao-home-btn {
   position: absolute;
   left: 12px;
   top: 12px;
-  border: 1px solid var(--bazi-border);
+  border: 1px solid #e8dfd2;
   background: #ffffff;
-  color: var(--bazi-sub);
+  color: #6f6358;
   padding: 6px 12px;
   border-radius: 999px;
   font-size: 0.8rem;
   letter-spacing: 0.08em;
-  cursor: pointer;
-  outline: none;
 }
 
-.bazi-top-nav-inner {
+.liuyao-top-nav-inner {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 6px;
   padding: 6px;
   border-radius: 999px;
   background: #ffffff;
-  border: 1px solid var(--bazi-border);
+  border: 1px solid #e8dfd2;
   box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
   width: min(92vw, 420px);
 }
 
-.bazi-top-tab {
+.liuyao-top-tab {
   border: none;
   background: transparent;
-  color: var(--bazi-sub);
+  color: #6f6358;
   padding: 8px 12px;
   border-radius: 999px;
   font-size: 0.9rem;
   letter-spacing: 0.08em;
-  cursor: pointer;
   transition: all 0.2s ease;
-  outline: none;
 }
 
-.bazi-top-tab.active {
-  background: var(--bazi-accent);
+.liuyao-top-tab.active {
+  background: #b18b4f;
   color: #ffffff;
   box-shadow: 0 6px 16px rgba(177, 139, 79, 0.25);
   font-weight: 600;

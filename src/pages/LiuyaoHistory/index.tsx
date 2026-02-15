@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, Button, ScrollView } from '@tarojs/components'
 import Taro, { useDidShow } from '@tarojs/taro'
 import { useLiuyaoStore } from '@/store/liuyao'
+import TopNav from '@/pages/Liuyao/components/TopNav'
 import './index.scss'
 
 interface HistoryItem {
@@ -85,6 +86,7 @@ const LiuyaoHistoryPage: React.FC = () => {
 
   return (
     <View className="liuyao-history-page">
+      <TopNav active="history" />
       <View className="history-header">
         <Text className="history-title">复盘</Text>
         <Text className="history-count">共 {cases.length} 条锦囊</Text>

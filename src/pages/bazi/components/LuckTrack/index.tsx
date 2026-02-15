@@ -18,9 +18,9 @@ const LuckTrack: React.FC = () => {
   const currentLunarMonthIndex = Math.max(1, todayLunar.getMonth()) - 1
   const dayStem = result?.pillars?.day?.stem
 
-  const STEMS: Stem[] = ['甲','乙','丙','丁','戊','己','庚','辛','壬','癸']
-  const BRANCHES: Branch[] = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥']
-  const MONTH_LABELS = ['正','二','三','四','五','六','七','八','九','十','十一','十二']
+  const STEMS: Stem[] = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸']
+  const BRANCHES: Branch[] = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥']
+  const MONTH_LABELS = ['正', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二']
 
   const getBranchTenGodFull = (branch?: Branch) => {
     if (!branch) return '--'
@@ -159,7 +159,7 @@ const LuckTrack: React.FC = () => {
                   >
                     <div className="luck-year">{dy.startYear ?? '--'}</div>
                     <div className="luck-age">
-                      {formatAge(dy.startAge)}{dy.endAge !== undefined ? `~${formatAge(dy.endAge)}` : ''}岁
+                      {formatAge(dy.startAge)}{dy.endAge !== undefined ? `~${formatAge(dy.endAge)}` : ''}
                     </div>
                     <div className="luck-gz-stack">
                       <div className="luck-gz-line">
@@ -168,7 +168,7 @@ const LuckTrack: React.FC = () => {
                       </div>
                       <div className="luck-gz-line">
                         <span className={`luck-char element-${BRANCH_ELEMENT[dy.branch]}`}>{dy.branch}</span>
-                        <span className="luck-god">{pickBranchTenGod(dy.branch)}</span>
+                        <span className="luck-god">{getBranchTenGodShort(dy.branch)}</span>
                       </div>
                     </div>
                   </button>

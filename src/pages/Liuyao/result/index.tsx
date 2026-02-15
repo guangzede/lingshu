@@ -17,6 +17,7 @@ import FiveElementsAnalysis from './components/FiveElementsAnalysis'
 import QuestionCard from '../components/QuestionCard'
 import { getToken } from '@/services/auth'
 import AuthStatusBar from '@/components/AuthStatusBar'
+import TopNav from '../components/TopNav'
 
 
 // 六爻排盘结果页面
@@ -183,6 +184,7 @@ const LiuyaoResultPage: React.FC = () => {
     <View className={`liuyao-result-page ${drawerOpen ? 'has-drawer' : ''}`}>
       {/* 认证状态栏 */}
       <AuthStatusBar />
+      <TopNav active="result" />
 
       {/* 分析内容主体 (左侧) */}
       <View className="analysis-main">

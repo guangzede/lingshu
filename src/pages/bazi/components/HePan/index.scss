@@ -1,0 +1,342 @@
+.hepan-card {
+  display: grid;
+  gap: 14px;
+}
+
+.hepan-head {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  align-items: stretch;
+}
+
+.hepan-col {
+  background: #fbf8f2;
+  border: 1px solid rgba(47, 41, 35, 0.08);
+  border-radius: 14px;
+  padding: 12px;
+  display: grid;
+  gap: 8px;
+  grid-template-rows: auto auto auto 1fr;
+  align-content: start;
+  min-height: 100%;
+}
+
+.hepan-label {
+  font-size: 0.8rem;
+  color: var(--bazi-sub);
+  letter-spacing: 0.12em;
+}
+
+.hepan-name {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--bazi-text);
+  letter-spacing: 0.08em;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+}
+
+.hepan-select {
+  width: 100%;
+  border: 1px solid rgba(47, 41, 35, 0.12);
+  border-radius: 12px;
+  padding: 8px 28px 8px 10px;
+  min-height: 36px;
+  height: auto;
+  line-height: 1.2;
+  background: #ffffff;
+  color: var(--bazi-text);
+  font-size: 0.8rem;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
+  text-align: left;
+  box-sizing: border-box;
+  white-space: nowrap;
+  text-overflow: clip;
+}
+
+.hepan-select:focus {
+  outline: none;
+  border-color: var(--bazi-accent);
+  box-shadow: 0 0 0 2px rgba(180, 138, 79, 0.2);
+}
+
+.hepan-note {
+  font-size: 0.78rem;
+  color: var(--bazi-sub);
+}
+
+.hepan-meta {
+  font-size: 0.78rem;
+  color: #4a4036;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.hepan-meta-base {
+  font-size: 0.74rem;
+  color: rgba(74, 64, 54, 0.9);
+}
+
+.hepan-meta-placeholder {
+  color: transparent;
+}
+
+.hepan-network {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  background: #fbf8f2;
+  border: 1px solid rgba(47, 41, 35, 0.08);
+  border-radius: 16px;
+}
+
+.hepan-network-title {
+  font-size: 0.82rem;
+  color: var(--bazi-text);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.hepan-network-grid {
+  display: grid;
+  grid-template-columns: 78px repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  align-items: stretch;
+}
+
+.hepan-network-corner {
+  position: relative;
+  background: linear-gradient(135deg, #fff3e3 0 50%, #efe9fb 50% 100%);
+  border: 1px solid rgba(47, 41, 35, 0.08);
+  border-radius: 12px;
+  overflow: hidden;
+  min-height: 78px;
+}
+
+.corner-diag {
+  position: absolute;
+  inset: 0;
+  color: var(--bazi-sub);
+  display: block;
+  padding: 0;
+}
+
+.corner-base {
+  background: transparent;
+  clip-path: none;
+}
+
+.corner-target {
+  background: transparent;
+  clip-path: none;
+}
+
+.corner-diag em {
+  position: absolute;
+  font-style: normal;
+  font-size: 0.58rem;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--bazi-sub);
+}
+
+.corner-base em {
+  left: 18%;
+  top: 18%;
+  transform: rotate(-45deg);
+  transform-origin: left top;
+}
+
+.corner-target em {
+  right: 18%;
+  bottom: 18%;
+  transform: rotate(-45deg);
+  transform-origin: right bottom;
+}
+
+.hepan-network-head,
+.hepan-network-side {
+  background: #efe9fb;
+  border: 1px solid rgba(47, 41, 35, 0.08);
+  border-radius: 12px;
+  font-size: 0.7rem;
+  color: var(--bazi-sub);
+  letter-spacing: 0.1em;
+  display: grid;
+  gap: 2px;
+  align-items: center;
+  justify-items: center;
+  padding: 6px 4px;
+}
+
+.hepan-network-side {
+  background: #fff3e3;
+}
+
+.hepan-network-head .net-label,
+.hepan-network-side .net-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  color: rgba(106, 95, 84, 0.9);
+}
+
+.hepan-network-head .net-stem,
+.hepan-network-head .net-branch,
+.hepan-network-side .net-stem,
+.hepan-network-side .net-branch {
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.hepan-network-cell {
+  background: #ffffff;
+  border: 1px solid rgba(47, 41, 35, 0.08);
+  border-radius: 12px;
+  padding: 6px 6px;
+  display: grid;
+  gap: 4px;
+  justify-items: center;
+  align-content: center;
+  min-height: 56px;
+  box-shadow: 0 6px 16px rgba(47, 41, 35, 0.05);
+}
+
+.hepan-network-tag {
+  font-size: 0.66rem;
+  color: var(--bazi-sub);
+  white-space: nowrap;
+}
+
+.hepan-network-tag.muted {
+  color: rgba(106, 95, 84, 0.6);
+}
+
+.hepan-network-cell.good .hepan-network-tag {
+  color: var(--bazi-accent);
+}
+
+.hepan-network-cell.warn .hepan-network-tag {
+  color: #c06c2c;
+}
+
+.hepan-empty {
+  padding: 14px;
+  border-radius: 12px;
+  background: var(--bazi-soft);
+  border: 1px dashed var(--bazi-border);
+  color: var(--bazi-sub);
+  text-align: center;
+  font-size: 0.86rem;
+}
+
+.hepan-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.hepan-metric {
+  background: #ffffff;
+  border: 1px solid rgba(47, 41, 35, 0.08);
+  border-radius: 12px;
+  padding: 10px 12px;
+  display: grid;
+  gap: 6px;
+}
+
+.hepan-metric span {
+  font-size: 0.76rem;
+  color: var(--bazi-sub);
+  letter-spacing: 0.12em;
+}
+
+.hepan-metric strong {
+  font-size: 1rem;
+  color: var(--bazi-text);
+}
+
+.hepan-verdicts {
+  background: #ffffff;
+  border: 1px solid rgba(47, 41, 35, 0.08);
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: grid;
+  gap: 8px;
+  color: var(--bazi-sub);
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+.hepan-relations {
+  display: grid;
+  gap: 12px;
+}
+
+.hepan-rel-group {
+  background: #ffffff;
+  border: 1px solid rgba(47, 41, 35, 0.08);
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: grid;
+  gap: 8px;
+}
+
+.hepan-rel-title {
+  font-size: 0.86rem;
+  color: var(--bazi-text);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+}
+
+.hepan-rel-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.hepan-rel-item {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--bazi-soft);
+  border: 1px solid var(--bazi-border);
+  font-size: 0.78rem;
+  color: var(--bazi-sub);
+  letter-spacing: 0.06em;
+}
+
+.hepan-rel-list-block {
+  display: grid;
+  gap: 6px;
+}
+
+.hepan-rel-list-block .hepan-rel-item {
+  width: 100%;
+  border-radius: 10px;
+  justify-content: flex-start;
+}
+
+@media (max-width: 640px) {
+  .hepan-head {
+    grid-template-columns: 1fr;
+  }
+
+  .hepan-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .hepan-network-grid {
+    grid-template-columns: 70px repeat(4, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .hepan-network-cell {
+    min-height: 48px;
+  }
+}

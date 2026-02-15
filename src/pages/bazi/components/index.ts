@@ -7,6 +7,7 @@ export { default as ExtraInfo } from './ExtraInfo';
 export { default as AuxStars } from './AuxStars';
 export { default as RelationModel } from './RelationModel';
 export { default as LuckTrack } from './LuckTrack';
+export { default as HePan } from './HePan';
 export { default as Explore } from './Explore';
 export { default as ContactAuthor } from './ContactAuthor';
 export { default as AiAnalysis } from './AiAnalysis';

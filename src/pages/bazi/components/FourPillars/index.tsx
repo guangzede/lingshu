@@ -98,10 +98,27 @@ const FourPillars: React.FC = () => {
   ]
 
   const shenShaMap = result.shenSha || {}
-  const pickShenSha = (branch?: Branch) => {
-    if (!branch) return []
+  const STEMS: Stem[] = ['甲','乙','丙','丁','戊','己','庚','辛','壬','癸']
+  const BRANCHES: Branch[] = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥']
+  const PILLAR_LABELS: Record<string, string> = {
+    year: '年柱',
+    month: '月柱',
+    day: '日柱',
+    hour: '时柱',
+    dayun: '大运',
+    liunian: '流年'
+  }
+  const pickShenSha = (colKey: string, stem?: Stem, branch?: Branch) => {
+    const pillarLabel = PILLAR_LABELS[colKey]
     return Object.entries(shenShaMap)
-      .filter(([, list]) => Array.isArray(list) && list.includes(branch))
+      .filter(([, list]) => Array.isArray(list) && list.some((token: any) => {
+        if (branch && token === branch) return true
+        if (stem && token === stem) return true
+        if (pillarLabel && token === pillarLabel) return true
+        if (typeof token === 'string' && BRANCHES.includes(token as Branch) && branch && token === branch) return true
+        if (typeof token === 'string' && STEMS.includes(token as Stem) && stem && token === stem) return true
+        return false
+      }))
       .map(([name]) => name)
   }
 
@@ -209,7 +226,7 @@ const FourPillars: React.FC = () => {
                 <tr>
                   <th className="row-label">神煞</th>
                   {columns.map((col) => {
-                    const list = pickShenSha(col.data?.branch)
+                    const list = pickShenSha(col.key, col.data?.stem, col.data?.branch)
                     return (
                       <td key={`${col.key}-shensha`} className="cell-shensha">
                         {list.length ? (

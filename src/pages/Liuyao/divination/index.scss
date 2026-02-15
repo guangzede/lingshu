@@ -136,3 +136,210 @@
   font-size: $font-size-md;
   color: $color-text-tertiary;
 }
+
+/* ====== Liuyao Theme Override (match BaZi) ====== */
+.liuyao-divination-page {
+  --bazi-bg: #f7f4ef;
+  --bazi-card: #ffffff;
+  --bazi-border: #e8dfd2;
+  --bazi-soft: #f5f0e8;
+  --bazi-text: #2f2923;
+  --bazi-sub: #6f6358;
+  --bazi-muted: #a09386;
+  --bazi-accent: #b18b4f;
+  --bazi-shadow: 0 18px 32px rgba(31, 26, 21, 0.08);
+  background: var(--bazi-bg);
+  color: var(--bazi-text);
+  font-family: "Source Han Sans SC", "Noto Sans SC", "PingFang SC", sans-serif;
+}
+
+.liuyao-divination-page text {
+  color: inherit;
+}
+
+.liuyao-divination-page .glass-card,
+.liuyao-divination-page .datetime-card,
+.liuyao-divination-page .count-input-card,
+.liuyao-divination-page .yao-matrix-section {
+  background: var(--bazi-card);
+  border: 1px solid var(--bazi-border);
+  box-shadow: var(--bazi-shadow);
+}
+
+.liuyao-divination-page .card-section-title {
+  color: var(--bazi-text);
+  text-shadow: none;
+}
+
+.liuyao-divination-page .card-section-guide {
+  color: var(--bazi-sub);
+}
+
+.liuyao-divination-page .mode-tab {
+  background: #ffffff;
+  border: 1px solid var(--bazi-border);
+  color: var(--bazi-sub);
+  border-radius: 999px;
+  font-size: 0.86rem;
+}
+
+.liuyao-divination-page .mode-tab-active {
+  background: var(--bazi-accent);
+  color: #ffffff;
+  box-shadow: 0 8px 16px rgba(177, 139, 79, 0.25);
+}
+
+.liuyao-divination-page .top-section {
+  background: transparent;
+}
+
+.liuyao-divination-page .mode-selector {
+  border-bottom: 1px solid var(--bazi-border);
+  padding-bottom: 10px;
+  margin-bottom: 4px;
+}
+
+.liuyao-divination-page .input-label-elegant,
+.liuyao-divination-page .yao-label-elegant {
+  color: var(--bazi-sub);
+}
+
+.liuyao-divination-page .value-with-underline {
+  background: var(--bazi-soft);
+  border: 1px solid var(--bazi-border);
+  color: var(--bazi-text);
+  box-shadow: none;
+}
+
+.liuyao-divination-page .value-text {
+  color: var(--bazi-text);
+}
+
+.liuyao-divination-page .question-input,
+.liuyao-divination-page .number-input-elegant {
+  background: #ffffff;
+  border: 1px solid var(--bazi-border);
+  color: var(--bazi-text);
+}
+
+.liuyao-divination-page .question-input::placeholder,
+.liuyao-divination-page .number-input-elegant::placeholder {
+  color: var(--bazi-muted);
+}
+
+.liuyao-divination-page .card-section-title {
+  color: var(--bazi-text);
+  text-shadow: none;
+}
+
+.liuyao-divination-page .card-section-guide {
+  color: var(--bazi-sub);
+}
+
+.liuyao-divination-page .input-button,
+.liuyao-divination-page .selected-tag {
+  background: #ffffff;
+  border: 1px solid var(--bazi-border);
+  color: var(--bazi-sub);
+  box-shadow: none;
+}
+
+.liuyao-divination-page .selected-tag:hover,
+.liuyao-divination-page .input-button:hover {
+  background: var(--bazi-soft);
+}
+
+.liuyao-divination-page .divinate-button {
+  background: linear-gradient(180deg, #1b1714 0%, #0f0d0b 100%);
+  color: #f7d69c;
+  border: none;
+  box-shadow: 0 12px 22px rgba(20, 15, 10, 0.25);
+}
+
+.liuyao-divination-page .divinate-text {
+  color: #f7d69c;
+  letter-spacing: 0.3em;
+}
+
+.liuyao-divination-page .energy-flow {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+}
+
+.liuyao-divination-page .yao-symbol.clickable {
+  background: #ffffff;
+  border: 1px solid var(--bazi-border);
+}
+
+.liuyao-divination-page .yao-symbol:not(.clickable) {
+  background: var(--bazi-soft);
+}
+
+.liuyao-divination-page .line-segment {
+  background: var(--bazi-accent);
+}
+
+.liuyao-divination-page .shake-tip {
+  color: var(--bazi-sub);
+  font-size: 0.88rem;
+  letter-spacing: 0.08em;
+  line-height: 1.6;
+}
+
+.liuyao-divination-page .shake-canvas {
+  border-radius: 12px;
+  background: #fffaf3;
+  border: 1px solid var(--bazi-border);
+  box-shadow: inset 0 2px 8px rgba(177, 139, 79, 0.1);
+}
+
+.liuyao-divination-page .shake-error {
+  color: #c05a5a;
+  font-size: 0.86rem;
+}
+
+.liuyao-divination-page .btn-shake {
+  background: #ffffff !important;
+  color: var(--bazi-sub) !important;
+  border: 1px solid var(--bazi-border) !important;
+  box-shadow: none !important;
+  letter-spacing: 0.2em !important;
+}
+
+.liuyao-divination-page .btn-shake:active {
+  background: var(--bazi-soft) !important;
+  box-shadow: 0 6px 12px rgba(177, 139, 79, 0.12) !important;
+}
+
+.liuyao-divination-page .divination-loading {
+  background: rgba(255, 250, 243, 0.7);
+}
+
+.liuyao-divination-page .divination-loading-card {
+  background: #ffffff;
+  border: 1px solid var(--bazi-border);
+  color: var(--bazi-text);
+}
+
+.liuyao-divination-page .divination-loading-title {
+  color: var(--bazi-text);
+}
+
+.liuyao-divination-page .divination-loading-desc {
+  color: var(--bazi-sub);
+}
+
+.liuyao-divination-page .auth-status-bar.logged-in {
+  background: #ffffff;
+  border: 1px solid var(--bazi-border);
+  box-shadow: var(--bazi-shadow);
+}
+
+.liuyao-divination-page .auth-status-text,
+.liuyao-divination-page .go-to-text,
+.liuyao-divination-page .username-text {
+  color: var(--bazi-text);
+}
+
+.liuyao-divination-page .arrow-icon {
+  color: var(--bazi-accent);
+}
