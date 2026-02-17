@@ -16,6 +16,14 @@ interface AIAssistantProps {
   onAnalysisGenerated?: (analysis: string) => void; // AI 报告生成后的回调
 }
 
+const normalizeAiError = (message?: string) => {
+  const msg = message || 'AI 分析失败，请重试';
+  if (/API 请求失败:\s*50[234]/.test(msg) || /网络请求失败|Failed to fetch/i.test(msg)) {
+    return 'AI 服务暂时繁忙，请稍后重试';
+  }
+  return msg;
+};
+
 const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePrompt, stream = true, isFromHistory = false, savedAiAnalysis, onAnalysisGenerated }) => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [aiResponse, setAiResponse] = useState(savedAiAnalysis || '');
@@ -110,8 +118,8 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
   const callDeepSeekAPINonStream = async (prompt: string): Promise<string> => {
     const result = await deepseekChat({
       prompt,
-      stream: true,
-      maxTokens: 100,
+      stream: false,
+      maxTokens: 1800,
     });
     return result;
   };
@@ -185,10 +193,11 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
       }
     } catch (err: any) {
       console.error('[AIAssistant] 生成失败:', err);
-      setError(err.message || 'AI 分析失败，请重试');
+      const normalizedError = normalizeAiError(err?.message);
+      setError(normalizedError);
       setAiResponse('');
       Taro.showToast({
-        title: err.message || 'AI 分析失败',
+        title: normalizedError,
         icon: 'none',
         duration: 3000
       });
@@ -212,14 +221,16 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
     }
   };
 
+  const isEmpty = !isGenerating && !aiResponse;
+
   return (
     <View className="ai-assistant">
       <View className="ai-response-section">
         <ScrollView
-          className="ai-response-content"
+          className={`ai-response-content${isEmpty ? ' is-empty' : ''}`}
           scrollY
           scrollIntoView="bottom"
-          style={{ maxHeight: '60vh', minHeight: '40vh', marginTop: '8px' }}
+          style={{ maxHeight: '60vh', minHeight: isEmpty ? '180rpx' : '40vh', marginTop: '8px' }}
         >
           {isGenerating && !aiResponse ? (
             <View className="loading-panel">
@@ -237,6 +248,11 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
                 <View className="skeleton-line" />
                 <View className="skeleton-line short" />
               </View>
+            </View>
+          ) : isEmpty ? (
+            <View className="empty-panel">
+              <Text className="empty-title">等待解读</Text>
+              <Text className="empty-subtitle">点击下方按钮生成分析报告，结果会显示在这里。</Text>
             </View>
           ) : (
             <>

@@ -7,7 +7,7 @@ import './index.scss'
 
 const menuItems = [
   { id: 'bazi', label: '八字排盘', url: '/pages/bazi/index' },
-  { id: 'liuyao', label: '易理推演', url: '/pages/Liuyao/divination/index' },
+  { id: 'liuyao', label: '六爻排盘', url: '/pages/Liuyao/divination/index' },
   { id: 'daliuren', label: '大六壬排盘', url: '/pages/daliuren/index' },
   { id: 'stock', label: '干支测股', url: '/pages/stock/index' },
   // { id: 'experience', label: '体验旧版首页(暂弃用)', url: '/pages/experience/index' },
@@ -121,79 +121,79 @@ const IndexPage: React.FC = () => {
 
     const initStarfield = (canvas: any, ctx: CanvasRenderingContext2D, width: number, height: number) => {
 
-        const cx = width / 2
-        const cy = height / 2
-        const maxDist = Math.max(width, height) * 0.78
+      const cx = width / 2
+      const cy = height / 2
+      const maxDist = Math.max(width, height) * 0.78
 
-        // 极其细微的星尘效果
-        const stars: any[] = []
-        const maxStars = 350
+      // 极其细微的星尘效果
+      const stars: any[] = []
+      const maxStars = 350
 
-        const createStar = () => {
-          return {
-            x: Math.random() * width,
-            y: Math.random() * height,
-            // 更小的半径，呈现细微星尘感
-            radius: Math.random() * 0.8 + 0.3,
-            // 极慢的移动速度
-            vx: (Math.random() - 0.5) * 0.15,
-            vy: (Math.random() - 0.5) * 0.15,
-            alpha: Math.random() * 0.6 + 0.2,
-            fadeSpeed: (Math.random() * 0.008) + 0.002
+      const createStar = () => {
+        return {
+          x: Math.random() * width,
+          y: Math.random() * height,
+          // 更小的半径，呈现细微星尘感
+          radius: Math.random() * 0.8 + 0.3,
+          // 极慢的移动速度
+          vx: (Math.random() - 0.5) * 0.15,
+          vy: (Math.random() - 0.5) * 0.15,
+          alpha: Math.random() * 0.6 + 0.2,
+          fadeSpeed: (Math.random() * 0.008) + 0.002
+        }
+      }
+
+      for (let i = 0; i < maxStars; i++) {
+        stars.push(createStar())
+      }
+
+      // 星云区域
+      const nebulae = [
+        { x: width * 0.3, y: height * 0.25, radius: width * 0.25, alpha: 0.015 },
+        { x: width * 0.7, y: height * 0.65, radius: width * 0.2, alpha: 0.012 }
+      ]
+
+      const raf = (canvas as any).requestAnimationFrame?.bind(canvas) || requestAnimationFrame
+      const caf = (canvas as any).cancelAnimationFrame?.bind(canvas) || cancelAnimationFrame
+      let frameId: number | undefined
+
+      const render = () => {
+        ctx.clearRect(0, 0, width, height)
+
+        // 绘制极其淡薄的星云
+        nebulae.forEach(neb => {
+          const gradient = ctx.createRadialGradient(neb.x, neb.y, 0, neb.x, neb.y, neb.radius)
+          gradient.addColorStop(0, `rgba(201, 173, 111, ${neb.alpha})`)
+          gradient.addColorStop(0.5, `rgba(150, 170, 200, ${neb.alpha * 0.5})`)
+          gradient.addColorStop(1, 'rgba(255, 255, 255, 0)')
+          ctx.fillStyle = gradient
+          ctx.fillRect(neb.x - neb.radius, neb.y - neb.radius, neb.radius * 2, neb.radius * 2)
+        })
+
+        // 绘制极其细微的星尘
+        stars.forEach((s) => {
+          s.x += s.vx
+          s.y += s.vy
+
+          // 边界循环
+          if (s.x < 0) s.x = width
+          if (s.x > width) s.x = 0
+          if (s.y < 0) s.y = height
+          if (s.y > height) s.y = 0
+
+          // 轻微闪烁
+          s.alpha += s.fadeSpeed
+          if (s.alpha > 0.8 || s.alpha < 0.2) {
+            s.fadeSpeed = -s.fadeSpeed
           }
-        }
 
-        for (let i = 0; i < maxStars; i++) {
-          stars.push(createStar())
-        }
-
-        // 星云区域
-        const nebulae = [
-          { x: width * 0.3, y: height * 0.25, radius: width * 0.25, alpha: 0.015 },
-          { x: width * 0.7, y: height * 0.65, radius: width * 0.2, alpha: 0.012 }
-        ]
-
-        const raf = (canvas as any).requestAnimationFrame?.bind(canvas) || requestAnimationFrame
-        const caf = (canvas as any).cancelAnimationFrame?.bind(canvas) || cancelAnimationFrame
-        let frameId: number | undefined
-
-        const render = () => {
-          ctx.clearRect(0, 0, width, height)
-
-          // 绘制极其淡薄的星云
-          nebulae.forEach(neb => {
-            const gradient = ctx.createRadialGradient(neb.x, neb.y, 0, neb.x, neb.y, neb.radius)
-            gradient.addColorStop(0, `rgba(201, 173, 111, ${neb.alpha})`)
-            gradient.addColorStop(0.5, `rgba(150, 170, 200, ${neb.alpha * 0.5})`)
-            gradient.addColorStop(1, 'rgba(255, 255, 255, 0)')
-            ctx.fillStyle = gradient
-            ctx.fillRect(neb.x - neb.radius, neb.y - neb.radius, neb.radius * 2, neb.radius * 2)
-          })
-
-          // 绘制极其细微的星尘
-          stars.forEach((s) => {
-            s.x += s.vx
-            s.y += s.vy
-
-            // 边界循环
-            if (s.x < 0) s.x = width
-            if (s.x > width) s.x = 0
-            if (s.y < 0) s.y = height
-            if (s.y > height) s.y = 0
-
-            // 轻微闪烁
-            s.alpha += s.fadeSpeed
-            if (s.alpha > 0.8 || s.alpha < 0.2) {
-              s.fadeSpeed = -s.fadeSpeed
-            }
-
-            ctx.beginPath()
-            ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2)
-            ctx.globalAlpha = Math.abs(s.alpha) * 0.7
-            ctx.fillStyle = '#ffffff'
-            ctx.fill()
-            ctx.globalAlpha = 1
-          })
+          ctx.beginPath()
+          ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2)
+          ctx.globalAlpha = Math.abs(s.alpha) * 0.7
+          ctx.fillStyle = '#ffffff'
+          ctx.fill()
+          ctx.globalAlpha = 1
+        })
 
         frameId = raf ? raf(render) : undefined
       }

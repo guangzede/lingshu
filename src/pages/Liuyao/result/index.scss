@@ -9,7 +9,7 @@
   padding-bottom: $spacing-xl;
 
   @media (max-width: 1023px) {
-    padding-bottom: 140px;
+    padding-bottom: $spacing-xl;
   }
 
   // PC 布局：两栏设计 (分析 + 历史列表并排)

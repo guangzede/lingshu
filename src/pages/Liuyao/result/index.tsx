@@ -9,8 +9,6 @@ import HumanQACard from '@/components/HumanQACard'
 import InfoGrid from './components/InfoGrid'
 import BranchRelation from './components/BranchRelation'
 import YaoAnalysis from './components/YaoAnalysis'
-import FloatingBar from './components/FloatingBar'
-import Drawer from './components/Drawer'
 import HistoryList from './components/HistoryList'
 import FiveElementsAnalysis from './components/FiveElementsAnalysis'
 import HexagramTexts from './components/HexagramTexts'
@@ -19,6 +17,7 @@ import QuestionCard from '../components/QuestionCard'
 import { getToken } from '@/services/auth'
 import AuthStatusBar from '@/components/AuthStatusBar'
 import TopNav from '../components/TopNav'
+import BottomButtons from './components/BottomButtons'
 
 
 // 六爻排盘结果页面
@@ -31,13 +30,12 @@ const LiuyaoResultPage: React.FC = () => {
     isLoadingHistory,
     compute,
     setQuestion,
-    getSavedCases,
-    saveCurrentCase
+    getSavedCases
   } = useLiuyaoStore((s) => s)
 
   // 存储 AI 分析报告
-  const [currentAiAnalysis, setCurrentAiAnalysis] = React.useState<string>('')
   const [savedAiAnalysis, setSavedAiAnalysis] = React.useState<string>('')
+  const [currentAiAnalysis, setCurrentAiAnalysis] = React.useState<string>('')
 
   // 抽屉状态管理
   const [drawerOpen, setDrawerOpen] = React.useState(false)
@@ -76,32 +74,6 @@ const LiuyaoResultPage: React.FC = () => {
       handleOpenDrawer()
     }
   }, [isPcMode, drawerOpen, handleOpenDrawer])
-
-  // 保存案例处理
-  const handleSaveCase = React.useCallback(async () => {
-    const doSave = async () => {
-      try {
-        await saveCurrentCase(undefined, currentAiAnalysis, '保存中...')
-        Taro.showToast({ title: '保存成功', icon: 'success', duration: 1500 })
-      } catch (err: any) {
-        Taro.showToast({ title: err?.message || '保存失败', icon: 'none', duration: 2000 })
-      }
-    }
-
-    if (!question.trim()) {
-      Taro.showModal({
-        title: '提示',
-        content: '求测事项为空，确认仍要保存吗？',
-        confirmText: '保存',
-        cancelText: '取消',
-        success: (res) => {
-          if (res.confirm) doSave()
-        }
-      })
-    } else {
-      doSave()
-    }
-  }, [question, currentAiAnalysis, saveCurrentCase])
 
   // 尝试从本地加载结果，如果没有则返回起卦页
   React.useEffect(() => {
@@ -247,6 +219,13 @@ const LiuyaoResultPage: React.FC = () => {
         </View>
       </View>
 
+      <BottomButtons
+        isLoadingHistory={isLoadingHistory}
+        hasResult={!!result}
+        question={resolvedQuestion}
+        aiAnalysis={currentAiAnalysis || savedAiAnalysis}
+      />
+
       {/* PC 模式下的历史侧栏 (右侧) */}
       {isPcMode && (
         <View className="history-sidebar">
@@ -254,24 +233,6 @@ const LiuyaoResultPage: React.FC = () => {
         </View>
       )}
 
-      {/* 底部浮层按钮区域 (移动模式) */}
-      {!isPcMode && (
-        <FloatingBar
-          isLoadingHistory={isLoadingHistory}
-          hasResult={!!result}
-          question={resolvedQuestion}
-          aiAnalysis={currentAiAnalysis}
-          onToggleHistory={handleOpenDrawer}
-          onSaveCase={handleSaveCase}
-        />
-      )}
-
-      {/* 移动模式下的侧滑历史卦抽屉 */}
-      {!isPcMode && (
-        <Drawer open={drawerOpen} onClose={() => setDrawerOpen(false)}>
-          <HistoryList cases={historyCases} onClose={() => setDrawerOpen(false)} />
-        </Drawer>
-      )}
     </View>
   )
 }

@@ -4,9 +4,6 @@ import { buildApiUrl } from './api';
 import { fetchWithLoading, requestWithLoading } from './request';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// wx 全局在微信小程序环境可用，这里做一个声明避免 TS 报错
-// 运行时会通过 typeof 判断确保安全访问
-declare const wx: any | undefined;
 
 export interface AIChatOptions {
   prompt: string;
@@ -18,6 +15,24 @@ export interface AIChatOptions {
 }
 
 const API_URL = buildApiUrl('/ai/chat');
+const REMOTE_AI_URL = 'https://api.lylingshu.shop/api/ai/chat';
+
+function isGatewayFailure(err: any): boolean {
+  const msg = String(err?.message || '');
+  return /API 请求失败:\s*5\d\d/.test(msg) || /网络请求失败|Failed to fetch/i.test(msg);
+}
+
+async function withAiFallback<T>(requester: (url: string) => Promise<T>, primaryUrl: string): Promise<T> {
+  try {
+    return await requester(primaryUrl);
+  } catch (err: any) {
+    if (primaryUrl !== REMOTE_AI_URL && isGatewayFailure(err)) {
+      console.warn('[DeepSeek] 主通道失败，切换远程兜底通道:', err?.message || err);
+      return requester(REMOTE_AI_URL);
+    }
+    throw err;
+  }
+}
 
 export async function deepseekChat(options: AIChatOptions): Promise<string> {
   const {
@@ -52,110 +67,104 @@ export async function deepseekChat(options: AIChatOptions): Promise<string> {
 
     // 微信小程序：使用 wx.request（不支持流式，自动降级）
     if (env === Taro.ENV_TYPE.WEAPP) {
-      const canUseWx = typeof wx !== 'undefined' && typeof wx.request === 'function';
-      const req = canUseWx ? wx.request : Taro.request;
-      return await new Promise<string>((resolve, reject) => {
-        req({
-          url,
-          method: 'POST',
-          header: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-          data: { ...payload, stream: false },
-          success: (res: any) => {
-            const status = res?.statusCode ?? res?.status;
-            if (status === 200) {
-              const data = res.data as any;
-              const content = data?.choices?.[0]?.message?.content || data?.data?.choices?.[0]?.message?.content;
-              if (typeof content === 'string') {
-                if (onDelta) onDelta(content);
-                resolve(content);
-              } else {
-                reject(new Error('API 返回格式异常'));
-              }
-            } else if (status === 401) {
-              reject(new Error('API 密钥无效，请检查配置'));
-            } else if (status === 429) {
-              reject(new Error('请求频率过高，请稍后再试'));
-            } else {
-              reject(new Error(`API 请求失败: ${status}`));
-            }
-          },
-          fail: (err: any) => {
-            reject(new Error(err?.errMsg || '网络请求失败'));
-          },
-        });
-      });
+      return await withAiFallback(
+        (targetUrl) => fetchViaTaro(targetUrl, token, { ...payload, stream: false }),
+        url
+      );
     }
 
     // Web 环境：优先使用 fetch 流式；否则走一次性返回
     if (env === Taro.ENV_TYPE.WEB && stream && typeof fetch !== 'undefined') {
-      console.log('[DeepSeek] 进入 Web 流式分支');
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(payload),
-      });
-
-      console.log('[DeepSeek] fetch response.ok:', response.ok, 'status:', response.status);
-
-      if (!response.ok) {
-        if (response.status === 401) throw new Error('API 密钥无效，请检查配置');
-        if (response.status === 429) throw new Error('请求频率过高，请稍后再试');
-        throw new Error(`API 请求失败: ${response.status}`);
-      }
-
-      if (!response.body) {
-        console.log('[DeepSeek] response.body 不存在，降级到非流式');
-        // 某些浏览器/环境不支持 ReadableStream，降级到非流式
-        return await fetchNonStream(url, token, { ...payload, stream: false });
-      }
-
-      console.log('[DeepSeek] 开始读取流式数据');
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder('utf-8');
-      let done = false;
-      let fullText = '';
-
-      while (!done) {
-        const { value, done: readerDone } = await reader.read();
-        done = readerDone;
-        if (value) {
-          const chunk = decoder.decode(value, { stream: true });
-          const lines = chunk.split('\n');
-          for (const line of lines) {
-            const trimmed = line.trim();
-            if (!trimmed || !trimmed.startsWith('data: ')) continue;
-            const jsonStr = trimmed.slice(6);
-            if (jsonStr === '[DONE]') continue;
-            try {
-              const data = JSON.parse(jsonStr);
-              const delta = data?.choices?.[0]?.delta;
-              const contentPiece = typeof delta?.content === 'string' ? delta.content : '';
-              if (contentPiece) {
-                fullText += contentPiece;
-                if (onDelta) onDelta(contentPiece);
-              }
-            } catch (_) {
-              // 忽略非 JSON 行
-            }
-          }
-        }
-      }
-      console.log('[DeepSeek] 流式读取完成，总长度:', fullText.length);
-      return fullText;
+      return await withAiFallback(
+        (targetUrl) => fetchStream(targetUrl, token, payload, onDelta),
+        url
+      );
     }
 
     console.log('[DeepSeek] 使用非流式方式（Taro.request）');
     // 其它环境或不支持流式：统一走非流式（Taro.request）
-    return await fetchViaTaro(url, token, { ...payload, stream: false });
+    return await withAiFallback(
+      (targetUrl) => fetchViaTaro(targetUrl, token, { ...payload, stream: false }),
+      url
+    );
   } catch (err: any) {
     throw err;
   }
+}
+
+async function fetchStream(
+  url: string,
+  token: string,
+  data: any,
+  onDelta?: (text: string) => void
+): Promise<string> {
+  console.log('[DeepSeek] 进入 Web 流式分支');
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 45000);
+
+  let response: Response;
+  try {
+    response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+      signal: controller.signal,
+    });
+  } catch (err) {
+    clearTimeout(timeoutId);
+    console.warn('[DeepSeek] 流式请求超时或失败，降级到非流式', err);
+    return await fetchNonStream(url, token, { ...data, stream: false });
+  } finally {
+    clearTimeout(timeoutId);
+  }
+
+  console.log('[DeepSeek] fetch response.ok:', response.ok, 'status:', response.status);
+
+  if (!response.ok) {
+    if (response.status === 401) throw new Error('API 密钥无效，请检查配置');
+    if (response.status === 429) throw new Error('请求频率过高，请稍后再试');
+    throw new Error(`API 请求失败: ${response.status}`);
+  }
+
+  const contentType = response.headers.get('content-type') || '';
+  if (!response.body || !contentType.includes('text/event-stream')) {
+    console.log('[DeepSeek] response.body 不存在，降级到非流式');
+    return await fetchNonStream(url, token, { ...data, stream: false });
+  }
+
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder('utf-8');
+  let done = false;
+  let fullText = '';
+
+  while (!done) {
+    const { value, done: readerDone } = await reader.read();
+    done = readerDone;
+    if (!value) continue;
+    const chunk = decoder.decode(value, { stream: true });
+    const lines = chunk.split('\n');
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed || !trimmed.startsWith('data: ')) continue;
+      const jsonStr = trimmed.slice(6);
+      if (jsonStr === '[DONE]') continue;
+      try {
+        const parsed = JSON.parse(jsonStr);
+        const delta = parsed?.choices?.[0]?.delta;
+        const contentPiece = typeof delta?.content === 'string' ? delta.content : '';
+        if (contentPiece) {
+          fullText += contentPiece;
+          if (onDelta) onDelta(contentPiece);
+        }
+      } catch (_) {
+        // ignore invalid json line
+      }
+    }
+  }
+  return fullText;
 }
 
 async function fetchNonStream(url: string, token: string, data: any): Promise<string> {

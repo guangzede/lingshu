@@ -1,4 +1,4 @@
-@use '../../styles/variables.scss' as *;
+@use "../../styles/variables.scss" as *;
 
 .ai-assistant {
   padding: 0;
@@ -10,12 +10,55 @@
     .ai-response-content {
       font-size: $font-size-lg;
       line-height: 1.6;
-      color: var(--bazi-text, $color-text-secondary);
-      background: var(--bazi-card, rgba(255, 255, 255, 0.03));
+      color: var(--bazi-text, #2f2923);
+      background: var(--bazi-soft, #f5f0e8);
       padding: $spacing-md;
       border-radius: $border-radius-lg;
       min-height: 200rpx;
       border: 1px solid var(--bazi-border, $color-border);
+
+      &.is-empty {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .markdown-renderer {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        color: var(--bazi-text, #2f2923) !important;
+      }
+
+      .markdown-renderer p,
+      .markdown-renderer li,
+      .markdown-renderer ol,
+      .markdown-renderer ul,
+      .markdown-renderer strong,
+      .markdown-renderer span {
+        color: var(--bazi-text, #2f2923) !important;
+      }
+
+      .markdown-renderer h1,
+      .markdown-renderer h2,
+      .markdown-renderer h3,
+      .markdown-renderer h4 {
+        color: var(--bazi-text, #2f2923) !important;
+        text-shadow: none !important;
+      }
+
+      .markdown-renderer blockquote {
+        background: rgba(177, 139, 79, 0.1) !important;
+        border-left: 3px solid var(--bazi-accent, #b18b4f) !important;
+        color: var(--bazi-sub, #6f6358) !important;
+      }
+
+      .markdown-renderer code,
+      .markdown-renderer pre code {
+        color: var(--bazi-accent, #b18b4f) !important;
+      }
     }
 
     .loading-panel {
@@ -25,6 +68,24 @@
       gap: $spacing-md;
       padding: $spacing-lg;
       text-align: center;
+    }
+
+    .empty-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: $spacing-xs;
+      color: var(--bazi-sub, $color-text-secondary);
+    }
+
+    .empty-title {
+      font-size: $font-size-lg;
+      color: var(--bazi-text, $color-text-primary);
+    }
+
+    .empty-subtitle {
+      font-size: $font-size-md;
+      color: var(--bazi-sub, $color-text-secondary);
     }
 
     .loading-spinner {
@@ -83,13 +144,21 @@
     }
 
     @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
     }
 
     @keyframes shimmer {
-      0% { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
+      0% {
+        background-position: 200% 0;
+      }
+      100% {
+        background-position: -200% 0;
+      }
     }
   }
 
@@ -102,7 +171,11 @@
   .error-section {
     margin-top: $spacing-sm;
     font-size: $font-size-md;
-    color: #c05a5a;
+    color: #b85a5a;
+    background: #fff2f2;
+    border: 1px solid #f1d0d0;
+    border-radius: $border-radius-md;
+    padding: 8rpx 10rpx;
   }
 
   .primary-btn {

@@ -3,9 +3,11 @@ import Taro from '@tarojs/taro'
 import { View, Text, Input, Button, ScrollView } from '@tarojs/components'
 import { Lunar } from 'lunar-javascript'
 import {
+  fetchStockMarketOverview,
   fetchStockSuggestions,
   fetchTodayGanZhi,
   predictStockByGanZhi,
+  type StockMarketOverview,
   type StockPredictionResult,
   type StockSuggestion
 } from '@/services/stock'
@@ -14,6 +16,14 @@ import './index.scss'
 const formatProb = (value: number) => `${(value * 100).toFixed(1)}%`
 const formatPct = (value: number) => `${value >= 0 ? '+' : ''}${value.toFixed(2)}%`
 const formatFactor = (value: number) => `${value >= 0 ? '+' : ''}${(value * 100).toFixed(2)}%`
+const formatMarketTime = (value: string) => {
+  if (!value) return '--'
+  const d = new Date(value)
+  if (Number.isNaN(d.getTime())) return '--'
+  const hh = `${d.getHours()}`.padStart(2, '0')
+  const mm = `${d.getMinutes()}`.padStart(2, '0')
+  return `${hh}:${mm}`
+}
 const HISTORY_KEY = 'stock_prediction_history_v1'
 const HISTORY_MAX = 8
 const HOT_STOCKS = [
@@ -57,6 +67,8 @@ const StockPage: React.FC = () => {
   const [crawledAt, setCrawledAt] = React.useState('')
   const [errorMsg, setErrorMsg] = React.useState('')
   const [history, setHistory] = React.useState<PredictionHistoryItem[]>([])
+  const [marketOverview, setMarketOverview] = React.useState<StockMarketOverview | null>(null)
+  const [marketLoading, setMarketLoading] = React.useState(false)
 
   React.useEffect(() => {
     try {
@@ -78,6 +90,25 @@ const StockPage: React.FC = () => {
     const cached = Taro.getStorageSync(HISTORY_KEY)
     if (Array.isArray(cached)) {
       setHistory(cached.slice(0, HISTORY_MAX))
+    }
+  }, [])
+
+  React.useEffect(() => {
+    let cancelled = false
+    const loadMarket = async () => {
+      setMarketLoading(true)
+      try {
+        const overview = await fetchStockMarketOverview(6)
+        if (!cancelled) setMarketOverview(overview)
+      } catch {
+        if (!cancelled) setMarketOverview(null)
+      } finally {
+        if (!cancelled) setMarketLoading(false)
+      }
+    }
+    loadMarket()
+    return () => {
+      cancelled = true
     }
   }, [])
 
@@ -160,6 +191,21 @@ const StockPage: React.FC = () => {
 
   return (
     <View className='stock-page'>
+      <View className='stock-top-nav'>
+        <Button
+          className='stock-home-btn'
+          onClick={() => {
+            try {
+              Taro.reLaunch({ url: '/pages/index/index' })
+            } catch {
+              Taro.navigateTo({ url: '/pages/index/index' })
+            }
+          }}
+        >
+          首页
+        </Button>
+      </View>
+
       <View className='stock-header'>
         <Text className='stock-title'>干支股势推演</Text>
         <Text className='stock-subtitle'>输入股票名 + 当日干支，计算涨跌概率</Text>
@@ -194,11 +240,88 @@ const StockPage: React.FC = () => {
 
       </View>
 
+      <View className='stock-card market-card'>
+        <View className='market-header'>
+          <Text className='section-title'>当日大盘</Text>
+          <Text className='market-update-time'>
+            {marketOverview ? `更新 ${formatMarketTime(marketOverview.updatedAt)}` : (marketLoading ? '加载中...' : '暂无')}
+          </Text>
+        </View>
+        {marketOverview ? (
+          <>
+            <View className='market-index-grid'>
+              {marketOverview.indices.map((index) => (
+                <View key={index.code} className='market-index-item'>
+                  <Text className='market-index-name'>{index.name}</Text>
+                  <Text className='market-index-value'>{index.current.toFixed(2)}</Text>
+                  <Text className={`market-index-change ${index.changePct >= 0 ? 'up' : 'down'}`}>
+                    {formatPct(index.changePct)}
+                  </Text>
+                </View>
+              ))}
+            </View>
+            <View className='market-breadth'>
+              <View className='breadth-chip up'>
+                <Text>上涨 {marketOverview.breadth.up}</Text>
+              </View>
+              <View className='breadth-chip down'>
+                <Text>下跌 {marketOverview.breadth.down}</Text>
+              </View>
+              <View className='breadth-chip flat'>
+                <Text>平盘 {marketOverview.breadth.flat}</Text>
+              </View>
+            </View>
+          </>
+        ) : (
+          <Text className='market-empty'>暂无大盘数据</Text>
+        )}
+      </View>
+
+      <View className='stock-card board-card'>
+        <View className='market-header'>
+          <Text className='section-title'>涨跌板</Text>
+          <Text className='market-update-time'>{marketOverview ? 'A股实时排名' : ''}</Text>
+        </View>
+        {marketOverview ? (
+          <View className='board-grid'>
+            <View className='board-col'>
+              <Text className='board-col-title up'>涨幅榜</Text>
+              {marketOverview.gainers.map((item) => (
+                <View className='board-row' key={`up-${item.code}`}>
+                  <View className='board-main'>
+                    <Text className='board-name'>{item.name}</Text>
+                    <Text className='board-code'>{item.code}</Text>
+                  </View>
+                  <Text className='board-pct up'>{formatPct(item.changePct)}</Text>
+                </View>
+              ))}
+            </View>
+            <View className='board-col'>
+              <Text className='board-col-title down'>跌幅榜</Text>
+              {marketOverview.losers.map((item) => (
+                <View className='board-row' key={`down-${item.code}`}>
+                  <View className='board-main'>
+                    <Text className='board-name'>{item.name}</Text>
+                    <Text className='board-code'>{item.code}</Text>
+                  </View>
+                  <Text className='board-pct down'>{formatPct(item.changePct)}</Text>
+                </View>
+              ))}
+            </View>
+          </View>
+        ) : (
+          <Text className='market-empty'>暂无涨跌板数据</Text>
+        )}
+      </View>
+
       <View className='stock-card form-card'>
-        <View className='field-row'>
-          <Text className='field-label'>股票名称</Text>
+        <View className='field-row field-row-primary'>
+          <View className='field-label-row'>
+            <Text className='field-label'>股票名称</Text>
+            <Text className='field-label-tag'>必填</Text>
+          </View>
           <Input
-            className='field-input'
+            className='field-input field-input-stock'
             type='text'
             value={stockName}
             placeholder='例如：贵州茅台 / 600519'

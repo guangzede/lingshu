@@ -39,6 +39,35 @@ export interface StockPredictionResult {
   samples: number
 }
 
+export interface StockBoardItem {
+  code: string
+  name: string
+  price: number
+  change: number
+  changePct: number
+  turnoverRate?: number
+}
+
+export interface MarketIndexSnapshot {
+  code: string
+  name: string
+  current: number
+  change: number
+  changePct: number
+}
+
+export interface StockMarketOverview {
+  indices: MarketIndexSnapshot[]
+  breadth: {
+    up: number
+    down: number
+    flat: number
+  }
+  gainers: StockBoardItem[]
+  losers: StockBoardItem[]
+  updatedAt: string
+}
+
 interface ApiEnvelope<T> {
   code: number
   message: string
@@ -68,6 +97,15 @@ export async function fetchTodayGanZhi() {
     method: 'GET'
   })
   return unwrapResponse<{ date: string; dayGanZhi: string }>(res.data)
+}
+
+export async function fetchStockMarketOverview(limit = 6) {
+  const safeLimit = Math.max(3, Math.min(limit, 12))
+  const res = await Taro.request({
+    url: buildApiUrl(`/stock/market-overview?limit=${safeLimit}`),
+    method: 'GET'
+  })
+  return unwrapResponse<{ overview: StockMarketOverview }>(res.data).overview
 }
 
 export async function predictStockByGanZhi(payload: { stockName: string; dayGanZhi: string }) {
