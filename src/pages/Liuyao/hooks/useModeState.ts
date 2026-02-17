@@ -14,11 +14,8 @@ export interface ModeStateHook {
 
 export const useModeState = (): ModeStateHook => {
   const {
-    lines,
-    result,
     setLineState,
-    setIsLoadingHistory,
-    compute
+    setIsLoadingHistory
   } = useLiuyaoStore((s) => s)
 
   const [mode, setMode] = React.useState<PaipanMode | 'shake'>('auto')
@@ -49,15 +46,6 @@ export const useModeState = (): ModeStateHook => {
       }
     }
   }, [emptyLines])
-
-  // 计算并保存当前模式状态
-  const computeAndSave = React.useCallback(async () => {
-    await compute()
-    if (modeStatesRef.current) {
-      const s = useLiuyaoStore.getState()
-      modeStatesRef.current[mode] = { lines: s.lines, result: s.result }
-    }
-  }, [compute, mode])
 
   // 模式切换处理
   const handleModeChange = (m: PaipanMode | 'shake') => {
@@ -92,27 +80,24 @@ export const useModeState = (): ModeStateHook => {
 
   // 应用摇卦结果
   const applyShakeResult = (heads: number, targetIndex: number) => {
-    // 摇卦生成的概率与自动排盘一致：太阴12.5%、少阳37.5%、少阴37.5%、太阳12.5%
-    const r = Math.random()
+    // 三枚铜钱定爻（正面记 3，反面记 2）：
+    // 3正=9 太阳；2正=8 少阴；1正=7 少阳；0正=6 太阴
     let state: 'taiyin' | 'taiyang' | 'shaoyin' | 'shaoyang'
-    if (r < 0.125) state = 'taiyin'
-    else if (r < 0.5) state = 'shaoyang' // 0.125 + 0.375
-    else if (r < 0.875) state = 'shaoyin' // 0.5 + 0.375
-    else state = 'taiyang' // 0.875 + 0.125
+    if (heads >= 3) state = 'taiyang'
+    else if (heads === 2) state = 'shaoyin'
+    else if (heads === 1) state = 'shaoyang'
+    else state = 'taiyin'
     setLineState(targetIndex, state)
   }
 
   // 摇卦完成处理
   const handleShakeDone = (heads: number) => {
     if (shakeStep >= 6) return
-    applyShakeResult(heads, shakeStep)
+    // 摇卦应按“自下而上”写入：第1次=初爻(index 5)，第6次=上爻(index 0)
+    const targetIndex = 5 - shakeStep
+    applyShakeResult(heads, targetIndex)
     const nextStep = shakeStep + 1
     setShakeStep(nextStep)
-    if (nextStep >= 6) {
-      setTimeout(() => {
-        compute()
-      }, 50)
-    }
   }
 
   return {

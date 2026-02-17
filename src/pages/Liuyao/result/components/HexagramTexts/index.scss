@@ -1,0 +1,128 @@
+@use '@/styles/variables.scss' as *;
+
+.hex-texts-card {
+  margin-top: 16px;
+}
+
+.hex-texts-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--bazi-border, rgba(255, 255, 255, 0.08));
+}
+
+.hex-texts-header .card-header {
+  margin-bottom: 0;
+}
+
+.hex-texts-title-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.hex-texts-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+.hex-texts-tab {
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--bazi-border, rgba(255, 255, 255, 0.14));
+  color: var(--bazi-sub, rgba(255, 255, 255, 0.72));
+  font-size: $font-size-sm;
+  background: var(--bazi-card, rgba(255, 255, 255, 0.04));
+  transition: all 0.2s ease;
+}
+
+.hex-texts-tab.active {
+  color: var(--bazi-text, #ffffff);
+  border-color: rgba(177, 139, 79, 0.32);
+  background: rgba(177, 139, 79, 0.12);
+}
+
+.hex-texts-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hex-texts-block {
+  padding: 12px 12px 10px;
+  border-radius: 10px;
+  background: var(--bazi-card, rgba(255, 255, 255, 0.03));
+  border: 1px solid var(--bazi-border, rgba(255, 255, 255, 0.1));
+}
+
+.hex-texts-block-title {
+  display: block;
+  font-size: $font-size-md;
+  color: var(--bazi-sub, rgba(255, 255, 255, 0.8));
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.hex-texts-block-content {
+  color: var(--bazi-text, rgba(255, 255, 255, 0.9));
+  font-size: $font-size-lg;
+  line-height: 1.65;
+}
+
+.hex-texts-yao-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hex-texts-yao-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.hex-texts-yong-item {
+  padding-top: 8px;
+  margin-top: 2px;
+  border-top: 1px dashed rgba(177, 139, 79, 0.24);
+}
+
+.hex-texts-yao-label {
+  min-width: 52px;
+  color: var(--bazi-sub, rgba(255, 255, 255, 0.8));
+  font-weight: 600;
+  font-size: $font-size-sm;
+}
+
+.hex-texts-yao-text {
+  flex: 1;
+  color: var(--bazi-text, rgba(255, 255, 255, 0.9));
+  font-size: $font-size-md;
+  line-height: 1.6;
+}
+
+.hex-texts-yao-marker {
+  color: var(--bazi-accent, #ffb703);
+  font-size: $font-size-sm;
+  white-space: nowrap;
+}
+
+.hex-texts-empty {
+  color: var(--bazi-sub, rgba(255, 255, 255, 0.7));
+  font-size: $font-size-lg;
+}
+
+@media (max-width: 768px) {
+  .hex-texts-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hex-texts-tabs {
+    justify-content: flex-start;
+  }
+}

@@ -1,0 +1,56 @@
+.daliuren-top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 6;
+  display: flex;
+  justify-content: center;
+  padding: 14px 12px 8px;
+  backdrop-filter: blur(10px);
+}
+
+.daliuren-home-btn {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  border: 1px solid var(--dlr-border);
+  background: #ffffff;
+  color: var(--dlr-sub);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  outline: none;
+}
+
+.daliuren-top-nav-inner {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  padding: 6px;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1px solid var(--dlr-border);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+  width: min(92vw, 420px);
+}
+
+.daliuren-top-tab {
+  border: none;
+  background: transparent;
+  color: var(--dlr-sub);
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.daliuren-top-tab.active {
+  background: var(--dlr-accent);
+  color: #ffffff;
+  box-shadow: 0 6px 16px rgba(177, 139, 79, 0.25);
+  font-weight: 600;
+}

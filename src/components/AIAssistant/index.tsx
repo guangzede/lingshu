@@ -242,7 +242,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
             <>
               <MarkdownRenderer content={aiResponse} />
               {isGenerating && (
-                <View className="streaming-indicator" style={{ marginTop: '8px', color: '#15e0ff', fontSize: '12px' }}>
+                <View className="streaming-indicator">
                   <Text>● 正在生成中... ({elapsed}s)</Text>
                 </View>
               )}
@@ -254,14 +254,13 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
           <Button
             className="copy-btn"
             onClick={copyToClipboard}
-            style={{ marginTop: '8px', fontSize: '14px', padding: '6px 12px' }}
           >
             复制结果
           </Button>
         )}
       </View>
       {error && (
-        <View className="error-section" style={{ marginTop: '12px', color: '#ff6b6b' }}>
+        <View className="error-section">
           <Text>{error}</Text>
         </View>
       )}

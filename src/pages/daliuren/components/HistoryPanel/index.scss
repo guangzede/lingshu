@@ -1,0 +1,125 @@
+.daliuren-history-panel {
+  display: grid;
+  gap: 16px;
+}
+
+.daliuren-history-panel .history-header {
+  display: grid;
+  gap: 6px;
+}
+
+.daliuren-history-panel .history-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.daliuren-history-panel .history-count {
+  font-size: 0.8rem;
+  color: var(--dlr-sub);
+}
+
+.daliuren-history-panel .history-toolbar {
+  border: 1px solid var(--dlr-border);
+  border-radius: 12px;
+  padding: 8px;
+  background: #ffffff;
+}
+
+.daliuren-history-panel .history-search-row {
+  display: grid;
+  grid-template-columns: 50px 1fr 60px;
+  gap: 8px;
+  align-items: center;
+}
+
+.daliuren-history-panel .history-search-label {
+  color: var(--dlr-sub);
+  font-size: 0.82rem;
+}
+
+.daliuren-history-panel .history-search-input {
+  border: 1px solid var(--dlr-border);
+  border-radius: 12px;
+  padding: 6px 10px;
+  font-size: 0.85rem;
+}
+
+.daliuren-history-panel .history-clear {
+  border: 1px solid var(--dlr-border);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--dlr-sub);
+  font-size: 0.75rem;
+}
+
+.daliuren-history-panel .history-empty {
+  padding: 20px 0;
+  text-align: center;
+  color: var(--dlr-sub);
+}
+
+.daliuren-history-panel .case-card {
+  border: 1px solid var(--dlr-border);
+  border-radius: 14px;
+  padding: 12px;
+  background: #ffffff;
+  display: grid;
+  gap: 10px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05);
+}
+
+.daliuren-history-panel .case-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.daliuren-history-panel .case-number-title {
+  font-weight: 600;
+}
+
+.daliuren-history-panel .case-time {
+  font-size: 0.8rem;
+  color: var(--dlr-sub);
+}
+
+.daliuren-history-panel .remark-section {
+  display: grid;
+  gap: 4px;
+}
+
+.daliuren-history-panel .remark-label {
+  font-size: 0.75rem;
+  color: var(--dlr-sub);
+}
+
+.daliuren-history-panel .remark-text {
+  font-size: 0.85rem;
+}
+
+.daliuren-history-panel .case-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.daliuren-history-panel .btn-load {
+  background: var(--dlr-accent-soft);
+  border: 1px solid var(--dlr-accent);
+  border-radius: 10px;
+  color: var(--dlr-text);
+  font-size: 0.82rem;
+}
+
+.daliuren-history-panel .btn-delete {
+  background: #fdecec;
+  border: 1px solid #f0bcbc;
+  border-radius: 10px;
+  color: #b45353;
+  font-size: 0.82rem;
+}
+
+.daliuren-history-panel .history-note {
+  font-size: 0.75rem;
+  color: var(--dlr-sub);
+}

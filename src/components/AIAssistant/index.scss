@@ -1,21 +1,21 @@
 @use '../../styles/variables.scss' as *;
-@use '../../styles/mixins.scss' as *;
 
 .ai-assistant {
-  padding: $spacing-lg;
+  padding: 0;
+  margin-top: $spacing-sm;
 
   .ai-response-section {
-    margin-top: $spacing-lg;
+    margin-top: $spacing-sm;
 
     .ai-response-content {
-      font-size: $font-size-xl;
+      font-size: $font-size-lg;
       line-height: 1.6;
-      color: $color-text-secondary;
-      background: $color-bg-card;
-      padding: $spacing-lg;
-      border-radius: $border-radius-xxl;
+      color: var(--bazi-text, $color-text-secondary);
+      background: var(--bazi-card, rgba(255, 255, 255, 0.03));
+      padding: $spacing-md;
+      border-radius: $border-radius-lg;
       min-height: 200rpx;
-      border: 1px solid $color-border;
+      border: 1px solid var(--bazi-border, $color-border);
     }
 
     .loading-panel {
@@ -30,30 +30,30 @@
     .loading-spinner {
       width: 80rpx;
       height: 80rpx;
-      border: 6rpx solid rgba(255, 215, 0, 0.25);
-      border-top: 6rpx solid #FFD700;
+      border: 6rpx solid rgba(177, 139, 79, 0.2);
+      border-top: 6rpx solid rgba(177, 139, 79, 0.9);
       border-radius: 50%;
       animation: spin 0.9s linear infinite;
     }
 
     .loading-title {
-      font-size: $font-size-xxl;
-      color: $color-text-primary;
+      font-size: $font-size-xl;
+      color: var(--bazi-text, $color-text-primary);
     }
 
     .loading-subtitle {
       font-size: $font-size-lg;
-      color: $color-text-tertiary;
+      color: var(--bazi-sub, $color-text-tertiary);
     }
 
     .loading-elapsed {
-      font-size: $font-size-lg;
-      color: $color-text-secondary;
+      font-size: $font-size-md;
+      color: var(--bazi-sub, $color-text-secondary);
     }
 
     .loading-tips {
       font-size: $font-size-md;
-      color: $color-text-tertiary;
+      color: var(--bazi-sub, $color-text-tertiary);
     }
 
     .skeleton {
@@ -68,7 +68,12 @@
       width: 100%;
       height: 24rpx;
       border-radius: 12rpx;
-      background: linear-gradient(90deg, rgba(255,255,255,0.08), rgba(255,255,255,0.18), rgba(255,255,255,0.08));
+      background: linear-gradient(
+        90deg,
+        rgba(177, 139, 79, 0.07),
+        rgba(177, 139, 79, 0.16),
+        rgba(177, 139, 79, 0.07)
+      );
       background-size: 200% 100%;
       animation: shimmer 1.2s ease-in-out infinite;
     }
@@ -88,24 +93,48 @@
     }
   }
 
+  .streaming-indicator {
+    margin-top: $spacing-xs;
+    color: var(--bazi-accent, $color-accent);
+    font-size: $font-size-sm;
+  }
+
   .error-section {
-    font-size: $font-size-lg;
-    text-align: center;
-    color: #ff6b6b;
+    margin-top: $spacing-sm;
+    font-size: $font-size-md;
+    color: #c05a5a;
   }
 
   .primary-btn {
     width: 100%;
     height: 80rpx;
-    @include button-primary;
-    margin-top: $spacing-lg;
+    margin-top: $spacing-md;
+    background: rgba(177, 139, 79, 0.14);
+    border: 1px solid rgba(177, 139, 79, 0.28);
+    color: var(--bazi-text, $color-text-primary);
+    border-radius: $border-radius-lg;
+    font-size: $font-size-lg;
+    font-weight: 600;
+    &::after {
+      border: none;
+    }
+    &:disabled {
+      opacity: 0.6;
+      background: rgba(177, 139, 79, 0.1);
+    }
   }
 
   .copy-btn {
-    @include button-accent;
+    margin-top: $spacing-sm;
+    background: var(--bazi-card, rgba(255, 255, 255, 0.04));
+    border: 1px solid var(--bazi-border, rgba(255, 255, 255, 0.14));
+    color: var(--bazi-sub, $color-text-secondary);
+    border-radius: $border-radius-md;
+    font-size: $font-size-md;
     width: auto;
-    margin: $spacing-lg auto 0;
-    padding: 12rpx 24rpx;
-    font-size: $font-size-lg;
+    padding: 8rpx 20rpx;
+    &::after {
+      border: none;
+    }
   }
 }

@@ -113,8 +113,6 @@ const LiuyaoDivinationPage: React.FC = () => {
         isVisible={mode === 'count'}
       />
 
-      {/* 求测事项卡片 - 始终展示 */}
-      <QuestionCard value={question} onChange={setQuestion} readOnly={false} />
 
       {/* 中部：爻位排盘卡片 - 仅手动模式 */}
       <YaoMatrix
@@ -130,18 +128,25 @@ const LiuyaoDivinationPage: React.FC = () => {
             <Text className="card-section-title">摇卦起卦</Text>
             <Text className="card-section-guide">点击进行摇卦</Text>
           </View>
-          <ShakeCoins step={shakeStep} disabled={shakeStep >= 6} onDone={handleShakeDone} />
+          <ShakeCoins
+            step={shakeStep}
+            lines={lines}
+            disabled={shakeStep >= 6}
+            onDone={handleShakeDone}
+          />
         </View>
-      )}
+      )}     {/* 求测事项卡片 - 始终展示 */}
+      <QuestionCard value={question} onChange={setQuestion} readOnly={false} />
+
 
       {/* 排盘按钮 */}
-      {(mode === 'manual' || mode === 'count' || mode === 'auto') && (
+      {(mode === 'manual' || mode === 'count' || mode === 'auto' || (mode === 'shake' && shakeStep >= 6)) && (
         <View className="divinate-button-container">
           <View
             className="divinate-button"
             onClick={handlePaipan}
           >
-            <Text className="divinate-text">开始推演</Text>
+            <Text className="divinate-text">{mode === 'shake' ? '开始排盘' : '开始推演'}</Text>
             <View className="energy-flow" />
           </View>
         </View>

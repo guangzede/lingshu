@@ -1,0 +1,32 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="coin back">
+  <defs>
+    <radialGradient id="goldBack" cx="68%" cy="32%" r="75%">
+      <stop offset="0%" stop-color="#ffefb9"/>
+      <stop offset="38%" stop-color="#e8b244"/>
+      <stop offset="73%" stop-color="#b0771a"/>
+      <stop offset="100%" stop-color="#6d4610"/>
+    </radialGradient>
+    <radialGradient id="innerBack" cx="66%" cy="35%" r="82%">
+      <stop offset="0%" stop-color="#ffe8ab"/>
+      <stop offset="63%" stop-color="#cf9733"/>
+      <stop offset="100%" stop-color="#85581a"/>
+    </radialGradient>
+    <filter id="softShadowBack" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#3f2a0f" flood-opacity="0.38"/>
+    </filter>
+  </defs>
+  <g filter="url(#softShadowBack)">
+    <circle cx="256" cy="256" r="224" fill="url(#goldBack)"/>
+    <circle cx="256" cy="256" r="210" fill="none" stroke="#f3d17a" stroke-width="10" opacity="0.58"/>
+    <circle cx="256" cy="256" r="170" fill="url(#innerBack)"/>
+    <circle cx="256" cy="256" r="151" fill="none" stroke="#7b4f16" stroke-width="8" opacity="0.45"/>
+    <rect x="196" y="196" width="120" height="120" rx="4" fill="#f5e1b2"/>
+    <rect x="202" y="202" width="108" height="108" rx="3" fill="#bfa171"/>
+    <path d="M330 122c39 20 67 47 90 86" stroke="#fff4c8" stroke-width="16" stroke-linecap="round" opacity="0.3"/>
+    <path d="M130 330c26 40 56 63 106 80" stroke="#5a3b11" stroke-width="15" stroke-linecap="round" opacity="0.2"/>
+    <text x="256" y="106" text-anchor="middle" font-size="58" font-weight="700" fill="#7a2018">宝</text>
+    <text x="256" y="430" text-anchor="middle" font-size="58" font-weight="700" fill="#7a2018">背</text>
+    <text x="102" y="276" text-anchor="middle" font-size="54" font-weight="700" fill="#7a2018">吉</text>
+    <text x="410" y="276" text-anchor="middle" font-size="54" font-weight="700" fill="#7a2018">祥</text>
+  </g>
+</svg>

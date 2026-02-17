@@ -17,7 +17,8 @@ export interface HexagramTexts {
   name: string
   tuan?: string // 彖曰
   xiang?: string // 象曰
-  yao: string[] // 六爻爻辞，上爻在数组首位
+  yao: string[] // 六爻爻辞（JSON 内为初爻->上爻，函数返回时统一转为上爻->初爻）
+  yong?: string[] // 用九/用六（仅乾坤有）
 }
 
 const HEXAGRAM_TEXTS: Record<string, HexagramTexts> = (TEXTS || {}) as unknown as Record<string, HexagramTexts>
@@ -32,7 +33,8 @@ export function getHexagramTexts(hexName: string): HexagramTexts {
   if (found) {
     return {
       ...found,
-      yao: [...(found.yao || [])].slice().reverse()
+      yao: [...(found.yao || [])].slice().reverse(),
+      yong: [...(found.yong || [])]
     }
   }
 
@@ -42,11 +44,11 @@ export function getHexagramTexts(hexName: string): HexagramTexts {
     if (!k) continue
     if (hexName.includes(k)) {
       const hit = HEXAGRAM_TEXTS[k]
-      return { ...hit, yao: [...(hit.yao || [])].slice().reverse() }
+      return { ...hit, yao: [...(hit.yao || [])].slice().reverse(), yong: [...(hit.yong || [])] }
     }
     if (k.includes(hexName)) {
       const hit = HEXAGRAM_TEXTS[k]
-      return { ...hit, yao: [...(hit.yao || [])].slice().reverse() }
+      return { ...hit, yao: [...(hit.yao || [])].slice().reverse(), yong: [...(hit.yong || [])] }
     }
   }
   return {
@@ -60,7 +62,8 @@ export function getHexagramTexts(hexName: string): HexagramTexts {
       `三爻占位：${hexName}`,
       `二爻占位：${hexName}`,
       `初爻占位：${hexName}`
-    ]
+    ],
+    yong: []
   }
 }
 
@@ -97,12 +100,22 @@ export function getYaoObjectsReversed(hexName: string): Array<{ text: string; ma
 }
 
 /**
+ * 返回用九/用六文本（若存在）。
+ */
+export function getYongTexts(hexName: string): string[] {
+  const h = getHexagramTexts(hexName)
+  return [...(h.yong || [])]
+}
+
+/**
  * 扫描全部卦，返回那些没有任一爻包含“用九”或“用六”的卦名清单，便于人工补充。
  */
 export function reportHexagramsMissingYongMarkers(): string[] {
   return Object.keys(HEXAGRAM_TEXTS).filter((k) => {
     const h = HEXAGRAM_TEXTS[k]
-    const found = h.yao.some((s) => s.includes('用九') || s.includes('用六'))
+    const foundInYao = (h.yao || []).some((s) => s.includes('用九') || s.includes('用六'))
+    const foundInYong = (h.yong || []).some((s) => s.includes('用九') || s.includes('用六'))
+    const found = foundInYao || foundInYong
     return !found
   })
 }

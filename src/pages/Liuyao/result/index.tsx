@@ -13,6 +13,7 @@ import FloatingBar from './components/FloatingBar'
 import Drawer from './components/Drawer'
 import HistoryList from './components/HistoryList'
 import FiveElementsAnalysis from './components/FiveElementsAnalysis'
+import HexagramTexts from './components/HexagramTexts'
 // import ProfessionalAnalysisCard from './components/ProfessionalAnalysisCard'
 import QuestionCard from '../components/QuestionCard'
 import { getToken } from '@/services/auth'
@@ -230,7 +231,7 @@ const LiuyaoResultPage: React.FC = () => {
 
           {/* 爻位动态分析 */}
           <YaoAnalysis result={result} />
-
+          <HexagramTexts result={result} />
           {/* AI 分析与人工答疑 */}
           <AIAnalysisCard
             question={resolvedQuestion}
@@ -239,7 +240,8 @@ const LiuyaoResultPage: React.FC = () => {
             savedAiAnalysis={savedAiAnalysis}
             onAnalysisGenerated={setCurrentAiAnalysis}
           />
-          <HumanQACard question={resolvedQuestion} />
+          {/* <HumanQACard question={resolvedQuestion} /> */}
+
           {/* 专业分析卡片：生克制化、旺衰、特殊状态、进退神 */}
           {/* <ProfessionalAnalysisCard result={result} /> */}
         </View>

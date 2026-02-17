@@ -5,6 +5,8 @@ export default {
     'pages/bazi/index',
     'pages/bazi/result/index',
     'pages/bazi/history/index',
+    'pages/daliuren/index',
+    'pages/stock/index',
     'pages/testPage/index',
     'pages/auth/index',
     'pages/profile/index',
