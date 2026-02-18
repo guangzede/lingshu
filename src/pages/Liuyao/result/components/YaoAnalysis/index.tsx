@@ -74,7 +74,7 @@ const YaoAnalysis: React.FC<YaoAnalysisProps> = ({ result }) => {
             {/* 动爻分析：以当前动爻为主语 */}
             {isMoving && analysis && analysis.relations.length > 0 && (
               <Text className="yao-analysis-relations">
-                {item.yaoBranch || ''}{item.yaoWuxing || ''}：{analysis.relations.join('，')}
+                {analysis.relations.join('，')}
               </Text>
             )}
 

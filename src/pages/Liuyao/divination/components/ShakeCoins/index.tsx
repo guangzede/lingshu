@@ -9,7 +9,7 @@ interface ShakeCoinsProps {
   step: number
   lines: LineState[]
   disabled?: boolean
-  onDone: (heads: number) => void
+  onDone: (yaoValue: 6 | 7 | 8 | 9) => void
 }
 
 interface CoinSpinState {
@@ -60,7 +60,7 @@ export const ShakeCoins: React.FC<ShakeCoinsProps> = ({ step, lines, disabled, o
     }
   }, [])
 
-  const finishShake = React.useCallback((heads: number) => {
+  const finishShake = React.useCallback((yaoValue: 6 | 7 | 8 | 9) => {
     setCoins((prev) => prev.map((coin) => ({
       ...coin,
       tossing: false,
@@ -69,24 +69,26 @@ export const ShakeCoins: React.FC<ShakeCoinsProps> = ({ step, lines, disabled, o
       angle: settleAngle(coin.angle)
     })))
     setIsShaking(false)
-    onDone(heads)
+    onDone(yaoValue)
   }, [onDone])
 
   const startShake = React.useCallback(() => {
     if (isShaking || disabled) return
 
     const faceResults = [0, 1, 2].map(() => Math.random() >= 0.5)
-    const heads = faceResults.filter(Boolean).length
+    const total = faceResults.reduce<number>((sum, isFront) => sum + (isFront ? 2 : 3), 0)
+    const yaoValue: 6 | 7 | 8 | 9 = total === 6 || total === 7 || total === 8 ? total : 9
 
     const nextCoins = coinsRef.current.map((coin, idx) => {
       const currentAngle = settleAngle(coin.angle)
       const extraTurns = 6 + Math.floor(Math.random() * 5)
       const targetFace = faceResults[idx] ? 0 : 180
+      const targetDelta = targetFace - currentAngle
       const duration = 960 + Math.floor(Math.random() * 460)
       const delay = idx * 85 + Math.floor(Math.random() * 70)
       return {
         ...coin,
-        angle: currentAngle + extraTurns * 360 + targetFace,
+        angle: currentAngle + extraTurns * 360 + targetDelta,
         duration,
         delay,
         tossing: true
@@ -102,7 +104,7 @@ export const ShakeCoins: React.FC<ShakeCoinsProps> = ({ step, lines, disabled, o
       clearTimeout(finishTimerRef.current)
     }
     finishTimerRef.current = setTimeout(() => {
-      finishShake(heads)
+      finishShake(yaoValue)
     }, totalDuration + 120)
   }, [disabled, finishShake, isShaking])
 

@@ -217,14 +217,26 @@
 
 .liuyao-divination-page .question-input,
 .liuyao-divination-page .number-input-elegant {
-  background: #ffffff;
-  border: 1px solid var(--bazi-border);
+  background: #fffefb;
+  border: 1px solid #d8c9b2;
   color: var(--bazi-text);
 }
 
 .liuyao-divination-page .question-input::placeholder,
 .liuyao-divination-page .number-input-elegant::placeholder {
-  color: var(--bazi-muted);
+  color: #938476;
+}
+
+.liuyao-divination-page .input-container {
+  border: 1px solid #deaa5d;
+  border-radius: 10px;
+  background: #fffefb;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+}
+
+.liuyao-divination-page .input-container:focus-within {
+  border-color: #b18b4f;
+  box-shadow: 0 0 0 2px rgba(177, 139, 79, 0.14);
 }
 
 .liuyao-divination-page .card-section-title {
@@ -236,7 +248,6 @@
   color: var(--bazi-sub);
 }
 
-.liuyao-divination-page .input-button,
 .liuyao-divination-page .selected-tag {
   background: #ffffff;
   border: 1px solid var(--bazi-border);
@@ -244,9 +255,24 @@
   box-shadow: none;
 }
 
-.liuyao-divination-page .selected-tag:hover,
-.liuyao-divination-page .input-button:hover {
-  background: var(--bazi-soft);
+.liuyao-divination-page .input-button {
+  min-height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #fff7e9 0%, #f7ead4 100%);
+  border: 1px solid #caa56d;
+  color: #7f6337;
+  font-weight: 600;
+  box-shadow: 0 3px 10px rgba(177, 139, 79, 0.18);
+}
+
+.liuyao-divination-page .input-button:active {
+  transform: scale(0.98);
+  background: linear-gradient(180deg, #f7ead4 0%, #f0dfc3 100%);
+  box-shadow: 0 2px 6px rgba(177, 139, 79, 0.16);
 }
 
 .liuyao-divination-page .divinate-button {

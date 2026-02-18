@@ -1,43 +1,46 @@
 .stock-page {
-  --stock-bg: #f7f4ef;
-  --stock-card: #ffffff;
-  --stock-border: #e7ded2;
-  --stock-soft: #f5efe6;
-  --stock-text: #2f2923;
-  --stock-sub: #6a5f54;
-  --stock-muted: #9b8d7f;
+  --stock-bg: #f1ede6;
+  --stock-card: #fffdfa;
+  --stock-border: #d8cec0;
+  --stock-soft: #f2ece3;
+  --stock-text: #1d1813;
+  --stock-sub: #493e33;
+  --stock-muted: #66594c;
   --stock-accent: #b48a4f;
   --stock-accent-deep: #8f6837;
   --stock-shadow: 0 18px 32px rgba(28, 22, 15, 0.08);
   min-height: 100vh;
   background: var(--stock-bg);
-  padding: 16px 14px 28px;
+  padding: calc(env(safe-area-inset-top) + 70px) 14px 28px;
   color: var(--stock-text);
   font-family: "Noto Sans SC", "PingFang SC", sans-serif;
 }
 
 .stock-top-nav {
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 8;
+  left: 0;
+  right: 0;
+  z-index: 20;
   display: flex;
-  justify-content: center;
-  padding: 14px 12px 8px;
+  align-items: center;
+  justify-content: flex-start;
+  padding: calc(env(safe-area-inset-top) + 10px) 12px 8px;
   margin-bottom: 2px;
   backdrop-filter: blur(10px);
+  background: rgba(241, 237, 230, 0.94);
+  border-bottom: 1px solid rgba(216, 206, 192, 0.88);
 }
 
 .stock-home-btn {
-  position: absolute;
-  left: 12px;
-  top: 12px;
+  position: relative;
   height: 32px;
   line-height: 32px;
   padding: 0 12px;
   border-radius: 999px;
-  border: 1px solid var(--stock-border);
-  background: var(--stock-card);
-  color: var(--stock-sub);
+  border: 1px solid #d8cec0;
+  background: #ffffff;
+  color: #5b4f43;
   font-size: 0.8rem;
   letter-spacing: 0.08em;
   box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
@@ -62,7 +65,7 @@
 .stock-subtitle {
   display: block;
   margin-top: 4px;
-  color: var(--stock-sub);
+  color: #4e4338;
   font-size: 0.86rem;
   line-height: 1.5;
 }
@@ -161,6 +164,8 @@
 
 .form-card {
   margin-bottom: 12px;
+  padding: 14px 12px;
+  background: linear-gradient(180deg, #fffdfa 0%, #f6f1e9 100%);
 }
 
 .market-card,
@@ -175,8 +180,12 @@
   margin-bottom: 8px;
 }
 
+.market-card .section-title {
+  color: #201a14;
+}
+
 .market-update-time {
-  color: var(--stock-muted);
+  color: #5f5245;
   font-size: 0.7rem;
 }
 
@@ -195,7 +204,7 @@
 
 .market-index-name {
   display: block;
-  color: var(--stock-sub);
+  color: #4f4338;
   font-size: 0.72rem;
 }
 
@@ -219,7 +228,7 @@
 }
 
 .market-index-change.down {
-  color: var(--stock-sub);
+  color: #1f8f55;
 }
 
 .market-breadth {
@@ -231,25 +240,35 @@
 .breadth-chip {
   flex: 1;
   text-align: center;
-  border: 1px solid var(--stock-border);
+  border: 1px solid #d5ccbe;
   border-radius: 999px;
   padding: 4px 0;
   font-size: 0.72rem;
+  font-weight: 700;
 }
 
 .breadth-chip.up {
-  color: #9e4232;
-  background: #fbeee9;
+  background: #fdece8;
+  border-color: #f0c6bd;
+  taro-text-core {
+    color: #b83e2e;
+  }
 }
 
 .breadth-chip.down {
-  color: var(--stock-sub);
-  background: #f1ece3;
+  background: #e7f6ed;
+  border-color: #badec7;
+  taro-text-core {
+    color: #1e8d53;
+  }
 }
 
 .breadth-chip.flat {
-  color: var(--stock-sub);
-  background: var(--stock-soft);
+  background: #eef2f5;
+  border-color: #d7dfe6;
+  taro-text-core {
+    color: #5f6a75;
+  }
 }
 
 .board-grid {
@@ -277,7 +296,7 @@
 }
 
 .board-col-title.down {
-  color: var(--stock-sub);
+  color: #1f8f55;
 }
 
 .board-row {
@@ -310,7 +329,7 @@
 .board-code {
   display: block;
   margin-top: 1px;
-  color: var(--stock-muted);
+  color: #5f5245;
   font-size: 0.64rem;
 }
 
@@ -325,7 +344,7 @@
 }
 
 .board-pct.down {
-  color: var(--stock-sub);
+  color: #1f8f55;
 }
 
 .market-empty {
@@ -336,14 +355,15 @@
 }
 
 .field-row {
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .field-row-primary {
-  border: 1px solid rgba(180, 138, 79, 0.25);
+  border: 1px solid rgba(180, 138, 79, 0.32);
   background: #fffaf2;
-  border-radius: 10px;
-  padding: 8px;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
 }
 
 .field-row-primary .field-input {
@@ -358,8 +378,9 @@
 
 .field-label {
   display: block;
-  color: var(--stock-sub);
-  font-size: 0.8rem;
+  color: #453a2f;
+  font-size: 0.82rem;
+  font-weight: 600;
   margin-bottom: 6px;
   letter-spacing: 0.04em;
 }
@@ -378,16 +399,18 @@
 .field-input {
   width: 100%;
   max-width: 100%;
+  min-width: 0;
   display: block;
-  height: 42px;
-  line-height: 42px;
-  border-radius: 9px;
-  border: 1px solid var(--stock-border);
-  background: var(--stock-soft);
-  padding: 0 10px;
-  color: var(--stock-text);
+  height: 1.5;
+  line-height: 1.5;
+  border-radius: 10px;
+  border: 1px solid #d0c4b4;
+  background: #fffdf9;
+  padding: 0 12px;
+  color: #2a231c;
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: 600;
+  box-sizing: border-box;
   letter-spacing: 0;
   white-space: nowrap;
   overflow: hidden;
@@ -395,7 +418,7 @@
 }
 
 .field-input-stock {
-  border: 2px solid rgba(180, 138, 79, 0.45);
+  border: 2px solid rgba(180, 138, 79, 0.58);
   background: #fff;
   box-shadow: inset 0 1px 0 rgba(255, 250, 240, 0.9);
 }
@@ -408,9 +431,9 @@
 }
 
 .field-input-stock::placeholder {
-  color: #8d7d6c;
+  color: #796a5a;
   font-size: 0.86rem;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .quick-fill-block {
@@ -419,8 +442,9 @@
 
 .quick-fill-label {
   display: block;
-  color: var(--stock-muted);
-  font-size: 0.72rem;
+  color: #4d4136;
+  font-size: 0.74rem;
+  font-weight: 600;
   margin-bottom: 6px;
 }
 
@@ -432,24 +456,32 @@
 
 .quick-fill-chip {
   min-width: calc(50% - 3px);
-  border: 1px solid var(--stock-border);
-  border-radius: 9px;
-  background: var(--stock-soft);
-  padding: 6px 8px;
+  border: 1px solid #d4c8b9;
+  border-radius: 10px;
+  background: #fffbf5;
+  padding: 8px 10px;
+  box-shadow: 0 2px 6px rgba(36, 29, 22, 0.05);
+}
+
+.quick-fill-chip:active {
+  transform: scale(0.985);
+  background: #f7f1e7;
 }
 
 .quick-fill-name {
   display: block;
-  color: var(--stock-text);
+  color: #2a231c;
   font-size: 0.78rem;
+  font-weight: 700;
   line-height: 1.35;
 }
 
 .quick-fill-code {
   display: block;
   margin-top: 1px;
-  color: var(--stock-muted);
+  color: #54473b;
   font-size: 0.68rem;
+  font-weight: 600;
   line-height: 1.3;
 }
 
@@ -488,31 +520,51 @@
 
 .hint-text {
   display: block;
-  margin-bottom: 8px;
-  color: var(--stock-muted);
+  margin-bottom: 10px;
+  color: #504438;
   font-size: 0.74rem;
+  font-weight: 600;
 }
 
 .predict-btn {
-  height: 46px;
-  line-height: 46px;
-  border-radius: 10px;
-  border: 1px solid #16120e;
-  color: #f7d69c;
-  background: linear-gradient(180deg, #1c1815 0%, #100e0c 100%);
-  font-size: 1.02rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  box-shadow: 0 10px 18px rgba(20, 15, 10, 0.2);
+  width: 100%;
+  line-height: 2.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 18px;
+  box-sizing: border-box;
+  border-radius: 999px;
+  border: none !important;
+  color: #f7d69c !important;
+  background: linear-gradient(180deg, #1d1d1d 0%, #000000 100%) !important;
+  letter-spacing: 0.12em;
+  opacity: 1;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .predict-btn::after {
   border: none;
 }
 
+.predict-btn text,
+.predict-btn .taro-text {
+  color: #f7d69c !important;
+  font-size: 1rem !important;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
 .predict-btn:active {
   transform: translateY(1px) scale(0.99);
-  box-shadow: 0 6px 12px rgba(20, 15, 10, 0.16);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.16);
+}
+
+.predict-btn:disabled {
+  color: rgba(247, 214, 156, 0.7);
+  background: linear-gradient(180deg, #2a2a2a 0%, #141414 100%);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+  opacity: 0.75;
 }
 
 .steps-card {
@@ -602,8 +654,8 @@
 }
 
 .history-direction.down {
-  color: var(--stock-sub);
-  background: #f1ece3;
+  color: #1f8f55;
+  background: #e8f6ee;
 }
 
 .result-card {
@@ -645,9 +697,9 @@
 }
 
 .direction-tag.down {
-  color: var(--stock-sub);
-  background: #f1ece3;
-  border-color: var(--stock-border);
+  color: #1f8f55;
+  background: #e8f6ee;
+  border-color: #b8dfc7;
 }
 
 .quote-row {
@@ -673,7 +725,7 @@
 }
 
 .quote-change.down {
-  color: var(--stock-sub);
+  color: #1f8f55;
 }
 
 .prob-section {
@@ -708,7 +760,7 @@
 }
 
 .prob-fill.down {
-  background: linear-gradient(90deg, #a59785, #7b6d5d);
+  background: linear-gradient(90deg, #4cbf82, #1f8f55);
 }
 
 .metrics-grid {

@@ -3,9 +3,15 @@
 .ai-assistant {
   padding: 0;
   margin-top: $spacing-sm;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 
   .ai-response-section {
     margin-top: $spacing-sm;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
 
     .ai-response-content {
       font-size: $font-size-lg;
@@ -16,6 +22,10 @@
       border-radius: $border-radius-lg;
       min-height: 200rpx;
       border: 1px solid var(--bazi-border, $color-border);
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
 
       &.is-empty {
         display: flex;
@@ -76,6 +86,9 @@
       align-items: center;
       gap: $spacing-xs;
       color: var(--bazi-sub, $color-text-secondary);
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
     }
 
     .empty-title {

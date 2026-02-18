@@ -9,7 +9,7 @@ export interface ModeStateHook {
   setShakeStep: (step: number) => void
   modeForPaipan: PaipanMode
   handleModeChange: (m: PaipanMode | 'shake') => void
-  handleShakeDone: (heads: number) => void
+  handleShakeDone: (yaoValue: 6 | 7 | 8 | 9) => void
 }
 
 export const useModeState = (): ModeStateHook => {
@@ -79,23 +79,23 @@ export const useModeState = (): ModeStateHook => {
   }
 
   // 应用摇卦结果
-  const applyShakeResult = (heads: number, targetIndex: number) => {
-    // 三枚铜钱定爻（正面记 3，反面记 2）：
-    // 3正=9 太阳；2正=8 少阴；1正=7 少阳；0正=6 太阴
+  const applyShakeResult = (yaoValue: 6 | 7 | 8 | 9, targetIndex: number) => {
+    // 三枚铜钱定爻（正面记2，反面记3）：
+    // 6=太阴(动)；7=少阳(静)；8=少阴(静)；9=太阳(动)
     let state: 'taiyin' | 'taiyang' | 'shaoyin' | 'shaoyang'
-    if (heads >= 3) state = 'taiyang'
-    else if (heads === 2) state = 'shaoyin'
-    else if (heads === 1) state = 'shaoyang'
-    else state = 'taiyin'
+    if (yaoValue === 6) state = 'taiyin'
+    else if (yaoValue === 7) state = 'shaoyang'
+    else if (yaoValue === 8) state = 'shaoyin'
+    else state = 'taiyang'
     setLineState(targetIndex, state)
   }
 
   // 摇卦完成处理
-  const handleShakeDone = (heads: number) => {
+  const handleShakeDone = (yaoValue: 6 | 7 | 8 | 9) => {
     if (shakeStep >= 6) return
     // 摇卦应按“自下而上”写入：第1次=初爻(index 5)，第6次=上爻(index 0)
     const targetIndex = 5 - shakeStep
-    applyShakeResult(heads, targetIndex)
+    applyShakeResult(yaoValue, targetIndex)
     const nextStep = shakeStep + 1
     setShakeStep(nextStep)
   }
