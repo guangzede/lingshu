@@ -8,31 +8,16 @@
   backdrop-filter: blur(10px);
 }
 
-.bazi-home-btn {
-  position: absolute;
-  left: 12px;
-  top: 12px;
-  border: 1px solid var(--bazi-border);
-  background: #ffffff;
-  color: var(--bazi-sub);
-  padding: 6px 12px;
-  border-radius: 999px;
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
-  cursor: pointer;
-  outline: none;
-}
-
 .bazi-top-nav-inner {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 6px;
   padding: 6px;
   border-radius: 999px;
   background: #ffffff;
   border: 1px solid var(--bazi-border);
   box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
-  width: min(92vw, 420px);
+  width: min(92vw, 520px);
 }
 
 .bazi-top-tab {

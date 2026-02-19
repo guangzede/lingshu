@@ -290,6 +290,7 @@ const HePan: React.FC = () => {
     if (isPair(left.branch, right.branch, BRANCH_CHONG)) labels.push('支冲')
     if (isPair(left.branch, right.branch, BRANCH_XING)) labels.push('支刑')
     if (isPair(left.branch, right.branch, BRANCH_HAI)) labels.push('支害')
+
     const label = labels.length ? labels.join(' · ') : '平'
     const tone = labels.some((item) => item.includes('冲') || item.includes('刑') || item.includes('害') || item.includes('克'))
       ? 'warn'

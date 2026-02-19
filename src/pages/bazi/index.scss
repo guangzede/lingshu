@@ -37,6 +37,7 @@
   color: #2b2b2b;
   border: 1px solid rgba(0, 0, 0, 0.06);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  margin-top: 30px;
 }
 
 .bazi-page.bazi-result-page {
@@ -1452,7 +1453,7 @@
   display: inline-block;
   background: transparent;
   border: 1px solid #000;
-  color: #f7d69c;
+  color: #402f12;
   font-size: 0.9rem;
   padding: 8px 14px;
 }
@@ -2502,6 +2503,7 @@
 .bazi-ghost-btn {
   border: 1px solid var(--bazi-border);
   color: var(--bazi-sub);
+
   background: #ffffff;
   border-radius: 999px;
   padding: 9px 18px;

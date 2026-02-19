@@ -4,6 +4,7 @@ import TopNav from './components/TopNav'
 import ResultPanel from './components/ResultPanel'
 import HistoryPanel from './components/HistoryPanel'
 import { useBaziStore } from '@/store/bazi'
+import AuthStatusBar from '@/components/AuthStatusBar'
 import './index.scss'
 
 const BaZiPage: React.FC = () => {
@@ -15,6 +16,7 @@ const BaZiPage: React.FC = () => {
     <div
       className={`bazi-page ${isInput || isHistory ? 'bazi-input-page' : ''} ${isResult ? 'bazi-result-page' : ''} ${isHistory ? 'bazi-history-page' : ''}`}
     >
+      <AuthStatusBar />
       <TopNav active={activeTab} onSelect={setActiveTab} />
       {activeTab === 'input' && <UserInput />}
       {activeTab === 'result' && <ResultPanel />}

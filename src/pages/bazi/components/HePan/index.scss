@@ -87,7 +87,7 @@
 
 .hepan-network {
   display: grid;
-  gap: 10px;
+  margin-top: 30px;
   padding: 12px;
   background: #fbf8f2;
   border: 1px solid rgba(47, 41, 35, 0.08);
@@ -110,7 +110,12 @@
 
 .hepan-network-corner {
   position: relative;
-  background: linear-gradient(135deg, #fff3e3 0 50%, #efe9fb 50% 100%);
+  background: linear-gradient(
+    135deg,
+    #fff3e3 0 49%,
+    rgba(47, 41, 35, 0.14) 49% 51%,
+    #efe9fb 51% 100%
+  );
   border: 1px solid rgba(47, 41, 35, 0.08);
   border-radius: 12px;
   overflow: hidden;
@@ -127,36 +132,39 @@
 
 .corner-base {
   background: transparent;
-  clip-path: none;
+  clip-path: polygon(0 0, 0 100%, 100% 100%);
 }
 
 .corner-target {
   background: transparent;
-  clip-path: none;
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
 }
 
 .corner-diag em {
   position: absolute;
   font-style: normal;
-  font-size: 0.58rem;
-  letter-spacing: 0.04em;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
   line-height: 1;
   white-space: nowrap;
-  color: var(--bazi-sub);
+  color: #5a4d40;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(47, 41, 35, 0.12);
+  border-radius: 999px;
+  padding: 2px 7px;
 }
 
 .corner-base em {
-  left: 18%;
-  top: 18%;
-  transform: rotate(-45deg);
-  transform-origin: left top;
+  left: 6px;
+  bottom: 6px;
+  transform: none;
 }
 
 .corner-target em {
-  right: 18%;
-  bottom: 18%;
-  transform: rotate(-45deg);
-  transform-origin: right bottom;
+  right: 6px;
+  top: 6px;
+  transform: none;
 }
 
 .hepan-network-head,

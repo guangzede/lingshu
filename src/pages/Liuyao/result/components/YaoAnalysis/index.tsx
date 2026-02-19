@@ -5,13 +5,13 @@ import type { LiuyaoResult } from '../../../types'
 import './index.scss'
 
 interface YaoAnalysisProps {
-  result: LiuyaoResult
+  result: LiuyaoResult | null | undefined
 }
 
 type TagLike = { code?: string; label: string; type?: string; description?: string }
 
 const YaoAnalysis: React.FC<YaoAnalysisProps> = ({ result }) => {
-  const yaoUi = result.yaoUi || []
+  const yaoUi = Array.isArray(result?.yaoUi) ? result.yaoUi : []
 
   const handleTagClick = (tag: TagLike) => {
     if (!tag.description) return
@@ -27,6 +27,12 @@ const YaoAnalysis: React.FC<YaoAnalysisProps> = ({ result }) => {
       <View className="yao-analysis-header">
         <Text className="yao-analysis-title">爻位动态</Text>
       </View>
+
+      {yaoUi.length === 0 && (
+        <View className="yao-analysis-empty">
+          <Text className="yao-analysis-empty-text">暂无爻位动态，请先完成排盘</Text>
+        </View>
+      )}
 
       {yaoUi.map((item: any) => {
         const isMoving = item.isMoving

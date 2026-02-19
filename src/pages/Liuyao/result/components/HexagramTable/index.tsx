@@ -9,7 +9,13 @@ interface HexagramTableProps {
 
 export const HexagramTable: React.FC<HexagramTableProps> = ({ result }) => {
   const table = result.hexagramTable
-  if (!table) return null
+  if (!table) {
+    return (
+      <View className="hexagram-table module-empty-wrap">
+        <Text className="module-empty-text">暂无卦象数据，请先完成排盘</Text>
+      </View>
+    )
+  }
 
   return (
     <View className="hexagram-table">

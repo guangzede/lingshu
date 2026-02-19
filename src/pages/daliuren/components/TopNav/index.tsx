@@ -2,17 +2,27 @@ import React from 'react'
 import Taro from '@tarojs/taro'
 import './index.scss'
 
-type NavKey = 'input' | 'result' | 'history'
+type NavKey = 'home' | 'input' | 'result' | 'history'
+type ActiveNavKey = Exclude<NavKey, 'home'>
 
 const NAVS: Array<{ key: NavKey; label: string; url: string }> = [
+  { key: 'home', label: '首页', url: '/pages/index/index' },
   { key: 'input', label: '排盘', url: '/pages/daliuren/index' },
   { key: 'result', label: '结果', url: '/pages/daliuren/index' },
   { key: 'history', label: '记录', url: '/pages/daliuren/index' }
 ]
 
-const TopNav: React.FC<{ active: NavKey; onSelect?: (key: NavKey) => void }> = ({ active, onSelect }) => {
+const TopNav: React.FC<{ active: ActiveNavKey; onSelect?: (key: ActiveNavKey) => void }> = ({ active, onSelect }) => {
   const handleGo = async (url: string, key: NavKey) => {
     if (key === active) return
+    if (key === 'home') {
+      try {
+        await Taro.reLaunch({ url })
+      } catch (err) {
+        await Taro.navigateTo({ url })
+      }
+      return
+    }
     if (onSelect) {
       onSelect(key)
       return
@@ -26,18 +36,6 @@ const TopNav: React.FC<{ active: NavKey; onSelect?: (key: NavKey) => void }> = (
 
   return (
     <div className="daliuren-top-nav">
-      <button
-        className="daliuren-home-btn"
-        onClick={() => {
-          try {
-            Taro.reLaunch({ url: '/pages/index/index' })
-          } catch (err) {
-            Taro.navigateTo({ url: '/pages/index/index' })
-          }
-        }}
-      >
-        首页
-      </button>
       <div className="daliuren-top-nav-inner">
         {NAVS.map((item) => (
           <button

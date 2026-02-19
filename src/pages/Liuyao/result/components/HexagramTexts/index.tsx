@@ -31,7 +31,23 @@ const HexagramTexts: React.FC<HexagramTextsProps> = ({ result }) => {
     }
   }, [hasBase, hasVariant, active])
 
-  if (!hasBase && !hasVariant) return null
+  if (!hasBase && !hasVariant) {
+    return (
+      <View className="glass-card hex-texts-card">
+        <View className="hex-texts-header">
+          <View className="card-header">
+            <View className="hex-texts-title-wrap">
+              <Text className="card-section-title">卦词·象曰·爻辞</Text>
+              <Text className="card-section-guide">暂无卦象</Text>
+            </View>
+          </View>
+        </View>
+        <View className="hex-texts-body">
+          <Text className="hex-texts-empty">暂无卦辞数据，请先完成排盘</Text>
+        </View>
+      </View>
+    )
+  }
 
   const currentName = active === 'variant' ? variantName : baseName
   if (!currentName) return null

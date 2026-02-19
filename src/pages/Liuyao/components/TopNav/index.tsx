@@ -2,17 +2,27 @@ import React from 'react'
 import Taro from '@tarojs/taro'
 import './index.scss'
 
-type NavKey = 'divination' | 'result' | 'history'
+type NavKey = 'home' | 'divination' | 'result' | 'history'
+type ActiveNavKey = Exclude<NavKey, 'home'>
 
 const NAVS: Array<{ key: NavKey; label: string; url: string }> = [
+  { key: 'home', label: '首页', url: '/pages/index/index' },
   { key: 'divination', label: '起卦', url: '/pages/Liuyao/divination/index' },
   { key: 'result', label: '结果', url: '/pages/Liuyao/result/index' },
   { key: 'history', label: '记录', url: '/pages/LiuyaoHistory/index' }
 ]
 
-const TopNav: React.FC<{ active: NavKey }> = ({ active }) => {
+const TopNav: React.FC<{ active: ActiveNavKey }> = ({ active }) => {
   const handleGo = async (url: string, key: NavKey) => {
     if (key === active) return
+    if (key === 'home') {
+      try {
+        await Taro.reLaunch({ url })
+      } catch (err) {
+        await Taro.navigateTo({ url })
+      }
+      return
+    }
     try {
       const pages = typeof Taro.getCurrentPages === 'function' ? Taro.getCurrentPages() : []
       const targetRoute = url.replace(/^\//, '')
@@ -32,18 +42,6 @@ const TopNav: React.FC<{ active: NavKey }> = ({ active }) => {
 
   return (
     <div className="liuyao-top-nav">
-      <button
-        className="liuyao-home-btn"
-        onClick={() => {
-          try {
-            Taro.reLaunch({ url: '/pages/index/index' })
-          } catch (err) {
-            Taro.navigateTo({ url: '/pages/index/index' })
-          }
-        }}
-      >
-        首页
-      </button>
       <div className="liuyao-top-nav-inner">
         {NAVS.map((item) => (
           <button

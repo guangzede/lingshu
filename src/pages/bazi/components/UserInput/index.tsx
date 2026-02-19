@@ -524,6 +524,7 @@ const UserInput: React.FC = () => {
                 <input
                   type="checkbox"
                   checked={autoSave}
+                  style={{ "visibility": "hidden" }}
                   onChange={(e) => setAutoSave(e.target.checked)}
                 />
                 <span className="bazi-switch-track" />

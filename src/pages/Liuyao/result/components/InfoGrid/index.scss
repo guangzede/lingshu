@@ -1,5 +1,5 @@
-@use '../../../../../styles/variables.scss' as *;
-@use '../../../../../styles/mixins.scss' as *;
+@use "../../../../../styles/variables.scss" as *;
+@use "../../../../../styles/mixins.scss" as *;
 
 .info-grid-card {
   margin: $spacing-md $spacing-md;
@@ -81,7 +81,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom:0;
+  margin-bottom: 0;
   padding-bottom: $spacing-md;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
@@ -126,4 +126,16 @@
 .shensha-val {
   font-size: $font-size-sm;
   color: $color-text-tertiary;
+}
+
+.module-empty-text-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 120px;
+}
+
+.module-empty-text {
+  font-size: $font-size-lg;
+  color: $color-text-secondary;
 }

@@ -39,6 +39,18 @@
   color: $color-text-primary;
 }
 
+.yao-analysis-empty {
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.yao-analysis-empty-text {
+  font-size: $font-size-md;
+  color: $color-text-secondary;
+}
+
 .yao-analysis-item {
   margin-bottom: $spacing-md;
   padding: $spacing-sm;
@@ -165,10 +177,9 @@
 }
 
 .yao-tag-neutral {
-
   background: rgba(255, 215, 140, 0.06);
   border-color: rgba(255, 215, 140, 0.2);
-  .yao-tag-label{
+  .yao-tag-label {
     color: #ffd78c;
   }
 }

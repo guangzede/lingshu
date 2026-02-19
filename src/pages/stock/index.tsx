@@ -11,6 +11,7 @@ import {
   type StockPredictionResult,
   type StockSuggestion
 } from '@/services/stock'
+import AuthStatusBar from '@/components/AuthStatusBar'
 import './index.scss'
 
 const formatProb = (value: number) => `${(value * 100).toFixed(1)}%`
@@ -69,6 +70,23 @@ const StockPage: React.FC = () => {
   const [history, setHistory] = React.useState<PredictionHistoryItem[]>([])
   const [marketOverview, setMarketOverview] = React.useState<StockMarketOverview | null>(null)
   const [marketLoading, setMarketLoading] = React.useState(false)
+
+  const handleMatchStocks = React.useCallback(async () => {
+    const keyword = stockName.trim()
+    if (keyword.length < 2) {
+      Taro.showToast({ title: '请输入至少2个字进行匹配', icon: 'none' })
+      return
+    }
+    setIsSuggesting(true)
+    try {
+      const list = await fetchStockSuggestions(keyword)
+      setSuggestions(list)
+    } catch {
+      setSuggestions([])
+    } finally {
+      setIsSuggesting(false)
+    }
+  }, [stockName])
 
   React.useEffect(() => {
     try {
@@ -191,19 +209,25 @@ const StockPage: React.FC = () => {
 
   return (
     <View className='stock-page'>
+      <AuthStatusBar />
       <View className='stock-top-nav'>
-        <Button
-          className='stock-home-btn'
-          onClick={() => {
-            try {
-              Taro.reLaunch({ url: '/pages/index/index' })
-            } catch {
-              Taro.navigateTo({ url: '/pages/index/index' })
-            }
-          }}
-        >
-          首页
-        </Button>
+        <View className='stock-top-nav-inner'>
+          <View
+            className='stock-top-tab'
+            onClick={() => {
+              try {
+                Taro.reLaunch({ url: '/pages/index/index' })
+              } catch {
+                Taro.navigateTo({ url: '/pages/index/index' })
+              }
+            }}
+          >
+            <Text>首页</Text>
+          </View>
+          <View className='stock-top-tab active'>
+            <Text>干支预测</Text>
+          </View>
+        </View>
       </View>
 
       <View className='stock-header'>
@@ -320,13 +344,23 @@ const StockPage: React.FC = () => {
             <Text className='field-label'>股票名称</Text>
             <Text className='field-label-tag'>必填</Text>
           </View>
-          <Input
-            className='field-input field-input-stock'
-            type='text'
-            value={stockName}
-            placeholder='例如：贵州茅台 / 600519'
-            onInput={(e) => setStockName(e.detail.value)}
-          />
+          <View className='field-input-with-action'>
+            <Input
+              className='field-input field-input-stock'
+              type='text'
+              value={stockName}
+              placeholder='例如：贵州茅台 / 600519'
+              onInput={(e) => setStockName(e.detail.value)}
+            />
+            {stockName.trim() ? (
+              <View
+                className='field-inline-action'
+                onClick={handleMatchStocks}
+              >
+                <Text>匹配</Text>
+              </View>
+            ) : null}
+          </View>
         </View>
 
         <View className='quick-fill-block'>

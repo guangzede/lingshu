@@ -9,7 +9,19 @@ interface InfoGridProps {
 
 const InfoGrid: React.FC<InfoGridProps> = ({ result }) => {
   const info = result.infoGrid
-  if (!info) return null
+  if (!info) {
+    return (
+      <View className="glass-card info-grid-card">
+        <View className="card-header">
+          <Text className="card-section-title">占象信息</Text>
+          <Text className="card-section-guide">仅供娱乐参考</Text>
+        </View>
+        <View className="module-empty-text-wrap">
+          <Text className="module-empty-text">暂无占象数据，请先完成排盘</Text>
+        </View>
+      </View>
+    )
+  }
   return (
     <View className="glass-card info-grid-card">
       <View className="card-header">

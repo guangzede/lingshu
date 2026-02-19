@@ -75,22 +75,15 @@ const LiuyaoResultPage: React.FC = () => {
     }
   }, [isPcMode, drawerOpen, handleOpenDrawer])
 
-  // 尝试从本地加载结果，如果没有则返回起卦页
   React.useEffect(() => {
-    if (!result) {
-      Taro.redirectTo({
-        url: '/pages/Liuyao/divination/index'
-      })
-    } else {
-      // 如果是从历史加载的，恢复 AI 分析报告
-      if (isLoadingHistory && result.aiAnalysis) {
-        setSavedAiAnalysis(result.aiAnalysis)
-        setCurrentAiAnalysis(result.aiAnalysis)
-      }
+    if (result && isLoadingHistory && result.aiAnalysis) {
+      setSavedAiAnalysis(result.aiAnalysis)
+      setCurrentAiAnalysis(result.aiAnalysis)
     }
   }, [result, isLoadingHistory])
 
   const refreshAttemptedRef = React.useRef(false)
+  const safeResult = (result || {}) as any
 
   React.useEffect(() => {
     if (!result || !isLoadingHistory || refreshAttemptedRef.current) return
@@ -114,10 +107,6 @@ const LiuyaoResultPage: React.FC = () => {
     }
   }, [question, resolvedQuestion, setQuestion])
 
-  if (!result) {
-    return null
-  }
-
   // 计算五行能量（仅 base_score）
   const fiveElementCounts = {
     metal: { base: 0 },
@@ -133,11 +122,11 @@ const LiuyaoResultPage: React.FC = () => {
     '火': 'fire',
     '土': 'earth'
   }
-  const energyLines = result.energyAnalysis?.lines || []
-  if (energyLines.length > 0 && Array.isArray(result.yaos)) {
+  const energyLines = safeResult.energyAnalysis?.lines || []
+  if (energyLines.length > 0 && Array.isArray(safeResult.yaos)) {
     energyLines.forEach((line: any) => {
       const index = (line.position || 1) - 1
-      const yao = result.yaos?.[index]
+      const yao = safeResult.yaos?.[index]
       const element = yao?.fiveElement
       if (element && elementMap[element]) {
         fiveElementCounts[elementMap[element]].base += Number(line.base_score || 0)
@@ -145,7 +134,7 @@ const LiuyaoResultPage: React.FC = () => {
     })
   } else {
     // fallback：无能量评分时按数量统计
-    result.yaos?.forEach((yao: any) => {
+    safeResult.yaos?.forEach((yao: any) => {
       const element = yao?.fiveElement
       if (element && elementMap[element]) {
         fiveElementCounts[elementMap[element]].base++
@@ -167,7 +156,7 @@ const LiuyaoResultPage: React.FC = () => {
         </View>
 
         {/* 干支信息卡片 */}
-        <InfoGrid result={result} />
+        <InfoGrid result={safeResult} />
 
         {/* 卦象详细分析卡片 */}
         <View className="glass-card analysis-card">
@@ -177,7 +166,7 @@ const LiuyaoResultPage: React.FC = () => {
           </View>
 
           {/* 本卦和变卦表格 */}
-          <HexagramTable result={result} />
+          <HexagramTable result={safeResult} />
           {/* 五行能量分析 */}
           <View className={`five-elements-wrap ${isLoggedIn ? '' : 'is-locked'}`}>
             <View className="five-elements-content">
@@ -202,12 +191,12 @@ const LiuyaoResultPage: React.FC = () => {
           {/* <BranchRelation result={result} /> */}
 
           {/* 爻位动态分析 */}
-          <YaoAnalysis result={result} />
-          <HexagramTexts result={result} />
+          <YaoAnalysis result={safeResult} />
+          <HexagramTexts result={safeResult} />
           {/* AI 分析与人工答疑 */}
           <AIAnalysisCard
             question={resolvedQuestion}
-            result={result}
+            result={safeResult}
             isFromHistory={isLoadingHistory}
             savedAiAnalysis={savedAiAnalysis}
             onAnalysisGenerated={setCurrentAiAnalysis}
