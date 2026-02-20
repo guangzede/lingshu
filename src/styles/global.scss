@@ -2,13 +2,13 @@
 @use './mixins.scss' as *;
 
 
-page {
+page, body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   background-color: $color-bg-primary;
   color: $color-text-primary;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: "Songti SC", "SimSun", "STSong", "Noto Serif SC", serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
