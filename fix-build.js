@@ -1,7 +1,8 @@
-import fs from 'fs';
-import path from 'path';
+const fs = require('fs');
+const path = require('path');
 
 function fixFiles(dir) {
+  if (!fs.existsSync(dir)) return;
   const files = fs.readdirSync(dir);
   files.forEach(file => {
     const filePath = path.join(dir, file);
