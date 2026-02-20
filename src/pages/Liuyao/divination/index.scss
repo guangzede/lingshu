@@ -3,11 +3,8 @@
 
 // 六爻起卦页面全局样式
 .liuyao-divination-page {
-  min-height: 100vh;
-  background: $color-bg-primary;
-  color: $color-text-primary;
+  @include mystical-page-bg;
   padding-bottom: $spacing-xl;
-  font-family: "Songti SC", "SimSun", "STSong", "Noto Serif SC", serif;
 
   // PC 模式下的布局优化
   @media (min-width: 1024px) {
@@ -21,10 +18,7 @@
 
 // 玻璃态卡片样式
 .glass-card {
-  @include card-style;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  @include mystical-card;
 }
 
 // 摇卦区域样式
@@ -51,25 +45,13 @@
 }
 
 .divinate-button {
+  @include mystical-button;
   position: relative;
-  padding: $spacing-lg $spacing-xxl;
-  background: linear-gradient(180deg, #1b1714 0%, #0f0d0b 100%);
-  color: #f7d69c;
-  border: 1px solid rgba(201, 173, 111, 0.3);
-  border-radius: $border-radius-full;
-  font-size: $font-size-xl;
-  font-weight: 700;
-  cursor: pointer;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  transition: all 0.3s ease;
   width: 100%;
   text-align: center;
-  letter-spacing: 0.1em;
-
-  &:active {
-    transform: scale(0.95);
-  }
+  font-size: $font-size-xl;
+  padding: $spacing-lg $spacing-xxl;
+  overflow: hidden;
 
   @media (min-width: 1024px) {
     max-width: 400px;
@@ -125,22 +107,21 @@
   width: min(86vw, 360px);
   padding: 24px 20px;
   border-radius: 16px;
-  background: rgba(30, 30, 40, 0.9);
-  border: 1px solid rgba(201, 173, 111, 0.3);
-  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.6);
+  @include mystical-card;
+  background: rgba(30, 30, 40, 0.95);
   text-align: center;
 }
 
 .divination-loading-title {
   font-size: $font-size-xl;
   font-weight: 600;
-  color: #d8aa63;
+  color: $color-mystical-gold;
   margin-bottom: 8px;
 }
 
 .divination-loading-desc {
   font-size: $font-size-md;
-  color: rgba(255, 255, 255, 0.6);
+  color: $color-text-tertiary;
 }
 
 /* ====== Liuyao Theme Override (Dark Mystical) ====== */
@@ -154,9 +135,6 @@
   --bazi-muted: rgba(255, 255, 255, 0.4);
   --bazi-accent: #d8aa63;
   --bazi-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-
-  background: var(--bazi-bg);
-  background-image: linear-gradient(135deg, #050510 0%, #0a0a1a 100%);
 }
 
 .liuyao-divination-page text {
@@ -167,13 +145,11 @@
 .liuyao-divination-page .datetime-card,
 .liuyao-divination-page .count-input-card,
 .liuyao-divination-page .yao-matrix-section {
-  background: var(--bazi-card);
-  border: 1px solid var(--bazi-border);
-  box-shadow: var(--bazi-shadow);
+  @include mystical-card;
 }
 
 .liuyao-divination-page .card-section-title {
-  color: #d8aa63; // Gold for titles
+  color: $color-mystical-gold;
   text-shadow: 0 0 10px rgba(216, 170, 99, 0.2);
 }
 
@@ -191,8 +167,8 @@
 
 .liuyao-divination-page .mode-tab-active {
   background: linear-gradient(135deg, rgba(216, 170, 99, 0.2), rgba(216, 170, 99, 0.1));
-  color: #d8aa63;
-  border-color: #d8aa63;
+  color: $color-mystical-gold;
+  border-color: $color-mystical-gold;
   box-shadow: 0 0 12px rgba(216, 170, 99, 0.15);
 }
 
@@ -208,7 +184,7 @@
 
 .liuyao-divination-page .input-label-elegant,
 .liuyao-divination-page .yao-label-elegant {
-  color: #d8aa63;
+  color: $color-mystical-gold;
 }
 
 .liuyao-divination-page .value-with-underline {
@@ -249,7 +225,7 @@
 .liuyao-divination-page .selected-tag {
   background: rgba(216, 170, 99, 0.15);
   border: 1px solid var(--bazi-accent);
-  color: #d8aa63;
+  color: $color-mystical-gold;
   box-shadow: 0 0 8px rgba(216, 170, 99, 0.1);
 }
 
@@ -262,7 +238,7 @@
   border-radius: 10px;
   background: linear-gradient(180deg, rgba(30, 30, 40, 0.8) 0%, rgba(20, 20, 30, 0.9) 100%);
   border: 1px solid rgba(201, 173, 111, 0.4);
-  color: #d8aa63;
+  color: $color-mystical-gold;
   font-weight: 600;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
@@ -605,14 +581,14 @@
 }
 
 .liuyao-divination-page .shake-action-cta-dot {
-  color: #d8aa63;
+  color: $color-mystical-gold;
   font-size: 0.64rem;
   line-height: 1;
   animation: shake-cta-dot-pulse 1.4s ease-in-out infinite;
 }
 
 .liuyao-divination-page .shake-action-cta-text {
-  color: #d8aa63;
+  color: $color-mystical-gold;
   font-size: 0.76rem;
   line-height: 1.35;
 }
@@ -826,7 +802,7 @@
 }
 
 .liuyao-divination-page .divination-loading-title {
-  color: #d8aa63;
+  color: $color-mystical-gold;
 }
 
 .liuyao-divination-page .divination-loading-desc {

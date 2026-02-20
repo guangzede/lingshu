@@ -1,34 +1,16 @@
 @use "../../styles/variables.scss" as *;
+@use "../../styles/mixins.scss" as *;
 
 .daliuren-page {
-  --dlr-bg: #0b0f1c;
-  --dlr-card: rgba(15, 21, 38, 0.85);
-  --dlr-border: rgba(241, 211, 154, 0.15);
-  --dlr-soft: rgba(255, 255, 255, 0.04);
-  --dlr-text: #f2e6c8;
-  --dlr-sub: rgba(242, 230, 200, 0.7);
-  --dlr-accent: #b48a4f;
-  --dlr-accent-soft: rgba(180, 138, 79, 0.16);
-  --dlr-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  // Use new mixin for consistent background
+  @include mystical-page-bg;
 
-  min-height: 100vh;
+  // Specific override for this page if needed, but keeping it consistent is better
+  --dlr-bg: #0b0f1c; // Legacy variable, might be used in JS or other parts?
+  --dlr-text: #f2e6c8; // Legacy variable
+  --dlr-sub: rgba(242, 230, 200, 0.7); // Legacy variable
+
   padding-bottom: 48px;
-
-  background:
-    radial-gradient(
-      1200px 600px at 20% 0%,
-      rgba(83, 98, 153, 0.25),
-      transparent 70%
-    ),
-    radial-gradient(
-      800px 600px at 80% 10%,
-      rgba(148, 103, 64, 0.25),
-      transparent 70%
-    ),
-    linear-gradient(180deg, #0b0f1c 0%, #101625 40%, #141a2e 100%);
-
-  color: var(--dlr-text);
-  font-family: "Songti SC", "SimSun", "STSong", "Noto Serif SC", serif;
 }
 
 .daliuren-section {
@@ -39,20 +21,13 @@
 }
 
 .daliuren-card {
-  background: var(--dlr-card);
-  border: 1px solid var(--dlr-border);
-  border-radius: 16px;
-  padding: 16px;
-  box-shadow: var(--dlr-shadow);
-  backdrop-filter: blur(10px);
+  @include mystical-card;
 }
 
 .section-title {
+  @include mystical-title;
   font-size: 1.05rem;
-  font-weight: 600;
   margin-bottom: 12px;
-  font-family: "STSong", "Songti SC", serif;
-  letter-spacing: 0.05em;
   color: #f5d89e;
 }
 
@@ -74,6 +49,6 @@
 
 .daliuren-empty {
   text-align: center;
-  color: var(--dlr-sub);
+  color: $color-text-tertiary;
   padding: 20px 0;
 }

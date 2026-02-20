@@ -8,13 +8,95 @@
   // -webkit-backdrop-filter: blur($blur);
 }
 
-// 卡片样式混合宏
+// 卡片样式混合宏 (Original)
 @mixin card-style() {
   @include glass-effect;
   border-radius: $border-radius-xl;
   padding: $spacing-md;
   box-shadow: $shadow-lg;
   margin-top: $spacing-md;
+}
+
+// Mystical Page Background Mixin
+@mixin mystical-page-bg() {
+  background:
+    radial-gradient(
+      1200px 600px at 20% 0%,
+      rgba(83, 98, 153, 0.25),
+      transparent 70%
+    ),
+    radial-gradient(
+      800px 600px at 80% 10%,
+      rgba(148, 103, 64, 0.25),
+      transparent 70%
+    ),
+    linear-gradient(180deg, $color-mystical-bg-start 0%, $color-mystical-bg-mid 40%, $color-mystical-bg-end 100%);
+  color: $color-mystical-gold;
+  font-family: $font-family-serif;
+  min-height: 100vh;
+
+  &::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(120deg, rgba(255, 255, 255, 0.02), transparent 40%),
+      repeating-linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.02),
+        rgba(255, 255, 255, 0.02) 1px,
+        transparent 1px,
+        transparent 8px
+      );
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+// Mystical Card Style Mixin
+@mixin mystical-card() {
+  background: $color-mystical-card-bg;
+  border: 1px solid $color-mystical-border;
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow:
+    $color-mystical-shadow,
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(10px);
+}
+
+// Mystical Button Style Mixin
+@mixin mystical-button() {
+  background: $gradient-mystical-gold;
+  color: #1b1b1b;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(245, 216, 158, 0.35);
+  font-size: $font-size-global-button;
+
+  &:active {
+    transform: scale(0.98);
+    opacity: 0.9;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+}
+
+// Mystical Title Mixin
+@mixin mystical-title() {
+  font-family: $font-family-serif;
+  font-size: 1.2rem;
+  letter-spacing: 0.12em;
+  color: $color-mystical-gold;
+  margin-bottom: 12px;
+  font-weight: 600;
 }
 
 // 按钮样式混合宏
