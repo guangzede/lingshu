@@ -63,7 +63,7 @@ const LuckTrack: React.FC = () => {
     }
     const hasCurrent = currentDayun.liuNian.some((ln: any) => ln.year === currentYear)
     setSelectedYear(hasCurrent ? currentYear : currentDayun.liuNian[0].year)
-  }, [currentDayun?.index, result?.luck, currentYear])
+  }, [currentIndex, result?.luck, currentYear])
 
   React.useEffect(() => {
     if (selectedYear === currentYear) {
@@ -153,7 +153,7 @@ const LuckTrack: React.FC = () => {
               <div className="luck-grid dayun-grid" style={{ ['--count' as any]: dayunList.length }}>
                 {dayunList.map((dy: any, idx: number) => (
                   <button
-                    key={dy.index}
+                    key={dy.index ?? idx}
                     className={`luck-item dayun-item ${idx === currentIndex ? 'active' : ''}`}
                     onClick={() => setSelectedDaYunIndex(idx)}
                   >
@@ -191,7 +191,7 @@ const LuckTrack: React.FC = () => {
                   const branchTen = getBranchTenGodShort(branch as Branch)
                   return (
                     <div
-                      key={`${currentDayun.index}-${ln.year}`}
+                      key={`${currentIndex}-${ln.year}`}
                       className={`luck-item liunian-item ${isActive ? 'active' : ''} ${isCurrent ? 'current' : ''}`}
                       onClick={() => setSelectedYear(ln.year)}
                     >

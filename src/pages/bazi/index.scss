@@ -1264,7 +1264,9 @@
 .luck-grid {
   display: grid;
   gap: 8px;
-  grid-template-columns: repeat(var(--count, 10), minmax(0, 1fr));
+  grid-template-columns: repeat(var(--count, 10), minmax(36px, 1fr));
+  overflow-x: auto;
+  padding-bottom: 4px; /* Space for scrollbar if needed */
 }
 
 .luck-grid.liunian-grid {
