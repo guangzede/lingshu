@@ -806,6 +806,7 @@
   background: rgba(8, 11, 20, 0.6);
   border-radius: 12px;
   padding: 10px 12px;
+  margin-bottom: 8px;
 }
 
 .bazi-pillar-label {
@@ -813,17 +814,111 @@
   color: rgba(245, 216, 158, 0.8);
 }
 
-.bazi-pillar-controls {
+.bazi-pillar-display {
   display: flex;
-  gap: 8px;
+  gap: 10px;
 }
 
-.bazi-pillar-controls select {
-  padding: 6px 8px;
-  border-radius: 8px;
-  background: rgba(9, 12, 24, 0.6);
+.pillar-box {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: rgba(12, 16, 32, 0.8);
   border: 1px solid rgba(245, 216, 158, 0.25);
   color: #f5d89e;
+  font-size: 1.3rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.pillar-box:active {
+  transform: scale(0.95);
+  background: rgba(180, 138, 79, 0.15);
+  border-color: rgba(180, 138, 79, 0.5);
+}
+
+// Picker Grid Styles
+.bazi-grid-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 6px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.picker-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #f5d89e;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0 4px;
+}
+
+.close-btn {
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  color: rgba(245, 216, 158, 0.6);
+  padding: 4px;
+}
+
+.picker-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.picker-grid.stems {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.picker-grid.branches {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.grid-cell {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  color: rgba(245, 216, 158, 0.7);
+  font-size: 1.3rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.grid-cell:active {
+  transform: scale(0.92);
+}
+
+.grid-cell.active {
+  background: linear-gradient(135deg, rgba(180, 138, 79, 0.4), rgba(180, 138, 79, 0.1));
+  border-color: #f5d89e;
+  color: #f5d89e;
+  box-shadow: 0 0 12px rgba(180, 138, 79, 0.25);
+  font-weight: 700;
+}
+
+.grid-cell.disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+  background: transparent;
+  border-color: transparent;
 }
 
 .bazi-action-row {
