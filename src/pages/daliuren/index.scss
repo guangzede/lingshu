@@ -1,20 +1,16 @@
 @use "../../styles/variables.scss" as *;
+@use "../../styles/mixins.scss" as *;
 
 .daliuren-page {
-  --dlr-bg: #f7f4ef;
-  --dlr-card: #ffffff;
-  --dlr-border: #e7ded2;
-  --dlr-soft: #f5efe6;
-  --dlr-text: #2f2923;
-  --dlr-sub: #6a5f54;
-  --dlr-accent: #b48a4f;
-  --dlr-accent-soft: rgba(180, 138, 79, 0.16);
-  --dlr-shadow: 0 18px 32px rgba(28, 22, 15, 0.08);
-  background: var(--dlr-bg);
-  color: var(--dlr-text);
-  min-height: 100vh;
+  // Use new mixin for consistent background
+  @include mystical-page-bg;
+
+  // Specific override for this page if needed, but keeping it consistent is better
+  --dlr-bg: #0b0f1c; // Legacy variable, might be used in JS or other parts?
+  --dlr-text: #f2e6c8; // Legacy variable
+  --dlr-sub: rgba(242, 230, 200, 0.7); // Legacy variable
+
   padding-bottom: 48px;
-  font-family: "Noto Sans SC", "PingFang SC", sans-serif;
 }
 
 .daliuren-section {
@@ -25,17 +21,14 @@
 }
 
 .daliuren-card {
-  background: var(--dlr-card);
-  border: 1px solid var(--dlr-border);
-  border-radius: 16px;
-  padding: 16px;
-  box-shadow: var(--dlr-shadow);
+  @include mystical-card;
 }
 
 .section-title {
+  @include mystical-title;
   font-size: 1.05rem;
-  font-weight: 600;
   margin-bottom: 12px;
+  color: #f5d89e;
 }
 
 .element-木 {
@@ -56,6 +49,6 @@
 
 .daliuren-empty {
   text-align: center;
-  color: var(--dlr-sub);
+  color: $color-text-tertiary;
   padding: 20px 0;
 }

@@ -10,7 +10,8 @@ $color-wuxing-wood: #00FF7F; // 木 - 荧光绿
 $color-wuxing-water: #00BFFF; // 水 - 深海蓝
 $color-wuxing-fire: #FF4500; // 火 - 烈焰红
 $color-wuxing-earth: #8B4513; // 土 - 琥珀褐
-// 颜色变量
+
+// 基础颜色变量
 $color-bg-primary: #050510;
 $color-text-primary: #FFFFFF;
 $color-text-secondary: rgba(255, 255, 255, 0.85);
@@ -22,6 +23,21 @@ $color-border-light: rgba(255, 255, 255, 0.1);
 $color-bg-card: rgba(255, 255, 255, 0.06);
 $color-bg-code: rgba(0, 0, 0, 0.3);
 $color-bg-quote: rgba(251, 191, 36, 0.1);
+
+// Mystical Theme Variables
+$color-mystical-gold: #f5d89e;
+$color-mystical-gold-dim: #cfc9bb;
+$color-mystical-gold-dark: #b48a4f;
+$color-mystical-bg-start: #0b0f1c;
+$color-mystical-bg-mid: #101625;
+$color-mystical-bg-end: #141a2e;
+$color-mystical-card-bg: rgba(15, 21, 38, 0.85);
+$color-mystical-border: rgba(241, 211, 154, 0.15);
+$color-mystical-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+
+// 字体变量
+$font-family-serif: "Songti SC", "SimSun", "STSong", "Noto Serif SC", serif;
+$font-family-sans: "Noto Sans SC", "PingFang SC", sans-serif;
 
 // 字体大小变量定义
 $font-size-xs: 20rpx;      // 10px
@@ -65,6 +81,7 @@ $shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.25);
 $gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 $gradient-secondary: linear-gradient(90deg, #fbbf24, #f59e0b);
 $gradient-accent: linear-gradient(90deg, #f093fb 0%, #f5576c 100%);
+$gradient-mystical-gold: linear-gradient(120deg, #f5d89e, #f0c56c);
 
 // 玻璃态变量
 $glass-bg: rgba(255, 255, 255, 0.04);

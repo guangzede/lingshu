@@ -6,6 +6,7 @@ import type { Branch, Stem } from '@/types/liuyao'
 import './index.scss'
 
 const STEMS: Stem[] = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸']
+const BRANCHES: Branch[] = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥']
 const YANG_STEMS: Stem[] = ['甲', '丙', '戊', '庚', '壬']
 const YANG_BRANCHES: Branch[] = ['子', '寅', '辰', '午', '申', '戌']
 const YIN_BRANCHES: Branch[] = ['丑', '卯', '巳', '未', '酉', '亥']
@@ -64,32 +65,21 @@ const buildInstantData = () => {
 interface PillarSelectProps {
   label: string
   value: { stem: Stem; branch: Branch }
-  onChange: (next: { stem: Stem; branch: Branch }) => void
+  onClickStem: () => void
+  onClickBranch: () => void
 }
 
-const PillarSelect: React.FC<PillarSelectProps> = ({ label, value, onChange }) => {
-  const allowedBranches = getAllowedBranches(value.stem)
+const PillarSelect: React.FC<PillarSelectProps> = ({ label, value, onClickStem, onClickBranch }) => {
   return (
     <div className="bazi-pillar-input">
       <div className="bazi-pillar-label">{label}</div>
-      <div className="bazi-pillar-controls">
-        <select
-          value={value.stem}
-          onChange={(e) => {
-            const nextStem = e.target.value as Stem
-            const nextBranches = getAllowedBranches(nextStem)
-            const nextBranch = nextBranches.includes(value.branch) ? value.branch : nextBranches[0]
-            onChange({ stem: nextStem, branch: nextBranch })
-          }}
-        >
-          {STEMS.map((s) => (<option key={s} value={s}>{s}</option>))}
-        </select>
-        <select
-          value={allowedBranches.includes(value.branch) ? value.branch : allowedBranches[0]}
-          onChange={(e) => onChange({ ...value, branch: e.target.value as Branch })}
-        >
-          {allowedBranches.map((b) => (<option key={b} value={b}>{b}</option>))}
-        </select>
+      <div className="bazi-pillar-display">
+        <div className="pillar-box stem-box" onClick={onClickStem}>
+          {value.stem}
+        </div>
+        <div className="pillar-box branch-box" onClick={onClickBranch}>
+          {value.branch}
+        </div>
       </div>
     </div>
   )
@@ -144,6 +134,11 @@ const getRootFontSize = () => {
   return Number.isFinite(parsed) ? parsed : 16
 }
 
+type SelectionTarget = {
+  pillar: 'year' | 'month' | 'day' | 'hour'
+  part: 'stem' | 'branch'
+} | null
+
 const DateModal: React.FC<DateModalProps> = ({
   calendar,
   manualMode,
@@ -158,6 +153,8 @@ const DateModal: React.FC<DateModalProps> = ({
   onSelectManual,
   onSetManualPillar
 }) => {
+  const [selectionTarget, setSelectionTarget] = React.useState<SelectionTarget>(null)
+
   const columns = [
     years.map((y) => ({ key: `${y}`, label: `${y}` })),
     monthOptions.map((m) => ({ key: m.key, label: m.label })),
@@ -168,38 +165,137 @@ const DateModal: React.FC<DateModalProps> = ({
 
   const rowHeight = React.useMemo(() => getRootFontSize() * PICKER_ROW_REM, [])
 
+  const handleSelectStem = (stem: Stem) => {
+    if (!selectionTarget || selectionTarget.part !== 'stem') return
+    const pillarKey = selectionTarget.pillar
+    const currentPillar = manualPillars[pillarKey]
+    const nextBranches = getAllowedBranches(stem)
+    const nextBranch = nextBranches.includes(currentPillar.branch) ? currentPillar.branch : nextBranches[0]
+    onSetManualPillar(pillarKey, { stem, branch: nextBranch })
+    setSelectionTarget(null)
+  }
+
+  const handleSelectBranch = (branch: Branch) => {
+    if (!selectionTarget || selectionTarget.part !== 'branch') return
+    const pillarKey = selectionTarget.pillar
+    const currentPillar = manualPillars[pillarKey]
+    onSetManualPillar(pillarKey, { ...currentPillar, branch })
+    setSelectionTarget(null)
+  }
+
+  const renderSelectionGrid = () => {
+    if (!selectionTarget) return null
+
+    if (selectionTarget.part === 'stem') {
+      return (
+        <div className="bazi-grid-picker">
+          <div className="picker-header">
+            <span>选择天干</span>
+            <span className="close-btn" onClick={() => setSelectionTarget(null)}>×</span>
+          </div>
+          <div className="picker-grid stems">
+            {STEMS.map((s) => (
+              <div
+                key={s}
+                className={`grid-cell ${manualPillars[selectionTarget.pillar].stem === s ? 'active' : ''}`}
+                onClick={() => handleSelectStem(s)}
+              >
+                {s}
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+    }
+
+    if (selectionTarget.part === 'branch') {
+      const currentStem = manualPillars[selectionTarget.pillar].stem
+      const allowed = getAllowedBranches(currentStem)
+      return (
+        <div className="bazi-grid-picker">
+          <div className="picker-header">
+            <span>选择地支 ({YANG_STEMS.includes(currentStem) ? '阳' : '阴'})</span>
+            <span className="close-btn" onClick={() => setSelectionTarget(null)}>×</span>
+          </div>
+          <div className="picker-grid branches">
+            {BRANCHES.map((b) => {
+              const isAllowed = allowed.includes(b)
+              return (
+                <div
+                  key={b}
+                  className={`grid-cell ${manualPillars[selectionTarget.pillar].branch === b ? 'active' : ''} ${!isAllowed ? 'disabled' : ''}`}
+                  onClick={() => isAllowed && handleSelectBranch(b)}
+                >
+                  {b}
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      )
+    }
+    return null
+  }
+
   return (
     <div className="bazi-modal-mask" onClick={onClose}>
       <div className="bazi-modal" onClick={(e) => e.stopPropagation()}>
         <div className="bazi-modal-body">
-          <div className="bazi-modal-tabs">
-            <button
-              className={`bazi-modal-tab ${calendar === 'solar' && !manualMode ? 'active' : ''}`}
-              onClick={onSelectSolar}
-            >
-              公历
-            </button>
-            <button
-              className={`bazi-modal-tab ${calendar === 'lunar' && !manualMode ? 'active' : ''}`}
-              onClick={onSelectLunar}
-            >
-              农历
-            </button>
-            <button
-              className={`bazi-modal-tab ${manualMode ? 'active' : ''}`}
-              onClick={onSelectManual}
-            >
-              四柱
-            </button>
-          </div>
-          {manualMode ? (
-            <div className="bazi-modal-manual">
-              <PillarSelect label="年柱" value={manualPillars.year} onChange={(next) => onSetManualPillar('year', next)} />
-              <PillarSelect label="月柱" value={manualPillars.month} onChange={(next) => onSetManualPillar('month', next)} />
-              <PillarSelect label="日柱" value={manualPillars.day} onChange={(next) => onSetManualPillar('day', next)} />
-              <PillarSelect label="时柱" value={manualPillars.hour} onChange={(next) => onSetManualPillar('hour', next)} />
-              <div className="inline-note">手动八字遵循“阳干配阳支、阴干配阴支”规则。</div>
+          {!selectionTarget && (
+            <div className="bazi-modal-tabs">
+              <button
+                className={`bazi-modal-tab ${calendar === 'solar' && !manualMode ? 'active' : ''}`}
+                onClick={onSelectSolar}
+              >
+                公历
+              </button>
+              <button
+                className={`bazi-modal-tab ${calendar === 'lunar' && !manualMode ? 'active' : ''}`}
+                onClick={onSelectLunar}
+              >
+                农历
+              </button>
+              <button
+                className={`bazi-modal-tab ${manualMode ? 'active' : ''}`}
+                onClick={onSelectManual}
+              >
+                四柱
+              </button>
             </div>
+          )}
+
+          {manualMode ? (
+            selectionTarget ? (
+              renderSelectionGrid()
+            ) : (
+              <div className="bazi-modal-manual">
+                <PillarSelect
+                  label="年柱"
+                  value={manualPillars.year}
+                  onClickStem={() => setSelectionTarget({ pillar: 'year', part: 'stem' })}
+                  onClickBranch={() => setSelectionTarget({ pillar: 'year', part: 'branch' })}
+                />
+                <PillarSelect
+                  label="月柱"
+                  value={manualPillars.month}
+                  onClickStem={() => setSelectionTarget({ pillar: 'month', part: 'stem' })}
+                  onClickBranch={() => setSelectionTarget({ pillar: 'month', part: 'branch' })}
+                />
+                <PillarSelect
+                  label="日柱"
+                  value={manualPillars.day}
+                  onClickStem={() => setSelectionTarget({ pillar: 'day', part: 'stem' })}
+                  onClickBranch={() => setSelectionTarget({ pillar: 'day', part: 'branch' })}
+                />
+                <PillarSelect
+                  label="时柱"
+                  value={manualPillars.hour}
+                  onClickStem={() => setSelectionTarget({ pillar: 'hour', part: 'stem' })}
+                  onClickBranch={() => setSelectionTarget({ pillar: 'hour', part: 'branch' })}
+                />
+                <div className="inline-note">点击干支进行修改。遵循“阳配阳、阴配阴”规则。</div>
+              </div>
+            )
           ) : (
             <div className="bazi-modal-wheel">
               <div className="bazi-wheel-labels">
