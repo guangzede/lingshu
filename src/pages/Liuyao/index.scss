@@ -3,15 +3,13 @@
 
 // 六爻页面全局样式
 .liuyao-page {
-  min-height: 100vh;
-  background: $color-bg-primary;
-  color: $color-text-primary;
+  @include mystical-page-bg;
   padding-bottom: $spacing-xl;
 }
 
 // 玻璃态卡片样式
 .glass-card {
-  @include card-style;
+  @include mystical-card;
   margin: $spacing-md 16px;
 }
 
@@ -31,22 +29,11 @@
 }
 
 .divinate-button {
+  @include mystical-button;
   position: relative;
   padding: $spacing-lg $spacing-xxl;
-  background: $gradient-secondary;
-  color: #0b1021;
-  border: none;
-  border-radius: $border-radius-full;
   font-size: $font-size-xl;
-  font-weight: 700;
-  cursor: pointer;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
-  transition: all 0.3s ease;
-
-  &:active {
-    transform: scale(0.95);
-  }
 }
 
 .divinate-text {
@@ -91,10 +78,8 @@
 }
 
 .branch-relation-title {
+  @include mystical-title;
   font-size: 28px;
-  color: #c9ad6f;
-  font-weight: 600;
-  letter-spacing: 2px;
 }
 
 .relation-group {
@@ -127,10 +112,8 @@
 }
 
 .yao-analysis-title {
+  @include mystical-title;
   font-size: 28px;
-  color: #c9ad6f;
-  font-weight: 600;
-  letter-spacing: 2px;
 }
 
 .yao-analysis-item {
@@ -199,10 +182,7 @@
     padding: 10px 18px;
     font-size: 24px;
     font-weight: 800;
-    border: 1.5px solid rgba(201, 178, 106, 0.25) !important;
-    background: linear-gradient(180deg, rgba(12, 16, 26, 0.8), rgba(10, 14, 22, 0.75)) !important;
-    color: #e3d39a !important;
-    border-radius: 14px !important;
+    @include mystical-pill;
     box-shadow: 0 0 16px rgba(201, 178, 106, 0.15), 0 10px 25px rgba(0, 0, 0, 0.35) !important;
     transition: all 0.2s ease !important;
 
@@ -217,10 +197,7 @@
   }
 }
 .btn-active {
-  border-color: rgba(201, 178, 106, 0.35) !important;
-  background: linear-gradient(180deg, rgba(40, 35, 20, 0.8), rgba(30, 25, 15, 0.75)) !important;
-  color: #d8c37a !important;
-  box-shadow: 0 0 12px rgba(201, 178, 106, 0.25), inset 0 0 8px rgba(201, 178, 106, 0.08) !important;
+  @include mystical-pill-active;
 }
 
 .input-section {

@@ -1,15 +1,15 @@
 @use '../../styles/variables.scss' as *;
+@use '../../styles/mixins.scss' as *;
+
 .profile-page {
+  @include mystical-page-bg;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background:
-    radial-gradient(circle at top, rgba(255, 215, 160, 0.14), transparent 48%),
-    linear-gradient(180deg, #0f0f12 0%, #141827 45%, #0b0d14 100%);
   padding: 56px 0 64px;
   color: $color-text-primary;
-  font-family: "STKaiti", "Kaiti SC", "Songti SC", "Noto Serif SC", serif;
+  font-family: $font-family-serif;
 }
 
 .profile-hero {
@@ -43,6 +43,7 @@
 .profile-name {
   font-size: 32px;
   font-weight: 600;
+  color: $color-mystical-gold;
 }
 
 .profile-subtitle {
@@ -51,17 +52,13 @@
 }
 
 .profile-card {
+  @include mystical-card;
   width: min(92vw, 520px);
   display: flex;
   flex-direction: column;
   gap: 16px;
   margin-bottom: 22px;
   padding: 22px 20px;
-  background: $glass-bg;
-  border-radius: 18px;
-  border: 1px solid $glass-border;
-  box-shadow: $shadow-md;
-  backdrop-filter: blur($glass-blur);
 }
 .profile-row {
   display: flex;
@@ -114,6 +111,7 @@
 .profile-metric-value {
   font-size: 26px;
   font-weight: 600;
+  color: $color-mystical-gold;
 }
 
 .profile-metric-label {
@@ -128,25 +126,18 @@
   margin-top: 10px;
 }
 .profile-btn {
-  background: $color-accent;
-  color: #1b1410;
+  @include mystical-button;
   font-size: 24px;
-  border-radius: 10px;
   padding: 12px 20px;
-  font-weight: 600;
 }
 
 .profile-btn.secondary {
-  background: transparent;
-  color: $color-text-primary;
-  border: 1px solid $color-border;
+  @include mystical-button-ghost;
 }
 
 .profile-btn.ghost {
+  @include mystical-button-ghost;
   width: 100%;
-  background: transparent;
-  color: $color-text-primary;
-  border: 1px solid $color-border;
 }
 
 @media (max-width: 720px) {

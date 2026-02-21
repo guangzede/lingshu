@@ -14,19 +14,6 @@
   animation: fadeUp 0.5s ease both;
 }
 
-.bazi-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
-  width: min(94vw, 980px);
-  margin: 18px auto;
-}
-
-.bazi-grid .bazi-section {
-  margin: 0;
-  width: 100%;
-}
-
 @keyframes fadeUp {
   from {
     opacity: 0;
@@ -47,11 +34,8 @@
   background: rgba(12, 18, 34, 0.9); // Slightly darker for input
 }
 
-
 .bazi-instant-card {
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  @include mystical-card;
   padding: 18px;
   display: grid;
   gap: 12px;
@@ -61,10 +45,6 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-}
-
-.instant-spacer {
-  flex: 1;
 }
 
 .instant-body {
@@ -92,8 +72,8 @@
 }
 
 .instant-pillar {
-  background: #f6f1ea;
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: rgba(246, 241, 234, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 14px;
   padding: 10px 6px;
   display: grid;
@@ -101,7 +81,7 @@
   justify-items: center;
   font-size: 1.1rem;
   font-weight: 600;
-  color: #2e261f;
+  color: $color-mystical-gold;
 }
 
 .instant-meta {
@@ -120,23 +100,19 @@
 .instant-time {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #2e261f;
+  color: $color-mystical-gold;
 }
 
 .instant-note {
   font-size: 0.78rem;
-  color: rgba(46, 38, 31, 0.7);
+  color: rgba(245, 216, 158, 0.7);
 }
 
 .instant-btn {
   justify-self: end;
   padding: 10px 20px;
   border-radius: 999px;
-}
-
-.instant-btn-quick {
-  padding: 6px 14px;
-  font-size: 0.82rem;
+  @include mystical-button-ghost;
 }
 
 .bazi-input-header {
@@ -441,16 +417,83 @@
   margin: 0;
 }
 
-.bazi-result-summary {
-  display: grid;
-  gap: 6px;
-  padding: 10px 12px;
-  border-radius: 12px;
-  background: rgba(8, 12, 24, 0.6);
-  border: 1px solid rgba(245, 216, 158, 0.12);
-  margin-bottom: 12px;
-  font-size: 0.85rem;
-  color: rgba(245, 216, 158, 0.8);
+// Ming Ju Zhai Yao (Summary Card)
+.summary-card {
+  .summary-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .section-title {
+    margin-bottom: 0;
+  }
+  .summary-sub {
+    font-size: 0.8rem;
+    color: $color-mystical-gold-dim;
+  }
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  @media (min-width: 600px) {
+    .summary-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  .summary-item {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  .summary-label {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 4px;
+  }
+  .summary-value {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: $color-mystical-gold;
+    margin-bottom: 2px;
+  }
+  .summary-desc {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+  }
+  .summary-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .summary-tag {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(180, 138, 79, 0.1);
+    border: 1px solid rgba(180, 138, 79, 0.2);
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    span {
+      color: $color-mystical-gold;
+      font-weight: 600;
+    }
+    div {
+      color: rgba(255, 255, 255, 0.8);
+    }
+  }
 }
 
 .bazi-table-wrap {
@@ -545,9 +588,7 @@
 }
 
 .hidden-stem {
-  // font-size: 0.78rem;
   font-weight: 400;
-  // letter-spacing: 0.02em;
 }
 
 .hidden-god-list {
@@ -705,10 +746,9 @@
 }
 
 .bazi-title {
-  font-family: $font-family-serif;
+  @include mystical-title;
   font-size: 1.8rem;
-  letter-spacing: 0.15em;
-  color: $color-mystical-gold;
+  margin-bottom: 0;
 }
 
 .bazi-subtitle {
@@ -734,37 +774,17 @@
 }
 
 .bazi-pill {
-  border: 1px solid rgba(245, 216, 158, 0.28);
-  background: rgba(255, 255, 255, 0.04);
-  color: rgba(245, 216, 158, 0.85);
-  padding: 6px 12px;
-  border-radius: 999px;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  @include mystical-pill;
 }
 
 .bazi-pill.active {
-  background: linear-gradient(120deg, #f8e3b8, #f0c56c);
-  box-shadow: 0 6px 16px rgba(245, 216, 158, 0.35);
-  border-color: rgba(245, 216, 158, 0.65);
-  color: #1b1b1b;
-  font-weight: 600;
-}
-
-.bazi-pill.active::after {
-  content: "✓";
-  margin-left: 6px;
-  font-weight: 700;
+  @include mystical-pill-active;
 }
 
 .bazi-pill.disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
-
-
-
 
 .bazi-pill.danger {
   border-color: rgba(245, 120, 120, 0.6);
@@ -774,11 +794,6 @@
 .bazi-primary-btn {
   @include mystical-button;
 }
-
-
-
-
-
 
 .case-form input,
 .bazi-text-input,
@@ -796,7 +811,6 @@
   resize: vertical;
   line-height: 1.5;
 }
-
 
 .bazi-pillar-input {
   display: flex;
@@ -1031,10 +1045,6 @@
   white-space: nowrap;
   text-align: right;
   min-width: 44px;
-}
-
-.energy-bar {
-  min-width: 0;
 }
 
 .nayin-row th,

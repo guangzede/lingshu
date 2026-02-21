@@ -2,18 +2,16 @@
 @use "../../styles/mixins.scss" as *;
 
 .auth-page {
+  @include mystical-page-bg;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background:
-    radial-gradient(circle at top, rgba(255, 215, 160, 0.22), transparent 45%),
-    linear-gradient(180deg, #0f0f12 0%, #151826 40%, #0f1118 100%);
   position: relative;
   overflow: hidden;
   color: #f7f2e8;
-  font-family: "STKaiti", "Kaiti SC", "Songti SC", "Noto Serif SC", serif;
+  font-family: $font-family-serif;
 }
 
 .auth-bg {
@@ -101,9 +99,9 @@
 }
 
 .auth-title {
+  @include mystical-title;
   font-size: 46px;
   line-height: 1.2;
-  font-weight: 600;
 }
 
 .auth-subtitle {
@@ -137,15 +135,8 @@
 }
 
 .auth-card {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.12),
-    rgba(255, 255, 255, 0.02)
-  );
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 24px;
+  @include mystical-card;
   padding: 32px 28px 36px;
-  backdrop-filter: blur(12px);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
 }
 
@@ -157,11 +148,8 @@
 
 .auth-health-btn {
   width: 100%;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  color: rgba(255, 233, 198, 0.92);
+  @include mystical-button-ghost;
   font-size: 24px;
-  border-radius: 12px;
   padding: 12px 0;
 }
 
@@ -181,7 +169,7 @@
 .auth-panel-title {
   font-size: 30px;
   font-weight: 600;
-  color: #fff6e4;
+  color: $color-mystical-gold;
 }
 
 .auth-panel-desc {
@@ -230,13 +218,10 @@
   color: rgba(255, 255, 255, 0.92);
 }
 .auth-btn {
-  background: linear-gradient(120deg, #ffcf95, #f29a4a);
-  color: #1e130a;
+  @include mystical-button;
   font-size: 28px;
-  border-radius: 12px;
   padding: 16px 0;
   letter-spacing: 2px;
-  font-weight: 600;
 }
 .auth-error {
   color: #ff9b9b;
@@ -315,9 +300,7 @@
 }
 
 .auth-modal-btn {
-  background: linear-gradient(120deg, #ffcf95, #f29a4a);
-  color: #1e130a;
-  border-radius: 10px;
+  @include mystical-button;
   padding: 12px 0;
 }
 

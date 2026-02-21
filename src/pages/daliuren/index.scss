@@ -2,14 +2,7 @@
 @use "../../styles/mixins.scss" as *;
 
 .daliuren-page {
-  // Use new mixin for consistent background
   @include mystical-page-bg;
-
-  // Specific override for this page if needed, but keeping it consistent is better
-  --dlr-bg: #0b0f1c; // Legacy variable, might be used in JS or other parts?
-  --dlr-text: #f2e6c8; // Legacy variable
-  --dlr-sub: rgba(242, 230, 200, 0.7); // Legacy variable
-
   padding-bottom: 48px;
 }
 
@@ -28,7 +21,7 @@
   @include mystical-title;
   font-size: 1.05rem;
   margin-bottom: 12px;
-  color: #f5d89e;
+  color: $color-mystical-gold;
 }
 
 .element-木 {
