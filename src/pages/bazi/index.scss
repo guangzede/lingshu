@@ -6,6 +6,601 @@
   padding-bottom: 48px;
 }
 
+.bazi-page.bazi-input-page {
+  background: #f7f4ef;
+  color: #2f2923;
+}
+
+.bazi-page.bazi-input-page::before {
+  display: none;
+}
+
+.bazi-page.bazi-input-page .bazi-section {
+  width: min(94vw, 780px);
+}
+
+.bazi-page.bazi-input-page .bazi-card {
+  background: #ffffff;
+  color: #2b2b2b;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  margin-top: 30px;
+}
+
+.bazi-page.bazi-result-page {
+  --bazi-bg: #f7f4ef;
+  --bazi-card: #ffffff;
+  --bazi-border: #e7ded2;
+  --bazi-soft: #f5efe6;
+  --bazi-text: #2f2923;
+  --bazi-sub: #6a5f54;
+  --bazi-accent: #b48a4f;
+  --bazi-accent-soft: rgba(180, 138, 79, 0.16);
+  --bazi-shadow: 0 18px 32px rgba(28, 22, 15, 0.08);
+  background: var(--bazi-bg);
+  color: var(--bazi-text);
+}
+
+.bazi-page.bazi-result-page::before {
+  display: none;
+}
+
+.bazi-page.bazi-result-page .bazi-card {
+  background: var(--bazi-card);
+  border: 1px solid var(--bazi-border);
+  box-shadow: var(--bazi-shadow);
+  color: var(--bazi-text);
+}
+
+.bazi-page.bazi-result-page .bazi-top-nav {
+  background: var(--bazi-bg);
+}
+
+.bazi-page.bazi-result-page .bazi-top-nav-inner {
+  background: var(--bazi-card);
+  border-color: var(--bazi-border);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+}
+
+.bazi-page.bazi-result-page .bazi-top-tab {
+  color: var(--bazi-sub);
+}
+
+.bazi-page.bazi-result-page .bazi-top-tab.active {
+  background: var(--bazi-accent);
+  color: #ffffff;
+  box-shadow: 0 8px 16px rgba(180, 138, 79, 0.25);
+}
+
+.bazi-page.bazi-result-page .bazi-pill {
+  background: #ffffff;
+  border-color: var(--bazi-border);
+  color: var(--bazi-sub);
+}
+
+.bazi-page.bazi-result-page .bazi-pill.active {
+  background: var(--bazi-accent);
+  border-color: var(--bazi-accent);
+  color: #ffffff;
+  box-shadow: 0 8px 16px rgba(180, 138, 79, 0.25);
+}
+
+.bazi-page.bazi-result-page .bazi-pill.active::after {
+  content: "";
+  margin-left: 0;
+}
+
+.bazi-page.bazi-result-page .bazi-ghost-btn {
+  border-color: var(--bazi-border);
+  color: var(--bazi-sub);
+}
+
+.bazi-page.bazi-result-page .section-title,
+.bazi-page.bazi-result-page .bazi-title {
+  color: var(--bazi-text);
+  letter-spacing: 0.06em;
+}
+
+.bazi-page.bazi-result-page .bazi-subtitle,
+.bazi-page.bazi-result-page .inline-note,
+.bazi-page.bazi-result-page .core-sub,
+.bazi-page.bazi-result-page .energy-percent,
+.bazi-page.bazi-result-page .relation-pillars,
+.bazi-page.bazi-result-page .case-meta {
+  color: var(--bazi-sub);
+}
+
+.bazi-page.bazi-result-page .bazi-table-wrap {
+  background: var(--bazi-card);
+  border-color: var(--bazi-border);
+}
+
+.bazi-page.bazi-result-page .bazi-table th,
+.bazi-page.bazi-result-page .bazi-table td {
+  border-color: var(--bazi-border);
+}
+
+.bazi-page.bazi-result-page .col-label {
+  color: var(--bazi-text);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.bazi-page.bazi-result-page .col-sub {
+  color: var(--bazi-sub);
+}
+
+.bazi-page.bazi-result-page .bazi-table thead th,
+.bazi-page.bazi-result-page .row-label {
+  background: transparent;
+  color: var(--bazi-sub);
+  font-weight: 600;
+}
+
+.bazi-page.bazi-result-page .bazi-table tbody tr:nth-child(even) td,
+.bazi-page.bazi-result-page .bazi-table tbody tr:nth-child(even) th {
+  background: transparent;
+}
+
+.bazi-page.bazi-result-page .cell-text,
+.bazi-page.bazi-result-page .ai-text {
+  color: var(--bazi-text);
+}
+
+.bazi-page.bazi-result-page .hidden-god,
+.bazi-page.bazi-result-page .tag,
+.bazi-page.bazi-result-page .relation-item,
+.bazi-page.bazi-result-page .ten-god-item,
+.bazi-page.bazi-result-page .ten-god-bar-row,
+.bazi-page.bazi-result-page .ten-god-value {
+  color: var(--bazi-sub);
+}
+
+.bazi-page.bazi-result-page .shen-item {
+  color: var(--bazi-accent);
+}
+
+.bazi-page.bazi-result-page .relation-type {
+  border-color: var(--bazi-border);
+  color: var(--bazi-text);
+}
+
+.bazi-page.bazi-result-page .relation-brief {
+  color: var(--bazi-sub);
+}
+
+.bazi-page.bazi-result-page .hidden-god-line {
+  color: var(--bazi-sub);
+}
+
+.bazi-page.bazi-result-page .flow-card,
+.bazi-page.bazi-result-page .core-block,
+.bazi-page.bazi-result-page .shen-sha-item,
+.bazi-page.bazi-result-page .case-item,
+.bazi-page.bazi-result-page .liunian-card,
+.bazi-page.bazi-result-page .dayun-pill,
+.bazi-page.bazi-result-page .ai-report {
+  background: var(--bazi-card);
+  border-color: var(--bazi-border);
+}
+
+.bazi-page.bazi-result-page .flow-card {
+  background: #fbf8f2;
+}
+
+.bazi-page.bazi-result-page .flow-mode,
+.bazi-page.bazi-result-page .flow-note,
+.bazi-page.bazi-result-page .flow-main-percent,
+.bazi-page.bazi-result-page .flow-arrow,
+.bazi-page.bazi-result-page .flow-loop {
+  color: var(--bazi-sub);
+  border-color: var(--bazi-border);
+}
+
+.bazi-page.bazi-result-page .flow-node {
+  border-color: var(--bazi-border);
+  color: var(--bazi-text);
+  background: #fffaf3;
+}
+
+.bazi-page.bazi-result-page .flow-node.active {
+  background: #fff2da;
+  border-color: var(--bazi-accent);
+}
+
+.bazi-page.bazi-result-page .core-block {
+  background: #fbf8f2;
+  box-shadow: 0 8px 18px rgba(28, 22, 15, 0.06);
+}
+
+.bazi-page.bazi-result-page .core-title {
+  color: var(--bazi-sub);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+}
+
+.bazi-page.bazi-result-page .core-value {
+  color: var(--bazi-text);
+  font-size: 1.35rem;
+}
+
+.bazi-page.bazi-result-page .core-sub {
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.bazi-page.bazi-result-page .core-inline {
+  gap: 6px;
+}
+
+.bazi-page.bazi-result-page .dayun-pill {
+  color: var(--bazi-text);
+}
+
+.bazi-page.bazi-result-page .dayun-pill-title {
+  color: var(--bazi-text);
+  letter-spacing: 0.14em;
+}
+
+.bazi-page.bazi-result-page .dayun-tag,
+.bazi-page.bazi-result-page .dayun-year {
+  border-color: var(--bazi-border);
+  color: var(--bazi-sub);
+}
+
+.bazi-page.bazi-result-page .luck-item {
+  background: #ffffff;
+  border-color: var(--bazi-border);
+}
+
+.bazi-page.bazi-result-page .luck-item.active {
+  background: #fff4dc;
+  border-color: var(--bazi-accent);
+  box-shadow: 0 10px 18px rgba(180, 138, 79, 0.18);
+}
+
+.bazi-page.bazi-result-page .luck-meta {
+  background: #fbf8f2;
+  border-color: var(--bazi-border);
+}
+
+.bazi-page.bazi-result-page .luck-today {
+  border-color: var(--bazi-border);
+  color: var(--bazi-sub);
+  background: #fffaf3;
+}
+
+.bazi-page.bazi-result-page .luck-label,
+.bazi-page.bazi-result-page .luck-year,
+.bazi-page.bazi-result-page .luck-age,
+.bazi-page.bazi-result-page .luck-range {
+  color: var(--bazi-sub);
+}
+
+.bazi-page.bazi-result-page .luck-god,
+.bazi-page.bazi-result-page .luck-month {
+  color: var(--bazi-sub);
+}
+
+.bazi-page.bazi-result-page .luck-detail-card {
+  background: #fbf8f2;
+  border-color: var(--bazi-border);
+  color: var(--bazi-sub);
+}
+
+.bazi-page.bazi-result-page .detail-title {
+  color: var(--bazi-text);
+}
+
+.bazi-page.bazi-result-page .detail-line,
+.bazi-page.bazi-result-page .detail-keywords,
+.bazi-page.bazi-result-page .detail-desc {
+  color: var(--bazi-sub);
+}
+
+.bazi-page.bazi-result-page .section-toggle {
+  border-color: var(--bazi-border);
+  color: var(--bazi-sub);
+}
+
+.bazi-page.bazi-result-page .section-toggle.open {
+  background: #fff2da;
+}
+
+.bazi-page.bazi-result-page .note-textarea,
+.bazi-page.bazi-result-page .bazi-text-input {
+  background: #ffffff;
+  color: var(--bazi-text);
+  border-color: var(--bazi-border);
+}
+
+.bazi-page.bazi-result-page .dayun-pill.active,
+.bazi-page.bazi-result-page .liunian-card.current {
+  border-color: var(--bazi-accent);
+  background: #fff4dc;
+  box-shadow: 0 10px 18px rgba(180, 138, 79, 0.18);
+}
+
+.bazi-page.bazi-result-page .liunian-card {
+  background: #ffffff;
+  border-color: var(--bazi-border);
+}
+
+.bazi-page.bazi-result-page .liunian-ten {
+  border-color: var(--bazi-border);
+  color: var(--bazi-sub);
+  background: #fffaf3;
+}
+
+.bazi-page.bazi-result-page .energy-bar,
+.bazi-page.bazi-result-page .ten-god-bar {
+  background: #efe9e1;
+}
+
+.bazi-page.bazi-result-page .energy-bar-fill,
+.bazi-page.bazi-result-page .ten-god-bar-fill {
+  background: linear-gradient(
+    90deg,
+    rgba(180, 138, 79, 0.9),
+    rgba(180, 138, 79, 0.25)
+  );
+}
+
+.bazi-page.bazi-result-page .tag,
+.bazi-page.bazi-result-page .shen-item,
+.bazi-page.bazi-result-page .hidden-item {
+  background: transparent;
+  border-color: rgba(47, 42, 36, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(180, 138, 79, 0.04);
+}
+
+.bazi-page.bazi-result-page .shen-wrap {
+  justify-content: flex-start;
+  gap: 4px 6px;
+}
+
+.bazi-page.bazi-result-page .cell-shensha {
+  font-size: 0.68rem;
+  line-height: 1.3;
+}
+
+.bazi-page.bazi-result-page .shen-item {
+  font-size: 0.5rem;
+  text-align: center;
+  border-radius: 10px;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.bazi-page.bazi-result-page .hidden-item {
+  font-size: 0.7rem;
+  padding: 2px 5px;
+  border-radius: 10px;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.bazi-page.bazi-result-page .extra-item,
+.bazi-page.bazi-result-page .case-item {
+  background: var(--bazi-card);
+  border-color: var(--bazi-border);
+}
+
+.bazi-page.bazi-result-page .extra-label,
+.bazi-page.bazi-result-page .extra-note,
+.bazi-page.bazi-result-page .extra-desc,
+.bazi-page.bazi-result-page .extra-line,
+.bazi-page.bazi-result-page .extra-key,
+.bazi-page.bazi-result-page .extra-chip,
+.bazi-page.bazi-result-page .analysis-line,
+.bazi-page.bazi-result-page .case-meta,
+.bazi-page.bazi-result-page .bazi-footer,
+.bazi-page.bazi-result-page .empty {
+  color: var(--bazi-sub);
+}
+
+.bazi-page.bazi-result-page .extra-value,
+.bazi-page.bazi-result-page .case-title {
+  color: var(--bazi-text);
+}
+
+.bazi-page.bazi-result-page .extra-chip {
+  border-color: var(--bazi-border);
+}
+
+.bazi-page.bazi-result-page .extra-bar {
+  background: #efe9e1;
+}
+
+.bazi-page.bazi-result-page .extra-bar-fill {
+  background: linear-gradient(
+    90deg,
+    rgba(180, 138, 79, 0.9),
+    rgba(180, 138, 79, 0.25)
+  );
+}
+
+.bazi-page.bazi-result-page .extra-tag {
+  border-color: var(--bazi-border);
+  color: var(--bazi-sub);
+}
+
+.bazi-page.bazi-result-page .tiao-title,
+.bazi-page.bazi-result-page .tiao-value {
+  color: var(--bazi-text);
+}
+
+.bazi-page.bazi-result-page .tiao-chip,
+.bazi-page.bazi-result-page .tiao-label,
+.bazi-page.bazi-result-page .tiao-desc,
+.bazi-page.bazi-result-page .tiao-line,
+.bazi-page.bazi-result-page .tiao-key {
+  color: var(--bazi-sub);
+}
+
+.bazi-page.bazi-result-page .tiao-chip,
+.bazi-page.bazi-result-page .tiao-block {
+  border-color: var(--bazi-border);
+  background: #fbf8f2;
+}
+
+.bazi-page.bazi-result-page .ai-report {
+  background: #fbf8f2;
+  border-color: var(--bazi-border);
+  color: var(--bazi-text);
+}
+
+.bazi-page.bazi-result-page .ai-mask {
+  background: rgba(251, 248, 242, 0.72);
+  color: var(--bazi-text);
+}
+
+.bazi-page.bazi-result-page .bazi-result-summary {
+  background: #fbf8f2;
+  border-color: var(--bazi-border);
+  color: var(--bazi-sub);
+}
+
+.bazi-page.bazi-result-page .bazi-primary-btn {
+  background: linear-gradient(180deg, #1f1b17 0%, #0f0e0c 100%);
+  color: #f7d69c;
+}
+
+.bazi-page.bazi-input-page .section-title {
+  color: #2b2b2b;
+  letter-spacing: 0.08em;
+}
+
+.bazi-page.bazi-input-page .bazi-result-summary,
+.bazi-page.bazi-input-page .inline-note,
+.bazi-page.bazi-input-page .core-sub,
+.bazi-page.bazi-input-page .energy-percent,
+.bazi-page.bazi-input-page .relation-pillars {
+  color: rgba(0, 0, 0, 0.55);
+}
+
+.bazi-page.bazi-input-page .core-title,
+.bazi-page.bazi-input-page .core-value,
+.bazi-page.bazi-input-page .energy-label,
+.bazi-page.bazi-input-page .ten-god-label,
+.bazi-page.bazi-input-page .case-title {
+  color: #2b2b2b;
+}
+
+.bazi-page.bazi-input-page .bazi-table-wrap {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.06);
+}
+
+.bazi-page.bazi-input-page .bazi-table thead th,
+.bazi-page.bazi-input-page .row-label {
+  background: #f7f5f1;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.bazi-page.bazi-input-page .bazi-table tbody tr:nth-child(even) td,
+.bazi-page.bazi-input-page .bazi-table tbody tr:nth-child(even) th {
+  background: #faf9f6;
+}
+
+.bazi-page.bazi-input-page .cell-text,
+.bazi-page.bazi-input-page .hidden-god,
+.bazi-page.bazi-input-page .shen-item,
+.bazi-page.bazi-input-page .case-meta,
+.bazi-page.bazi-input-page .tag,
+.bazi-page.bazi-input-page .relation-item,
+.bazi-page.bazi-input-page .ten-god-item,
+.bazi-page.bazi-input-page .ten-god-value {
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.bazi-page.bazi-input-page .flow-card,
+.bazi-page.bazi-input-page .core-block,
+.bazi-page.bazi-input-page .shen-sha-item,
+.bazi-page.bazi-input-page .case-item,
+.bazi-page.bazi-input-page .liunian-card,
+.bazi-page.bazi-input-page .dayun-pill,
+.bazi-page.bazi-input-page .ai-report {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+.bazi-page.bazi-input-page .dayun-pill {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.bazi-page.bazi-input-page .dayun-pill.active,
+.bazi-page.bazi-input-page .liunian-card.current {
+  border-color: #b08b45;
+  box-shadow: 0 8px 16px rgba(176, 139, 69, 0.18);
+  background: #fff7e8;
+}
+
+.bazi-page.bazi-input-page .liunian-card,
+.bazi-page.bazi-input-page .dayun-pill {
+  background: #ffffff;
+}
+
+.bazi-page.bazi-input-page .energy-bar,
+.bazi-page.bazi-input-page .ten-god-bar {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.bazi-page.bazi-input-page .energy-bar-fill,
+.bazi-page.bazi-input-page .ten-god-bar-fill {
+  background: linear-gradient(
+    90deg,
+    rgba(176, 139, 69, 0.9),
+    rgba(176, 139, 69, 0.2)
+  );
+}
+
+.bazi-page.bazi-input-page .tag,
+.bazi-page.bazi-input-page .shen-item,
+.bazi-page.bazi-input-page .hidden-item {
+  background: #f7f5f1;
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+.bazi-page.bazi-input-page .ai-report {
+  color: rgba(0, 0, 0, 0.72);
+}
+
+.bazi-page.bazi-input-page .ai-mask {
+  background: rgba(255, 255, 255, 0.7);
+  color: #2b2b2b;
+}
+
+.bazi-page.bazi-input-page .bazi-title {
+  color: #1f1f1f;
+  letter-spacing: 0.1em;
+}
+
+.bazi-page.bazi-input-page .bazi-subtitle {
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.bazi-page.bazi-input-page .inline-note {
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.bazi-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.02), transparent 40%),
+    repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.02),
+      rgba(255, 255, 255, 0.02) 1px,
+      transparent 1px,
+      transparent 8px
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
 .bazi-section {
   position: relative;
   z-index: 1;
@@ -1755,4 +2350,712 @@
   text-align: center;
   color: rgba(245, 216, 158, 0.5);
   font-size: 0.8rem;
+}
+
+/* ====== BaZi Premium Redesign (1-6) ====== */
+.bazi-page {
+  --bazi-bg: #f7f4ef;
+  --bazi-card: #ffffff;
+  --bazi-border: #e7ded2;
+  --bazi-soft: #f5efe6;
+  --bazi-text: #2f2923;
+  --bazi-sub: #6a5f54;
+  --bazi-muted: #9f9182;
+  --bazi-accent: #b48a4f;
+  --bazi-accent-soft: rgba(180, 138, 79, 0.16);
+  --bazi-shadow: 0 18px 32px rgba(28, 22, 15, 0.08);
+  --bazi-radius: 18px;
+  --bazi-radius-sm: 12px;
+  --bazi-gap: 16px;
+  min-height: 100vh;
+  background:
+    radial-gradient(860px 430px at 50% -10%, rgba(255, 251, 244, 0.92), transparent 72%),
+    linear-gradient(180deg, #f8f5ef 0%, #f7f4ef 58%, #f4efe7 100%);
+  color: var(--bazi-text);
+  font-family: "Source Han Sans SC", "Noto Sans SC", "PingFang SC", sans-serif;
+}
+
+.bazi-page::before {
+  opacity: 0.18;
+  background-image:
+    linear-gradient(120deg, rgba(0, 0, 0, 0.02), transparent 40%),
+    repeating-linear-gradient(
+      45deg,
+      rgba(0, 0, 0, 0.02),
+      rgba(0, 0, 0, 0.02) 1px,
+      transparent 1px,
+      transparent 10px
+    );
+}
+
+.bazi-page.bazi-input-page,
+.bazi-page.bazi-result-page {
+  background: var(--bazi-bg);
+  color: var(--bazi-text);
+}
+
+.bazi-section {
+  width: min(94vw, 980px);
+  margin: 18px auto;
+  animation: none;
+}
+
+.bazi-grid {
+  gap: var(--bazi-gap);
+  width: min(94vw, 980px);
+  margin: 18px auto;
+}
+
+.bazi-card {
+  background: var(--bazi-card);
+  border: 1px solid var(--bazi-border);
+  box-shadow: var(--bazi-shadow);
+  border-radius: var(--bazi-radius);
+  padding: 20px;
+  color: var(--bazi-text);
+}
+
+.bazi-input-card {
+  background: var(--bazi-card);
+  border: 1px solid var(--bazi-border);
+  box-shadow: var(--bazi-shadow);
+}
+
+.bazi-title {
+  font-family: "Source Han Serif SC", "Songti SC", "STSong", serif;
+  font-size: 1.6rem;
+  letter-spacing: 0.12em;
+  color: var(--bazi-text);
+}
+
+.bazi-subtitle {
+  color: var(--bazi-sub);
+  font-size: 0.92rem;
+}
+
+.section-title {
+  font-family: "Source Han Serif SC", "Songti SC", "STSong", serif;
+  font-size: 1.18rem;
+  letter-spacing: 0.12em;
+  color: var(--bazi-text);
+}
+
+.bazi-row {
+  border-bottom: 1px solid rgba(47, 41, 35, 0.08);
+  padding: 12px 0;
+}
+
+.bazi-row-label {
+  color: var(--bazi-text);
+  font-weight: 600;
+}
+
+.bazi-row-content {
+  gap: 10px;
+}
+
+.bazi-pill {
+  border: 1px solid var(--bazi-border);
+  background: #ffffff;
+  color: var(--bazi-sub);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.86rem;
+  letter-spacing: 0.06em;
+}
+
+.bazi-pill.active {
+  background: var(--bazi-accent);
+  border-color: var(--bazi-accent);
+  color: #ffffff;
+  box-shadow: 0 8px 16px rgba(177, 139, 79, 0.25);
+}
+
+.bazi-text-input,
+.note-textarea,
+.bazi-input-col select,
+.bazi-pillar-controls select,
+.bazi-advance input {
+  background: #ffffff;
+  border: 1px solid var(--bazi-border);
+  color: var(--bazi-text);
+  border-radius: 10px;
+}
+
+.bazi-input-col select {
+  min-width: 0;
+}
+
+.bazi-primary-btn {
+  background: linear-gradient(180deg, #1b1714 0%, #0f0d0b 100%);
+  color: #f7d69c;
+  border: none;
+  border-radius: 999px;
+  padding: 10px 22px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  box-shadow: 0 12px 22px rgba(20, 15, 10, 0.25);
+}
+
+.bazi-ghost-btn {
+  border: 1px solid var(--bazi-border);
+  color: var(--bazi-sub);
+
+  background: #ffffff;
+  border-radius: 999px;
+  padding: 9px 18px;
+}
+
+.bazi-top-nav {
+  background: var(--bazi-bg);
+}
+
+.bazi-top-nav-inner {
+  background: #ffffff;
+  border: 1px solid var(--bazi-border);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+}
+
+.bazi-top-tab {
+  color: var(--bazi-sub);
+}
+
+.bazi-top-tab.active {
+  background: var(--bazi-accent);
+  color: #ffffff;
+  box-shadow: 0 8px 16px rgba(177, 139, 79, 0.25);
+}
+
+.bazi-home-btn {
+  border-color: var(--bazi-border);
+  background: #ffffff;
+  color: var(--bazi-sub);
+}
+
+.bazi-result-summary,
+.result-meta {
+  background: var(--bazi-soft);
+  border: 1px solid var(--bazi-border);
+  border-radius: 12px;
+  color: var(--bazi-sub);
+}
+
+.result-hero {
+  display: grid;
+  gap: 16px;
+}
+
+.result-hero-main {
+  display: grid;
+  gap: 10px;
+}
+
+.result-hero-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.result-meta {
+  padding: 10px 12px;
+  font-size: 0.86rem;
+}
+
+.summary-card {
+  display: grid;
+  gap: 14px;
+}
+
+.summary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.summary-sub {
+  font-size: 0.85rem;
+  color: var(--bazi-sub);
+}
+
+.summary-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.summary-item {
+  border: 1px solid var(--bazi-border);
+  border-radius: 14px;
+  padding: 12px;
+  background: #fffdf9;
+  min-width: 0;
+}
+
+.summary-label {
+  font-size: 0.8rem;
+  color: var(--bazi-sub);
+  margin-bottom: 4px;
+  letter-spacing: 0.08em;
+}
+
+.summary-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--bazi-text);
+}
+
+.summary-desc {
+  font-size: 0.82rem;
+  color: var(--bazi-sub);
+  margin-top: 4px;
+}
+
+.summary-tags {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+
+.summary-tag {
+  border: 1px solid var(--bazi-border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: #ffffff;
+  display: grid;
+  gap: 6px;
+  color: var(--bazi-sub);
+  font-size: 0.86rem;
+}
+
+.summary-tag span {
+  font-size: 0.78rem;
+  color: var(--bazi-muted);
+  letter-spacing: 0.08em;
+}
+
+.analysis-line {
+  color: var(--bazi-sub);
+}
+
+/* ====== HePan (八字合盘) ====== */
+.hepan-card {
+  display: grid;
+  gap: 14px;
+}
+
+.hepan-head {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.hepan-col {
+  border: 1px solid var(--bazi-border);
+  background: var(--bazi-soft);
+  border-radius: 14px;
+  padding: 12px;
+  display: grid;
+  gap: 8px;
+}
+
+.hepan-label {
+  font-size: 0.78rem;
+  color: var(--bazi-muted);
+  letter-spacing: 0.1em;
+}
+
+.hepan-name {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--bazi-text);
+}
+
+.hepan-select {
+  width: 100%;
+  border: 1px solid var(--bazi-border);
+  border-radius: 10px;
+  padding: 6px 8px;
+  background: #ffffff;
+  color: var(--bazi-text);
+}
+
+.hepan-note {
+  font-size: 0.82rem;
+  color: var(--bazi-sub);
+}
+
+.hepan-pillars {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px 10px;
+  font-size: 0.86rem;
+  color: var(--bazi-sub);
+}
+
+.hepan-pillar {
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+}
+
+.hepan-metrics {
+  display: grid;
+  gap: 10px;
+
+  margin-top: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+
+.hepan-metric {
+  border: 1px solid var(--bazi-border);
+  border-radius: 12px;
+  background: #fffdf8;
+  padding: 10px 12px;
+  display: grid;
+  gap: 6px;
+}
+
+.hepan-metric span {
+  font-size: 0.75rem;
+  color: var(--bazi-muted);
+  letter-spacing: 0.08em;
+}
+
+.hepan-metric strong {
+  font-size: 0.96rem;
+  color: var(--bazi-text);
+}
+
+.hepan-verdicts {
+  display: grid;
+  gap: 6px;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--bazi-sub);
+}
+
+.hepan-relations {
+  display: grid;
+  gap: 10px;
+}
+
+.hepan-rel-group {
+  display: grid;
+  gap: 6px;
+}
+
+.hepan-rel-title {
+  font-size: 0.8rem;
+  color: var(--bazi-muted);
+  letter-spacing: 0.08em;
+}
+
+.hepan-rel-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.hepan-rel-item {
+  border: 1px solid var(--bazi-border);
+  border-radius: 999px;
+  padding: 4px 8px;
+  font-size: 0.78rem;
+  color: var(--bazi-sub);
+  background: #ffffff;
+}
+
+.hepan-empty {
+  font-size: 0.86rem;
+  color: var(--bazi-sub);
+}
+
+.bazi-table-wrap {
+  background: #ffffff;
+  border-color: var(--bazi-border);
+}
+
+.bazi-table thead th,
+.row-label {
+  background: var(--bazi-soft);
+  color: var(--bazi-sub);
+}
+
+.col-label {
+  color: var(--bazi-text);
+  font-weight: 600;
+}
+
+.col-sub {
+  color: var(--bazi-muted);
+  font-size: 0.72rem;
+}
+
+.bazi-table tbody tr:nth-child(even) td,
+.bazi-table tbody tr:nth-child(even) th {
+  background: #fcfaf6;
+}
+
+.cell-text,
+.cell-shensha,
+.hidden-god-line {
+  color: var(--bazi-sub);
+}
+
+.tag,
+.hidden-item {
+  background: #ffffff;
+  border-color: var(--bazi-border);
+}
+
+.flow-card,
+.core-block,
+.luck-meta,
+.luck-detail-card,
+.ai-report,
+.tiao-block {
+  background: #ffffff;
+  border-color: var(--bazi-border);
+}
+
+.flow-node {
+  background: #fffaf3;
+  border-color: var(--bazi-border);
+  color: var(--bazi-text);
+}
+
+.flow-node.active {
+  background: #fff2da;
+  border-color: var(--bazi-accent);
+}
+
+.flow-note,
+.flow-mode,
+.flow-main-percent,
+.flow-arrow,
+.flow-loop {
+  color: var(--bazi-sub);
+}
+
+.core-title,
+.core-sub,
+.energy-percent,
+.luck-label,
+.luck-year,
+.luck-age,
+.luck-month,
+.luck-god,
+.detail-line,
+.detail-keywords,
+.detail-desc,
+.inline-note,
+.empty {
+  color: var(--bazi-sub);
+}
+
+.energy-bar,
+.ten-god-bar,
+.extra-bar {
+  background: #efe9e1;
+}
+
+.energy-bar-fill,
+.ten-god-bar-fill,
+.extra-bar-fill {
+  background: linear-gradient(
+    90deg,
+    rgba(177, 139, 79, 0.9),
+    rgba(177, 139, 79, 0.25)
+  );
+}
+
+.luck-item {
+  background: #ffffff;
+  border-color: var(--bazi-border);
+  padding: 6px 2px;
+}
+
+.luck-item.active {
+  background: #fff4dc;
+  border-color: var(--bazi-accent);
+  box-shadow: 0 10px 18px rgba(177, 139, 79, 0.18);
+}
+
+.luck-today {
+  border-color: var(--bazi-border);
+  color: var(--bazi-sub);
+  background: #fffaf3;
+}
+
+.luck-meta {
+  font-size: 0.82rem;
+  padding: 12px 14px;
+}
+
+.luck-label {
+  font-size: 0.72rem;
+}
+
+.luck-grid {
+  gap: 4px;
+}
+
+.luck-year,
+.luck-age,
+.luck-range {
+  font-size: 0.42rem;
+  white-space: nowrap;
+}
+
+.luck-char {
+  font-size: 0.92rem;
+}
+
+.luck-gz-stack {
+  gap: 2px;
+}
+
+.luck-gz-line {
+  gap: 2px;
+}
+
+.luck-god {
+  font-size: 0.58rem;
+}
+
+.luck-month {
+  font-size: 0.6rem;
+}
+
+.luck-detail-card {
+  font-size: 0.82rem;
+}
+
+.ai-report {
+  background: #fffaf3;
+  border-color: var(--bazi-border);
+  color: var(--bazi-text);
+}
+
+.ai-mask {
+  background: rgba(255, 250, 243, 0.7);
+  color: var(--bazi-text);
+}
+
+.note-textarea {
+  min-height: 120px;
+}
+
+.bazi-page.bazi-input-page .bazi-row-label {
+  color: var(--bazi-text);
+}
+
+.bazi-page.bazi-input-page .bazi-row {
+  border-bottom: 1px solid rgba(47, 41, 35, 0.08);
+}
+
+.bazi-page.bazi-input-page .bazi-input-header {
+  text-align: left;
+}
+
+.bazi-page.bazi-input-page .bazi-input-header .bazi-title {
+  font-size: 1.5rem;
+}
+
+.bazi-page.bazi-input-page .bazi-input-form {
+  gap: 14px;
+}
+
+.bazi-page.bazi-input-page .bazi-pillar-input {
+  background: var(--bazi-soft);
+  border: 1px solid var(--bazi-border);
+}
+
+.bazi-page.bazi-input-page .bazi-pillar-label {
+  color: var(--bazi-sub);
+}
+
+.bazi-page.bazi-input-page .bazi-pillar-controls select {
+  background: #ffffff;
+  border-color: var(--bazi-border);
+  color: var(--bazi-text);
+}
+
+.bazi-page.bazi-input-page .bazi-action-row {
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.bazi-page.bazi-input-page .bazi-primary-btn {
+  flex: 1.2;
+  width: auto;
+}
+
+.bazi-page.bazi-input-page .bazi-secondary-btn {
+  flex: 1;
+  width: auto;
+}
+
+@media (max-width: 640px) {
+  .bazi-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .bazi-grid {
+    grid-template-columns: 1fr;
+  }
+  .cell-stem,
+  .cell-branch {
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+  }
+  .bazi-table th,
+  .bazi-table td {
+    padding: 5px 3px;
+  }
+  .col-sub {
+    font-size: 0.68rem;
+  }
+  .cell-text {
+    font-size: 0.78rem;
+  }
+  .extra-grid {
+    grid-template-columns: 1fr;
+  }
+  .case-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .case-actions {
+    width: 100%;
+  }
+  .ten-god-split {
+    flex-direction: column;
+  }
+
+  .bazi-row.bazi-row-dual {
+    grid-template-columns: 1fr;
+  }
+
+  .instant-row {
+    grid-template-columns: 1fr;
+  }
+
+  .instant-right {
+    justify-items: center;
+  }
+
+  .instant-pillars {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .instant-meta {
+    grid-column: 1 / -1;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .instant-btn {
+    justify-self: center;
+  }
 }

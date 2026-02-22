@@ -2,7 +2,18 @@
 @use "../../styles/mixins.scss" as *;
 
 .stock-page {
-  @include mystical-page-bg;
+  --stock-bg: #f7f4ef;
+  --stock-card: #ffffff;
+  --stock-border: #e7ded2;
+  --stock-soft: #f5efe6;
+  --stock-text: #2f2923;
+  --stock-sub: #6a5f54;
+  --stock-muted: #9f9182;
+  --stock-accent: #b48a4f;
+  --stock-accent-deep: #8f6837;
+  --stock-shadow: 0 18px 32px rgba(28, 22, 15, 0.08);
+  min-height: 100vh;
+  background: var(--stock-bg);
   padding: 0 14px 28px;
 
   --stock-up: #ff4d4f;
@@ -32,16 +43,16 @@
   gap: 6px;
   padding: 6px;
   border-radius: 999px;
-  background: rgba(12, 16, 28, 0.8);
-  border: 1px solid var(--stock-border-soft);
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.25);
+  background: #ffffff;
+  border: 1px solid var(--stock-border);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
   width: min(92vw, 320px);
 }
 
 .stock-top-tab {
   border: none;
   background: transparent;
-  color: var(--stock-text-sub);
+  color: var(--stock-sub);
   padding: 8px 12px;
   border-radius: 999px;
   font-size: 0.9rem;
@@ -59,10 +70,9 @@
 }
 
 .stock-top-tab.active {
-  background: rgba(180, 138, 79, 0.25);
-  color: var(--stock-text-main);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  border: 1px solid var(--stock-border-soft);
+  background: var(--stock-accent);
+  color: #ffffff;
+  box-shadow: 0 6px 16px rgba(177, 139, 79, 0.25);
   font-weight: 600;
 }
 
@@ -82,7 +92,8 @@
 
 .stock-subtitle {
   display: block;
-  color: var(--stock-text-sub);
+  margin-top: 4px;
+  color: var(--stock-sub);
   font-size: 0.86rem;
   line-height: 1.5;
 }
@@ -182,6 +193,17 @@
   font-weight: 600;
 }
 
+.form-card {
+  margin-bottom: 12px;
+  padding: 14px 12px;
+  background: linear-gradient(180deg, #ffffff 0%, var(--stock-soft) 100%);
+}
+
+.market-card,
+.board-card {
+  margin-bottom: 12px;
+}
+
 .market-header {
   display: flex;
   align-items: center;
@@ -189,17 +211,12 @@
   margin-bottom: 10px;
 }
 
-.section-title {
-  display: block;
-  color: $color-mystical-gold;
-  font-size: 0.95rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  margin-bottom: 0; // Reset margin for header usage
+.market-card .section-title {
+  color: var(--stock-text);
 }
 
 .market-update-time {
-  color: var(--stock-text-muted);
+  color: var(--stock-sub);
   font-size: 0.7rem;
 }
 
@@ -221,8 +238,8 @@
 
 .market-index-name {
   display: block;
-  color: var(--stock-text-sub);
-  font-size: 0.75rem;
+  color: var(--stock-sub);
+  font-size: 0.72rem;
 }
 
 .market-index-value {

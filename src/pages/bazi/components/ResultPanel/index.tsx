@@ -133,18 +133,12 @@ const ResultPanel: React.FC = () => {
 
       <FourPillars />
       <HePan />
-      <div className="bazi-grid">
-        <CoreEnergy />
-        <TiaoHouYongShen />
-      </div>
-      <div className="bazi-grid">
-        <EnergyFlowDirection />
-        <EnergyFlow />
-      </div>
-      <div className="bazi-grid">
-        <RelationModel />
-        <LuckTrack />
-      </div>
+      <CoreEnergy />
+      <TiaoHouYongShen />
+      <EnergyFlowDirection />
+      <EnergyFlow />
+      <RelationModel />
+      <LuckTrack />
       <AiAnalysis />
       <Explore />
       <section className="bazi-section">

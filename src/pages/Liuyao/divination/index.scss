@@ -126,15 +126,18 @@
 
 /* ====== Liuyao Theme Override (Dark Mystical) ====== */
 .liuyao-divination-page {
-  --bazi-bg: #050510;
-  --bazi-card: rgba(255, 255, 255, 0.04);
-  --bazi-border: rgba(201, 173, 111, 0.2);
-  --bazi-soft: rgba(255, 255, 255, 0.02);
-  --bazi-text: #e0e0e0;
-  --bazi-sub: rgba(255, 255, 255, 0.6);
-  --bazi-muted: rgba(255, 255, 255, 0.4);
-  --bazi-accent: #d8aa63;
-  --bazi-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  --bazi-bg: #f7f4ef;
+  --bazi-card: #ffffff;
+  --bazi-border: #e7ded2;
+  --bazi-soft: #f5efe6;
+  --bazi-text: #2f2923;
+  --bazi-sub: #6a5f54;
+  --bazi-muted: #9f9182;
+  --bazi-accent: #b48a4f;
+  --bazi-shadow: 0 18px 32px rgba(28, 22, 15, 0.08);
+  background: var(--bazi-bg);
+  color: var(--bazi-text);
+  font-family: "Source Han Sans SC", "Noto Sans SC", "PingFang SC", sans-serif;
 }
 
 .liuyao-divination-page text {

@@ -198,3 +198,296 @@
   letter-spacing: 0.5px;
 }
 
+/* ====== Liuyao Result Theme Override (match BaZi) ====== */
+.liuyao-result-page {
+  --bazi-bg: #f7f4ef;
+  --bazi-card: #ffffff;
+  --bazi-border: #e7ded2;
+  --bazi-soft: #f5efe6;
+  --bazi-text: #2f2923;
+  --bazi-sub: #6a5f54;
+  --bazi-muted: #9f9182;
+  --bazi-accent: #b48a4f;
+  --bazi-shadow: 0 18px 32px rgba(28, 22, 15, 0.08);
+  background: var(--bazi-bg);
+  color: var(--bazi-text);
+  font-family: "Source Han Sans SC", "Noto Sans SC", "PingFang SC", sans-serif;
+}
+
+.liuyao-result-page text {
+  color: inherit;
+}
+
+.liuyao-result-page .glass-card {
+  background: var(--bazi-card);
+  border: 1px solid var(--bazi-border);
+  box-shadow: var(--bazi-shadow);
+}
+
+.liuyao-result-page .analysis-card,
+.liuyao-result-page .info-grid-card {
+  background: var(--bazi-card);
+  border: 1px solid var(--bazi-border);
+}
+
+.liuyao-result-page .card-section-title {
+  color: var(--bazi-text);
+  text-shadow: none;
+}
+
+.liuyao-result-page .card-section-guide {
+  color: var(--bazi-sub);
+}
+
+.liuyao-result-page .info-row text,
+.liuyao-result-page .xunkong-label,
+.liuyao-result-page .relation-group-title,
+.liuyao-result-page .relation-item,
+.liuyao-result-page .yao-analysis-relations,
+.liuyao-result-page .yao-analysis-variant {
+  color: var(--bazi-sub);
+}
+
+.liuyao-result-page .clickable-time,
+.liuyao-result-page .ganzhi-item,
+.liuyao-result-page .shensha-item {
+  background: #ffffff;
+  border: 1px solid var(--bazi-border);
+}
+
+.liuyao-result-page .ganzhi-value,
+.liuyao-result-page .xunkong-value {
+  color: var(--bazi-text);
+}
+
+.liuyao-result-page .hexagram-table {
+  background: #ffffff;
+  border-color: var(--bazi-border);
+}
+
+.liuyao-result-page .hexagram-table .hex-name,
+.liuyao-result-page .hexagram-table .section-title {
+  color: var(--bazi-text);
+  text-shadow: none;
+}
+
+.liuyao-result-page .hexagram-table .col-label,
+.liuyao-result-page .hexagram-table .cell {
+  color: var(--bazi-sub);
+}
+
+.liuyao-result-page .hexagram-table .table-header,
+.liuyao-result-page .hexagram-table .table-subheader {
+  border-color: var(--bazi-border);
+}
+
+.liuyao-result-page .table-header,
+.liuyao-result-page .table-subheader {
+  background: var(--bazi-soft);
+  border-color: var(--bazi-border);
+}
+
+.liuyao-result-page .hex-name,
+.liuyao-result-page .section-title {
+  color: var(--bazi-text);
+  text-shadow: none;
+}
+
+.liuyao-result-page .col-label,
+.liuyao-result-page .cell {
+  color: var(--bazi-sub);
+}
+
+.liuyao-result-page .branch-relation-section,
+.liuyao-result-page .yao-analysis-section {
+  background: var(--bazi-soft);
+  border-color: var(--bazi-border);
+}
+
+.liuyao-result-page .branch-relation-title,
+.liuyao-result-page .yao-analysis-title {
+  color: var(--bazi-text);
+}
+
+.liuyao-result-page .yao-analysis-label {
+  color: var(--bazi-text);
+}
+
+.liuyao-result-page .yao-analysis-strength {
+  color: var(--bazi-sub);
+}
+
+.liuyao-result-page .yao-analysis-item {
+  background: #fffdf8;
+  border: 1px solid var(--bazi-border);
+}
+
+.liuyao-result-page .yao-analysis-relations,
+.liuyao-result-page .yao-analysis-variant,
+.liuyao-result-page .yao-analysis-energy-score {
+  color: var(--bazi-sub);
+}
+
+.liuyao-result-page .yao-tag-item {
+  background: #ffffff;
+  border: 1px solid var(--bazi-border);
+  color: var(--bazi-sub);
+}
+
+.liuyao-result-page .yao-tag-neutral .yao-tag-label {
+  color: var(--bazi-sub);
+}
+
+.liuyao-result-page .five-elements-mask {
+  background: rgba(255, 250, 243, 0.7);
+}
+
+.liuyao-result-page .five-elements-mask-text {
+  color: var(--bazi-text);
+}
+
+.liuyao-result-page .five-elements-card {
+  background: #ffffff;
+  border: 1px solid var(--bazi-border);
+  box-shadow: var(--bazi-shadow);
+}
+
+.liuyao-result-page .radar-canvas {
+  background: var(--bazi-soft);
+  border-color: var(--bazi-border);
+  box-shadow: inset 0 0 16px rgba(177, 139, 79, 0.08);
+}
+
+.liuyao-result-page .legend-item {
+  background: #ffffff;
+  border-color: var(--bazi-border);
+}
+
+.liuyao-result-page .legend-label {
+  color: var(--bazi-sub);
+}
+
+.liuyao-result-page .legend-value,
+.liuyao-result-page .radar-title {
+  color: var(--bazi-text);
+}
+
+.liuyao-result-page .floating-bar {
+  background: rgba(255, 255, 255, 0.7);
+  border-top: 1px solid var(--bazi-border);
+  box-shadow: 0 10px 20px rgba(31, 26, 21, 0.12);
+}
+
+.liuyao-result-page .floating-bar .floating-btn {
+  background: #ffffff;
+  border-color: var(--bazi-border);
+  color: var(--bazi-text);
+}
+
+.liuyao-result-page .floating-bar .btn-icon {
+  color: var(--bazi-accent);
+}
+
+.liuyao-result-page .floating-bar .btn-label {
+  color: var(--bazi-sub);
+}
+
+.liuyao-result-page .bottom-buttons-container .btn-save-case {
+  background: linear-gradient(180deg, #1b1714 0%, #0f0d0b 100%);
+  color: #f7d69c;
+  border-radius: 999px;
+}
+
+.liuyao-result-page .bottom-buttons-container .btn-view-history {
+  background: #ffffff;
+  color: var(--bazi-sub);
+  border: 1px solid var(--bazi-border);
+  border-radius: 999px;
+}
+
+.liuyao-result-page .drawer-wrapper .drawer-mask {
+  background-color: rgba(255, 250, 243, 0.7);
+}
+
+.liuyao-result-page .drawer-wrapper .drawer-container {
+  background-color: #ffffff;
+  border-left: 1px solid var(--bazi-border);
+}
+
+.liuyao-result-page .drawer-wrapper .drawer-header {
+  border-bottom: 1px solid var(--bazi-border);
+}
+
+.liuyao-result-page .drawer-wrapper .drawer-title,
+.liuyao-result-page .drawer-wrapper .drawer-close {
+  color: var(--bazi-text);
+}
+
+.liuyao-result-page .history-list .history-item {
+  background-color: #ffffff;
+  border: 1px solid var(--bazi-border);
+}
+
+.liuyao-result-page .history-list .history-item .history-date,
+.liuyao-result-page .history-list .history-item .history-remark,
+.liuyao-result-page .history-list .history-item .empty-text {
+  color: var(--bazi-sub);
+}
+
+.liuyao-result-page .history-list .history-item .history-question {
+  color: var(--bazi-text);
+}
+
+.liuyao-result-page .history-list .history-item .history-hexagram {
+  color: var(--bazi-accent);
+  background-color: rgba(177, 139, 79, 0.12);
+}
+
+.liuyao-result-page .history-list .history-item-delete {
+  color: #c05a5a;
+}
+
+.liuyao-result-page .auth-status-bar.logged-in {
+  background: #ffffff;
+  border: 1px solid var(--bazi-border);
+  box-shadow: var(--bazi-shadow);
+}
+
+.liuyao-result-page .auth-status-text,
+.liuyao-result-page .go-to-text,
+.liuyao-result-page .username-text {
+  color: var(--bazi-text);
+}
+
+.liuyao-result-page .arrow-icon {
+  color: var(--bazi-accent);
+}
+
+.liuyao-result-page .liuyao-top-nav,
+.liuyao-result-page .auth-status-bar {
+  grid-column: 1 / -1;
+}
+
+.liuyao-result-page .analysis-main,
+.liuyao-result-page .analysis-main text {
+  color: var(--bazi-text);
+}
+
+.liuyao-result-page .card-section-title {
+  color: var(--bazi-text);
+  text-shadow: none;
+}
+
+.liuyao-result-page .card-section-guide {
+  color: var(--bazi-sub);
+}
+
+.liuyao-result-page .branch-relation-section,
+.liuyao-result-page .yao-analysis-section {
+  color: var(--bazi-text);
+}
+
+.liuyao-result-page .wuxing-tag,
+.liuyao-result-page .moving-tag {
+  color: var(--bazi-accent);
+}
