@@ -1,6 +1,7 @@
 import Taro from '@tarojs/taro'
 
 export const DEFAULT_LOADING_TEXT = '正在加载....请稍后'
+type RequestData = string | Record<string, unknown> | ArrayBuffer
 
 let loadingCount = 0
 
@@ -18,7 +19,7 @@ function hideGlobalLoading() {
   }
 }
 
-export async function requestWithLoading<T = any>(
+export async function requestWithLoading<T extends RequestData = any>(
   options: Taro.request.Option,
   loadingText: string = DEFAULT_LOADING_TEXT
 ): Promise<Taro.request.SuccessCallbackResult<T>> {

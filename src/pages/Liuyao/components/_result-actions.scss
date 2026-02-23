@@ -1,0 +1,61 @@
+/* 保存卦例和查看历史按钮 */
+.btn-save-case {
+  flex: 1;
+  background: linear-gradient(135deg, rgba(201, 173, 111, 0.2), rgba(201, 173, 111, 0.1)) !important;
+  color: #c9ad6f !important;
+  border: 1.5px solid rgba(201, 173, 111, 0.4) !important;
+  border-radius: 12px !important;
+  font-size: 26px !important;
+  font-weight: 600 !important;
+  letter-spacing: 2px !important;
+  padding: 14px 20px !important;
+  box-shadow:
+    0 0 20px rgba(201, 173, 111, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+
+  &::after {
+    border: none !important;
+  }
+
+  &:active {
+    transform: scale(0.97);
+    box-shadow:
+      0 0 25px rgba(201, 173, 111, 0.25),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    color: rgba(201, 173, 111, 0.4) !important;
+    border-color: rgba(201, 173, 111, 0.15) !important;
+    box-shadow: 0 0 10px rgba(201, 173, 111, 0.05) !important;
+  }
+}
+
+.btn-view-history {
+  flex: 1;
+  background: linear-gradient(135deg, rgba(122, 162, 140, 0.15), rgba(122, 162, 140, 0.08)) !important;
+  color: #7aa28c !important;
+  border: 1.5px solid rgba(122, 162, 140, 0.3) !important;
+  border-radius: 12px !important;
+  font-size: 26px !important;
+  font-weight: 600 !important;
+  letter-spacing: 2px !important;
+  padding: 14px 20px !important;
+  box-shadow:
+    0 0 20px rgba(122, 162, 140, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  margin-top: 0;
+  &::after {
+    border: none !important;
+  }
+
+  &:active {
+    transform: scale(0.97);
+    box-shadow:
+      0 0 25px rgba(122, 162, 140, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+  }
+}

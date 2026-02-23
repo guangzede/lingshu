@@ -1,26 +1,13 @@
+@use "../../styles/mixins.scss" as *;
+
 .auth-page {
-  --auth-bg: #f7f4ef;
-  --auth-card: #ffffff;
-  --auth-border: #e7ded2;
-  --auth-soft: #f5efe6;
-  --auth-text: #2f2923;
-  --auth-sub: #6a5f54;
-  --auth-muted: #9f9182;
-  --auth-accent: #b48a4f;
-  --auth-shadow: 0 18px 32px rgba(28, 22, 15, 0.08);
-  min-height: 100vh;
+  @include unified-page-shell("auth");
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background:
-    radial-gradient(760px 360px at 20% -8%, rgba(255, 251, 244, 0.95), transparent 72%),
-    radial-gradient(680px 320px at 86% 8%, rgba(233, 217, 191, 0.38), transparent 75%),
-    linear-gradient(180deg, #f8f5ef 0%, #f7f4ef 58%, #f4efe7 100%);
   position: relative;
   overflow: hidden;
-  color: var(--auth-text);
-  font-family: "Source Han Sans SC", "Noto Sans SC", "PingFang SC", sans-serif;
 }
 
 .auth-bg {
@@ -133,11 +120,7 @@
 }
 
 .auth-card {
-  background: var(--auth-card);
-  border: 1px solid var(--auth-border);
-  border-radius: 24px;
-  padding: 30px 26px 34px;
-  box-shadow: var(--auth-shadow);
+  @include unified-surface-card("auth", 24px, 30px 26px 34px);
 }
 
 .auth-health {

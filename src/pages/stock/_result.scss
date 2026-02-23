@@ -1,0 +1,237 @@
+.result-card {
+  margin-bottom: 12px;
+  background: linear-gradient(180deg, rgba(20, 26, 46, 0.9) 0%, rgba(12, 16, 28, 0.95) 100%);
+  border: 1px solid rgba(180, 138, 79, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.result-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.stock-name {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--stock-accent);
+  text-shadow: 0 0 10px rgba(180, 138, 79, 0.3);
+}
+
+.stock-code {
+  display: block;
+  margin-top: 4px;
+  color: var(--stock-text-sub);
+  font-size: 0.8rem;
+}
+
+.direction-tag {
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+
+.direction-tag.up {
+  color: #fff;
+  background: var(--stock-up);
+  box-shadow: 0 4px 12px rgba(255, 77, 79, 0.3);
+}
+
+.direction-tag.down {
+  color: #fff;
+  background: var(--stock-down);
+  box-shadow: 0 4px 12px rgba(39, 195, 117, 0.3);
+}
+
+.quote-row {
+  margin-top: 12px;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.quote-price {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+
+.quote-change {
+  font-size: 1rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.quote-change.up {
+  color: var(--stock-up);
+}
+
+.quote-change.down {
+  color: var(--stock-down);
+}
+
+.prob-section {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.prob-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--stock-text-sub);
+  font-size: 0.86rem;
+}
+
+.prob-bar {
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.prob-fill {
+  height: 100%;
+  border-radius: 999px;
+}
+
+.prob-fill.up {
+  background: linear-gradient(90deg, #ff7875, #d9363e);
+  box-shadow: 0 0 10px rgba(255, 120, 117, 0.4);
+}
+
+.prob-fill.down {
+  background: linear-gradient(90deg, #4cbf82, #1f8f55);
+  box-shadow: 0 0 10px rgba(76, 191, 130, 0.4);
+}
+
+.metrics-grid {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.metric-item {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 10px;
+}
+
+.metric-label {
+  display: block;
+  color: var(--stock-text-muted);
+  font-size: 0.74rem;
+}
+
+.metric-value {
+  display: block;
+  margin-top: 4px;
+  color: var(--stock-text-main);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.factor-list {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.factor-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid rgba(180, 138, 79, 0.2);
+  border-radius: 999px;
+  background: rgba(180, 138, 79, 0.08);
+  padding: 6px 12px;
+}
+
+.factor-name {
+  color: var(--stock-text-sub);
+  font-size: 0.75rem;
+}
+
+.factor-value {
+  color: var(--stock-accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.signal-list {
+  margin-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 12px;
+}
+
+.signal-item {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.signal-dot {
+  color: var(--stock-accent);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.signal-text {
+  flex: 1;
+  color: var(--stock-text-sub);
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+.crawled-time {
+  display: block;
+  margin-top: 14px;
+  color: var(--stock-text-muted);
+  font-size: 0.72rem;
+  text-align: right;
+}
+
+.notice-card {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.notice-title {
+  display: block;
+  color: var(--stock-text-main);
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.notice-text {
+  display: block;
+  margin-top: 6px;
+  color: var(--stock-text-sub);
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+@media (max-width: 380px) {
+  .market-index-grid,
+  .board-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-ganzhi {
+    width: 80px;
+  }
+
+  .hero-metrics {
+    grid-template-columns: 1fr;
+  }
+}

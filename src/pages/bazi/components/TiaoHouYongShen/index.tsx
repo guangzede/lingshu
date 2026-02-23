@@ -19,6 +19,8 @@ const SEASON_MAP: Record<Branch, { season: string; climate: string; main: string
 }
 
 const formatList = (list?: string[]) => (list && list.length ? list.join('、') : '--')
+const BRANCHES: Branch[] = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥']
+const isBranch = (value: unknown): value is Branch => BRANCHES.includes(value as Branch)
 
 const TiaoHouYongShen: React.FC = () => {
   const { result } = useBaziStore()
@@ -34,10 +36,10 @@ const TiaoHouYongShen: React.FC = () => {
     )
   }
 
-  const monthBranch = result.pillars.month.branch
+  const monthBranch: Branch | undefined = isBranch(result.pillars.month.branch) ? (result.pillars.month.branch as Branch) : undefined
   const dayStem = result.pillars.day.stem
   const dayElement = result.dayMaster?.element
-  const mapping = SEASON_MAP[monthBranch]
+  const mapping = monthBranch ? SEASON_MAP[monthBranch] : undefined
   const yongShen = result.yongShen || { use: [], favor: [], avoid: [] }
 
   return (

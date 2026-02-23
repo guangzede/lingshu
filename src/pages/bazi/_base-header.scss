@@ -1,0 +1,232 @@
+@use "../../styles/variables.scss" as *;
+@use "../../styles/mixins.scss" as *;
+
+.bazi-title {
+  font-family: $font-family-serif;
+  font-size: 1.8rem;
+  letter-spacing: 0.15em;
+  color: $color-mystical-gold;
+}
+
+.bazi-subtitle {
+  margin-top: 6px;
+  color: rgba(245, 216, 158, 0.7);
+  font-size: 0.95rem;
+}
+
+.bazi-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.bazi-switch-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.bazi-pill {
+  border: 1px solid rgba(245, 216, 158, 0.28);
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(245, 216, 158, 0.85);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.bazi-pill.active {
+  background: linear-gradient(120deg, #f8e3b8, #f0c56c);
+  box-shadow: 0 6px 16px rgba(245, 216, 158, 0.35);
+  border-color: rgba(245, 216, 158, 0.65);
+  color: #1b1b1b;
+  font-weight: 600;
+}
+
+.bazi-pill.active::after {
+  content: "✓";
+  margin-left: 6px;
+  font-weight: 700;
+}
+
+.bazi-pill.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
+
+
+.bazi-pill.danger {
+  border-color: rgba(245, 120, 120, 0.6);
+  color: #f59f9f;
+}
+
+.bazi-primary-btn {
+  @include mystical-button;
+}
+
+
+
+
+
+
+.case-form input,
+.bazi-text-input,
+.note-textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(245, 216, 158, 0.25);
+  background: rgba(9, 12, 24, 0.6);
+  color: #f5d89e;
+}
+
+.note-textarea {
+  min-height: 140px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+
+.bazi-pillar-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: rgba(8, 11, 20, 0.6);
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+}
+
+.bazi-pillar-label {
+  font-size: 0.9rem;
+  color: rgba(245, 216, 158, 0.8);
+}
+
+.bazi-pillar-display {
+  display: flex;
+  gap: 10px;
+}
+
+.pillar-box {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: rgba(12, 16, 32, 0.8);
+  border: 1px solid rgba(245, 216, 158, 0.25);
+  color: #f5d89e;
+  font-size: 1.3rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.pillar-box:active {
+  transform: scale(0.95);
+  background: rgba(180, 138, 79, 0.15);
+  border-color: rgba(180, 138, 79, 0.5);
+}
+
+// Picker Grid Styles
+.bazi-grid-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 6px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.picker-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #f5d89e;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0 4px;
+}
+
+.close-btn {
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  color: rgba(245, 216, 158, 0.6);
+  padding: 4px;
+}
+
+.picker-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.picker-grid.stems {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.picker-grid.branches {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.grid-cell {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  color: rgba(245, 216, 158, 0.7);
+  font-size: 1.3rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.grid-cell:active {
+  transform: scale(0.92);
+}
+
+.grid-cell.active {
+  background: linear-gradient(135deg, rgba(180, 138, 79, 0.4), rgba(180, 138, 79, 0.1));
+  border-color: #f5d89e;
+  color: #f5d89e;
+  box-shadow: 0 0 12px rgba(180, 138, 79, 0.25);
+  font-weight: 700;
+}
+
+.grid-cell.disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+  background: transparent;
+  border-color: transparent;
+}
+
+.bazi-action-row {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.inline-note {
+  margin-top: 12px;
+  font-size: 0.9rem;
+  color: rgba(245, 216, 158, 0.8);
+}

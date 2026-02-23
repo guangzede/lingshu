@@ -332,7 +332,7 @@ const UserInput: React.FC = () => {
                   </div>
                   <PickerView
                     className="dlr-picker"
-                    itemHeight={PICKER_ROW}
+                    indicatorStyle={`height: ${PICKER_ROW}px;`}
                     value={pickerValue}
                     onChange={(e) => {
                       const [yIdx, mIdx, dIdx, hIdx, minIdx] = e.detail.value

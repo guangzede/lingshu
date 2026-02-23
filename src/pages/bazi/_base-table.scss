@@ -1,0 +1,145 @@
+@use "../../styles/variables.scss" as *;
+@use "../../styles/mixins.scss" as *;
+
+.bazi-result-summary {
+  display: grid;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(8, 12, 24, 0.6);
+  border: 1px solid rgba(245, 216, 158, 0.12);
+  margin-bottom: 12px;
+  font-size: 0.85rem;
+  color: rgba(245, 216, 158, 0.8);
+}
+
+.bazi-table-wrap {
+  overflow-x: hidden;
+  border-radius: 14px;
+  border: 1px solid rgba(245, 216, 158, 0.12);
+  background: rgba(8, 12, 24, 0.55);
+}
+
+.bazi-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  line-height: 1.4;
+  table-layout: fixed;
+}
+
+.bazi-table th,
+.bazi-table td {
+  border-bottom: 1px solid rgba(245, 216, 158, 0.1);
+  border-right: 1px solid rgba(245, 216, 158, 0.08);
+  padding: 6px 4px;
+  vertical-align: top;
+}
+
+.bazi-table thead th {
+  font-size: 0.85rem;
+  color: rgba(245, 216, 158, 0.85);
+  background: rgba(7, 10, 18, 0.75);
+}
+
+.bazi-table tbody tr:nth-child(even) td,
+.bazi-table tbody tr:nth-child(even) th {
+  background: rgba(12, 16, 28, 0.5);
+}
+
+.bazi-table tr:last-child td,
+.bazi-table tr:last-child th {
+  border-bottom: none;
+}
+
+.bazi-table th:last-child,
+.bazi-table td:last-child {
+  border-right: none;
+}
+
+.row-label {
+  width: 70px;
+  font-size: 0.8rem;
+  color: rgba(245, 216, 158, 0.7);
+  background: rgba(7, 10, 18, 0.65);
+  text-align: left;
+  padding-left: 10px;
+}
+
+.col-label {
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.col-sub {
+  margin-top: 4px;
+  font-size: 0.72rem;
+  color: rgba(245, 216, 158, 0.55);
+}
+
+.cell-text {
+  font-size: 0.85rem;
+  color: rgba(245, 216, 158, 0.9);
+  word-break: break-all;
+}
+
+.cell-stem,
+.cell-branch {
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  word-break: break-all;
+}
+
+.cell-hidden {
+  font-size: 0.72rem;
+  color: rgba(245, 216, 158, 0.75);
+}
+
+.hidden-line {
+  display: flex;
+  justify-content: center;
+  gap: 3px;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.hidden-stem {
+  // font-size: 0.78rem;
+  font-weight: 400;
+  // letter-spacing: 0.02em;
+}
+
+.hidden-god-list {
+  display: grid;
+  gap: 4px;
+  justify-items: center;
+}
+
+.hidden-god-line {
+  font-size: 0.7rem;
+  color: rgba(245, 216, 158, 0.75);
+  white-space: nowrap;
+}
+
+.cell-shensha {
+  font-size: 0.64rem;
+  color: rgba(162, 112, 58, 0.95);
+  text-align: center;
+}
+
+.shen-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.shen-item {
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  white-space: nowrap;
+  line-height: 1.2;
+  font-weight: 500;
+}

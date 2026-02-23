@@ -1,4 +1,5 @@
 import React from 'react';
+import type { LiuyaoResult } from '../../../types';
 import './index.scss';
 
 /**
@@ -7,9 +8,12 @@ import './index.scss';
  * - 日/月建同参状态标签
  * - 特殊状态高亮（如日破、月破、暗动、旬空、真空/假空）
  * - 进神/退神提示
- * @param {object} props.result - 六爻排盘结果对象
  */
-const ProfessionalAnalysisCard = ({ result }) => {
+interface ProfessionalAnalysisCardProps {
+  result?: LiuyaoResult | null;
+}
+
+const ProfessionalAnalysisCard: React.FC<ProfessionalAnalysisCardProps> = ({ result }) => {
   if (!result || !result.yaos) return null;
 
   // TODO: 1. 计算生克制化关系
@@ -24,7 +28,7 @@ const ProfessionalAnalysisCard = ({ result }) => {
       <div className="yao-list">
         {result.yaos.map((yao, idx) => (
           <div className="yao-item" key={idx}>
-            <span className="yao-name">{yao.name}</span>
+            <span className="yao-name">{yao?.name || `第${idx + 1}爻`}</span>
             {/* TODO: 渲染生克制化关系、状态标签、特殊状态、进神/退神提示 */}
           </div>
         ))}

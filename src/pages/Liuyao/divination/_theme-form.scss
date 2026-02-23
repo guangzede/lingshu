@@ -1,0 +1,272 @@
+@use "../../../styles/variables.scss" as *;
+@use "../../../styles/mixins.scss" as *;
+
+/* ====== Liuyao Theme Override (match unified light tone) ====== */
+.liuyao-divination-page {
+  @include unified-page-shell("bazi", $padding-bottom: $spacing-xl);
+}
+
+.liuyao-divination-page text {
+  color: inherit;
+}
+
+.liuyao-divination-page .glass-card,
+.liuyao-divination-page .datetime-card,
+.liuyao-divination-page .count-input-card,
+.liuyao-divination-page .yao-matrix-section {
+  @include unified-surface-card("bazi");
+}
+
+.liuyao-divination-page .card-section-title {
+  color: $color-mystical-gold;
+  text-shadow: 0 0 10px rgba(216, 170, 99, 0.2);
+}
+
+.liuyao-divination-page .card-section-guide {
+  color: var(--bazi-sub);
+}
+
+.liuyao-divination-page .mode-tab {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--bazi-border);
+  color: var(--bazi-sub);
+  border-radius: 999px;
+  font-size: 0.86rem;
+}
+
+.liuyao-divination-page .mode-tab-active {
+  background: linear-gradient(135deg, rgba(216, 170, 99, 0.2), rgba(216, 170, 99, 0.1));
+  color: $color-mystical-gold;
+  border-color: $color-mystical-gold;
+  box-shadow: 0 0 12px rgba(216, 170, 99, 0.15);
+}
+
+.liuyao-divination-page .top-section {
+  background: transparent;
+}
+
+.liuyao-divination-page .mode-selector {
+  border-bottom: 1px solid var(--bazi-border);
+  padding-bottom: 10px;
+  margin-bottom: 4px;
+}
+
+.liuyao-divination-page .input-label-elegant,
+.liuyao-divination-page .yao-label-elegant {
+  color: $color-mystical-gold;
+}
+
+.liuyao-divination-page .value-with-underline {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--bazi-border);
+  color: var(--bazi-text);
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.liuyao-divination-page .value-text {
+  color: var(--bazi-text);
+}
+
+.liuyao-divination-page .question-input,
+.liuyao-divination-page .number-input-elegant {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--bazi-border);
+  color: #ffffff;
+}
+
+.liuyao-divination-page .question-input::placeholder,
+.liuyao-divination-page .number-input-elegant::placeholder {
+  color: var(--bazi-muted);
+}
+
+.liuyao-divination-page .input-container {
+  border: 1px solid var(--bazi-border);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.liuyao-divination-page .input-container:focus-within {
+  border-color: var(--bazi-accent);
+  box-shadow: 0 0 0 1px rgba(216, 170, 99, 0.3);
+}
+
+.liuyao-divination-page .selected-tag {
+  background: rgba(216, 170, 99, 0.15);
+  border: 1px solid var(--bazi-accent);
+  color: $color-mystical-gold;
+  box-shadow: 0 0 8px rgba(216, 170, 99, 0.1);
+}
+
+.liuyao-divination-page .input-button {
+  min-height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(30, 30, 40, 0.8) 0%, rgba(20, 20, 30, 0.9) 100%);
+  border: 1px solid rgba(201, 173, 111, 0.4);
+  color: $color-mystical-gold;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.liuyao-divination-page .input-button:active {
+  transform: scale(0.98);
+  background: rgba(20, 20, 30, 0.95);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.liuyao-divination-page .yao-symbol.clickable {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--bazi-border);
+}
+
+.liuyao-divination-page .yao-symbol:not(.clickable) {
+  background: var(--bazi-soft);
+}
+
+.liuyao-divination-page .line-segment {
+  background: var(--bazi-accent);
+}
+
+.liuyao-divination-page .shake-tip {
+  color: var(--bazi-sub);
+  font-size: 0.88rem;
+  letter-spacing: 0.08em;
+  line-height: 1.6;
+}
+
+.liuyao-divination-page .glass-card.shake-section {
+  align-items: stretch;
+}
+
+.liuyao-divination-page .shake-coins {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.liuyao-divination-page .coins-stage {
+  width: 100%;
+  height: 280px;
+  border-radius: 12px;
+  background: rgba(10, 10, 20, 0.6);
+  border: 1px solid var(--bazi-border);
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.liuyao-divination-page .coins-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(216, 170, 99, 0.05), transparent 70%);
+  pointer-events: none;
+}
+
+.liuyao-divination-page .coins-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 8px;
+  padding: 0 14px;
+  position: relative;
+  z-index: 1;
+}
+
+.liuyao-divination-page .coin-shell {
+  width: clamp(86px, 28vw, 128px);
+  aspect-ratio: 1 / 1;
+  position: relative;
+  perspective: 980px;
+  transform-style: preserve-3d;
+  flex: 0 0 auto;
+}
+
+.liuyao-divination-page .coin-shell::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  transform: translateX(-50%);
+  width: 74%;
+  height: 12%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0)
+  );
+  filter: blur(2px);
+}
+
+.liuyao-divination-page .coin-shell.is-tossing {
+  animation-name: coin-toss;
+  animation-timing-function: cubic-bezier(0.22, 0.8, 0.2, 1);
+  animation-fill-mode: both;
+}
+
+.liuyao-divination-page .coin-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.2, 0.82, 0.24, 1);
+}
+
+.liuyao-divination-page .coin-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.liuyao-divination-page .coin-face-back {
+  transform: rotateY(180deg);
+  filter: hue-rotate(-18deg) saturate(1.18) brightness(0.9);
+}
+
+@keyframes coin-toss {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  18% {
+    transform: translate3d(0, -26px, 0) scale(1.02);
+  }
+  52% {
+    transform: translate3d(0, -42px, 0) scale(1.04);
+  }
+  74% {
+    transform: translate3d(0, -12px, 0) scale(1.01);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@media (max-width: 480px) {
+  .liuyao-divination-page .coins-stage {
+    height: 240px;
+  }
+
+  .liuyao-divination-page .coins-row {
+    padding: 0 8px;
+  }
+
+  .liuyao-divination-page .shake-runtime {
+    height: 44vh;
+    min-height: 280px;
+    max-height: 380px;
+  }
+}

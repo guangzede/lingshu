@@ -1,0 +1,310 @@
+@use "../../styles/mixins.scss" as *;
+
+/* ====== HePan (八字合盘) ====== */
+.hepan-card {
+  display: grid;
+  gap: 14px;
+}
+
+.hepan-head {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.hepan-col {
+  border: 1px solid var(--bazi-border);
+  background: var(--bazi-soft);
+  border-radius: 14px;
+  padding: 12px;
+  display: grid;
+  gap: 8px;
+}
+
+.hepan-label {
+  font-size: 0.78rem;
+  color: var(--bazi-muted);
+  letter-spacing: 0.1em;
+}
+
+.hepan-name {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--bazi-text);
+}
+
+.hepan-select {
+  width: 100%;
+  border: 1px solid var(--bazi-border);
+  border-radius: 10px;
+  padding: 6px 8px;
+  background: #ffffff;
+  color: var(--bazi-text);
+}
+
+.hepan-note {
+  font-size: 0.82rem;
+  color: var(--bazi-sub);
+}
+
+.hepan-pillars {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px 10px;
+  font-size: 0.86rem;
+  color: var(--bazi-sub);
+}
+
+.hepan-pillar {
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+}
+
+.hepan-metrics {
+  display: grid;
+  gap: 10px;
+
+  margin-top: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+
+.hepan-metric {
+  border: 1px solid var(--bazi-border);
+  border-radius: 12px;
+  background: #fffdf8;
+  padding: 10px 12px;
+  display: grid;
+  gap: 6px;
+}
+
+.hepan-metric span {
+  font-size: 0.75rem;
+  color: var(--bazi-muted);
+  letter-spacing: 0.08em;
+}
+
+.hepan-metric strong {
+  font-size: 0.96rem;
+  color: var(--bazi-text);
+}
+
+.hepan-verdicts {
+  display: grid;
+  gap: 6px;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--bazi-sub);
+}
+
+.hepan-relations {
+  display: grid;
+  gap: 10px;
+}
+
+.hepan-rel-group {
+  display: grid;
+  gap: 6px;
+}
+
+.hepan-rel-title {
+  font-size: 0.8rem;
+  color: var(--bazi-muted);
+  letter-spacing: 0.08em;
+}
+
+.hepan-rel-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.hepan-rel-item {
+  border: 1px solid var(--bazi-border);
+  border-radius: 999px;
+  padding: 4px 8px;
+  font-size: 0.78rem;
+  color: var(--bazi-sub);
+  background: #ffffff;
+}
+
+.hepan-empty {
+  font-size: 0.86rem;
+  color: var(--bazi-sub);
+}
+
+.bazi-table-wrap {
+  background: #ffffff;
+  border-color: var(--bazi-border);
+}
+
+.bazi-table thead th,
+.row-label {
+  background: var(--bazi-soft);
+  color: var(--bazi-sub);
+}
+
+.col-label {
+  color: var(--bazi-text);
+  font-weight: 600;
+}
+
+.col-sub {
+  color: var(--bazi-muted);
+  font-size: 0.72rem;
+}
+
+.bazi-table tbody tr:nth-child(even) td,
+.bazi-table tbody tr:nth-child(even) th {
+  background: #fcfaf6;
+}
+
+.cell-text,
+.cell-shensha,
+.hidden-god-line {
+  color: var(--bazi-sub);
+}
+
+.tag,
+.hidden-item {
+  background: #ffffff;
+  border-color: var(--bazi-border);
+}
+
+.flow-card,
+.core-block,
+.luck-meta,
+.luck-detail-card,
+.ai-report,
+.tiao-block {
+  background: #ffffff;
+  border-color: var(--bazi-border);
+}
+
+.flow-node {
+  background: #fffaf3;
+  border-color: var(--bazi-border);
+  color: var(--bazi-text);
+}
+
+.flow-node.active {
+  background: #fff2da;
+  border-color: var(--bazi-accent);
+}
+
+.flow-note,
+.flow-mode,
+.flow-main-percent,
+.flow-arrow,
+.flow-loop {
+  color: var(--bazi-sub);
+}
+
+.core-title,
+.core-sub,
+.energy-percent,
+.luck-label,
+.luck-year,
+.luck-age,
+.luck-month,
+.luck-god,
+.detail-line,
+.detail-keywords,
+.detail-desc,
+.inline-note,
+.empty {
+  color: var(--bazi-sub);
+}
+
+.energy-bar,
+.ten-god-bar,
+.extra-bar {
+  background: #efe9e1;
+}
+
+.energy-bar-fill,
+.ten-god-bar-fill,
+.extra-bar-fill {
+  background: linear-gradient(
+    90deg,
+    rgba(177, 139, 79, 0.9),
+    rgba(177, 139, 79, 0.25)
+  );
+}
+
+.luck-item {
+  background: #ffffff;
+  border-color: var(--bazi-border);
+  padding: 6px 2px;
+}
+
+.luck-item.active {
+  background: #fff4dc;
+  border-color: var(--bazi-accent);
+  box-shadow: 0 10px 18px rgba(177, 139, 79, 0.18);
+}
+
+.luck-today {
+  border-color: var(--bazi-border);
+  color: var(--bazi-sub);
+  background: #fffaf3;
+}
+
+.luck-meta {
+  font-size: 0.82rem;
+  padding: 12px 14px;
+}
+
+.luck-label {
+  font-size: 0.72rem;
+}
+
+.luck-grid {
+  gap: 4px;
+}
+
+.luck-year,
+.luck-age,
+.luck-range {
+  font-size: 0.42rem;
+  white-space: nowrap;
+}
+
+.luck-char {
+  font-size: 0.92rem;
+}
+
+.luck-gz-stack {
+  gap: 2px;
+}
+
+.luck-gz-line {
+  gap: 2px;
+}
+
+.luck-god {
+  font-size: 0.58rem;
+}
+
+.luck-month {
+  font-size: 0.6rem;
+}
+
+.luck-detail-card {
+  font-size: 0.82rem;
+}
+
+.ai-report {
+  background: #fffaf3;
+  border-color: var(--bazi-border);
+  color: var(--bazi-text);
+}
+
+.ai-mask {
+  background: rgba(255, 250, 243, 0.7);
+  color: var(--bazi-text);
+}
+
+.note-textarea {
+  min-height: 120px;
+}

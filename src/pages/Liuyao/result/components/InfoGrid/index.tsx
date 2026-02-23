@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text } from '@tarojs/components'
-import type { LiuyaoResult } from '../../types'
+import type { LiuyaoResult } from '../../../types'
 import './index.scss'
 
 interface InfoGridProps {

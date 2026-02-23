@@ -1,41 +1,17 @@
+@use "../../../../styles/mixins.scss" as *;
+
 .bazi-top-nav {
-  position: sticky;
-  top: 0;
-  z-index: 6;
-  display: flex;
-  justify-content: center;
-  padding: 14px 12px 8px;
-  backdrop-filter: blur(10px);
+  @include unified-top-nav-shell(var(--bazi-bg));
 }
 
 .bazi-top-nav-inner {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 6px;
-  padding: 6px;
-  border-radius: 999px;
-  background: #ffffff;
-  border: 1px solid var(--bazi-border);
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
-  width: min(92vw, 520px);
+  @include unified-top-nav-inner("bazi", 4, 520px);
 }
 
 .bazi-top-tab {
-  border: none;
-  background: transparent;
-  color: var(--bazi-sub);
-  padding: 8px 12px;
-  border-radius: 999px;
-  font-size: 0.9rem;
-  letter-spacing: 0.08em;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  outline: none;
+  @include unified-top-nav-tab("bazi");
 }
 
 .bazi-top-tab.active {
-  background: var(--bazi-accent);
-  color: #ffffff;
-  box-shadow: 0 6px 16px rgba(177, 139, 79, 0.25);
-  font-weight: 600;
+  @include unified-top-nav-tab-active("bazi");
 }

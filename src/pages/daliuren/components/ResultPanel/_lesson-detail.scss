@@ -1,0 +1,261 @@
+.lesson-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.lesson-item {
+  display: grid;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid var(--dlr-border);
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.lesson-label {
+  font-size: 0.75rem;
+  color: var(--dlr-sub);
+  letter-spacing: 0.12em;
+}
+
+.lesson-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.lesson-tag {
+  font-size: 0.7rem;
+  color: var(--dlr-text);
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--dlr-accent-soft);
+}
+
+.lesson-main {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 8px;
+  align-items: center;
+}
+
+.lesson-side {
+  display: grid;
+  gap: 2px;
+  text-align: center;
+}
+
+.lesson-title {
+  font-size: 0.72rem;
+  color: var(--dlr-sub);
+}
+
+.lesson-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--dlr-text);
+}
+
+.lesson-sub {
+  font-size: 0.75rem;
+  color: var(--dlr-sub);
+}
+
+.lesson-arrow {
+  color: var(--dlr-sub);
+}
+
+.lesson-meta {
+  font-size: 0.78rem;
+  color: var(--dlr-sub);
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+}
+
+.lesson-dot {
+  color: rgba(106, 95, 84, 0.5);
+}
+
+.lesson-meaning {
+  font-size: 0.78rem;
+  color: var(--dlr-text);
+  background: #f6f1ea;
+  border-radius: 10px;
+  padding: 6px 8px;
+}
+
+.lesson-extra {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.lesson-extra-item {
+  display: grid;
+  gap: 4px;
+  text-align: center;
+  padding: 6px 4px;
+  border-radius: 10px;
+  background: #fbf7f1;
+  border: 1px solid rgba(47, 41, 35, 0.08);
+  font-size: 0.72rem;
+  color: var(--dlr-sub);
+}
+
+.lesson-extra-item strong {
+  font-size: 0.82rem;
+  color: var(--dlr-text);
+  font-weight: 600;
+}
+
+.transmission-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.transmission-item {
+  border: 1px solid var(--dlr-border);
+  border-radius: 12px;
+  padding: 10px;
+  display: grid;
+  gap: 6px;
+  text-align: center;
+}
+
+.transmission-label {
+  font-size: 0.7rem;
+  color: var(--dlr-sub);
+}
+
+.transmission-branch {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.transmission-meta {
+  font-size: 0.72rem;
+  color: var(--dlr-sub);
+}
+
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 6px 0;
+}
+
+.tag {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--dlr-accent-soft);
+  color: var(--dlr-text);
+  font-size: 0.75rem;
+  border: 1px solid rgba(180, 138, 79, 0.35);
+}
+
+.tag.subtle {
+  background: #faf6ef;
+  color: #6b6055;
+  border-color: rgba(120, 105, 90, 0.25);
+}
+
+.dlr-section-block {
+  display: grid;
+  gap: 10px;
+  padding: 10px 0;
+  border-top: 1px dashed var(--dlr-border);
+}
+
+.dlr-section-block:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+.dlr-subtitle {
+  font-size: 0.8rem;
+  color: var(--dlr-sub);
+  letter-spacing: 0.1em;
+}
+
+.dlr-hint-list {
+  display: grid;
+  gap: 6px;
+}
+
+.dlr-hint-item {
+  font-size: 0.8rem;
+  color: var(--dlr-text);
+  background: #f6f1ea;
+  border-radius: 10px;
+  padding: 6px 10px;
+}
+
+.dlr-hint-item.muted {
+  color: var(--dlr-sub);
+  background: #faf6ef;
+}
+
+.dlr-shen-sha-groups {
+  display: grid;
+  gap: 14px;
+}
+
+.dlr-shen-sha-group {
+  display: grid;
+  gap: 8px;
+}
+
+.dlr-group-title {
+  font-size: 0.78rem;
+  color: var(--dlr-text);
+  font-weight: 600;
+}
+
+.dlr-shen-sha-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.dlr-shen-sha-item {
+  background: #fbf7f1;
+  border-radius: 12px;
+  padding: 8px 10px;
+  border: 1px solid rgba(47, 41, 35, 0.08);
+  display: grid;
+  gap: 6px;
+}
+
+.dlr-shen-sha-name {
+  font-size: 0.75rem;
+  color: #6a5f54;
+}
+
+.dlr-shen-sha-value {
+  font-size: 0.9rem;
+  color: #2f2923;
+  font-weight: 600;
+}
+
+.summary-text {
+  font-size: 0.95rem;
+  color: var(--dlr-text);
+  margin-bottom: 8px;
+}
+
+.summary-list {
+  margin: 0;
+  padding-left: 16px;
+  color: var(--dlr-sub);
+  font-size: 0.78rem;
+  display: grid;
+  gap: 4px;
+}
+
+.warning-card {
+  border-color: rgba(180, 138, 79, 0.35);
+}

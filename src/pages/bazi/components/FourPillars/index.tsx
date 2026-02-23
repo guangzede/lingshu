@@ -17,6 +17,12 @@ interface ColumnCell {
   xunKong?: Branch[]
 }
 
+const STEMS: Stem[] = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸']
+const BRANCHES: Branch[] = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥']
+
+const isStem = (value: unknown): value is Stem => STEMS.includes(value as Stem)
+const isBranch = (value: unknown): value is Branch => BRANCHES.includes(value as Branch)
+
 const FourPillars: React.FC = () => {
   const { result, viewMode, selectedDaYunIndex } = useBaziStore()
 
@@ -49,18 +55,22 @@ const FourPillars: React.FC = () => {
     return getHiddenStems(branch, dayStem)
   }
 
-  const buildFromPillar = (pillar: any): ColumnCell => ({
-    stem: pillar.stem,
-    branch: pillar.branch,
-    stemElement: pillar.stemElement || STEM_ELEMENT[pillar.stem],
-    branchElement: pillar.branchElement || BRANCH_ELEMENT[pillar.branch],
-    tenGod: pillar.tenGod,
-    naYin: pillar.naYin,
-    star: pillar.changSheng || getChangSheng(dayStem, pillar.branch),
-    selfStar: getChangSheng(pillar.stem, pillar.branch),
-    hiddenStems: normalizeHidden(pillar.branch, pillar.hiddenStems),
-    xunKong: getXunKong(pillar.stem, pillar.branch)
-  })
+  const buildFromPillar = (pillar: any): ColumnCell => {
+    const stem: Stem | undefined = isStem(pillar?.stem) ? (pillar.stem as Stem) : undefined
+    const branch: Branch | undefined = isBranch(pillar?.branch) ? (pillar.branch as Branch) : undefined
+    return {
+      stem,
+      branch,
+      stemElement: pillar?.stemElement || (stem ? STEM_ELEMENT[stem] : undefined),
+      branchElement: pillar?.branchElement || (branch ? BRANCH_ELEMENT[branch] : undefined),
+      tenGod: pillar?.tenGod,
+      naYin: pillar?.naYin,
+      star: pillar?.changSheng || (branch ? getChangSheng(dayStem, branch) : undefined),
+      selfStar: stem && branch ? getChangSheng(stem, branch) : undefined,
+      hiddenStems: branch ? normalizeHidden(branch, pillar?.hiddenStems) : undefined,
+      xunKong: stem && branch ? getXunKong(stem, branch) : undefined
+    }
+  }
 
   const buildFromGanZhi = (stem?: Stem, branch?: Branch, tenGod?: string): ColumnCell => {
     if (!stem || !branch) return {}
@@ -98,8 +108,6 @@ const FourPillars: React.FC = () => {
   ]
 
   const shenShaMap = result.shenSha || {}
-  const STEMS: Stem[] = ['甲','乙','丙','丁','戊','己','庚','辛','壬','癸']
-  const BRANCHES: Branch[] = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥']
   const PILLAR_LABELS: Record<string, string> = {
     year: '年柱',
     month: '月柱',

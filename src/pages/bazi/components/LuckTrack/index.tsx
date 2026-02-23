@@ -5,6 +5,11 @@ import type { Branch, Stem } from '@/types/liuyao'
 import { BRANCH_ELEMENT, HIDDEN_STEMS, STEM_ELEMENT, TEN_GOD_SHORT, getTenGod } from '../../utils'
 import './index.scss'
 
+const STEMS: Stem[] = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸']
+const BRANCHES: Branch[] = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥']
+const toStem = (value: unknown): Stem | undefined => STEMS.find((item) => item === value)
+const toBranch = (value: unknown): Branch | undefined => BRANCHES.find((item) => item === value)
+
 const LuckTrack: React.FC = () => {
   const { result, selectedDaYunIndex, setSelectedDaYunIndex } = useBaziStore()
   const [selectedYear, setSelectedYear] = React.useState<number | null>(null)
@@ -18,8 +23,6 @@ const LuckTrack: React.FC = () => {
   const currentLunarMonthIndex = Math.max(1, todayLunar.getMonth()) - 1
   const dayStem = result?.pillars?.day?.stem
 
-  const STEMS: Stem[] = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸']
-  const BRANCHES: Branch[] = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥']
   const MONTH_LABELS = ['正', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二']
 
   const getBranchTenGodFull = (branch?: Branch) => {
@@ -38,7 +41,8 @@ const LuckTrack: React.FC = () => {
   const buildLiuYueList = (ganZhi?: string) => {
     if (!ganZhi) return []
     if (!dayStem) return []
-    const yearGan = ganZhi[0] as Stem
+    const yearGan = toStem(ganZhi[0])
+    if (!yearGan) return []
     const yearGanIndex = STEMS.indexOf(yearGan)
     const offsetTable = [2, 4, 6, 8, 0]
     const offset = offsetTable[Math.max(0, yearGanIndex) % 5]
@@ -151,7 +155,10 @@ const LuckTrack: React.FC = () => {
             <div className="luck-label">大运</div>
             {dayunList.length ? (
               <div className="luck-grid dayun-grid" style={{ ['--count' as any]: dayunList.length }}>
-                {dayunList.map((dy: any, idx: number) => (
+                {dayunList.map((dy: any, idx: number) => {
+                  const dyStem = toStem(dy.stem)
+                  const dyBranch = toBranch(dy.branch)
+                  return (
                   <button
                     key={dy.index}
                     className={`luck-item dayun-item ${idx === currentIndex ? 'active' : ''}`}
@@ -163,16 +170,17 @@ const LuckTrack: React.FC = () => {
                     </div>
                     <div className="luck-gz-stack">
                       <div className="luck-gz-line">
-                        <span className={`luck-char element-${STEM_ELEMENT[dy.stem]}`}>{dy.stem}</span>
+                        <span className={`luck-char element-${dyStem ? STEM_ELEMENT[dyStem] : ''}`}>{dy.stem || '--'}</span>
                         <span className="luck-god">{TEN_GOD_SHORT[dy.tenGod] || dy.tenGod}</span>
                       </div>
                       <div className="luck-gz-line">
-                        <span className={`luck-char element-${BRANCH_ELEMENT[dy.branch]}`}>{dy.branch}</span>
-                        <span className="luck-god">{getBranchTenGodShort(dy.branch)}</span>
+                        <span className={`luck-char element-${dyBranch ? BRANCH_ELEMENT[dyBranch] : ''}`}>{dy.branch || '--'}</span>
+                        <span className="luck-god">{getBranchTenGodShort(dyBranch)}</span>
                       </div>
                     </div>
                   </button>
-                ))}
+                  )
+                })}
               </div>
             ) : (
               <div className="empty">暂无大运信息</div>
@@ -184,11 +192,11 @@ const LuckTrack: React.FC = () => {
             {currentDayun?.liuNian?.length ? (
               <div className="luck-grid liunian-grid" style={{ ['--count' as any]: currentDayun.liuNian.length }}>
                 {currentDayun.liuNian.map((ln: any) => {
-                  const stem = ln.ganZhi?.[0]
-                  const branch = ln.ganZhi?.[1]
+                  const stem = toStem(ln.ganZhi?.[0])
+                  const branch = toBranch(ln.ganZhi?.[1])
                   const isActive = ln.year === selectedYear
                   const isCurrent = ln.year === currentYear
-                  const branchTen = getBranchTenGodShort(branch as Branch)
+                  const branchTen = getBranchTenGodShort(branch)
                   return (
                     <div
                       key={`${currentDayun.index}-${ln.year}`}
@@ -198,11 +206,11 @@ const LuckTrack: React.FC = () => {
                       <div className="luck-year">{ln.year}</div>
                       <div className="luck-gz-stack">
                         <div className="luck-gz-line">
-                          <span className={`luck-char element-${STEM_ELEMENT[stem]}`}>{stem}</span>
+                          <span className={`luck-char element-${stem ? STEM_ELEMENT[stem] : ''}`}>{stem || '--'}</span>
                           <span className="luck-god">{TEN_GOD_SHORT[ln.tenGod] || ln.tenGod}</span>
                         </div>
                         <div className="luck-gz-line">
-                          <span className={`luck-char element-${BRANCH_ELEMENT[branch]}`}>{branch}</span>
+                          <span className={`luck-char element-${branch ? BRANCH_ELEMENT[branch] : ''}`}>{branch || '--'}</span>
                           <span className="luck-god">{branchTen}</span>
                         </div>
                       </div>
@@ -252,10 +260,10 @@ const LuckTrack: React.FC = () => {
             <div className="luck-detail">
               {activeLiuNian ? buildDetail(
                 `流年解读 · ${activeLiuNian.year}`,
-                activeLiuNian.ganZhi?.[0] as Stem,
+                toStem(activeLiuNian.ganZhi?.[0]),
                 activeLiuNian.tenGod,
-                activeLiuNian.ganZhi?.[1] as Branch,
-                getBranchTenGodFull(activeLiuNian.ganZhi?.[1] as Branch)
+                toBranch(activeLiuNian.ganZhi?.[1]),
+                getBranchTenGodFull(toBranch(activeLiuNian.ganZhi?.[1]))
               ) : null}
               {liuYueList[selectedMonthIndex] ? buildDetail(
                 `流月解读 · ${liuYueList[selectedMonthIndex].label}月`,

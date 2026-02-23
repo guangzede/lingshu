@@ -1,0 +1,307 @@
+@use "../../styles/variables.scss" as *;
+@use "../../styles/mixins.scss" as *;
+
+.dayun-row {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  margin-top: 10px;
+}
+
+.luck-panel {
+  margin-top: 10px;
+  display: grid;
+  gap: 14px;
+}
+
+.luck-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(245, 216, 158, 0.18);
+  background: rgba(8, 12, 24, 0.55);
+  margin-bottom: 10px;
+  font-size: 0.78rem;
+}
+
+.luck-meta-left {
+  display: grid;
+  gap: 4px;
+}
+
+.luck-today {
+  border: 1px solid rgba(245, 216, 158, 0.35);
+  background: rgba(245, 216, 158, 0.08);
+  color: rgba(245, 216, 158, 0.85);
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  font-weight: 600;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.luck-today::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  right: 6px;
+  height: 4px;
+  border-radius: 4px;
+  background: rgba(245, 216, 158, 0.25);
+}
+
+.luck-row {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 10px;
+  align-items: stretch;
+}
+
+.luck-label {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.74rem;
+  color: rgba(245, 216, 158, 0.7);
+  letter-spacing: 0.18em;
+}
+
+.luck-grid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(var(--count, 10), minmax(0, 1fr));
+}
+
+.luck-grid.liunian-grid {
+  grid-template-columns: repeat(var(--count, 10), minmax(0, 1fr));
+}
+
+.luck-grid.liuyue-grid {
+  grid-template-columns: repeat(var(--count, 12), minmax(0, 1fr));
+}
+
+.luck-item {
+  min-width: 0;
+  border-radius: 12px;
+  border: 1px solid rgba(245, 216, 158, 0.18);
+  background: rgba(8, 12, 24, 0.55);
+  text-align: center;
+  display: grid;
+  box-sizing: border-box;
+}
+
+.luck-item.active {
+  border-color: rgba(245, 216, 158, 0.6);
+  background: rgba(245, 216, 158, 0.12);
+  box-shadow: 0 10px 18px rgba(245, 216, 158, 0.18);
+}
+
+.luck-item.current {
+  border-color: rgba(245, 216, 158, 0.8);
+}
+
+.dayun-item {
+  min-width: 0;
+}
+
+.luck-year {
+  font-size: 0.52rem;
+  color: rgba(245, 216, 158, 0.7);
+  line-height: 1.2;
+  white-space: normal;
+  word-break: break-all;
+}
+
+.luck-age {
+  font-size: 0.52rem;
+  color: rgba(245, 216, 158, 0.55);
+  line-height: 1.25;
+  word-break: break-all;
+  white-space: normal;
+}
+
+.luck-gz-stack {
+  display: grid;
+  gap: 3px;
+}
+
+.luck-gz-line {
+  display: grid;
+  gap: 2px;
+}
+
+.luck-char {
+  font-size: 0.98rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.luck-god {
+  font-size: 0.58rem;
+  color: rgba(245, 216, 158, 0.7);
+  line-height: 1.2;
+}
+
+.luck-month {
+  font-size: 0.66rem;
+  color: rgba(245, 216, 158, 0.65);
+  white-space: normal;
+  word-break: break-all;
+}
+
+.luck-detail {
+  display: grid;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.luck-detail-card {
+  border-radius: 12px;
+  border: 1px solid rgba(245, 216, 158, 0.18);
+  background: rgba(8, 12, 24, 0.55);
+  padding: 10px 12px;
+  display: grid;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: rgba(245, 216, 158, 0.75);
+}
+
+.detail-title {
+  font-weight: 600;
+  color: rgba(245, 216, 158, 0.9);
+}
+
+.detail-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  color: rgba(245, 216, 158, 0.75);
+}
+
+.detail-keywords {
+  color: rgba(245, 216, 158, 0.7);
+}
+
+.detail-desc {
+  color: rgba(245, 216, 158, 0.6);
+  line-height: 1.5;
+}
+
+.luck-range {
+  font-size: 0.52rem;
+  color: rgba(245, 216, 158, 0.55);
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+}
+
+.dayun-pill {
+  min-width: 150px;
+  border-radius: 16px;
+  border: 1px solid rgba(245, 216, 158, 0.2);
+  background: rgba(8, 12, 24, 0.55);
+  color: #f5d89e;
+  padding: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dayun-pill.active {
+  border-color: rgba(245, 216, 158, 0.6);
+  box-shadow: 0 10px 18px rgba(245, 216, 158, 0.2);
+  background: rgba(245, 216, 158, 0.1);
+}
+
+.dayun-pill-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.dayun-pill-tags {
+  margin-top: 8px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 0.72rem;
+  color: rgba(245, 216, 158, 0.8);
+}
+
+.dayun-tag {
+  padding: 2px 6px;
+  border-radius: 999px;
+  border: 1px solid rgba(245, 216, 158, 0.25);
+  color: rgba(245, 216, 158, 0.85);
+}
+
+.dayun-year {
+  padding: 2px 6px;
+  border-radius: 999px;
+  border: 1px solid rgba(245, 216, 158, 0.2);
+  color: rgba(245, 216, 158, 0.7);
+}
+
+.dayun-pill-sub {
+  margin-top: 4px;
+  font-size: 0.7rem;
+  color: rgba(245, 216, 158, 0.55);
+}
+
+.liunian-grid {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(86px, 1fr));
+  gap: 10px;
+}
+
+.liunian-card {
+  background: rgba(8, 12, 24, 0.6);
+  border-radius: 12px;
+  padding: 8px 6px 10px;
+  border: 1px solid rgba(245, 216, 158, 0.12);
+  text-align: center;
+  display: grid;
+  gap: 4px;
+}
+
+.liunian-card.current {
+  border-color: rgba(245, 216, 158, 0.5);
+  box-shadow: 0 0 12px rgba(245, 216, 158, 0.25);
+}
+
+.liunian-year {
+  font-size: 0.74rem;
+  color: rgba(245, 216, 158, 0.7);
+}
+
+.liunian-gz {
+  margin-top: 4px;
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.liunian-ten {
+  font-size: 0.7rem;
+  color: rgba(245, 216, 158, 0.75);
+  border: 1px solid rgba(245, 216, 158, 0.2);
+  border-radius: 999px;
+  padding: 2px 6px;
+  justify-self: center;
+}

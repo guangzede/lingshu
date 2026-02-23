@@ -1,0 +1,254 @@
+@use "../../styles/variables.scss" as *;
+@use "../../styles/mixins.scss" as *;
+
+.core-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.core-block {
+  background: rgba(8, 12, 24, 0.7);
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(245, 216, 158, 0.12);
+  min-width: 0;
+  overflow: hidden;
+}
+
+.core-title {
+  font-size: 0.85rem;
+  color: rgba(245, 216, 158, 0.7);
+  margin-bottom: 4px;
+}
+
+.core-value {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #fff4d8;
+}
+
+.core-sub {
+  font-size: 0.85rem;
+  color: rgba(245, 216, 158, 0.75);
+  margin-top: 4px;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.core-inline {
+  display: grid;
+  gap: 6px;
+}
+
+.energy-chart {
+  display: grid;
+  gap: 10px;
+}
+
+.energy-row {
+  display: grid;
+  grid-template-columns: 32px 1fr 100px;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.energy-label {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.element-木 {
+  color: $color-wuxing-wood;
+}
+.element-火 {
+  color: $color-wuxing-fire;
+}
+.element-土 {
+  color: $color-wuxing-earth;
+}
+.element-金 {
+  color: $color-wuxing-metal;
+}
+.element-水 {
+  color: $color-wuxing-water;
+}
+
+.energy-bar {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.energy-bar-fill {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(245, 216, 158, 0.8),
+    rgba(245, 216, 158, 0.2)
+  );
+}
+
+.energy-percent {
+  font-size: 0.8rem;
+  color: rgba(245, 216, 158, 0.7);
+  white-space: nowrap;
+  text-align: right;
+  min-width: 44px;
+}
+
+.energy-bar {
+  min-width: 0;
+}
+
+.nayin-row th,
+.nayin-row td {
+  padding: 4px 2px;
+}
+
+.nayin-row .cell-text {
+  white-space: nowrap;
+  word-break: keep-all;
+  font-size: 0.72rem;
+  letter-spacing: 0;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(245, 216, 158, 0.3);
+  font-size: 0.8rem;
+  color: rgba(245, 216, 158, 0.85);
+}
+
+.relation-list {
+  margin-top: 12px;
+  display: grid;
+  gap: 6px;
+}
+
+.relation-item {
+  display: grid;
+  grid-template-columns: 100px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: rgba(245, 216, 158, 0.75);
+}
+
+.relation-type {
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(245, 216, 158, 0.25);
+  text-align: center;
+}
+
+.relation-pillars {
+  color: rgba(245, 216, 158, 0.75);
+}
+
+.relation-brief {
+  color: rgba(245, 216, 158, 0.6);
+  font-size: 0.76rem;
+  white-space: nowrap;
+}
+
+.shen-sha-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+}
+
+.shen-sha-item {
+  background: rgba(8, 12, 24, 0.65);
+  border-radius: 12px;
+  padding: 8px 10px;
+  border: 1px solid rgba(245, 216, 158, 0.12);
+}
+
+.shen-sha-name {
+  font-size: 0.85rem;
+  color: rgba(245, 216, 158, 0.7);
+}
+
+.shen-sha-value {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.9rem;
+  color: #fff4d8;
+}
+
+.ten-god-grid {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 8px;
+}
+
+.ten-god-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: rgba(245, 216, 158, 0.75);
+}
+
+.ten-god-split {
+  margin-top: 12px;
+  display: flex;
+  gap: 14px;
+}
+
+.ten-god-col {
+  flex: 1 1 0;
+  display: grid;
+  gap: 10px;
+}
+
+.ten-god-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: rgba(245, 216, 158, 0.8);
+}
+
+.ten-god-label {
+  font-weight: 600;
+  white-space: nowrap;
+  writing-mode: horizontal-tb;
+  line-height: 1.2;
+}
+
+.ten-god-bar {
+  flex: 1 1 auto;
+}
+
+.ten-god-bar {
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.ten-god-bar-fill {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(245, 216, 158, 0.9),
+    rgba(245, 216, 158, 0.25)
+  );
+}
+
+.ten-god-value {
+  display: none;
+}

@@ -1,0 +1,242 @@
+@use "../../styles/mixins.scss" as *;
+
+/* ====== BaZi Premium Redesign (1-6) ====== */
+.bazi-page {
+  @include unified-page-shell("bazi", $padding-bottom: 48px);
+  --bazi-radius: 18px;
+  --bazi-radius-sm: 12px;
+  --bazi-gap: 16px;
+}
+
+.bazi-page::before {
+  opacity: 0.18;
+  background-image:
+    linear-gradient(120deg, rgba(0, 0, 0, 0.02), transparent 40%),
+    repeating-linear-gradient(
+      45deg,
+      rgba(0, 0, 0, 0.02),
+      rgba(0, 0, 0, 0.02) 1px,
+      transparent 1px,
+      transparent 10px
+    );
+}
+
+.bazi-page.bazi-input-page,
+.bazi-page.bazi-result-page {
+  background: var(--bazi-bg);
+  color: var(--bazi-text);
+}
+
+.bazi-section {
+  width: min(94vw, 980px);
+  margin: 18px auto;
+  animation: none;
+}
+
+.bazi-grid {
+  gap: var(--bazi-gap);
+  width: min(94vw, 980px);
+  margin: 18px auto;
+}
+
+.bazi-card {
+  @include unified-surface-card("bazi", var(--bazi-radius), 20px);
+  color: var(--bazi-text);
+}
+
+.bazi-input-card {
+  @include unified-surface-card("bazi");
+}
+
+.bazi-title {
+  font-family: "Source Han Serif SC", "Songti SC", "STSong", serif;
+  font-size: 1.6rem;
+  letter-spacing: 0.12em;
+  color: var(--bazi-text);
+}
+
+.bazi-subtitle {
+  color: var(--bazi-sub);
+  font-size: 0.92rem;
+}
+
+.section-title {
+  font-family: "Source Han Serif SC", "Songti SC", "STSong", serif;
+  font-size: 1.18rem;
+  letter-spacing: 0.12em;
+  color: var(--bazi-text);
+}
+
+.bazi-row {
+  border-bottom: 1px solid rgba(47, 41, 35, 0.08);
+  padding: 12px 0;
+}
+
+.bazi-row-label {
+  color: var(--bazi-text);
+  font-weight: 600;
+}
+
+.bazi-row-content {
+  gap: 10px;
+}
+
+.bazi-pill {
+  border: 1px solid var(--bazi-border);
+  background: #ffffff;
+  color: var(--bazi-sub);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.86rem;
+  letter-spacing: 0.06em;
+}
+
+.bazi-pill.active {
+  background: var(--bazi-accent);
+  border-color: var(--bazi-accent);
+  color: #ffffff;
+  box-shadow: 0 8px 16px rgba(177, 139, 79, 0.25);
+}
+
+.bazi-text-input,
+.note-textarea,
+.bazi-input-col select,
+.bazi-pillar-controls select,
+.bazi-advance input {
+  background: #ffffff;
+  border: 1px solid var(--bazi-border);
+  color: var(--bazi-text);
+  border-radius: 10px;
+}
+
+.bazi-input-col select {
+  min-width: 0;
+}
+
+.bazi-primary-btn {
+  background: linear-gradient(180deg, #1b1714 0%, #0f0d0b 100%);
+  color: #f7d69c;
+  border: none;
+  border-radius: 999px;
+  padding: 10px 22px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  box-shadow: 0 12px 22px rgba(20, 15, 10, 0.25);
+}
+
+.bazi-ghost-btn {
+  border: 1px solid var(--bazi-border);
+  color: var(--bazi-sub);
+
+  background: #ffffff;
+  border-radius: 999px;
+  padding: 9px 18px;
+}
+
+.bazi-result-summary {
+  background: var(--bazi-soft);
+  border: 1px solid var(--bazi-border);
+  border-radius: 12px;
+  color: var(--bazi-sub);
+}
+
+.result-hero {
+  display: grid;
+  gap: 16px;
+}
+
+.result-hero-main {
+  display: grid;
+  gap: 10px;
+}
+
+.result-hero-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.result-meta {
+  background: var(--bazi-soft);
+  border: 1px solid var(--bazi-border);
+  border-radius: 12px;
+  color: var(--bazi-sub);
+  padding: 10px 12px;
+  font-size: 0.86rem;
+}
+
+.summary-card {
+  display: grid;
+  gap: 14px;
+}
+
+.summary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.summary-sub {
+  font-size: 0.85rem;
+  color: var(--bazi-sub);
+}
+
+.summary-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.summary-item {
+  border: 1px solid var(--bazi-border);
+  border-radius: 14px;
+  padding: 12px;
+  background: #fffdf9;
+  min-width: 0;
+}
+
+.summary-label {
+  font-size: 0.8rem;
+  color: var(--bazi-sub);
+  margin-bottom: 4px;
+  letter-spacing: 0.08em;
+}
+
+.summary-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--bazi-text);
+}
+
+.summary-desc {
+  font-size: 0.82rem;
+  color: var(--bazi-sub);
+  margin-top: 4px;
+}
+
+.summary-tags {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+
+.summary-tag {
+  border: 1px solid var(--bazi-border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: #ffffff;
+  display: grid;
+  gap: 6px;
+  color: var(--bazi-sub);
+  font-size: 0.86rem;
+}
+
+.summary-tag span {
+  font-size: 0.78rem;
+  color: var(--bazi-muted);
+  letter-spacing: 0.08em;
+}
+
+.analysis-line {
+  color: var(--bazi-sub);
+}

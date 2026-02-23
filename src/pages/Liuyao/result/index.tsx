@@ -18,6 +18,7 @@ import { getToken } from '@/services/auth'
 import AuthStatusBar from '@/components/AuthStatusBar'
 import TopNav from '../components/TopNav'
 import BottomButtons from './components/BottomButtons'
+import { normalizeLiuyaoResultSixGods } from '../utils/sixGod'
 
 
 // 六爻排盘结果页面
@@ -83,7 +84,10 @@ const LiuyaoResultPage: React.FC = () => {
   }, [result, isLoadingHistory])
 
   const refreshAttemptedRef = React.useRef(false)
-  const safeResult = (result || {}) as any
+  const safeResult = React.useMemo(
+    () => normalizeLiuyaoResultSixGods(((result || {}) as any)),
+    [result]
+  )
 
   React.useEffect(() => {
     if (!result || !isLoadingHistory || refreshAttemptedRef.current) return

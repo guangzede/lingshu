@@ -99,6 +99,103 @@
   font-weight: 600;
 }
 
+// Unified light theme tokens for page-scoped CSS variables.
+@mixin unified-light-theme-vars($prefix) {
+  --#{$prefix}-bg: #f7f4ef;
+  --#{$prefix}-card: #ffffff;
+  --#{$prefix}-border: #e7ded2;
+  --#{$prefix}-soft: #f5efe6;
+  --#{$prefix}-text: #2f2923;
+  --#{$prefix}-sub: #6a5f54;
+  --#{$prefix}-muted: #9f9182;
+  --#{$prefix}-accent: #b48a4f;
+  --#{$prefix}-accent-soft: rgba(180, 138, 79, 0.16);
+  --#{$prefix}-shadow: 0 18px 32px rgba(28, 22, 15, 0.08);
+}
+
+@mixin unified-light-page-bg() {
+  background:
+    radial-gradient(860px 430px at 50% -10%, rgba(255, 251, 244, 0.92), transparent 72%),
+    linear-gradient(180deg, #f8f5ef 0%, #f7f4ef 58%, #f4efe7 100%);
+}
+
+// Shared page shell for unified light pages.
+@mixin unified-page-shell($prefix, $padding: null, $padding-bottom: null) {
+  @include unified-light-theme-vars($prefix);
+  min-height: 100vh;
+  @include unified-light-page-bg();
+  color: var(--#{$prefix}-text);
+  font-family: "Source Han Sans SC", "Noto Sans SC", "PingFang SC", sans-serif;
+
+  @if $padding != null {
+    padding: $padding;
+  }
+
+  @if $padding-bottom != null {
+    padding-bottom: $padding-bottom;
+  }
+}
+
+@mixin unified-surface-card($prefix, $radius: 16px, $padding: 16px) {
+  border: 1px solid var(--#{$prefix}-border);
+  border-radius: $radius;
+  background: var(--#{$prefix}-card);
+  box-shadow: var(--#{$prefix}-shadow);
+  padding: $padding;
+}
+
+@mixin unified-top-nav-shell($bg: null) {
+  position: sticky;
+  top: 0;
+  z-index: 6;
+  display: flex;
+  justify-content: center;
+  padding: 14px 12px 8px;
+  backdrop-filter: blur(10px);
+
+  @if $bg != null {
+    background: $bg;
+  }
+}
+
+@mixin unified-top-nav-inner($prefix, $columns, $max-width: 520px) {
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+  gap: 6px;
+  padding: 6px;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1px solid var(--#{$prefix}-border, #e7ded2);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+  width: min(92vw, $max-width);
+}
+
+@mixin unified-top-nav-tab($prefix, $center: false) {
+  border: none;
+  background: transparent;
+  color: var(--#{$prefix}-sub, #6a5f54);
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+
+  @if $center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@mixin unified-top-nav-tab-active($prefix, $shadow: 0 6px 16px rgba(177, 139, 79, 0.25)) {
+  background: var(--#{$prefix}-accent, #b48a4f);
+  color: #ffffff;
+  box-shadow: $shadow;
+  font-weight: 600;
+}
+
 // 按钮样式混合宏
 @mixin button-primary() {
   background: $gradient-primary;

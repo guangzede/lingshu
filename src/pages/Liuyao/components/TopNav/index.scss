@@ -1,45 +1,17 @@
-@use '../../../../styles/variables.scss' as *;
+@use '../../../../styles/mixins.scss' as *;
 
 .liuyao-top-nav {
-  position: sticky;
-  top: 0;
-  z-index: 6;
-  display: flex;
-  justify-content: center;
-  padding: 14px 12px 8px;
-  backdrop-filter: blur(10px);
-  background: rgba(5, 6, 12, 0.8);
+  @include unified-top-nav-shell(rgba(5, 6, 12, 0.8));
 }
 
 .liuyao-top-nav-inner {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 6px;
-  padding: 6px;
-  border-radius: 999px;
-  background: #ffffff;
-  border: 1px solid #e7ded2;
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
-  width: min(92vw, 520px);
+  @include unified-top-nav-inner("bazi", 4, 520px);
 }
 
 .liuyao-top-tab {
-  border: none;
-  background: transparent;
-  color: #6a5f54;
-  padding: 8px 12px;
-  border-radius: 999px;
-  font-size: 0.9rem;
-  letter-spacing: 0.08em;
-  transition: all 0.2s ease;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include unified-top-nav-tab("bazi", true);
 }
 
 .liuyao-top-tab.active {
-  background: #b48a4f;
-  color: #ffffff;
-  box-shadow: 0 4px 12px rgba(216, 170, 99, 0.3);
-  font-weight: 600;
+  @include unified-top-nav-tab-active("bazi", 0 4px 12px rgba(216, 170, 99, 0.3));
 }

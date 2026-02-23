@@ -51,7 +51,7 @@ export default function LoginForm() {
       <Input
         className="auth-input"
         placeholder="密码"
-        type="password"
+        password
         value={password}
         onInput={e => setPassword(e.detail.value)}
       />

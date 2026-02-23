@@ -83,7 +83,7 @@ export default function RegisterForm() {
       <Input
         className="auth-input"
         placeholder="密码"
-        type={"password" as 'text' | 'number' | 'idcard' | 'digit' | 'password'}
+        password
         value={password}
         onInput={e => setPassword(e.detail.value)}
       />

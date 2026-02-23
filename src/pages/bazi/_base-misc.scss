@@ -1,0 +1,135 @@
+@use "../../styles/variables.scss" as *;
+@use "../../styles/mixins.scss" as *;
+
+.tiao-card {
+  display: grid;
+  gap: 12px;
+}
+
+.tiao-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tiao-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff4d8;
+}
+
+.tiao-chip {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  border: 1px solid rgba(245, 216, 158, 0.25);
+  color: rgba(245, 216, 158, 0.8);
+  background: rgba(245, 216, 158, 0.08);
+  white-space: nowrap;
+}
+
+.tiao-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.tiao-block {
+  border-radius: 12px;
+  border: 1px solid rgba(245, 216, 158, 0.12);
+  padding: 10px;
+  background: rgba(8, 12, 24, 0.55);
+  display: grid;
+  gap: 6px;
+}
+
+.tiao-label {
+  font-size: 0.75rem;
+  color: rgba(245, 216, 158, 0.6);
+  letter-spacing: 0.08em;
+}
+
+.tiao-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff4d8;
+}
+
+.tiao-desc {
+  font-size: 0.8rem;
+  color: rgba(245, 216, 158, 0.65);
+  line-height: 1.5;
+}
+
+.tiao-lines {
+  display: grid;
+  gap: 6px;
+}
+
+.tiao-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 0.8rem;
+  color: rgba(245, 216, 158, 0.7);
+}
+
+.tiao-key {
+  color: rgba(245, 216, 158, 0.6);
+}
+
+.tiao-val {
+  text-align: right;
+}
+
+.case-form {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.case-list {
+  display: grid;
+  gap: 8px;
+}
+
+.case-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  background: rgba(8, 12, 24, 0.6);
+  border-radius: 12px;
+  padding: 10px;
+  border: 1px solid rgba(245, 216, 158, 0.1);
+}
+
+.case-title {
+  font-weight: 600;
+  color: #fff4d8;
+}
+
+.case-meta {
+  font-size: 0.8rem;
+  color: rgba(245, 216, 158, 0.6);
+}
+
+.case-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.empty {
+  color: rgba(245, 216, 158, 0.5);
+  font-size: 0.9rem;
+}
+
+.bazi-footer {
+  margin: 24px auto 0;
+  width: min(94vw, 980px);
+  text-align: center;
+  color: rgba(245, 216, 158, 0.5);
+  font-size: 0.8rem;
+}

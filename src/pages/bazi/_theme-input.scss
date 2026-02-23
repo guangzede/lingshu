@@ -1,0 +1,115 @@
+@use "../../styles/mixins.scss" as *;
+
+.bazi-page.bazi-input-page .bazi-row-label {
+  color: var(--bazi-text);
+}
+
+.bazi-page.bazi-input-page .bazi-row {
+  border-bottom: 1px solid rgba(47, 41, 35, 0.08);
+}
+
+.bazi-page.bazi-input-page .bazi-input-header {
+  text-align: left;
+}
+
+.bazi-page.bazi-input-page .bazi-input-header .bazi-title {
+  font-size: 1.5rem;
+}
+
+.bazi-page.bazi-input-page .bazi-input-form {
+  gap: 14px;
+}
+
+.bazi-page.bazi-input-page .bazi-pillar-input {
+  background: var(--bazi-soft);
+  border: 1px solid var(--bazi-border);
+}
+
+.bazi-page.bazi-input-page .bazi-pillar-label {
+  color: var(--bazi-sub);
+}
+
+.bazi-page.bazi-input-page .bazi-pillar-controls select {
+  background: #ffffff;
+  border-color: var(--bazi-border);
+  color: var(--bazi-text);
+}
+
+.bazi-page.bazi-input-page .bazi-action-row {
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.bazi-page.bazi-input-page .bazi-primary-btn {
+  flex: 1.2;
+  width: auto;
+}
+
+.bazi-page.bazi-input-page .bazi-secondary-btn {
+  flex: 1;
+  width: auto;
+}
+
+@media (max-width: 640px) {
+  .bazi-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .bazi-grid {
+    grid-template-columns: 1fr;
+  }
+  .cell-stem,
+  .cell-branch {
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+  }
+  .bazi-table th,
+  .bazi-table td {
+    padding: 5px 3px;
+  }
+  .col-sub {
+    font-size: 0.68rem;
+  }
+  .cell-text {
+    font-size: 0.78rem;
+  }
+  .extra-grid {
+    grid-template-columns: 1fr;
+  }
+  .case-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .case-actions {
+    width: 100%;
+  }
+  .ten-god-split {
+    flex-direction: column;
+  }
+
+  .bazi-row.bazi-row-dual {
+    grid-template-columns: 1fr;
+  }
+
+  .instant-row {
+    grid-template-columns: 1fr;
+  }
+
+  .instant-right {
+    justify-items: center;
+  }
+
+  .instant-pillars {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .instant-meta {
+    grid-column: 1 / -1;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .instant-btn {
+    justify-self: center;
+  }
+}

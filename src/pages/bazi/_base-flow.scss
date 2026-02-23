@@ -1,0 +1,122 @@
+@use "../../styles/variables.scss" as *;
+@use "../../styles/mixins.scss" as *;
+
+.flow-card {
+  background: rgba(8, 12, 24, 0.7);
+  border: 1px solid rgba(245, 216, 158, 0.12);
+  border-radius: 14px;
+  padding: 12px;
+  display: grid;
+  gap: 10px;
+}
+
+.flow-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.flow-mode {
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: rgba(245, 216, 158, 0.7);
+  border: 1px solid rgba(245, 216, 158, 0.2);
+  padding: 3px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.flow-mode.is-strong {
+  color: rgba(245, 216, 158, 0.95);
+  border-color: rgba(245, 216, 158, 0.45);
+  background: rgba(245, 216, 158, 0.08);
+}
+
+.flow-main {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+}
+
+.flow-main-element {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.flow-main-percent {
+  color: rgba(245, 216, 158, 0.7);
+}
+
+.flow-track {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.flow-node {
+  min-width: 32px;
+  height: 28px;
+  border-radius: 999px;
+  border: 1px solid rgba(245, 216, 158, 0.2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: rgba(245, 216, 158, 0.8);
+  background: rgba(245, 216, 158, 0.06);
+}
+
+.flow-node.active {
+  border-color: rgba(245, 216, 158, 0.6);
+  background: rgba(245, 216, 158, 0.16);
+  box-shadow: 0 6px 12px rgba(245, 216, 158, 0.2);
+}
+
+.flow-arrow {
+  color: rgba(245, 216, 158, 0.55);
+  font-size: 0.9rem;
+}
+
+.flow-loop {
+  color: rgba(245, 216, 158, 0.5);
+  font-size: 0.85rem;
+}
+
+.flow-note {
+  font-size: 0.82rem;
+  color: rgba(245, 216, 158, 0.6);
+  line-height: 1.5;
+}
+
+.section-title {
+  @include mystical-title;
+}
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-head .section-title {
+  margin-bottom: 0;
+}
+
+.section-toggle {
+  border: 1px solid rgba(245, 216, 158, 0.25);
+  background: transparent;
+  color: rgba(245, 216, 158, 0.8);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+}
+
+.section-toggle.open {
+  background: rgba(245, 216, 158, 0.12);
+}
