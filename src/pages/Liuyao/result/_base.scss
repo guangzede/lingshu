@@ -1,61 +1,48 @@
-@use "../../../styles/variables.scss" as *;
-@use "../../../styles/mixins.scss" as *;
+@use '../../../styles/variables.scss' as *;
+@use '../../../styles/mixins.scss' as *;
 
-// 六爻结果页面全局样式
 .liuyao-result-page {
-  min-height: 100vh;
-  background: $color-bg-primary;
-  color: $color-text-primary;
-  padding-bottom: $spacing-xl;
+  @include unified-page-shell('bazi', $padding-bottom: calc(96px + env(safe-area-inset-bottom)));
 
-  @media (max-width: 1023px) {
-    padding-bottom: $spacing-xl;
-  }
-
-  // PC 布局：两栏设计 (分析 + 历史列表并排)
   @media (min-width: 1024px) {
     display: grid;
-    grid-template-columns: 1fr 380px;
-    grid-template-rows: auto 1fr;
+    grid-template-columns: minmax(0, 1fr) 360px;
+    grid-template-rows: auto minmax(0, 1fr);
     gap: 16px;
-    max-width: 1600px;
+    max-width: 1560px;
     margin: 0 auto;
     padding: 16px;
-    padding-bottom: $spacing-xl;
+    padding-bottom: 24px;
   }
 }
 
-// 分析内容主体 (左侧)
+.liuyao-result-page text {
+  color: inherit;
+}
+
 .analysis-main {
   @media (min-width: 1024px) {
     grid-column: 1;
     grid-row: 2;
     overflow-y: auto;
-    max-height: calc(100vh - 100px);
+    max-height: calc(100vh - 96px);
+    padding-right: 4px;
   }
 }
 
-// PC 模式下的历史侧栏 (右侧)
 .history-sidebar {
   @media (min-width: 1024px) {
     grid-column: 2;
     grid-row: 2;
     overflow-y: auto;
-    max-height: calc(100vh - 100px);
+    max-height: calc(100vh - 96px);
   }
 }
 
-// 玻璃态卡片样式
 .glass-card {
-  @include card-style;
-  background: linear-gradient(
-    135deg,
-    rgba(15, 23, 42, 0.4) 0%,
-    rgba(30, 41, 59, 0.4) 100%
-  );
+  @include unified-surface-card('bazi', 16px, 16px);
 }
 
-// 分析卡片样式
 .analysis-card {
   min-height: 200px;
 }
@@ -67,7 +54,7 @@
 
 .five-elements-wrap.is-locked .five-elements-content {
   filter: blur(8px);
-  opacity: 0.6;
+  opacity: 0.62;
 }
 
 .five-elements-mask {
@@ -76,124 +63,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(5, 5, 16, 0.45);
+  background: rgba(255, 250, 243, 0.72);
   border-radius: 12px;
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(4px);
 }
 
 .five-elements-mask-text {
-  font-size: $font-size-huge;
-  color: rgba(255, 255, 255, 0.9);
-  letter-spacing: 1px;
-}
-
-// 日支时支关系区域
-.branch-relation-section {
-  margin-top: 16px;
-  padding: 16px;
-  background: rgba(201, 173, 111, 0.05);
-  border: 1px solid rgba(201, 173, 111, 0.15);
-  border-radius: 12px;
-}
-
-.branch-relation-header {
-  margin-bottom: 12px;
-}
-
-.branch-relation-title {
-  font-size: $font-size-huge;
-  color: #c9ad6f;
-  font-weight: 600;
-  letter-spacing: 2px;
-}
-
-.relation-group {
-  margin-bottom: 12px;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-}
-
-.relation-group-title {
-  color: rgba(201, 173, 111, 0.8);
-  font-weight: 500;
-  margin-bottom: 8px;
-  letter-spacing: 1px;
-}
-
-.relation-item {
-  color: rgba(240, 237, 229, 0.9);
-  margin-bottom: 6px;
-  line-height: 1.6;
-  letter-spacing: 0.5px;
-}
-
-// 爻位分析区域
-.yao-analysis-section {
-  margin-top: 16px;
-  padding: 16px;
-  background: rgba(201, 173, 111, 0.05);
-  border: 1px solid rgba(201, 173, 111, 0.15);
-  border-radius: 12px;
-}
-
-.yao-analysis-header {
-  margin-bottom: 12px;
-}
-
-.yao-analysis-title {
-  font-size: $font-size-huge;
-  color: #c9ad6f;
-  font-weight: 600;
-  letter-spacing: 2px;
-}
-
-.yao-analysis-item {
-  margin-bottom: 12px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid rgba(201, 173, 111, 0.1);
-
-  &:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-    border-bottom: none;
-  }
-}
-
-.yao-analysis-item-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-}
-
-.yao-analysis-label {
-  color: #f0ede5;
-  font-weight: 600;
-  letter-spacing: 1px;
-}
-
-.moving-tag {
-  color: #ff9800;
-}
-
-.yao-analysis-strength {
-  font-size: $font-size-xxxl;
-  color: rgba(201, 173, 111, 0.7);
-  letter-spacing: 0.5px;
-  font-weight: 600;
-}
-
-.yao-analysis-relations {
-  color: rgba(240, 237, 229, 0.85);
-  margin-bottom: 6px;
-  line-height: 1.8;
-  letter-spacing: 0.5px;
-}
-
-.yao-analysis-variant {
-  font-size: $font-size-xl;
-  color: rgba(240, 237, 229, 0.85);
-  letter-spacing: 0.5px;
+  font-size: 0.92rem;
+  color: var(--bazi-text);
+  letter-spacing: 0.08em;
 }

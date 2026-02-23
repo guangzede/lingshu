@@ -1,75 +1,67 @@
 .drawer-wrapper {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   z-index: 999;
   display: flex;
   justify-content: flex-end;
-
-  .drawer-mask {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: -1;
-    animation: fadeIn 0.3s ease-out;
-  }
-
-  .drawer-container {
-    position: relative;
-    width: 60%;
-    max-width: 340px;
-    height: 100%;
-    background-color: #050510;
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
-    display: flex;
-    flex-direction: column;
-    animation: slideInRight 0.3s ease-out;
-    z-index: 1;
-  }
-
-  .drawer-header {
-    padding: 16px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    .drawer-title {
-      font-size: 16px;
-      font-weight: 600;
-      color: #fff;
-    }
-
-    .drawer-close {
-      background: none;
-      border: none;
-      color: #fff;
-      font-size: 24px;
-      padding: 0;
-      min-width: auto;
-      height: auto;
-      line-height: 1;
-
-      &:active {
-        opacity: 0.6;
-      }
-    }
-  }
-
-  .drawer-content {
-    flex: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding: 12px 0;
-  }
 }
 
-@keyframes fadeIn {
+.drawer-wrapper .drawer-mask {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 250, 243, 0.72);
+  animation: drawer-fade-in 0.22s ease-out;
+}
+
+.drawer-wrapper .drawer-container {
+  position: relative;
+  width: 72%;
+  max-width: 360px;
+  height: 100%;
+  background: #ffffff;
+  border-left: 1px solid var(--bazi-border);
+  display: flex;
+  flex-direction: column;
+  animation: drawer-slide-in 0.24s ease-out;
+}
+
+.drawer-wrapper .drawer-header {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--bazi-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.drawer-wrapper .drawer-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--bazi-text);
+}
+
+.drawer-wrapper .drawer-close {
+  background: none !important;
+  border: none !important;
+  color: var(--bazi-sub) !important;
+  font-size: 1.1rem;
+  padding: 0 !important;
+  min-width: auto !important;
+  height: auto !important;
+  line-height: 1;
+}
+
+.drawer-wrapper .drawer-close:active {
+  opacity: 0.6;
+}
+
+.drawer-wrapper .drawer-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 12px 0;
+}
+
+@keyframes drawer-fade-in {
   from {
     opacity: 0;
   }
@@ -78,7 +70,7 @@
   }
 }
 
-@keyframes slideInRight {
+@keyframes drawer-slide-in {
   from {
     transform: translateX(100%);
   }
@@ -87,70 +79,48 @@
   }
 }
 
-/**
- * 平板和 PC 模式：Drawer 改为固定侧栏
- */
 @media (min-width: 1024px) {
   .drawer-wrapper {
     position: static;
-    width: 380px;
+    width: 100%;
     height: auto;
     z-index: 1;
     display: block;
-    background: transparent;
+  }
 
-    .drawer-mask {
-      display: none;
-    }
+  .drawer-wrapper .drawer-mask {
+    display: none;
+  }
 
-    .drawer-container {
-      position: static;
-      width: 100%;
-      max-width: none;
-      height: auto;
-      min-height: 400px;
-      animation: none;
-      background-color: rgba(5, 5, 16, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    }
+  .drawer-wrapper .drawer-container {
+    position: static;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    min-height: 400px;
+    animation: none;
+    border: 1px solid var(--bazi-border);
+    border-radius: 12px;
+    box-shadow: var(--bazi-shadow);
+  }
 
-    .drawer-header {
-      padding: 12px 16px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  .drawer-wrapper .drawer-header {
+    padding: 12px 16px;
+  }
 
-      .drawer-title {
-        font-size: 14px;
-      }
-
-      .drawer-close {
-        display: none;
-      }
-    }
-
-    .drawer-content {
-      padding: 12px 0;
-    }
+  .drawer-wrapper .drawer-close {
+    display: none;
   }
 }
 
-/**
- * 小屏幕时抽屉宽度调整
- */
-@media (max-width: 1023px) {
-  .drawer-wrapper {
-    .drawer-container {
-      width: 75%;
-      max-width: none;
+@media (max-width: 768px) {
+  .drawer-wrapper .drawer-container {
+    width: 85%;
+  }
+}
 
-      @media (max-width: 768px) {
-        width: 85%;
-      }
-
-      @media (max-width: 480px) {
-        width: 100%;
-      }
-    }
+@media (max-width: 480px) {
+  .drawer-wrapper .drawer-container {
+    width: 100%;
   }
 }

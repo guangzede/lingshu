@@ -1,0 +1,71 @@
+@use '../../styles/mixins.scss' as *;
+
+.stock-page {
+  @include unified-page-shell('stock');
+  --stock-accent-deep: #8f6837;
+  --stock-up: #c05a5a;
+  --stock-down: #4b9f68;
+  --stock-flat: #8f8579;
+  --stock-text-main: var(--stock-text);
+  --stock-text-sub: var(--stock-sub);
+  --stock-text-muted: var(--stock-muted);
+  --stock-bg-soft: var(--stock-soft);
+  --stock-border-soft: var(--stock-border);
+  padding: 0 14px 28px;
+}
+
+.stock-top-nav {
+  @include unified-top-nav-shell();
+}
+
+.stock-top-nav-inner {
+  @include unified-top-nav-inner('stock', 2, 320px);
+}
+
+.stock-top-tab {
+  @include unified-top-nav-tab('stock', true);
+}
+
+.stock-top-tab text {
+  color: inherit;
+}
+
+.stock-top-tab.active {
+  @include unified-top-nav-tab-active('stock');
+}
+
+.stock-header {
+  margin: 10px 0 16px;
+  text-align: center;
+}
+
+.stock-title {
+  display: block;
+  color: var(--stock-text);
+  font-family: 'Source Han Serif SC', 'Songti SC', 'STSong', serif;
+  font-size: 1.48rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+
+.stock-subtitle {
+  display: block;
+  margin-top: 4px;
+  color: var(--stock-sub);
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+.stock-page .section-title {
+  font-family: 'Source Han Serif SC', 'Songti SC', 'STSong', serif;
+  font-size: 0.94rem;
+  font-weight: 600;
+  color: var(--stock-text);
+  letter-spacing: 0.08em;
+}
+
+.stock-card {
+  @include unified-surface-card('stock', 16px, 14px);
+  margin-bottom: 12px;
+}

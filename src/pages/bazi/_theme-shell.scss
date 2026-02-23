@@ -33,6 +33,12 @@
   animation: none;
 }
 
+.bazi-section-full {
+  width: min(94vw, 980px);
+  margin: 18px auto;
+  grid-column: 1 / -1;
+}
+
 .bazi-grid {
   gap: var(--bazi-gap);
   width: min(94vw, 980px);

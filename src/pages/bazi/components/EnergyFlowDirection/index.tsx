@@ -14,7 +14,7 @@ const EnergyFlowDirection: React.FC = () => {
 
   if (!result?.wuxing) {
     return (
-      <section className="bazi-section">
+      <section className="bazi-section bazi-section-full">
         <div className="bazi-card">
           <div className="section-title">五行能量流转</div>
           <div className="empty">暂无排盘结果</div>
@@ -30,7 +30,7 @@ const EnergyFlowDirection: React.FC = () => {
   const seq = buildFlowSeq(maxElement)
 
   return (
-    <section className="bazi-section">
+    <section className="bazi-section bazi-section-full">
       <div className="bazi-card">
         <div className="section-title">五行能量流转</div>
         <div className="flow-card">

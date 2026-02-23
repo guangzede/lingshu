@@ -1,9 +1,6 @@
-@use "../../../styles/variables.scss" as *;
-@use "../../../styles/mixins.scss" as *;
-
 .liuyao-divination-page .shake-action-next {
   color: var(--bazi-accent);
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   line-height: 1.5;
 }
 
@@ -11,22 +8,22 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  border: 1px solid rgba(201, 173, 111, 0.2);
-  background: rgba(201, 173, 111, 0.08);
+  border: 1px solid rgba(177, 139, 79, 0.28);
+  background: rgba(177, 139, 79, 0.1);
   border-radius: 8px;
   padding: 7px 9px;
   margin-bottom: 10px;
 }
 
 .liuyao-divination-page .shake-action-cta-dot {
-  color: $color-mystical-gold;
+  color: var(--bazi-accent);
   font-size: 0.64rem;
   line-height: 1;
   animation: shake-cta-dot-pulse 1.4s ease-in-out infinite;
 }
 
 .liuyao-divination-page .shake-action-cta-text {
-  color: $color-mystical-gold;
+  color: var(--bazi-text);
   font-size: 0.76rem;
   line-height: 1.35;
 }
@@ -44,27 +41,31 @@
   animation: none;
 }
 
-.liuyao-divination-page .btn-shake-compact {
+.liuyao-divination-page .btn-shake {
   width: 100%;
+  border-radius: 12px !important;
+  border: 1px solid var(--bazi-border) !important;
+  background: #ffffff !important;
+  color: var(--bazi-sub) !important;
+  box-shadow: none !important;
+  overflow: hidden;
+}
+
+.liuyao-divination-page .btn-shake:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+.liuyao-divination-page .btn-shake.btn-shake-compact {
   height: 58px !important;
   min-height: 58px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.02rem !important;
-  letter-spacing: 0.12em !important;
-  border-radius: 10px !important;
-  border: 1px solid rgba(201, 173, 111, 0.4) !important;
-  background: linear-gradient(
-    180deg,
-    rgba(216, 170, 99, 0.8) 0%,
-    rgba(177, 139, 79, 0.8) 54%,
-    rgba(146, 100, 43, 0.8) 100%
-  ) !important;
-  color: #fff !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+  border-color: rgba(177, 139, 79, 0.4) !important;
+  background: linear-gradient(180deg, #1b1714 0%, #0f0d0b 100%) !important;
+  color: #f7d69c !important;
+  box-shadow: 0 8px 18px rgba(20, 15, 10, 0.22) !important;
   padding: 0 10px !important;
-  overflow: hidden !important;
 }
 
 .liuyao-divination-page .btn-shake-compact .btn-shake-content {
@@ -78,17 +79,16 @@
 }
 
 .liuyao-divination-page .btn-shake-main {
-  color: #fff;
-  font-size: 1.04rem;
+  color: #f7d69c;
+  font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.06em;
 }
 
 .liuyao-divination-page .btn-shake-step {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 0.92rem;
+  color: rgba(247, 214, 156, 0.86);
+  font-size: 0.88rem;
   font-weight: 600;
-  letter-spacing: 0;
 }
 
 .liuyao-divination-page .btn-shake-compact.is-attention {
@@ -96,7 +96,7 @@
 }
 
 .liuyao-divination-page .btn-shake-compact.disabled {
-  opacity: 0.78;
+  opacity: 0.72;
   animation: none;
   box-shadow: none !important;
 }
@@ -113,9 +113,8 @@
   justify-content: center;
   align-items: center;
   border-style: dashed;
-  border-color: var(--bazi-border);
-  background: rgba(255, 255, 255, 0.02);
   text-align: center;
+  background: #fffdf8;
 }
 
 .liuyao-divination-page .shake-ready-title {
@@ -133,53 +132,17 @@
 }
 
 .liuyao-divination-page .shake-error {
-  color: #ff6b6b;
+  color: #c05a5a;
   font-size: 0.86rem;
-}
-
-.liuyao-divination-page .btn-shake {
-  background: rgba(255, 255, 255, 0.05) !important;
-  color: var(--bazi-sub) !important;
-  border: 1px solid var(--bazi-border) !important;
-  box-shadow: none !important;
-  letter-spacing: 0.2em !important;
-  overflow: unset;
-}
-
-.liuyao-divination-page .btn-shake:active {
-  transform: translateY(1px) scale(0.99);
-  background: rgba(255, 255, 255, 0.1) !important;
-}
-
-.liuyao-divination-page .btn-shake.btn-shake-compact {
-  letter-spacing: normal !important;
-  border: 1px solid rgba(201, 173, 111, 0.4) !important;
-  background: linear-gradient(
-    180deg,
-    rgba(216, 170, 99, 0.8) 0%,
-    rgba(177, 139, 79, 0.8) 54%,
-    rgba(146, 100, 43, 0.8) 100%
-  ) !important;
-  color: #fff !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
-}
-
-.liuyao-divination-page .btn-shake-compact:active {
-  background: linear-gradient(
-    180deg,
-    rgba(200, 150, 80, 0.8) 0%,
-    rgba(160, 120, 60, 0.8) 54%,
-    rgba(130, 90, 30, 0.8) 100%
-  ) !important;
 }
 
 @keyframes shake-btn-pulse {
   0%,
   100% {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 8px 18px rgba(20, 15, 10, 0.22);
   }
   50% {
-    box-shadow: 0 0 20px rgba(216, 170, 99, 0.3);
+    box-shadow: 0 0 18px rgba(177, 139, 79, 0.3);
   }
 }
 
@@ -204,10 +167,9 @@
 }
 
 @media (max-width: 480px) {
-  .liuyao-divination-page .btn-shake-compact {
+  .liuyao-divination-page .btn-shake.btn-shake-compact {
     height: 54px !important;
     min-height: 54px;
-    font-size: 0.96rem !important;
   }
 
   .liuyao-divination-page .btn-shake-main {
@@ -215,50 +177,10 @@
   }
 
   .liuyao-divination-page .btn-shake-step {
-    font-size: 0.84rem;
+    font-size: 0.82rem;
   }
 
   .liuyao-divination-page .shake-action-cta-text {
-    font-size: 0.7rem;
+    font-size: 0.72rem;
   }
-}
-
-@media (max-height: 860px) {
-  .liuyao-divination-page .shake-action-footnote {
-    display: none;
-  }
-}
-
-.liuyao-divination-page .divination-loading {
-  background: rgba(5, 6, 12, 0.8);
-}
-
-.liuyao-divination-page .divination-loading-card {
-  background: rgba(30, 30, 40, 0.95);
-  border: 1px solid var(--bazi-border);
-  color: var(--bazi-text);
-}
-
-.liuyao-divination-page .divination-loading-title {
-  color: $color-mystical-gold;
-}
-
-.liuyao-divination-page .divination-loading-desc {
-  color: var(--bazi-sub);
-}
-
-.liuyao-divination-page .auth-status-bar.logged-in {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--bazi-border);
-  box-shadow: var(--bazi-shadow);
-}
-
-.liuyao-divination-page .auth-status-text,
-.liuyao-divination-page .go-to-text,
-.liuyao-divination-page .username-text {
-  color: var(--bazi-text);
-}
-
-.liuyao-divination-page .arrow-icon {
-  color: var(--bazi-accent);
 }

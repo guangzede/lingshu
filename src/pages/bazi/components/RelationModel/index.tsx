@@ -8,7 +8,7 @@ const RelationModel: React.FC = () => {
 
   if (!result?.tenGods) {
     return (
-      <section className="bazi-section">
+      <section className="bazi-section bazi-section-full">
         <div className="bazi-card">
           <div className="section-title">十神与格局</div>
           <div className="empty">暂无排盘结果</div>
@@ -26,7 +26,7 @@ const RelationModel: React.FC = () => {
   const rightEntries = entries.slice(mid)
 
   return (
-    <section className="bazi-section">
+    <section className="bazi-section bazi-section-full">
       <div className="bazi-card">
         <div className="section-head" onClick={() => setOpen(!open)}>
           <div className="section-title">十神系统与格局参考</div>

@@ -1,9 +1,6 @@
-@use "../../styles/variables.scss" as *;
-@use "../../styles/mixins.scss" as *;
-
 .flow-card {
-  background: rgba(8, 12, 24, 0.7);
-  border: 1px solid rgba(245, 216, 158, 0.12);
+  background: #ffffff;
+  border: 1px solid var(--bazi-border);
   border-radius: 14px;
   padding: 12px;
   display: grid;
@@ -21,17 +18,18 @@
 .flow-mode {
   font-size: 0.78rem;
   letter-spacing: 0.08em;
-  color: rgba(245, 216, 158, 0.7);
-  border: 1px solid rgba(245, 216, 158, 0.2);
+  color: var(--bazi-sub);
+  border: 1px solid var(--bazi-border);
   padding: 3px 10px;
   border-radius: 999px;
   white-space: nowrap;
+  background: #fffaf3;
 }
 
 .flow-mode.is-strong {
-  color: rgba(245, 216, 158, 0.95);
-  border-color: rgba(245, 216, 158, 0.45);
-  background: rgba(245, 216, 158, 0.08);
+  color: var(--bazi-text);
+  border-color: var(--bazi-accent);
+  background: rgba(177, 139, 79, 0.14);
 }
 
 .flow-main {
@@ -47,7 +45,7 @@
 }
 
 .flow-main-percent {
-  color: rgba(245, 216, 158, 0.7);
+  color: var(--bazi-sub);
 }
 
 .flow-track {
@@ -61,40 +59,39 @@
   min-width: 32px;
   height: 28px;
   border-radius: 999px;
-  border: 1px solid rgba(245, 216, 158, 0.2);
+  border: 1px solid var(--bazi-border);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   font-weight: 600;
   font-size: 0.9rem;
-  color: rgba(245, 216, 158, 0.8);
-  background: rgba(245, 216, 158, 0.06);
+  color: var(--bazi-text);
+  background: #fffaf3;
 }
 
 .flow-node.active {
-  border-color: rgba(245, 216, 158, 0.6);
-  background: rgba(245, 216, 158, 0.16);
-  box-shadow: 0 6px 12px rgba(245, 216, 158, 0.2);
+  border-color: var(--bazi-accent);
+  background: #fff2da;
+  box-shadow: 0 6px 12px rgba(177, 139, 79, 0.2);
+}
+
+.flow-arrow,
+.flow-loop,
+.flow-note {
+  color: var(--bazi-sub);
 }
 
 .flow-arrow {
-  color: rgba(245, 216, 158, 0.55);
   font-size: 0.9rem;
 }
 
 .flow-loop {
-  color: rgba(245, 216, 158, 0.5);
   font-size: 0.85rem;
 }
 
 .flow-note {
   font-size: 0.82rem;
-  color: rgba(245, 216, 158, 0.6);
   line-height: 1.5;
-}
-
-.section-title {
-  @include mystical-title;
 }
 
 .section-head {
@@ -109,14 +106,16 @@
 }
 
 .section-toggle {
-  border: 1px solid rgba(245, 216, 158, 0.25);
-  background: transparent;
-  color: rgba(245, 216, 158, 0.8);
+  border: 1px solid var(--bazi-border);
+  background: #ffffff;
+  color: var(--bazi-sub);
   padding: 4px 10px;
   border-radius: 999px;
   font-size: 0.75rem;
 }
 
 .section-toggle.open {
-  background: rgba(245, 216, 158, 0.12);
+  background: rgba(177, 139, 79, 0.12);
+  border-color: var(--bazi-accent);
+  color: var(--bazi-text);
 }

@@ -1,7 +1,11 @@
 import React from 'react';
 import { View, Text } from '@tarojs/components';
 import AIAssistant from '@/components/AIAssistant';
-import { normalizeLiuyaoResultSixGods } from '@/pages/Liuyao/utils/sixGod';
+import {
+  getLiuyaoYaoLabel,
+  normalizeLiuyaoResultSixGods,
+  resolveLiuyaoTopIndex
+} from '@/pages/Liuyao/utils/sixGod';
 import './index.scss';
 
 interface AIAnalysisCardProps {
@@ -14,6 +18,15 @@ interface AIAnalysisCardProps {
 
 const AIAnalysisCard: React.FC<AIAnalysisCardProps> = ({ question, result, isFromHistory = false, savedAiAnalysis, onAnalysisGenerated }) => {
   const normalizedResult = React.useMemo(() => normalizeLiuyaoResultSixGods((result || {}) as any), [result]);
+  const orderedYaos = React.useMemo(() => {
+    const yaos = Array.isArray(normalizedResult?.yaos) ? normalizedResult.yaos : []
+    return yaos
+      .map((yao: any, fallbackIndex: number) => ({
+        ...yao,
+        __topIndex: resolveLiuyaoTopIndex(yao?.index, fallbackIndex)
+      }))
+      .sort((a: any, b: any) => a.__topIndex - b.__topIndex)
+  }, [normalizedResult])
 
   const generateAIPrompt = () => {
     if (!normalizedResult) return '';
@@ -44,11 +57,11 @@ const AIAnalysisCard: React.FC<AIAnalysisCardProps> = ({ question, result, isFro
     sections.push(`应爻: ${normalizedResult.hex?.yingIndex !== undefined ? ['上爻', '五爻', '四爻', '三爻', '二爻', '初爻'][normalizedResult.hex.yingIndex] : ''}`);
     sections.push('');
     sections.push('【六爻详细】');
-    const yaoLabels = ['上爻', '五爻', '四爻', '三爻', '二爻', '初爻'];
-    if (normalizedResult.yaos && Array.isArray(normalizedResult.yaos)) {
-      normalizedResult.yaos.forEach((yao: any, index: number) => {
+    if (orderedYaos.length > 0) {
+      orderedYaos.forEach((yao: any, index: number) => {
+        const label = getLiuyaoYaoLabel(yao?.index, yao?.__topIndex ?? index)
         const parts = [
-          yaoLabels[index],
+          label,
           yao.isMoving ? '(动爻)' : '(静爻)',
           yao.sixGod ? `${yao.sixGod}` : '',
           yao.relation ? `${yao.relation}` : '',
@@ -68,19 +81,21 @@ const AIAnalysisCard: React.FC<AIAnalysisCardProps> = ({ question, result, isFro
     sections.push('【日支时支关系】');
     const dayBranch = normalizedResult.timeGanZhi?.day?.branch;
     const hourBranch = normalizedResult.timeGanZhi?.hour?.branch;
-    if (dayBranch && normalizedResult.yaos) {
+    if (dayBranch && orderedYaos.length > 0) {
       sections.push(`日支 ${dayBranch} 与卦爻:`);
-      normalizedResult.yaos.forEach((yao: any, index: number) => {
+      orderedYaos.forEach((yao: any, index: number) => {
         if (yao.branch) {
-          sections.push(`  ${yaoLabels[index]}(${yao.branch})`);
+          const label = getLiuyaoYaoLabel(yao?.index, yao?.__topIndex ?? index)
+          sections.push(`  ${label}(${yao.branch})`);
         }
       });
     }
-    if (hourBranch && normalizedResult.yaos) {
+    if (hourBranch && orderedYaos.length > 0) {
       sections.push(`时支 ${hourBranch} 与卦爻:`);
-      normalizedResult.yaos.forEach((yao: any, index: number) => {
+      orderedYaos.forEach((yao: any, index: number) => {
         if (yao.branch) {
-          sections.push(`  ${yaoLabels[index]}(${yao.branch})`);
+          const label = getLiuyaoYaoLabel(yao?.index, yao?.__topIndex ?? index)
+          sections.push(`  ${label}(${yao.branch})`);
         }
       });
     }

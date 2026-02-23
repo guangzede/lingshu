@@ -27,7 +27,7 @@ const TiaoHouYongShen: React.FC = () => {
 
   if (!result?.pillars) {
     return (
-      <section className="bazi-section">
+      <section className="bazi-section bazi-section-full">
         <div className="bazi-card">
           <div className="section-title">调候用神</div>
           <div className="empty">暂无排盘结果</div>
@@ -43,7 +43,7 @@ const TiaoHouYongShen: React.FC = () => {
   const yongShen = result.yongShen || { use: [], favor: [], avoid: [] }
 
   return (
-    <section className="bazi-section">
+    <section className="bazi-section bazi-section-full">
       <div className="bazi-card tiao-card">
         <div className="section-title">调候用神</div>
         <div className="tiao-header">

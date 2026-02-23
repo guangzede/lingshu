@@ -1,185 +1,170 @@
-@use "../../../../../styles/variables.scss" as *;
-@use "../../../../../styles/mixins.scss" as *;
-
 .strength-wang {
-  color: $color-strength-wang;
-  font-weight: bold;
+  color: #4b9f68;
+  font-weight: 700;
 }
+
 .strength-xiang {
-  color: $color-strength-xiang;
-  font-weight: bold;
+  color: #6f8f48;
+  font-weight: 700;
 }
+
 .strength-xiu {
-  color: $color-strength-xiu;
-  font-weight: bold;
+  color: #8b7a55;
+  font-weight: 700;
 }
+
 .strength-qiu {
-  color: $color-strength-qiu;
-  font-weight: bold;
+  color: #8f6837;
+  font-weight: 700;
 }
+
 .strength-si {
-  color: $color-strength-si;
-  font-weight: bold;
+  color: #c05a5a;
+  font-weight: 700;
 }
 
 .yao-analysis-section {
-  margin: $spacing-md 0;
-  @include card-style();
+  margin: 12px 0;
+  border: 1px solid var(--bazi-border);
+  border-radius: 12px;
+  background: #fffdf9;
+  padding: 12px;
 }
 
 .yao-analysis-header {
-  margin-bottom: $spacing-md;
-  padding-bottom: $spacing-sm;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--bazi-border);
 }
 
 .yao-analysis-title {
-  font-size: $font-size-lg;
+  font-size: 0.92rem;
   font-weight: 600;
-  color: $color-text-primary;
+  color: var(--bazi-text);
 }
 
 .yao-analysis-empty {
-  min-height: 120px;
+  min-height: 96px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .yao-analysis-empty-text {
-  font-size: $font-size-md;
-  color: $color-text-secondary;
+  font-size: 0.84rem;
+  color: var(--bazi-sub);
 }
 
 .yao-analysis-item {
-  margin-bottom: $spacing-md;
-  padding: $spacing-sm;
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: $border-radius-md;
-  border: 1px solid rgba(255, 255, 255, 0.03);
-  &:last-child {
-    margin-bottom: 0;
-  }
+  margin-bottom: 10px;
+  padding: 10px;
+  background: #ffffff;
+  border-radius: 10px;
+  border: 1px solid var(--bazi-border);
+}
+
+.yao-analysis-item:last-child {
+  margin-bottom: 0;
 }
 
 .yao-analysis-item-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: $spacing-sm;
+  margin-bottom: 8px;
+  gap: 8px;
 }
 
 .yao-analysis-label {
-  font-size: $font-size-md;
-  color: $color-text-secondary;
+  font-size: 0.82rem;
+  color: var(--bazi-text);
   flex: 1;
 }
 
 .wuxing-tag {
   display: inline-block;
-  margin-left: $spacing-xs;
-  padding: 0 $spacing-xs;
-  border-radius: $border-radius-sm;
-  font-size: $font-size-xs;
-  line-height: 1.4;
-  background: rgba(255, 255, 255, 0.06);
+  margin-left: 6px;
+  padding: 0 6px;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  line-height: 1.5;
+  background: var(--bazi-soft);
 }
 
 .wuxing-metal {
-  color: $color-wuxing-metal;
+  color: #8f6837;
 }
+
 .wuxing-wood {
-  color: $color-wuxing-wood;
+  color: #4b9f68;
 }
+
 .wuxing-water {
-  color: $color-wuxing-water;
+  color: #4a7ca8;
 }
+
 .wuxing-fire {
-  color: $color-wuxing-fire;
+  color: #c05a5a;
 }
+
 .wuxing-earth {
-  color: $color-wuxing-earth;
+  color: #9f7a45;
 }
 
 .moving-tag {
-  color: $color-accent;
-  font-size: $font-size-sm;
-  margin-left: $spacing-xs;
+  color: var(--bazi-accent);
+  font-size: 0.74rem;
+  margin-left: 6px;
 }
 
 .yao-analysis-strength {
-  font-size: $font-size-sm;
-  color: $color-text-tertiary;
+  font-size: 0.74rem;
+  color: var(--bazi-sub);
   text-align: right;
-  max-width: 120px;
+  max-width: 122px;
 }
 
-.yao-analysis-relations {
-  font-size: $font-size-sm;
-  color: $color-text-tertiary;
-  line-height: 1.4;
-  margin-bottom: $spacing-xs;
-  display: block;
-}
-
-.yao-analysis-variant {
-  font-size: $font-size-sm;
-  color: $color-accent;
-  line-height: 1.4;
-  display: block;
-}
-
-.yao-analysis-energy {
-  margin-top: $spacing-xs;
-}
-
+.yao-analysis-relations,
+.yao-analysis-variant,
 .yao-analysis-energy-score {
-  font-size: $font-size-sm;
-  color: $color-text-secondary;
+  font-size: 0.74rem;
+  color: var(--bazi-sub);
+  line-height: 1.55;
+  margin-bottom: 4px;
   display: block;
-  margin-bottom: $spacing-xs;
 }
 
 .yao-analysis-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: $spacing-xs;
-  margin-top: $spacing-xs;
+  gap: 6px;
+  margin-top: 6px;
 }
 
 .yao-tag-item {
   display: inline-flex;
   align-items: center;
-  font-size: 11px;
+  font-size: 0.68rem;
   padding: 2px 6px;
-  border-radius: 4px;
+  border-radius: 999px;
   line-height: 1.4;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: $color-text-tertiary;
-  cursor: pointer;
-}
-
-.yao-tag-label {
-  line-height: 1.4;
+  background: #ffffff;
+  border: 1px solid var(--bazi-border);
+  color: var(--bazi-sub);
 }
 
 .yao-tag-buff {
-  color: #8ef7a0;
-  background: rgba(142, 247, 160, 0.06);
-  border-color: rgba(142, 247, 160, 0.2);
+  color: #3f8c5f;
+  background: rgba(79, 153, 103, 0.1);
+  border-color: rgba(79, 153, 103, 0.25);
 }
 
 .yao-tag-debuff {
-  color: #ff8c8c;
-  background: rgba(255, 140, 140, 0.06);
-  border-color: rgba(255, 140, 140, 0.2);
+  color: #b14a4a;
+  background: rgba(192, 90, 90, 0.1);
+  border-color: rgba(192, 90, 90, 0.25);
 }
 
-.yao-tag-neutral {
-  background: rgba(255, 215, 140, 0.06);
-  border-color: rgba(255, 215, 140, 0.2);
-  .yao-tag-label {
-    color: #ffd78c;
-  }
+.yao-tag-neutral .yao-tag-label {
+  color: var(--bazi-sub);
 }

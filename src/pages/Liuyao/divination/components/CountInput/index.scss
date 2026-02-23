@@ -1,19 +1,19 @@
-@use '../../../../../styles/variables.scss' as *;
-@use '../../../../../styles/mixins.scss' as *;
-
-
 .input-area {
-  margin: $spacing-md $spacing-md;
+  display: block;
 }
-
-
-.count-input-card {
-  @include card-style();
-}
-
-@include card-header-style;
 
 .number-input-elegant {
-  @include input-style();
   width: 100%;
+  min-height: 52px;
+  border: 1px solid var(--bazi-border);
+  border-radius: 10px;
+  background: #ffffff;
+  color: var(--bazi-text);
+  font-size: 0.86rem;
+  padding: 0 12px;
+  box-sizing: border-box;
+}
+
+.number-input-elegant::placeholder {
+  color: var(--bazi-muted);
 }

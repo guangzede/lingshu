@@ -7,7 +7,7 @@ const CoreEnergy: React.FC = () => {
 
   if (!result?.dayMaster) {
     return (
-      <section className="bazi-section">
+      <section className="bazi-section bazi-section-full">
         <div className="bazi-card">
           <div className="section-title">核心能量</div>
           <div className="empty">暂无排盘结果</div>
@@ -19,7 +19,7 @@ const CoreEnergy: React.FC = () => {
   const { dayMaster, wuxing, yongShen } = result
 
   return (
-    <section className="bazi-section">
+    <section className="bazi-section bazi-section-full">
       <div className="bazi-card">
         <div className="section-title">核心能量</div>
         <div className="core-grid">

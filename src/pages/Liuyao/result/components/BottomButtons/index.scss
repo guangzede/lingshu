@@ -1,21 +1,41 @@
-@use '../../../../../styles/variables.scss' as *;
-@use '../../../../../styles/mixins.scss' as *;
-
 .bottom-buttons-container {
-  margin: $spacing-lg 16px;
+  margin: 16px;
   display: flex;
-  gap: $spacing-md;
+  gap: 10px;
   justify-content: center;
-  padding-bottom: $spacing-lg;
+  padding-bottom: calc(12px + env(safe-area-inset-bottom));
 }
 
-.btn-save-case {
+.bottom-buttons-container .btn-save-case,
+.bottom-buttons-container .btn-view-history {
   flex: 1;
-  @include button-primary();
+  border-radius: 999px !important;
+  font-size: 0.86rem;
+  letter-spacing: 0.1em;
+  min-height: 44px;
 }
 
-.btn-view-history {
-  flex: 1;
-  margin-top: 0;
-  @include button-secondary();
+.bottom-buttons-container .btn-save-case {
+  background: linear-gradient(180deg, #1b1714 0%, #0f0d0b 100%) !important;
+  color: #f7d69c !important;
+  border: none !important;
+  box-shadow: 0 8px 18px rgba(20, 15, 10, 0.22);
+}
+
+.bottom-buttons-container .btn-view-history {
+  background: #ffffff !important;
+  color: var(--bazi-sub) !important;
+  border: 1px solid var(--bazi-border) !important;
+}
+
+@media (max-width: 520px) {
+  .bottom-buttons-container {
+    gap: 8px;
+  }
+
+  .bottom-buttons-container .btn-save-case,
+  .bottom-buttons-container .btn-view-history {
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+  }
 }

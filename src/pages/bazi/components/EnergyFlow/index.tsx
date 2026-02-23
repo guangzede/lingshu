@@ -8,7 +8,7 @@ const EnergyFlow: React.FC = () => {
 
   if (!result?.relations) {
     return (
-      <section className="bazi-section">
+      <section className="bazi-section bazi-section-full">
         <div className="bazi-card">
           <div className="section-title">合冲刑害</div>
           <div className="empty">暂无排盘结果</div>
@@ -44,7 +44,7 @@ const EnergyFlow: React.FC = () => {
   }
 
   return (
-    <section className="bazi-section">
+    <section className="bazi-section bazi-section-full">
       <div className="bazi-card">
         <div className="section-head" onClick={() => setOpen(!open)}>
           <div className="section-title">合冲刑害</div>

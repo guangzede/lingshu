@@ -1,69 +1,28 @@
-@use '../../../../../styles/variables.scss' as *;
-@use '../../../../../styles/mixins.scss' as *;
-
-.datetime-card {
-  margin: $spacing-md $spacing-md;
-  @include card-style();
-}
-
-@include card-header-style;
-
 .datetime-inputs {
-  display: flex;
-  flex-direction: row;
-  gap: $spacing-md;
-
+  display: grid;
+  gap: 10px;
 }
 
 .input-group {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 56px 1fr;
   align-items: center;
-  padding: $spacing-lg;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 8px;
 }
 
 .input-label-elegant {
-  font-size: $font-size-lg;
-  color: $color-text-secondary;
-  min-width: 60px;
+  font-size: 0.82rem;
+  color: var(--bazi-sub);
 }
 
 .value-with-underline {
-  flex: 1;
-  text-align: right;
-  position: relative;
-  padding: $spacing-xs $spacing-sm;
-  border-radius: $border-radius-md;
-  background: rgba(255, 255, 255, 0.04);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  background: linear-gradient(135deg, rgba(251, 191, 36, 0.15) 0%, rgba(251, 191, 36, 0.08) 100%);
-  border: 0.025rem solid rgba(251, 191, 36, 0.3);
-  border-radius: 0.3rem;
-  padding: 0.3rem 0.4rem;
-  color: #fbbf24;
-  font-size: 0.7rem;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow: hidden;
-  box-shadow: 0 0 0.3rem rgba(251, 191, 36, 0.15);
-  font-weight: 500;
-  outline: none;
-  margin-left: $spacing-sm;
-  &:hover {
-    background: rgba(255, 255, 255, 0.08);
-    transform: translateY(-1px);
-  }
-
-  &:active {
-    background: rgba(255, 255, 255, 0.12);
-    transform: translateY(0);
-  }
+  border: 1px solid var(--bazi-border);
+  border-radius: 10px;
+  background: #ffffff;
+  padding: 9px 10px;
 }
 
 .value-text {
-  font-size: $font-size-lg;
-  color: $color-accent;
-  font-weight: 500;
+  color: var(--bazi-text);
+  font-size: 0.84rem;
 }

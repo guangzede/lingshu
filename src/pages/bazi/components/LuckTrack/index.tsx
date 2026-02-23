@@ -129,7 +129,7 @@ const LuckTrack: React.FC = () => {
 
   if (!result?.luck) {
     return (
-      <section className="bazi-section">
+      <section className="bazi-section bazi-section-full">
         <div className="bazi-card">
           <div className="section-title">大运流年</div>
           <div className="empty">暂无排盘结果</div>
@@ -139,7 +139,7 @@ const LuckTrack: React.FC = () => {
   }
 
   return (
-    <section className="bazi-section">
+    <section className="bazi-section bazi-section-full">
       <div className="bazi-card">
         <div className="section-title">大运流年</div>
         <div className="luck-meta">

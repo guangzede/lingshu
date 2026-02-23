@@ -1,131 +1,113 @@
-@use "../../../../../styles/variables.scss" as *;
-
 .history-list {
   padding: 0 12px;
   display: flex;
   flex-direction: column;
   gap: 8px;
-
-  .history-empty {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 60px 16px;
-    gap: 12px;
-    text-align: center;
-
-    .empty-icon {
-      font-size: $font-size-massive;
-      display: block;
-    }
-
-    .empty-text {
-      color: rgba(255, 255, 255, 0.6);
-      font-size: $font-size-lg;
-    }
-  }
-
-  .history-item {
-    display: flex;
-    gap: 8px;
-    padding: 12px;
-    border-radius: 8px;
-    background-color: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.2s ease;
-
-    &:active {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .history-item-main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      min-width: 0;
-
-      .history-item-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 8px;
-
-        .history-date {
-          font-size: $font-size-sm;
-          color: rgba(255, 255, 255, 0.7);
-          white-space: nowrap;
-        }
-
-        .history-hexagram {
-          font-size: $font-size-sm;
-          color: #4facfe;
-          padding: 2px 6px;
-          border-radius: 4px;
-          background-color: rgba(79, 172, 254, 0.1);
-          white-space: nowrap;
-        }
-      }
-
-      .history-question {
-        font-size: $font-size-lg;
-        color: #fff;
-        line-height: 1.4;
-        word-break: break-word;
-      }
-
-      .history-remark {
-        font-size: $font-size-sm;
-        color: rgba(255, 255, 255, 0.6);
-        font-style: italic;
-      }
-    }
-
-    .history-item-delete {
-      background: none !important;
-      border: none !important;
-      padding: 0 !important;
-      min-width: auto !important;
-      height: auto !important;
-      font-size: $font-size-xl;
-      color: #f5576c;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 28px;
-      height: 28px;
-      flex-shrink: 0;
-
-      &:active {
-        opacity: 0.6;
-      }
-
-      &:disabled {
-        opacity: 0.3;
-      }
-    }
-  }
 }
 
-/**
- * 小屏幕时调整
- */
+.history-list .history-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 16px;
+  gap: 10px;
+  text-align: center;
+}
+
+.history-list .empty-icon {
+  font-size: 1.2rem;
+}
+
+.history-list .empty-text {
+  color: var(--bazi-sub);
+  font-size: 0.82rem;
+}
+
+.history-list .history-item {
+  display: flex;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 10px;
+  background: #ffffff;
+  border: 1px solid var(--bazi-border);
+  transition: all 0.2s ease;
+}
+
+.history-list .history-item:active {
+  background: #fffaf3;
+}
+
+.history-list .history-item-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.history-list .history-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.history-list .history-date {
+  font-size: 0.72rem;
+  color: var(--bazi-sub);
+  white-space: nowrap;
+}
+
+.history-list .history-hexagram {
+  font-size: 0.7rem;
+  color: #8f6837;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: rgba(177, 139, 79, 0.12);
+  white-space: nowrap;
+}
+
+.history-list .history-question {
+  font-size: 0.8rem;
+  color: var(--bazi-text);
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.history-list .history-remark {
+  font-size: 0.72rem;
+  color: var(--bazi-sub);
+  font-style: italic;
+}
+
+.history-list .history-item-delete {
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  min-width: auto !important;
+  height: auto !important;
+  font-size: 0.92rem;
+  color: #b14a4a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.history-list .history-item-delete:active {
+  opacity: 0.6;
+}
+
+.history-list .history-item-delete:disabled {
+  opacity: 0.3;
+}
+
 @media (max-width: 480px) {
   .history-list {
     padding: 0 8px;
     gap: 6px;
-
-    .history-item {
-      padding: 10px;
-
-      .history-item-main {
-        gap: 4px;
-
-        .history-question {
-          font-size: $font-size-sm;
-        }
-      }
-    }
   }
 }

@@ -1,96 +1,108 @@
-@use '../../../../../styles/variables.scss' as *;
-@use '../../../../../styles/mixins.scss' as *;
 .five-elements-card {
-	@include card-style();
-	gap: $spacing-md;
+  border: 1px solid var(--bazi-border);
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 12px;
+  display: grid;
+  gap: 10px;
 }
 
-.card-header {
-	@include card-header-style();
+.five-elements-card .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.five-elements-card .card-section-title {
+  font-family: 'Source Han Serif SC', 'Songti SC', 'STSong', serif;
+  font-size: 0.98rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--bazi-text);
+}
+
+.five-elements-card .card-section-guide {
+  font-size: 0.76rem;
+  color: var(--bazi-sub);
 }
 
 .card-body {
-	display: flex;
-	flex-direction: column;
-	gap: $spacing-md;
-}
-
-.radar-container {
-	// display: grid;
-	// grid-template-columns: repeat(2, 1fr);
-	// gap: $spacing-lg;
-	// width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .radar-col {
-	display: flex;
-	flex-direction: column;
-	gap: $spacing-md;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .radar-title {
-	font-size: $font-size-md;
-	color: $color-text-primary;
-	font-weight: 600;
-	text-align: center;
+  font-size: 0.84rem;
+  color: var(--bazi-text);
+  font-weight: 600;
+  text-align: center;
 }
 
 .radar-wrap {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: $spacing-md;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
 .radar-canvas {
-	width: 240px;
-	height: 240px;
-	border-radius: $border-radius-lg;
-	background: rgba(15, 18, 24, 0.35);
-	border: 1px solid rgba(201, 178, 106, 0.2);
-	box-shadow: inset 0 0 16px rgba(201, 178, 106, 0.08);
+  width: 240px;
+  height: 240px;
+  border-radius: 10px;
+  background: #fffdf9;
+  border: 1px solid var(--bazi-border);
 }
 
 .radar-legend {
-	display: grid;
-	grid-template-columns: repeat(5, 1fr);
-	gap: $spacing-sm;
-	width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  width: 100%;
 }
 
 .legend-item {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 4px;
-	background: rgba(255, 255, 255, 0.03);
-	border: 1px solid rgba(201, 178, 106, 0.12);
-	border-radius: $border-radius-md;
-	padding: 8px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: #ffffff;
+  border: 1px solid var(--bazi-border);
+  border-radius: 8px;
+  padding: 6px 4px;
 }
 
 .legend-dot {
-	width: 10px;
-	height: 10px;
-	border-radius: 50%;
-	box-shadow: 0 0 8px rgba(0, 0, 0, 0.35);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
 }
 
 .legend-label {
-	font-size: $font-size-sm;
-	color: $color-text-secondary;
+  font-size: 0.7rem;
+  color: var(--bazi-sub);
 }
 
 .legend-value {
-	font-size: $font-size-md;
-	color: $color-text-primary;
-	font-weight: 600;
+  font-size: 0.76rem;
+  color: var(--bazi-text);
+  font-weight: 600;
 }
 
-@include responsive('md') {
-	.radar-canvas {
-		width: 200px;
-		height: 200px;
-	}
+@media (max-width: 640px) {
+  .radar-canvas {
+    width: 200px;
+    height: 200px;
+  }
 
+  .radar-legend {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }

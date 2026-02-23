@@ -1,64 +1,53 @@
-@use "../../../styles/variables.scss" as *;
-@use "../../../styles/mixins.scss" as *;
+@use '../../../styles/variables.scss' as *;
 
-// 六爻起卦页面全局样式
 .liuyao-divination-page {
   padding-bottom: $spacing-xl;
 
-  // PC 模式下的布局优化
   @media (min-width: 1024px) {
     display: flex;
     flex-direction: column;
     max-width: 900px;
     margin: 0 auto;
-    padding: 32px 24px;
+    padding: 24px;
   }
 }
 
-// 摇卦区域样式
 .shake-section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: $spacing-md;
-
-  @media (min-width: 1024px) {
-    padding: 0;
-  }
+  gap: 12px;
 }
 
-// 排盘按钮样式
 .divinate-button-container {
   display: flex;
   justify-content: center;
-  margin: $spacing-xl 16px;
+  margin: 20px 16px;
 
   @media (min-width: 1024px) {
-    margin: $spacing-xl 0;
+    margin: 20px 0;
   }
 }
 
 .divinate-button {
-  @include mystical-button;
   position: relative;
-  width: 100%;
+  width: min(100%, 420px);
   text-align: center;
-  font-size: $font-size-xl;
-  padding: $spacing-lg $spacing-xxl;
+  border-radius: 999px;
+  padding: 12px 22px;
+  border: none;
+  background: linear-gradient(180deg, #1b1714 0%, #0f0d0b 100%);
+  box-shadow: 0 12px 22px rgba(20, 15, 10, 0.25);
   overflow: hidden;
-
-  @media (min-width: 1024px) {
-    max-width: 400px;
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(201, 173, 111, 0.2);
-    }
-  }
 }
 
 .divinate-text {
   position: relative;
   z-index: 2;
+  color: #f7d69c;
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  font-weight: 600;
 }
 
 .energy-flow {
@@ -67,12 +56,7 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.1),
-    transparent
-  );
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
   animation: energyFlow 2s infinite;
   z-index: 1;
 }
@@ -81,6 +65,7 @@
   0% {
     left: -100%;
   }
+
   100% {
     left: 100%;
   }
@@ -93,27 +78,28 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(5, 6, 12, 0.85);
+  background: rgba(255, 250, 243, 0.7);
   backdrop-filter: blur(8px);
 }
 
 .divination-loading-card {
   width: min(86vw, 360px);
-  padding: 24px 20px;
+  padding: 22px 18px;
   border-radius: 16px;
-  @include mystical-card;
-  background: rgba(30, 30, 40, 0.95);
+  background: #ffffff;
+  border: 1px solid var(--bazi-border);
+  box-shadow: var(--bazi-shadow);
   text-align: center;
 }
 
 .divination-loading-title {
-  font-size: $font-size-xl;
+  font-size: 1rem;
   font-weight: 600;
-  color: $color-mystical-gold;
+  color: var(--bazi-text);
   margin-bottom: 8px;
 }
 
 .divination-loading-desc {
-  font-size: $font-size-md;
-  color: $color-text-tertiary;
+  font-size: 0.86rem;
+  color: var(--bazi-sub);
 }

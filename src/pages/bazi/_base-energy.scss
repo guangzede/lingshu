@@ -1,37 +1,35 @@
-@use "../../styles/variables.scss" as *;
-@use "../../styles/mixins.scss" as *;
+@use '../../styles/variables.scss' as *;
 
 .core-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 14px;
-  margin-bottom: 16px;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-bottom: 14px;
 }
 
 .core-block {
-  background: rgba(8, 12, 24, 0.7);
+  background: #ffffff;
   padding: 12px;
-  border-radius: 14px;
-  border: 1px solid rgba(245, 216, 158, 0.12);
+  border-radius: 12px;
+  border: 1px solid var(--bazi-border);
   min-width: 0;
-  overflow: hidden;
 }
 
 .core-title {
-  font-size: 0.85rem;
-  color: rgba(245, 216, 158, 0.7);
+  font-size: 0.82rem;
+  color: var(--bazi-sub);
   margin-bottom: 4px;
 }
 
 .core-value {
-  font-size: 1.2rem;
+  font-size: 1.12rem;
   font-weight: 600;
-  color: #fff4d8;
+  color: var(--bazi-text);
 }
 
 .core-sub {
-  font-size: 0.85rem;
-  color: rgba(245, 216, 158, 0.75);
+  font-size: 0.8rem;
+  color: var(--bazi-sub);
   margin-top: 4px;
   word-break: break-word;
   overflow-wrap: anywhere;
@@ -63,45 +61,44 @@
 .element-木 {
   color: $color-wuxing-wood;
 }
+
 .element-火 {
   color: $color-wuxing-fire;
 }
+
 .element-土 {
   color: $color-wuxing-earth;
 }
+
 .element-金 {
   color: $color-wuxing-metal;
 }
+
 .element-水 {
   color: $color-wuxing-water;
 }
 
-.energy-bar {
+.energy-bar,
+.ten-god-bar {
+  min-width: 0;
   height: 8px;
-  background: rgba(255, 255, 255, 0.08);
   border-radius: 999px;
+  background: #efe9e1;
   overflow: hidden;
 }
 
-.energy-bar-fill {
+.energy-bar-fill,
+.ten-god-bar-fill {
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    rgba(245, 216, 158, 0.8),
-    rgba(245, 216, 158, 0.2)
-  );
+  background: linear-gradient(90deg, rgba(177, 139, 79, 0.9), rgba(177, 139, 79, 0.25));
 }
 
 .energy-percent {
-  font-size: 0.8rem;
-  color: rgba(245, 216, 158, 0.7);
+  font-size: 0.76rem;
+  color: var(--bazi-sub);
   white-space: nowrap;
   text-align: right;
   min-width: 44px;
-}
-
-.energy-bar {
-  min-width: 0;
 }
 
 .nayin-row th,
@@ -125,9 +122,10 @@
 .tag {
   padding: 4px 10px;
   border-radius: 999px;
-  border: 1px solid rgba(245, 216, 158, 0.3);
-  font-size: 0.8rem;
-  color: rgba(245, 216, 158, 0.85);
+  border: 1px solid var(--bazi-border);
+  font-size: 0.78rem;
+  color: var(--bazi-sub);
+  background: #ffffff;
 }
 
 .relation-list {
@@ -138,28 +136,30 @@
 
 .relation-item {
   display: grid;
-  grid-template-columns: 100px 1fr auto;
+  grid-template-columns: 90px 1fr auto;
   align-items: center;
   gap: 8px;
-  font-size: 0.82rem;
-  color: rgba(245, 216, 158, 0.75);
+  font-size: 0.8rem;
+  color: var(--bazi-sub);
 }
 
 .relation-type {
   font-weight: 600;
   padding: 2px 8px;
   border-radius: 999px;
-  border: 1px solid rgba(245, 216, 158, 0.25);
+  border: 1px solid var(--bazi-border);
   text-align: center;
+  color: var(--bazi-text);
+  background: #fffaf3;
 }
 
-.relation-pillars {
-  color: rgba(245, 216, 158, 0.75);
+.relation-pillars,
+.relation-brief {
+  color: var(--bazi-sub);
 }
 
 .relation-brief {
-  color: rgba(245, 216, 158, 0.6);
-  font-size: 0.76rem;
+  font-size: 0.74rem;
   white-space: nowrap;
 }
 
@@ -170,22 +170,22 @@
 }
 
 .shen-sha-item {
-  background: rgba(8, 12, 24, 0.65);
+  background: #ffffff;
   border-radius: 12px;
   padding: 8px 10px;
-  border: 1px solid rgba(245, 216, 158, 0.12);
+  border: 1px solid var(--bazi-border);
 }
 
 .shen-sha-name {
-  font-size: 0.85rem;
-  color: rgba(245, 216, 158, 0.7);
+  font-size: 0.82rem;
+  color: var(--bazi-sub);
 }
 
 .shen-sha-value {
   display: block;
   margin-top: 4px;
-  font-size: 0.9rem;
-  color: #fff4d8;
+  font-size: 0.86rem;
+  color: var(--bazi-text);
 }
 
 .ten-god-grid {
@@ -198,18 +198,17 @@
 .ten-god-item {
   display: flex;
   justify-content: space-between;
-  font-size: 0.85rem;
-  color: rgba(245, 216, 158, 0.75);
+  font-size: 0.82rem;
+  color: var(--bazi-sub);
 }
 
 .ten-god-split {
   margin-top: 12px;
-  display: flex;
-  gap: 14px;
+  display: grid;
+  gap: 10px;
 }
 
 .ten-god-col {
-  flex: 1 1 0;
   display: grid;
   gap: 10px;
 }
@@ -218,37 +217,39 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.82rem;
-  color: rgba(245, 216, 158, 0.8);
+  font-size: 0.8rem;
+  color: var(--bazi-sub);
 }
 
 .ten-god-label {
   font-weight: 600;
   white-space: nowrap;
-  writing-mode: horizontal-tb;
   line-height: 1.2;
-}
-
-.ten-god-bar {
-  flex: 1 1 auto;
-}
-
-.ten-god-bar {
-  height: 8px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  overflow: hidden;
-}
-
-.ten-god-bar-fill {
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    rgba(245, 216, 158, 0.9),
-    rgba(245, 216, 158, 0.25)
-  );
 }
 
 .ten-god-value {
   display: none;
+}
+
+@media (max-width: 640px) {
+  .energy-row {
+    grid-template-columns: 26px 1fr 84px;
+  }
+
+  .relation-item {
+    grid-template-columns: 1fr;
+    gap: 4px;
+    border: 1px solid var(--bazi-border);
+    border-radius: 10px;
+    padding: 8px;
+    background: #fffdf9;
+  }
+
+  .relation-type {
+    justify-self: start;
+  }
+
+  .relation-brief {
+    white-space: normal;
+  }
 }

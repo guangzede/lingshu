@@ -1,5 +1,3 @@
-@use "../../styles/mixins.scss" as *;
-
 /* ====== HePan (八字合盘) ====== */
 .hepan-card {
   display: grid;
@@ -165,135 +163,6 @@
   color: var(--bazi-sub);
 }
 
-.tag,
-.hidden-item {
-  background: #ffffff;
-  border-color: var(--bazi-border);
-}
-
-.flow-card,
-.core-block,
-.luck-meta,
-.luck-detail-card,
-.ai-report,
-.tiao-block {
-  background: #ffffff;
-  border-color: var(--bazi-border);
-}
-
-.flow-node {
-  background: #fffaf3;
-  border-color: var(--bazi-border);
-  color: var(--bazi-text);
-}
-
-.flow-node.active {
-  background: #fff2da;
-  border-color: var(--bazi-accent);
-}
-
-.flow-note,
-.flow-mode,
-.flow-main-percent,
-.flow-arrow,
-.flow-loop {
-  color: var(--bazi-sub);
-}
-
-.core-title,
-.core-sub,
-.energy-percent,
-.luck-label,
-.luck-year,
-.luck-age,
-.luck-month,
-.luck-god,
-.detail-line,
-.detail-keywords,
-.detail-desc,
-.inline-note,
-.empty {
-  color: var(--bazi-sub);
-}
-
-.energy-bar,
-.ten-god-bar,
-.extra-bar {
-  background: #efe9e1;
-}
-
-.energy-bar-fill,
-.ten-god-bar-fill,
-.extra-bar-fill {
-  background: linear-gradient(
-    90deg,
-    rgba(177, 139, 79, 0.9),
-    rgba(177, 139, 79, 0.25)
-  );
-}
-
-.luck-item {
-  background: #ffffff;
-  border-color: var(--bazi-border);
-  padding: 6px 2px;
-}
-
-.luck-item.active {
-  background: #fff4dc;
-  border-color: var(--bazi-accent);
-  box-shadow: 0 10px 18px rgba(177, 139, 79, 0.18);
-}
-
-.luck-today {
-  border-color: var(--bazi-border);
-  color: var(--bazi-sub);
-  background: #fffaf3;
-}
-
-.luck-meta {
-  font-size: 0.82rem;
-  padding: 12px 14px;
-}
-
-.luck-label {
-  font-size: 0.72rem;
-}
-
-.luck-grid {
-  gap: 4px;
-}
-
-.luck-year,
-.luck-age,
-.luck-range {
-  font-size: 0.42rem;
-  white-space: nowrap;
-}
-
-.luck-char {
-  font-size: 0.92rem;
-}
-
-.luck-gz-stack {
-  gap: 2px;
-}
-
-.luck-gz-line {
-  gap: 2px;
-}
-
-.luck-god {
-  font-size: 0.58rem;
-}
-
-.luck-month {
-  font-size: 0.6rem;
-}
-
-.luck-detail-card {
-  font-size: 0.82rem;
-}
-
 .ai-report {
   background: #fffaf3;
   border-color: var(--bazi-border);
@@ -303,8 +172,4 @@
 .ai-mask {
   background: rgba(255, 250, 243, 0.7);
   color: var(--bazi-text);
-}
-
-.note-textarea {
-  min-height: 120px;
 }
