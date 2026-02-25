@@ -5,34 +5,22 @@
   padding: 12px;
   display: grid;
   gap: 10px;
+
+  .card-header {
+    margin-bottom: 0;
+  }
+
+  .card-section-title {
+    font-size: 0.98rem;
+    letter-spacing: 0.08em;
+  }
+
+  .card-section-guide {
+    font-size: 0.76rem;
+  }
 }
 
-.five-elements-card .card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-}
-
-.five-elements-card .card-section-title {
-  font-family: 'Source Han Serif SC', 'Songti SC', 'STSong', serif;
-  font-size: 0.98rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  color: var(--bazi-text);
-}
-
-.five-elements-card .card-section-guide {
-  font-size: 0.76rem;
-  color: var(--bazi-sub);
-}
-
-.card-body {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
+.card-body,
 .radar-col {
   display: flex;
   flex-direction: column;

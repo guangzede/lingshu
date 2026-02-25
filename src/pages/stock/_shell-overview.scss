@@ -1,3 +1,5 @@
+@use './shared.scss' as *;
+
 .hero-card {
   background:
     radial-gradient(circle at 82% 24%, rgba(177, 139, 79, 0.18), transparent 56%),
@@ -33,10 +35,7 @@
 
 .hero-ganzhi {
   width: 92px;
-  border: 1px solid var(--stock-border-soft);
-  border-radius: 12px;
-  background: #fffaf3;
-  padding: 10px 6px;
+  @include stock-surface(12px, 10px 6px, var(--stock-border-soft), #fffaf3);
   text-align: center;
   flex-shrink: 0;
   display: flex;
@@ -67,10 +66,7 @@
 }
 
 .hero-metric-item {
-  border: 1px solid var(--stock-border);
-  border-radius: 10px;
-  background: #ffffff;
-  padding: 8px;
+  @include stock-surface(10px, 8px);
   text-align: center;
 }
 
@@ -86,11 +82,6 @@
   color: var(--stock-text-main);
   font-size: 0.76rem;
   font-weight: 600;
-}
-
-.market-card,
-.board-card {
-  margin-bottom: 12px;
 }
 
 .market-header {
@@ -112,10 +103,7 @@
 }
 
 .market-index-item {
-  border: 1px solid var(--stock-border);
-  border-radius: 10px;
-  background: #ffffff;
-  padding: 10px;
+  @include stock-surface(10px, 10px);
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -133,14 +121,14 @@
   color: var(--stock-text-main);
   font-size: 0.9rem;
   font-weight: 700;
-  font-variant-numeric: tabular-nums;
+  @include stock-tabular-numeric();
 }
 
 .market-index-change {
   display: block;
   font-size: 0.74rem;
   font-weight: 600;
-  font-variant-numeric: tabular-nums;
+  @include stock-tabular-numeric();
 }
 
 .market-index-change.up {
@@ -160,12 +148,9 @@
 .breadth-chip {
   flex: 1;
   text-align: center;
-  border: 1px solid var(--stock-border);
-  border-radius: 999px;
-  padding: 6px 0;
+  @include stock-surface(999px, 6px 0);
   font-size: 0.74rem;
   font-weight: 600;
-  background: #ffffff;
 }
 
 .breadth-chip.up {
@@ -197,10 +182,7 @@
 }
 
 .board-col {
-  border: 1px solid var(--stock-border);
-  border-radius: 12px;
-  background: #ffffff;
-  padding: 10px;
+  @include stock-surface(12px, 10px);
 }
 
 .board-col-title {
@@ -259,7 +241,7 @@
   font-size: 0.8rem;
   font-weight: 700;
   flex-shrink: 0;
-  font-variant-numeric: tabular-nums;
+  @include stock-tabular-numeric();
 }
 
 .board-pct.up {

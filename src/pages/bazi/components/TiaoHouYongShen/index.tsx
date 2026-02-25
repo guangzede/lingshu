@@ -1,7 +1,6 @@
 import React from 'react'
 import { useBaziStore } from '@/store/bazi'
 import type { Branch } from '@/types/liuyao'
-import './index.scss'
 
 const SEASON_MAP: Record<Branch, { season: string; climate: string; main: string; secondary: string; note: string }> = {
   '寅': { season: '春', climate: '木旺偏寒', main: '火', secondary: '土', note: '春木生发，先以温暖为要，火为主，土以培木。' },

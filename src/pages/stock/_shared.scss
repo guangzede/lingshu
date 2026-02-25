@@ -1,0 +1,31 @@
+@mixin stock-surface(
+  $radius: 10px,
+  $padding: null,
+  $border: var(--stock-border),
+  $background: #ffffff
+) {
+  border: 1px solid $border;
+  border-radius: $radius;
+  background: $background;
+
+  @if $padding != null {
+    padding: $padding;
+  }
+}
+
+@mixin stock-pill($padding: 4px 10px, $font-size: 0.74rem, $weight: 600) {
+  padding: $padding;
+  border-radius: 999px;
+  font-size: $font-size;
+  font-weight: $weight;
+}
+
+@mixin stock-trend-chip($color, $background, $border) {
+  color: $color;
+  background: $background;
+  border: 1px solid $border;
+}
+
+@mixin stock-tabular-numeric() {
+  font-variant-numeric: tabular-nums;
+}

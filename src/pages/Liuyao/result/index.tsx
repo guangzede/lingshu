@@ -10,7 +10,6 @@ import YaoAnalysis from './components/YaoAnalysis'
 import HistoryList from './components/HistoryList'
 import FiveElementsAnalysis from './components/FiveElementsAnalysis'
 import HexagramTexts from './components/HexagramTexts'
-// import ProfessionalAnalysisCard from './components/ProfessionalAnalysisCard'
 import QuestionCard from '../components/QuestionCard'
 import { getToken } from '@/services/auth'
 import AuthStatusBar from '@/components/AuthStatusBar'
@@ -189,9 +188,6 @@ const LiuyaoResultPage: React.FC = () => {
               </View>
             )}
           </View>
-          {/* 日支/时支关系分析 */}
-          {/* <BranchRelation result={result} /> */}
-
           {/* 爻位动态分析 */}
           <YaoAnalysis result={safeResult} />
           <HexagramTexts result={safeResult} />
@@ -203,10 +199,6 @@ const LiuyaoResultPage: React.FC = () => {
             savedAiAnalysis={savedAiAnalysis}
             onAnalysisGenerated={setCurrentAiAnalysis}
           />
-          {/* <HumanQACard question={resolvedQuestion} /> */}
-
-          {/* 专业分析卡片：生克制化、旺衰、特殊状态、进退神 */}
-          {/* <ProfessionalAnalysisCard result={result} /> */}
         </View>
       </View>
 

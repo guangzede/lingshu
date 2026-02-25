@@ -3,7 +3,6 @@ import { PickerView, PickerViewColumn } from '@tarojs/components'
 import { Lunar, LunarMonth, LunarYear, Solar } from 'lunar-javascript'
 import { useBaziStore } from '@/store/bazi'
 import type { Branch, Stem } from '@/types/liuyao'
-import './index.scss'
 
 const STEMS: Stem[] = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸']
 const BRANCHES: Branch[] = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥']
@@ -17,7 +16,6 @@ const years = Array.from({ length: 121 }, (_, i) => currentYear - 80 + i)
 const months = Array.from({ length: 12 }, (_, i) => i + 1)
 const hours = Array.from({ length: 24 }, (_, i) => i)
 const minutes = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55]
-const PICKER_ROW_REM = 1.5
 
 type PickerValue = [number, number, number, number, number]
 
@@ -89,14 +87,12 @@ interface WheelPickerProps {
   value: PickerValue
   onChange: (next: PickerValue) => void
   columns: Array<Array<{ key: string; label: string }>>
-  itemHeight: number
 }
 
-const WheelPicker: React.FC<WheelPickerProps> = ({ value, onChange, columns, itemHeight }) => (
+const WheelPicker: React.FC<WheelPickerProps> = ({ value, onChange, columns }) => (
   <PickerView
     className="bazi-picker"
     value={value}
-    indicatorStyle={`height: ${PICKER_ROW_REM}rem;`}
     indicatorClass="bazi-picker-indicator"
     onChange={(e) => onChange(e.detail.value as PickerValue)}
   >
@@ -127,13 +123,6 @@ interface DateModalProps {
   onSetManualPillar: (key: keyof DateModalProps['manualPillars'], next: { stem: Stem; branch: Branch }) => void
 }
 
-const getRootFontSize = () => {
-  if (typeof window === 'undefined' || !window.getComputedStyle) return 16
-  const fontSize = window.getComputedStyle(document.documentElement).fontSize
-  const parsed = Number.parseFloat(fontSize)
-  return Number.isFinite(parsed) ? parsed : 16
-}
-
 type SelectionTarget = {
   pillar: 'year' | 'month' | 'day' | 'hour'
   part: 'stem' | 'branch'
@@ -162,8 +151,6 @@ const DateModal: React.FC<DateModalProps> = ({
     hours.map((h) => ({ key: `${h}`, label: pad2(h) })),
     minutes.map((m) => ({ key: `${m}`, label: pad2(m) }))
   ]
-
-  const rowHeight = React.useMemo(() => getRootFontSize() * PICKER_ROW_REM, [])
 
   const handleSelectStem = (stem: Stem) => {
     if (!selectionTarget || selectionTarget.part !== 'stem') return
@@ -309,7 +296,6 @@ const DateModal: React.FC<DateModalProps> = ({
                 value={pickerValue}
                 onChange={onPickerChange}
                 columns={columns}
-                itemHeight={rowHeight}
               />
             </div>
           )}

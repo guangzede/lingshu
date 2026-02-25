@@ -1,5 +1,5 @@
 .top-section {
-  padding: 12px 16px 0;
+  padding: 10px 16px 0;
 }
 
 .mode-selector {
@@ -14,15 +14,15 @@
   padding: 10px 0;
   font-size: 0.82rem;
   text-align: center;
-  color: var(--bazi-sub);
-  background: #ffffff;
+  color: var(--bazi-text);
+  background: #fffcf7;
   transition: all 0.2s ease;
 }
 
 .mode-tab-active {
-  border-color: var(--bazi-accent);
-  background: var(--bazi-accent);
-  color: #ffffff;
+  border-color: #ad7d42;
+  background: linear-gradient(135deg, #c89a5d 0%, #b98645 100%);
+  color: #fffaf2;
   font-weight: 600;
-  box-shadow: 0 6px 14px rgba(177, 139, 79, 0.22);
+  box-shadow: 0 4px 10px rgba(114, 79, 38, 0.16);
 }

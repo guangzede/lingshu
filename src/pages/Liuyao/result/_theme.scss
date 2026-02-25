@@ -1,27 +1,29 @@
-.liuyao-result-page .liuyao-top-nav,
-.liuyao-result-page .auth-status-bar {
-  @media (min-width: 1024px) {
-    grid-column: 1 / -1;
+.liuyao-result-page {
+  .liuyao-top-nav,
+  .auth-status-bar {
+    @media (min-width: 1024px) {
+      grid-column: 1 / -1;
+    }
   }
-}
 
-.liuyao-result-page .auth-status-bar.logged-in {
-  background: #ffffff;
-  border: 1px solid var(--bazi-border);
-  box-shadow: var(--bazi-shadow);
-}
+  .auth-status-bar.logged-in {
+    background: #ffffff;
+    border: 1px solid var(--bazi-border);
+    box-shadow: var(--bazi-shadow);
+  }
 
-.liuyao-result-page .auth-status-text,
-.liuyao-result-page .go-to-text,
-.liuyao-result-page .username-text {
-  color: var(--bazi-text);
-}
+  .auth-status-text,
+  .go-to-text,
+  .username-text {
+    color: var(--bazi-text);
+  }
 
-.liuyao-result-page .arrow-icon {
-  color: var(--bazi-accent);
-}
+  .arrow-icon {
+    color: var(--bazi-accent);
+  }
 
-.liuyao-result-page .moving-tag,
-.liuyao-result-page .wuxing-tag {
-  color: var(--bazi-accent);
+  .moving-tag,
+  .wuxing-tag {
+    color: var(--bazi-accent);
+  }
 }

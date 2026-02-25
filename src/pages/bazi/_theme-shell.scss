@@ -107,8 +107,7 @@
 .bazi-text-input,
 .note-textarea,
 .bazi-input-col select,
-.bazi-pillar-controls select,
-.bazi-advance input {
+.bazi-pillar-controls select {
   background: #ffffff;
   border: 1px solid var(--bazi-border);
   color: var(--bazi-text);
@@ -137,13 +136,6 @@
   background: #ffffff;
   border-radius: 999px;
   padding: 9px 18px;
-}
-
-.bazi-result-summary {
-  background: var(--bazi-soft);
-  border: 1px solid var(--bazi-border);
-  border-radius: 12px;
-  color: var(--bazi-sub);
 }
 
 .result-hero {

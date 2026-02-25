@@ -114,8 +114,7 @@
 }
 
 .luck-year,
-.luck-age,
-.luck-range {
+.luck-age {
   font-size: 0.42rem;
   color: var(--bazi-sub);
   line-height: 1.25;
@@ -188,56 +187,12 @@
   line-height: 1.5;
 }
 
-.dayun-pill {
-  min-width: 150px;
-  border-radius: 16px;
-  border: 1px solid var(--bazi-border);
-  background: #ffffff;
-  color: var(--bazi-text);
-  padding: 12px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.dayun-pill.active {
-  border-color: var(--bazi-accent);
-  box-shadow: 0 10px 18px rgba(177, 139, 79, 0.2);
-  background: #fff4dc;
-}
-
-.dayun-pill-title {
-  font-size: 1.02rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  display: flex;
-  justify-content: center;
-  gap: 6px;
-}
-
-.dayun-pill-tags {
-  margin-top: 8px;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 6px;
-  font-size: 0.72rem;
-  color: var(--bazi-sub);
-}
-
-.dayun-tag,
 .dayun-year {
   padding: 2px 6px;
   border-radius: 999px;
   border: 1px solid var(--bazi-border);
   color: var(--bazi-sub);
   background: #fffaf3;
-}
-
-.dayun-pill-sub {
-  margin-top: 4px;
-  font-size: 0.7rem;
-  color: var(--bazi-sub);
 }
 
 @media (max-width: 680px) {
@@ -253,8 +208,7 @@
   }
 
   .luck-year,
-  .luck-age,
-  .luck-range {
+  .luck-age {
     font-size: 0.5rem;
   }
 

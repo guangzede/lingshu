@@ -3,6 +3,7 @@
 
 .liuyao-result-page {
   @include unified-page-shell('bazi', $padding-bottom: calc(96px + env(safe-area-inset-bottom)));
+  @include unified-card-header('bazi');
 
   @media (min-width: 1024px) {
     display: grid;

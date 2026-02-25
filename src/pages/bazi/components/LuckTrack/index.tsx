@@ -3,7 +3,6 @@ import { Solar } from 'lunar-javascript'
 import { useBaziStore } from '@/store/bazi'
 import type { Branch, Stem } from '@/types/liuyao'
 import { BRANCH_ELEMENT, HIDDEN_STEMS, STEM_ELEMENT, TEN_GOD_SHORT, getTenGod } from '../../utils'
-import './index.scss'
 
 const STEMS: Stem[] = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸']
 const BRANCHES: Branch[] = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥']

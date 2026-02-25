@@ -1,6 +1,5 @@
 import React from 'react'
 import { useBaziStore } from '@/store/bazi'
-import './index.scss'
 
 const AuxStars: React.FC = () => {
   const { result } = useBaziStore()

@@ -1,3 +1,32 @@
+@mixin history-action-btn(
+  $bg,
+  $color,
+  $border,
+  $padding,
+  $shadow,
+  $active-shadow
+) {
+  background: $bg !important;
+  color: $color !important;
+  border: 1px solid $border !important;
+  border-radius: 10px !important;
+  font-size: 0.88rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.12em !important;
+  padding: $padding !important;
+  box-shadow: $shadow !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+
+  &::after {
+    border: none !important;
+  }
+
+  &:active {
+    transform: scale(0.96);
+    box-shadow: $active-shadow !important;
+  }
+}
+
 .liuyao-history-page {
   display: flex;
   flex-direction: column;
@@ -5,16 +34,16 @@
   background: #f7f4ef;
   color: #2f2923;
   overflow: hidden;
-}
 
-.liuyao-history-page text {
-  color: inherit;
-}
+  text {
+    color: inherit;
+  }
 
-.liuyao-history-page .liuyao-top-nav {
-  position: sticky;
-  top: 0;
-  z-index: 6;
+  .liuyao-top-nav {
+    position: sticky;
+    top: 0;
+    z-index: 6;
+  }
 }
 
 // 页面头部 */
@@ -153,7 +182,6 @@
 }
 
 .hexagram-label {
-  display: block;
   font-size: 0.85rem;
   color: #6f6358;
   letter-spacing: 0.08em;
@@ -161,7 +189,6 @@
 }
 
 .hexagram-name {
-  display: block;
   font-size: 0.98rem;
   color: #2f2923;
   font-weight: 600;
@@ -178,7 +205,6 @@
 }
 
 .remark-label {
-  display: block;
   font-size: 0.8rem;
   color: #b18b4f;
   font-weight: 500;
@@ -187,7 +213,6 @@
 }
 
 .remark-text {
-  display: block;
   font-size: 0.88rem;
   color: #6f6358;
   letter-spacing: 0.04em;
@@ -204,57 +229,27 @@
 
 .btn-load {
   flex: 1;
-  background: #fff7e8 !important;
-  color: #b18b4f !important;
-  border: 1px solid rgba(177, 139, 79, 0.4) !important;
-  border-radius: 10px !important;
-  font-size: 0.88rem !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.12em !important;
-  padding: 10px 12px !important;
-  box-shadow:
-    0 0 15px rgba(201, 173, 111, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-
-  &::after {
-    border: none !important;
-  }
-
-  &:active {
-    transform: scale(0.96);
-    box-shadow:
-      0 0 20px rgba(177, 139, 79, 0.2),
-      inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
-  }
+  @include history-action-btn(
+    #fff7e8,
+    #b18b4f,
+    rgba(177, 139, 79, 0.4),
+    10px 12px,
+    (0 0 15px rgba(201, 173, 111, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.05)),
+    (0 0 20px rgba(177, 139, 79, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08))
+  );
 }
 
 .btn-delete {
   flex: 1;
-  background: #fff2f2 !important;
-  color: #c05a5a !important;
-  border: 1px solid rgba(192, 90, 90, 0.3) !important;
-  border-radius: 10px !important;
-  font-size: 0.88rem !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.12em !important;
-  padding: 10px 12px !important;
+  @include history-action-btn(
+    #fff2f2,
+    #c05a5a,
+    rgba(192, 90, 90, 0.3),
+    10px 12px,
+    (0 0 15px rgba(255, 107, 107, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.05)),
+    (0 0 20px rgba(255, 107, 107, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.08))
+  );
   margin-top: 0;
-  box-shadow:
-    0 0 15px rgba(255, 107, 107, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-
-  &::after {
-    border: none !important;
-  }
-
-  &:active {
-    transform: scale(0.96);
-    box-shadow:
-      0 0 20px rgba(255, 107, 107, 0.15),
-      inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
-  }
 }
 
 // 页面底部 */
@@ -266,27 +261,18 @@
 
 .btn-back {
   width: 100%;
-  background: #ffffff !important;
-  color: #6f6358 !important;
-  border: 1px solid #e8dfd2 !important;
+  @include history-action-btn(
+    #ffffff,
+    #6f6358,
+    #e8dfd2,
+    14px 20px,
+    (0 0 15px rgba(122, 162, 140, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.05)),
+    (0 0 20px rgba(122, 162, 140, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08))
+  );
   border-radius: 12px !important;
   font-size: 0.9rem !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.12em !important;
-  padding: 14px 20px !important;
-  box-shadow:
-    0 0 15px rgba(122, 162, 140, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-
-  &::after {
-    border: none !important;
-  }
 
   &:active {
     transform: scale(0.97);
-    box-shadow:
-      0 0 20px rgba(122, 162, 140, 0.2),
-      inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
   }
 }

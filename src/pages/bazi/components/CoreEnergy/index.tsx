@@ -1,6 +1,5 @@
 import React from 'react'
 import { useBaziStore } from '@/store/bazi'
-import './index.scss'
 
 const CoreEnergy: React.FC = () => {
   const { result } = useBaziStore()

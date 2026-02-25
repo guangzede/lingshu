@@ -1,0 +1,20 @@
+@mixin dlr-grid($gap: 10px, $columns: null) {
+  display: grid;
+  gap: $gap;
+
+  @if $columns != null {
+    grid-template-columns: $columns;
+  }
+}
+
+@mixin dlr-surface(
+  $radius,
+  $padding,
+  $bg: #ffffff,
+  $border: var(--dlr-border)
+) {
+  background: $bg;
+  border: 1px solid $border;
+  border-radius: $radius;
+  padding: $padding;
+}

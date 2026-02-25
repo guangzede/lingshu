@@ -1,6 +1,5 @@
 import React from 'react'
 import { useBaziStore } from '@/store/bazi'
-import './index.scss'
 
 const ORDER: Array<'木' | '火' | '土' | '金' | '水'> = ['木', '火', '土', '金', '水']
 

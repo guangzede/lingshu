@@ -1,8 +1,7 @@
+@use './shared.scss' as *;
+
 .result-card {
-  margin-bottom: 12px;
   background: linear-gradient(180deg, #ffffff 0%, #f9f5ed 100%);
-  border: 1px solid var(--stock-border);
-  box-shadow: var(--stock-shadow);
 }
 
 .result-header {
@@ -56,13 +55,13 @@
   font-size: 1.7rem;
   font-weight: 700;
   color: var(--stock-text-main);
-  font-variant-numeric: tabular-nums;
+  @include stock-tabular-numeric();
 }
 
 .quote-change {
   font-size: 0.96rem;
   font-weight: 600;
-  font-variant-numeric: tabular-nums;
+  @include stock-tabular-numeric();
 }
 
 .quote-change.up {
@@ -116,10 +115,7 @@
 }
 
 .metric-item {
-  border: 1px solid var(--stock-border);
-  border-radius: 10px;
-  background: #ffffff;
-  padding: 10px;
+  @include stock-surface(10px, 10px);
 }
 
 .metric-label {
@@ -195,10 +191,6 @@
   color: var(--stock-text-muted);
   font-size: 0.72rem;
   text-align: right;
-}
-
-.notice-card {
-  background: #ffffff;
 }
 
 .notice-title {

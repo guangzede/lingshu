@@ -1,164 +1,167 @@
-.liuyao-divination-page .shake-runtime {
-  display: flex;
-  gap: 10px;
-  height: 46vh;
-  min-height: 320px;
-  max-height: 430px;
-}
-
-.liuyao-divination-page .shake-runtime-half {
-  flex: 1;
-  min-height: 0;
-}
-
-.liuyao-divination-page .shake-runtime-half-action {
-  display: flex;
-}
-
-.liuyao-divination-page .shake-lines {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 10px;
+@mixin runtime-panel($padding, $radius: 12px) {
   border: 1px solid var(--bazi-border);
-  border-radius: 12px;
+  border-radius: $radius;
   background: #ffffff;
+  padding: $padding;
 }
 
-.liuyao-divination-page .shake-lines-title {
-  font-size: 0.72rem;
-  color: var(--bazi-sub);
-  letter-spacing: 0.08em;
+.liuyao-divination-page {
+  .shake-runtime {
+    display: flex;
+    gap: 10px;
+    height: 46vh;
+    min-height: 320px;
+    max-height: 430px;
+  }
+
+  .shake-runtime-half {
+    flex: 1;
+    min-height: 0;
+  }
+
+  .shake-runtime-half-action {
+    display: flex;
+  }
+
+  .shake-lines {
+    @include runtime-panel(10px);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .shake-lines-title {
+    font-size: 0.72rem;
+    color: var(--bazi-sub);
+    letter-spacing: 0.08em;
+  }
+
+  .shake-lines-board {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 6px;
+  }
+
+  .shake-line-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 0;
+    flex: 1;
+  }
+
+  .shake-line-label {
+    color: var(--bazi-sub);
+    font-size: 0.74rem;
+    white-space: nowrap;
+    flex: 0 0 auto;
+  }
+
+  .shake-line-symbol {
+    @include runtime-panel(0, 8px);
+    flex: 1;
+    min-height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #fffdf9;
+
+    &.is-pending {
+      background: #f8f2ea;
+      border-style: dashed;
+    }
+
+    .line-segment {
+      height: 6px;
+      border-radius: 999px;
+      background: var(--bazi-accent);
+
+      &.full {
+        width: 100%;
+      }
+
+      &.left,
+      &.right {
+        width: 40%;
+      }
+    }
+  }
+
+  .shake-line-yang,
+  .shake-line-yin {
+    inline-size: min(100%, 12em);
+    block-size: 0.7rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .shake-line-yang {
+    justify-content: center;
+  }
+
+  .shake-line-yin {
+    justify-content: space-between;
+  }
+
+  .shake-line-mark {
+    color: var(--bazi-accent);
+    font-size: 0.9rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .shake-line-placeholder {
+    color: var(--bazi-muted);
+    font-size: 0.72rem;
+  }
+
+  .shake-actions-card,
+  .shake-ready-card {
+    @include runtime-panel(14px 12px);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .shake-actions-card {
+    justify-content: flex-start;
+    gap: 8px;
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  .shake-action-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .shake-action-title {
+    font-size: 0.82rem;
+    text-align: center;
+    font-weight: 600;
+    color: var(--bazi-text);
+    letter-spacing: 0.04em;
+  }
+
+  .shake-action-desc {
+    color: var(--bazi-sub);
+    font-size: 0.74rem;
+    line-height: 1.65;
+  }
 }
 
-.liuyao-divination-page .shake-lines-board {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 6px;
-}
-
-.liuyao-divination-page .shake-line-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 0;
-  flex: 1;
-}
-
-.liuyao-divination-page .shake-line-label {
-  width: 58px;
-  color: var(--bazi-sub);
-  font-size: 0.74rem;
-  white-space: nowrap;
-  text-align: right;
-}
-
-.liuyao-divination-page .shake-line-symbol {
-  flex: 1;
-  min-height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  border: 1px solid var(--bazi-border);
-  border-radius: 8px;
-  background: #fffdf9;
-}
-
-.liuyao-divination-page .shake-line-symbol.is-pending {
-  background: #f8f2ea;
-  border-style: dashed;
-}
-
-.liuyao-divination-page .shake-line-yang,
-.liuyao-divination-page .shake-line-yin {
-  width: 118px;
-  height: 10px;
-  display: flex;
-  align-items: center;
-}
-
-.liuyao-divination-page .shake-line-yang {
-  justify-content: center;
-}
-
-.liuyao-divination-page .shake-line-yin {
-  justify-content: space-between;
-}
-
-.liuyao-divination-page .shake-line-symbol .line-segment {
-  height: 6px;
-  border-radius: 999px;
-  background: var(--bazi-accent);
-}
-
-.liuyao-divination-page .shake-line-symbol .line-segment.full {
-  width: 100%;
-}
-
-.liuyao-divination-page .shake-line-symbol .line-segment.left,
-.liuyao-divination-page .shake-line-symbol .line-segment.right {
-  width: 40%;
-}
-
-.liuyao-divination-page .shake-line-mark {
-  color: var(--bazi-accent);
-  font-size: 0.9rem;
-  font-weight: 700;
-  line-height: 1;
-}
-
-.liuyao-divination-page .shake-line-placeholder {
-  color: var(--bazi-muted);
-  font-size: 0.72rem;
-}
-
-.liuyao-divination-page .shake-actions-card,
-.liuyao-divination-page .shake-ready-card {
-  width: 100%;
-  height: 100%;
-  border: 1px solid var(--bazi-border);
-  border-radius: 12px;
-  background: #ffffff;
-  padding: 14px 12px;
-  display: flex;
-  flex-direction: column;
-}
-
-.liuyao-divination-page .shake-actions-card {
-  justify-content: flex-start;
-  gap: 8px;
-  overflow: hidden;
-  min-height: 0;
-}
-
-.liuyao-divination-page .shake-action-copy {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.liuyao-divination-page .shake-action-title {
-  font-size: 0.82rem;
-  text-align: center;
-  font-weight: 600;
-  color: var(--bazi-text);
-  letter-spacing: 0.04em;
-}
-
-.liuyao-divination-page .shake-action-desc {
-  color: var(--bazi-sub);
-  font-size: 0.74rem;
-  line-height: 1.65;
-}
-
-@media (max-width: 480px) {
-  .liuyao-divination-page .shake-runtime {
-    height: 44vh;
-    min-height: 280px;
-    max-height: 380px;
+@media (max-width: 30em) {
+  .liuyao-divination-page {
+    .shake-runtime {
+      height: 44vh;
+      min-height: 280px;
+      max-height: 380px;
+    }
   }
 }

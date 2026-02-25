@@ -1,3 +1,17 @@
+@mixin hepan-soft-surface($radius, $padding) {
+  background: #fbf8f2;
+  border: 1px solid rgba(47, 41, 35, 0.08);
+  border-radius: $radius;
+  padding: $padding;
+}
+
+@mixin hepan-white-surface($radius, $padding) {
+  background: #ffffff;
+  border: 1px solid rgba(47, 41, 35, 0.08);
+  border-radius: $radius;
+  padding: $padding;
+}
+
 .hepan-card {
   display: grid;
   gap: 14px;
@@ -11,10 +25,7 @@
 }
 
 .hepan-col {
-  background: #fbf8f2;
-  border: 1px solid rgba(47, 41, 35, 0.08);
-  border-radius: 14px;
-  padding: 12px;
+  @include hepan-soft-surface(14px, 12px);
   display: grid;
   gap: 8px;
   grid-template-rows: auto auto auto 1fr;
@@ -88,10 +99,7 @@
 .hepan-network {
   display: grid;
   margin-top: 30px;
-  padding: 12px;
-  background: #fbf8f2;
-  border: 1px solid rgba(47, 41, 35, 0.08);
-  border-radius: 16px;
+  @include hepan-soft-surface(16px, 12px);
 }
 
 .hepan-network-title {
@@ -169,7 +177,6 @@
 
 .hepan-network-head,
 .hepan-network-side {
-  background: #efe9fb;
   border: 1px solid rgba(47, 41, 35, 0.08);
   border-radius: 12px;
   font-size: 0.7rem;
@@ -180,56 +187,51 @@
   align-items: center;
   justify-items: center;
   padding: 6px 4px;
+  background: #efe9fb;
+
+  .net-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    color: rgba(106, 95, 84, 0.9);
+  }
+
+  .net-stem,
+  .net-branch {
+    font-size: 0.86rem;
+    font-weight: 600;
+  }
 }
 
 .hepan-network-side {
   background: #fff3e3;
 }
 
-.hepan-network-head .net-label,
-.hepan-network-side .net-label {
-  font-size: 0.62rem;
-  letter-spacing: 0.12em;
-  color: rgba(106, 95, 84, 0.9);
-}
-
-.hepan-network-head .net-stem,
-.hepan-network-head .net-branch,
-.hepan-network-side .net-stem,
-.hepan-network-side .net-branch {
-  font-size: 0.86rem;
-  font-weight: 600;
-}
-
 .hepan-network-cell {
-  background: #ffffff;
-  border: 1px solid rgba(47, 41, 35, 0.08);
-  border-radius: 12px;
-  padding: 6px 6px;
+  @include hepan-white-surface(12px, 6px);
   display: grid;
   gap: 4px;
   justify-items: center;
   align-content: center;
   min-height: 56px;
   box-shadow: 0 6px 16px rgba(47, 41, 35, 0.05);
-}
 
-.hepan-network-tag {
-  font-size: 0.66rem;
-  color: var(--bazi-sub);
-  white-space: nowrap;
-}
+  .hepan-network-tag {
+    font-size: 0.66rem;
+    color: var(--bazi-sub);
+    white-space: nowrap;
 
-.hepan-network-tag.muted {
-  color: rgba(106, 95, 84, 0.6);
-}
+    &.muted {
+      color: rgba(106, 95, 84, 0.6);
+    }
+  }
 
-.hepan-network-cell.good .hepan-network-tag {
-  color: var(--bazi-accent);
-}
+  &.good .hepan-network-tag {
+    color: var(--bazi-accent);
+  }
 
-.hepan-network-cell.warn .hepan-network-tag {
-  color: #c06c2c;
+  &.warn .hepan-network-tag {
+    color: #c06c2c;
+  }
 }
 
 .hepan-empty {
@@ -249,10 +251,7 @@
 }
 
 .hepan-metric {
-  background: #ffffff;
-  border: 1px solid rgba(47, 41, 35, 0.08);
-  border-radius: 12px;
-  padding: 10px 12px;
+  @include hepan-white-surface(12px, 10px 12px);
   display: grid;
   gap: 6px;
 }
@@ -269,10 +268,7 @@
 }
 
 .hepan-verdicts {
-  background: #ffffff;
-  border: 1px solid rgba(47, 41, 35, 0.08);
-  border-radius: 12px;
-  padding: 12px 14px;
+  @include hepan-white-surface(12px, 12px 14px);
   display: grid;
   gap: 8px;
   color: var(--bazi-sub);
@@ -286,10 +282,7 @@
 }
 
 .hepan-rel-group {
-  background: #ffffff;
-  border: 1px solid rgba(47, 41, 35, 0.08);
-  border-radius: 12px;
-  padding: 12px 14px;
+  @include hepan-white-surface(12px, 12px 14px);
   display: grid;
   gap: 8px;
 }
@@ -322,12 +315,12 @@
 .hepan-rel-list-block {
   display: grid;
   gap: 6px;
-}
 
-.hepan-rel-list-block .hepan-rel-item {
-  width: 100%;
-  border-radius: 10px;
-  justify-content: flex-start;
+  .hepan-rel-item {
+    width: 100%;
+    border-radius: 10px;
+    justify-content: flex-start;
+  }
 }
 
 @media (max-width: 640px) {

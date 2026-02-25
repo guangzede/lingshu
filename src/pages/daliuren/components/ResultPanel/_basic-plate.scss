@@ -1,19 +1,19 @@
+@use "./shared.scss" as *;
+
 .daliuren-basic .basic-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
+  @include dlr-grid(12px, repeat(2, minmax(0, 1fr)));
 
-.basic-grid .label {
-  font-size: 0.7rem;
-  color: var(--dlr-sub);
-  letter-spacing: 0.12em;
-}
+  .label {
+    font-size: 0.7rem;
+    color: var(--dlr-sub);
+    letter-spacing: 0.12em;
+  }
 
-.basic-grid .value {
-  font-size: 0.92rem;
-  color: var(--dlr-text);
-  margin-top: 6px;
+  .value {
+    font-size: 0.92rem;
+    color: var(--dlr-text);
+    margin-top: 6px;
+  }
 }
 
 .plate-board {
@@ -49,40 +49,36 @@
 }
 
 .plate-node {
+  @include dlr-grid(2px);
+  @include dlr-surface(14px, 6px 4px, var(--dlr-soft));
   position: absolute;
   inset: calc(var(--cell-gap) / 2);
-  border-radius: 14px;
-  background: var(--dlr-soft);
-  border: 1px solid var(--dlr-border);
   box-shadow: 0 10px 18px rgba(33, 26, 18, 0.08);
-  display: grid;
-  gap: 2px;
   place-content: center;
   text-align: center;
   overflow: hidden;
-  padding: 6px 4px;
   z-index: 1;
-}
 
-.plate-node.has-badges {
-  padding-top: 26px;
-}
+  &.has-badges {
+    padding-top: 26px;
+  }
 
-.plate-node.is-hour {
-  border-color: rgba(180, 138, 79, 0.6);
-  box-shadow: 0 12px 22px rgba(180, 138, 79, 0.18);
-}
+  &.is-hour {
+    border-color: rgba(180, 138, 79, 0.6);
+    box-shadow: 0 12px 22px rgba(180, 138, 79, 0.18);
+  }
 
-.plate-node.is-noble {
-  background: #f9f2e7;
-}
+  &.is-noble {
+    background: #f9f2e7;
+  }
 
-.plate-node.is-void {
-  opacity: 0.82;
-}
+  &.is-void {
+    opacity: 0.82;
+  }
 
-.plate-node.is-trans {
-  outline: 2px solid rgba(180, 138, 79, 0.4);
+  &.is-trans {
+    outline: 2px solid rgba(180, 138, 79, 0.4);
+  }
 }
 
 .plate-badges {
@@ -105,25 +101,25 @@
   background: #fffaf2;
   color: #6a5f54;
   font-weight: 600;
-}
 
-.plate-badge.hour {
-  background: rgba(180, 138, 79, 0.18);
-  color: var(--dlr-text);
-}
+  &.hour {
+    background: rgba(180, 138, 79, 0.18);
+    color: var(--dlr-text);
+  }
 
-.plate-badge.noble {
-  background: rgba(222, 188, 114, 0.2);
-}
+  &.noble {
+    background: rgba(222, 188, 114, 0.2);
+  }
 
-.plate-badge.void {
-  border-color: rgba(140, 120, 100, 0.4);
-  background: rgba(140, 120, 100, 0.12);
-}
+  &.void {
+    border-color: rgba(140, 120, 100, 0.4);
+    background: rgba(140, 120, 100, 0.12);
+  }
 
-.plate-badge.trans {
-  border-color: rgba(180, 138, 79, 0.6);
-  background: rgba(180, 138, 79, 0.12);
+  &.trans {
+    border-color: rgba(180, 138, 79, 0.6);
+    background: rgba(180, 138, 79, 0.12);
+  }
 }
 
 .plate-earth {
@@ -147,18 +143,14 @@
 }
 
 .plate-center {
+  @include dlr-grid(6px);
+  @include dlr-surface(16px, 12px 10px);
   position: absolute;
   top: calc(25% + var(--center-pad));
   left: calc(25% + var(--center-pad));
   width: calc(50% - var(--center-pad) * 2);
   height: calc(50% - var(--center-pad) * 2);
-  background: #ffffff;
-  border: 1px solid var(--dlr-border);
-  border-radius: 16px;
-  padding: 12px 10px;
   text-align: center;
-  display: grid;
-  gap: 6px;
   box-shadow: 0 6px 14px rgba(33, 26, 18, 0.08);
   z-index: 0;
 }
@@ -172,8 +164,7 @@
 .plate-center-meta {
   font-size: 0.76rem;
   color: var(--dlr-sub);
-  display: grid;
-  gap: 4px;
+  @include dlr-grid(4px);
 }
 
 .plate-center-hint {

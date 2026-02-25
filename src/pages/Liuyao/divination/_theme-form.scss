@@ -3,146 +3,166 @@
 
 .liuyao-divination-page {
   @include unified-page-shell('bazi', $padding-bottom: $spacing-xl);
-}
+  @include unified-card-header('bazi');
 
-.liuyao-divination-page text {
-  color: inherit;
-}
+  .auth-status-bar.logged-in {
+    background: linear-gradient(180deg, #fffcf6 0%, #f7efe3 100%);
+    border: 1px solid rgba(180, 138, 79, 0.28);
+    box-shadow: 0 8px 18px rgba(47, 41, 35, 0.1);
+  }
 
-.liuyao-divination-page .glass-card {
-  @include unified-surface-card('bazi', 16px, 16px);
-  margin: 12px 16px;
-}
+  .auth-status-bar.unfixed {
+    background: linear-gradient(135deg, #9c7140 0%, #b8874d 100%);
+    border-bottom: 1px solid rgba(255, 240, 214, 0.34);
 
-.liuyao-divination-page .card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 10px;
-}
+    &:active {
+      background: linear-gradient(135deg, #8d6538 0%, #ac7d45 100%);
+    }
+  }
 
-.liuyao-divination-page .card-section-title {
-  font-family: 'Source Han Serif SC', 'Songti SC', 'STSong', serif;
-  font-size: 1.02rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  color: var(--bazi-text);
-}
+  .auth-status-content {
+    min-height: 44px;
+  }
 
-.liuyao-divination-page .card-section-guide {
-  font-size: 0.78rem;
-  color: var(--bazi-sub);
-}
+  .auth-status-spacer {
+    height: 44px;
+  }
 
-.liuyao-divination-page .shake-section {
-  margin: 12px 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 12px;
-}
+  .auth-status-text,
+  .username-text,
+  .go-to-text {
+    color: var(--bazi-text);
+  }
 
-.liuyao-divination-page .shake-coins {
-  width: 100%;
-  display: grid;
-  gap: 12px;
-}
+  .auth-status-bar.unfixed .auth-status-text {
+    color: #fff5e6;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
 
-.liuyao-divination-page .shake-tip {
-  color: var(--bazi-sub);
-  font-size: 0.82rem;
-  line-height: 1.6;
-}
+  .arrow-icon {
+    color: var(--bazi-accent);
+  }
 
-.liuyao-divination-page .coins-stage {
-  width: 100%;
-  height: 280px;
-  border-radius: 14px;
-  background:
-    radial-gradient(circle at 50% 30%, rgba(177, 139, 79, 0.1), transparent 62%),
-    linear-gradient(180deg, #fffdf9 0%, #f5efe7 100%);
-  border: 1px solid var(--bazi-border);
-  box-shadow: inset 0 0 0 1px rgba(177, 139, 79, 0.08);
-  overflow: hidden;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+  .liuyao-top-tab.active {
+    background: linear-gradient(135deg, #c89a5d 0%, #b98645 100%);
+    box-shadow: 0 6px 14px rgba(114, 79, 38, 0.2);
+  }
 
-.liuyao-divination-page .coins-stage::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(120deg, rgba(47, 41, 35, 0.03) 1px, transparent 1px),
-    linear-gradient(210deg, rgba(47, 41, 35, 0.03) 1px, transparent 1px);
-  background-size: 22px 22px;
-  opacity: 0.22;
-  pointer-events: none;
-}
+  .glass-card {
+    @include unified-surface-card('bazi', 16px, 16px);
+    margin: 12px 16px;
+  }
 
-.liuyao-divination-page .coins-row {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  gap: 8px;
-  padding: 0 14px;
-  position: relative;
-  z-index: 1;
-}
+  .shake-section {
+    margin: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
 
-.liuyao-divination-page .coin-shell {
-  width: clamp(86px, 28vw, 128px);
-  aspect-ratio: 1;
-  position: relative;
-  perspective: 980px;
-  transform-style: preserve-3d;
-  flex: 0 0 auto;
-}
+  .shake-coins {
+    width: 100%;
+    display: grid;
+    gap: 12px;
+  }
 
-.liuyao-divination-page .coin-shell::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  bottom: -10px;
-  transform: translateX(-50%);
-  width: 74%;
-  height: 12%;
-  border-radius: 50%;
-  background: radial-gradient(ellipse at center, rgba(47, 41, 35, 0.28), transparent);
-  filter: blur(2px);
-}
+  .shake-tip {
+    color: var(--bazi-sub);
+    font-size: 0.82rem;
+    line-height: 1.6;
+  }
 
-.liuyao-divination-page .coin-shell.is-tossing {
-  animation-name: coin-toss;
-  animation-timing-function: cubic-bezier(0.22, 0.8, 0.2, 1);
-  animation-fill-mode: both;
-}
+  .coins-stage {
+    width: 100%;
+    height: 280px;
+    border-radius: 14px;
+    background:
+      radial-gradient(circle at 50% 30%, rgba(177, 139, 79, 0.1), transparent 62%),
+      linear-gradient(180deg, #fffdf9 0%, #f5efe7 100%);
+    border: 1px solid var(--bazi-border);
+    box-shadow: inset 0 0 0 1px rgba(177, 139, 79, 0.08);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-.liuyao-divination-page .coin-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  transition-property: transform;
-  transition-timing-function: cubic-bezier(0.2, 0.82, 0.24, 1);
-}
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(120deg, rgba(47, 41, 35, 0.03) 1px, transparent 1px),
+        linear-gradient(210deg, rgba(47, 41, 35, 0.03) 1px, transparent 1px);
+      background-size: 22px 22px;
+      opacity: 0.22;
+      pointer-events: none;
+    }
+  }
 
-.liuyao-divination-page .coin-face {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
+  .coins-row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 8px;
+    padding: 0 14px;
+    position: relative;
+    z-index: 1;
+  }
 
-.liuyao-divination-page .coin-face-back {
-  transform: rotateY(180deg);
-  filter: saturate(1.08);
+  .coin-shell {
+    inline-size: clamp(5.4rem, 28vw, 8rem);
+    aspect-ratio: 1;
+    position: relative;
+    perspective: 980px;
+    transform-style: preserve-3d;
+    flex: 0 0 auto;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: -10px;
+      transform: translateX(-50%);
+      width: 74%;
+      height: 12%;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, rgba(47, 41, 35, 0.28), transparent);
+      filter: blur(2px);
+    }
+
+    &.is-tossing {
+      animation-name: coin-toss;
+      animation-timing-function: cubic-bezier(0.22, 0.8, 0.2, 1);
+      animation-fill-mode: both;
+    }
+  }
+
+  .coin-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition-property: transform;
+    transition-timing-function: cubic-bezier(0.2, 0.82, 0.24, 1);
+  }
+
+  .coin-face {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .coin-face-back {
+    transform: rotateY(180deg);
+    filter: saturate(1.08);
+  }
 }
 
 @keyframes coin-toss {
@@ -163,12 +183,14 @@
   }
 }
 
-@media (max-width: 480px) {
-  .liuyao-divination-page .coins-stage {
-    height: 240px;
-  }
+@media (max-width: 30em) {
+  .liuyao-divination-page {
+    .coins-stage {
+      height: 240px;
+    }
 
-  .liuyao-divination-page .coins-row {
-    padding: 0 8px;
+    .coins-row {
+      padding: 0 8px;
+    }
   }
 }

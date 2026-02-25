@@ -2,34 +2,17 @@
   margin: 12px 16px;
 }
 
-.info-grid-card .card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 10px;
-}
-
-.info-grid-card .card-section-title {
-  font-family: 'Source Han Serif SC', 'Songti SC', 'STSong', serif;
-  font-size: 1.02rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  color: var(--bazi-text);
-}
-
-.info-grid-card .card-section-guide {
-  font-size: 0.78rem;
-  color: var(--bazi-sub);
-}
-
-.info-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
+%info-divider-row {
   margin-bottom: 12px;
   padding-bottom: 10px;
   border-bottom: 1px solid var(--bazi-border);
+}
+
+.info-row {
+  @extend %info-divider-row;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
 }
 
 .info-row text {
@@ -38,12 +21,10 @@
 }
 
 .ganzhi-row {
+  @extend %info-divider-row;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 8px;
-  margin-bottom: 12px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--bazi-border);
 }
 
 .ganzhi-item {
@@ -68,12 +49,10 @@
 }
 
 .xunkong-row {
+  @extend %info-divider-row;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--bazi-border);
 }
 
 .xunkong-label {

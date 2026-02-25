@@ -81,43 +81,6 @@
   text-align: right;
 }
 
-.case-form {
-  display: grid;
-  gap: 10px;
-  margin-bottom: 12px;
-}
-
-.case-list {
-  display: grid;
-  gap: 8px;
-}
-
-.case-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 10px;
-  border: 1px solid var(--bazi-border);
-}
-
-.case-title {
-  font-weight: 600;
-  color: var(--bazi-text);
-}
-
-.case-meta {
-  font-size: 0.8rem;
-  color: var(--bazi-sub);
-}
-
-.case-actions {
-  display: flex;
-  gap: 8px;
-}
-
 .empty {
   color: var(--bazi-sub);
   font-size: 0.84rem;

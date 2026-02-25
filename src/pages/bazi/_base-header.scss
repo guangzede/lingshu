@@ -60,24 +60,10 @@
   cursor: not-allowed;
 }
 
-
-
-
-.bazi-pill.danger {
-  border-color: rgba(245, 120, 120, 0.6);
-  color: #f59f9f;
-}
-
 .bazi-primary-btn {
   @include mystical-button;
 }
 
-
-
-
-
-
-.case-form input,
 .bazi-text-input,
 .note-textarea {
   width: 100%;

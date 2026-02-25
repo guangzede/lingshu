@@ -2,7 +2,6 @@ import React from 'react'
 import { useBaziStore } from '@/store/bazi'
 import type { Branch, Stem } from '@/types/liuyao'
 import { BRANCH_ELEMENT, STEM_ELEMENT, getChangSheng, getHiddenStems, getNaYin, getTenGod, getXunKong } from '../../utils'
-import './index.scss'
 
 interface ColumnCell {
   stem?: Stem

@@ -1,39 +1,19 @@
-@use '../../../../styles/mixins.scss' as *;
+@use "../../../../styles/mixins.scss" as *;
 
 .question-card-container {
   display: grid;
-  gap: 12px;
+  gap: 10px;
 }
 
 .question-card {
-  @include unified-surface-card('bazi', 16px, 16px);
-}
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 10px;
-}
-
-.card-section-title {
-  font-family: "Source Han Serif SC", "Songti SC", "STSong", serif;
-  font-size: 1.02rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  color: var(--bazi-text);
-}
-
-.card-section-guide {
-  font-size: 0.78rem;
-  color: var(--bazi-sub);
+  @include unified-surface-card("bazi", 16px, 16px);
+  @include unified-card-header("bazi");
 }
 
 .input-with-button {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .input-container {
@@ -83,16 +63,16 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  border: 1px solid rgba(177, 139, 79, 0.35);
+  border: 1px solid rgba(177, 139, 79, 0.44);
   border-radius: 999px;
-  padding: 5px 10px;
-  color: var(--bazi-sub);
-  background: rgba(177, 139, 79, 0.1);
+  padding: 5px 11px;
+  color: var(--bazi-text);
+  background: rgba(177, 139, 79, 0.14);
   transition: all 0.2s ease;
 }
 
 .selected-tag:hover {
-  background: rgba(177, 139, 79, 0.16);
+  background: rgba(177, 139, 79, 0.2);
 }
 
 .tag-content {
@@ -102,16 +82,18 @@
 }
 
 .tag-text {
-  font-size: 0.82rem;
+  font-size: 0.84rem;
+  font-weight: 500;
 }
 
 .tag-desc {
-  font-size: 0.72rem;
-  color: var(--bazi-muted);
+  font-size: 0.74rem;
+  color: var(--bazi-sub);
 }
 
 .tag-close {
-  font-size: 0.72rem;
+  font-size: 0.74rem;
+  font-weight: 600;
   color: var(--bazi-accent);
 }
 
@@ -121,8 +103,8 @@
 }
 
 .placeholder-dots view {
-  width: 6px;
-  height: 6px;
+  inline-size: 0.375rem;
+  block-size: 0.375rem;
   border-radius: 50%;
   background: rgba(177, 139, 79, 0.35);
 }
@@ -132,14 +114,14 @@
   padding: 10px 14px;
   border-radius: 10px;
   border: 1px solid var(--bazi-border);
-  background: var(--bazi-soft);
-  color: var(--bazi-sub);
-  font-size: 0.82rem;
+  background: #f3ece1;
+  color: var(--bazi-text);
+  font-size: 0.88rem;
   letter-spacing: 0.06em;
 }
 
 .stardust-cloud {
-  margin-top: 10px;
+  margin-top: 8px;
   border: 1px solid var(--bazi-border);
   border-radius: 12px;
   background: var(--bazi-soft);
@@ -170,6 +152,7 @@
 .keywords-grid {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 8px;
 }
 
@@ -202,7 +185,7 @@
   display: none;
 }
 
-@media (max-width: 680px) {
+@media (max-width: 42.5em) {
   .input-with-button {
     flex-direction: column;
     align-items: stretch;

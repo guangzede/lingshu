@@ -1,6 +1,5 @@
 import React from 'react'
 import { useBaziStore } from '@/store/bazi'
-import './index.scss'
 
 const RelationModel: React.FC = () => {
   const { result, viewMode } = useBaziStore()

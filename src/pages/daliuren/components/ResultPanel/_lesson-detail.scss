@@ -1,15 +1,12 @@
+@use "./shared.scss" as *;
+
 .lesson-grid {
-  display: grid;
-  gap: 10px;
+  @include dlr-grid();
 }
 
 .lesson-item {
-  display: grid;
-  gap: 10px;
-  padding: 10px;
-  border: 1px solid var(--dlr-border);
-  border-radius: 12px;
-  background: #ffffff;
+  @include dlr-grid();
+  @include dlr-surface(12px, 10px);
 }
 
 .lesson-label {
@@ -33,15 +30,12 @@
 }
 
 .lesson-main {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  gap: 8px;
+  @include dlr-grid(8px, 1fr auto 1fr);
   align-items: center;
 }
 
 .lesson-side {
-  display: grid;
-  gap: 2px;
+  @include dlr-grid(2px);
   text-align: center;
 }
 
@@ -81,25 +75,17 @@
 .lesson-meaning {
   font-size: 0.78rem;
   color: var(--dlr-text);
-  background: #f6f1ea;
-  border-radius: 10px;
-  padding: 6px 8px;
+  @include dlr-surface(10px, 6px 8px, #f6f1ea, transparent);
 }
 
 .lesson-extra {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
+  @include dlr-grid(8px, repeat(3, minmax(0, 1fr)));
 }
 
 .lesson-extra-item {
-  display: grid;
-  gap: 4px;
+  @include dlr-grid(4px);
   text-align: center;
-  padding: 6px 4px;
-  border-radius: 10px;
-  background: #fbf7f1;
-  border: 1px solid rgba(47, 41, 35, 0.08);
+  @include dlr-surface(10px, 6px 4px, #fbf7f1, rgba(47, 41, 35, 0.08));
   font-size: 0.72rem;
   color: var(--dlr-sub);
 }
@@ -111,17 +97,12 @@
 }
 
 .transmission-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
+  @include dlr-grid(10px, repeat(3, minmax(0, 1fr)));
 }
 
 .transmission-item {
-  border: 1px solid var(--dlr-border);
-  border-radius: 12px;
-  padding: 10px;
-  display: grid;
-  gap: 6px;
+  @include dlr-grid(6px);
+  @include dlr-surface(12px, 10px);
   text-align: center;
 }
 
@@ -154,17 +135,16 @@
   color: var(--dlr-text);
   font-size: 0.75rem;
   border: 1px solid rgba(180, 138, 79, 0.35);
-}
 
-.tag.subtle {
-  background: #faf6ef;
-  color: #6b6055;
-  border-color: rgba(120, 105, 90, 0.25);
+  &.subtle {
+    background: #faf6ef;
+    color: #6b6055;
+    border-color: rgba(120, 105, 90, 0.25);
+  }
 }
 
 .dlr-section-block {
-  display: grid;
-  gap: 10px;
+  @include dlr-grid();
   padding: 10px 0;
   border-top: 1px dashed var(--dlr-border);
 }
@@ -181,31 +161,26 @@
 }
 
 .dlr-hint-list {
-  display: grid;
-  gap: 6px;
+  @include dlr-grid(6px);
 }
 
 .dlr-hint-item {
   font-size: 0.8rem;
   color: var(--dlr-text);
-  background: #f6f1ea;
-  border-radius: 10px;
-  padding: 6px 10px;
-}
+  @include dlr-surface(10px, 6px 10px, #f6f1ea, transparent);
 
-.dlr-hint-item.muted {
-  color: var(--dlr-sub);
-  background: #faf6ef;
+  &.muted {
+    color: var(--dlr-sub);
+    background: #faf6ef;
+  }
 }
 
 .dlr-shen-sha-groups {
-  display: grid;
-  gap: 14px;
+  @include dlr-grid(14px);
 }
 
 .dlr-shen-sha-group {
-  display: grid;
-  gap: 8px;
+  @include dlr-grid(8px);
 }
 
 .dlr-group-title {
@@ -215,19 +190,13 @@
 }
 
 .dlr-shen-sha-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
+  @include dlr-grid(10px, repeat(3, minmax(0, 1fr)));
   margin-top: 10px;
 }
 
 .dlr-shen-sha-item {
-  background: #fbf7f1;
-  border-radius: 12px;
-  padding: 8px 10px;
-  border: 1px solid rgba(47, 41, 35, 0.08);
-  display: grid;
-  gap: 6px;
+  @include dlr-grid(6px);
+  @include dlr-surface(12px, 8px 10px, #fbf7f1, rgba(47, 41, 35, 0.08));
 }
 
 .dlr-shen-sha-name {
@@ -252,8 +221,7 @@
   padding-left: 16px;
   color: var(--dlr-sub);
   font-size: 0.78rem;
-  display: grid;
-  gap: 4px;
+  @include dlr-grid(4px);
 }
 
 .warning-card {

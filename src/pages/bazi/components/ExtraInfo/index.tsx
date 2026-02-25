@@ -2,7 +2,6 @@ import React from 'react'
 import { useBaziStore } from '@/store/bazi'
 import type { Branch, Stem } from '@/types/liuyao'
 import { BRANCH_ELEMENT, STEM_ELEMENT, TEN_GOD_SHORT, getTenGod } from '../../utils'
-import './index.scss'
 
 const ExtraInfo: React.FC = () => {
   const { result } = useBaziStore()

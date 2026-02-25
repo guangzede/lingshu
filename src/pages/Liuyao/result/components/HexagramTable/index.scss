@@ -107,32 +107,29 @@
 }
 
 .yao-bar {
+  --yao-main: #7f7466;
+  --yao-tail: #b6aa98;
   width: 100%;
   max-width: 56px;
   height: 8px;
   border-radius: 6px;
-  background: linear-gradient(90deg, #7f7466, #b6aa98);
+  background: linear-gradient(90deg, var(--yao-main), var(--yao-tail));
 }
 
 .yao-bar.moving {
-  background: linear-gradient(90deg, #c05a5a, #d98f57);
+  --yao-main: #c05a5a;
+  --yao-tail: #d98f57;
 }
 
 .yao-bar.yin {
   background: linear-gradient(
     90deg,
-    #7f7466 0 42%,
-    transparent 42% 58%,
-    #7f7466 58% 100%
-  );
-}
-
-.yao-bar.yin.moving {
-  background: linear-gradient(
-    90deg,
-    #c05a5a 0 42%,
-    transparent 42% 58%,
-    #c05a5a 58% 100%
+    var(--yao-main) 0%,
+    var(--yao-main) 42%,
+    transparent 42%,
+    transparent 58%,
+    var(--yao-main) 58%,
+    var(--yao-main) 100%
   );
 }
 
