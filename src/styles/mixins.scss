@@ -1,221 +1,118 @@
-@use './variables.scss' as *;
+// ====== 核心混合宏 ======
 
-// 玻璃态效果混合宏
-@mixin glass-effect($bg: $glass-bg, $border: $glass-border, $blur: $glass-blur) {
+// 玻璃态效果
+@mixin glass-effect(
+  $bg: $glass-bg,
+  $border: $glass-border,
+  $blur: $glass-blur
+) {
   background: $bg;
   border: 1px solid $border;
-  // backdrop-filter: blur($blur);
-  // -webkit-backdrop-filter: blur($blur);
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+
+  &:hover {
+    background: $glass-bg-hover;
+  }
 }
 
-// 卡片样式混合宏 (Original)
-@mixin card-style() {
-  @include glass-effect;
-  border-radius: $border-radius-xl;
-  padding: $spacing-md;
-  box-shadow: $shadow-lg;
-  margin-top: $spacing-md;
+// 神秘深色主题
+@mixin mystical-dark-theme($prefix: null) {
+  @if $prefix {
+    --#{$prefix}-bg-primary: #{$color-bg-primary};
+    --#{$prefix}-text-primary: #{$color-text-primary};
+    --#{$prefix}-accent: #{$color-accent};
+    --#{$prefix}-mystical-gold: #{$color-mystical-gold};
+  } @else {
+    background: $gradient-mystical-bg;
+    color: $color-text-primary;
+    font-family: $font-family-serif;
+  }
 }
 
-// Mystical Button Style Mixin
-@mixin mystical-button() {
+// 神秘卡片
+@mixin mystical-card($padding: $spacing-lg, $radius: $border-radius-lg) {
+  @include glass-effect(
+    $color-mystical-card-bg,
+    $color-mystical-border,
+    $glass-blur
+  );
+  border-radius: $radius;
+  padding: $padding;
+  box-shadow: $shadow-mystical;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: $color-mystical-card-hover;
+    border-color: $color-mystical-border-strong;
+    box-shadow: $shadow-xl;
+  }
+}
+
+// 神秘按钮
+@mixin mystical-button(
+  $padding: $spacing-md $spacing-xl,
+  $size: $font-size-lg
+) {
   background: $gradient-mystical-gold;
-  color: #1b1b1b;
+  color: $color-bg-primary;
   border: none;
-  padding: 10px 18px;
-  border-radius: 999px;
+  border-radius: $border-radius-round;
+  padding: $padding;
+  font-size: $size;
   font-weight: 600;
+  font-family: $font-family-serif;
   cursor: pointer;
-  box-shadow: 0 8px 18px rgba(245, 216, 158, 0.35);
-  font-size: $font-size-global-button;
+  box-shadow: $shadow-gold;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-gold-strong;
+  }
 
   &:active {
-    transform: scale(0.98);
-    opacity: 0.9;
-  }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    box-shadow: none;
+    transform: translateY(0) scale(0.98);
   }
 }
 
-// Unified light theme tokens for page-scoped CSS variables.
-@mixin unified-light-theme-vars($prefix) {
-  --#{$prefix}-bg: #f7f4ef;
-  --#{$prefix}-card: #ffffff;
-  --#{$prefix}-border: #e7ded2;
-  --#{$prefix}-soft: #f5efe6;
-  --#{$prefix}-text: #2f2923;
-  --#{$prefix}-sub: #6a5f54;
-  --#{$prefix}-muted: #9f9182;
-  --#{$prefix}-accent: #b48a4f;
-  --#{$prefix}-accent-soft: rgba(180, 138, 79, 0.16);
-  --#{$prefix}-shadow: 0 18px 32px rgba(28, 22, 15, 0.08);
+// 幽灵按钮
+@mixin ghost-button($padding: $spacing-md $spacing-xl, $size: $font-size-lg) {
+  background: transparent;
+  border: 1.5px solid $color-mystical-gold;
+  border-radius: $border-radius-round;
+  padding: $padding;
+  font-size: $size;
+  color: $color-mystical-gold;
+  font-family: $font-family-serif;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  &:hover {
+    border-color: $color-mystical-gold-light;
+    color: $color-mystical-gold-light;
+    box-shadow: 0 0 30px rgba($color-mystical-gold, 0.15);
+  }
 }
 
-@mixin unified-light-page-bg() {
-  background:
-    radial-gradient(860px 430px at 50% -10%, rgba(255, 251, 244, 0.92), transparent 72%),
-    linear-gradient(180deg, #f8f5ef 0%, #f7f4ef 58%, #f4efe7 100%);
+// 神秘文字
+@mixin mystical-text($size: $font-size-lg, $color: $color-mystical-gold) {
+  font-size: $size;
+  color: $color;
+  font-family: $font-family-serif;
+  font-weight: 600;
+  text-shadow: $text-shadow-gold;
 }
 
-// Shared page shell for unified light pages.
-@mixin unified-page-shell($prefix, $padding: null, $padding-bottom: null) {
-  @include unified-light-theme-vars($prefix);
+// 统一页面容器
+@mixin unified-page-shell($theme: "mystical", $padding: null) {
   min-height: 100vh;
-  @include unified-light-page-bg();
-  color: var(--#{$prefix}-text);
-  font-family: "Source Han Sans SC", "Noto Sans SC", "PingFang SC", sans-serif;
 
-  @if $padding != null {
+  @if $theme == "mystical" {
+    @include mystical-dark-theme();
+  }
+
+  @if $padding {
     padding: $padding;
   }
-
-  @if $padding-bottom != null {
-    padding-bottom: $padding-bottom;
-  }
-}
-
-@mixin unified-surface-card($prefix, $radius: 16px, $padding: 16px) {
-  border: 1px solid var(--#{$prefix}-border);
-  border-radius: $radius;
-  background: var(--#{$prefix}-card);
-  box-shadow: var(--#{$prefix}-shadow);
-  padding: $padding;
-}
-
-@mixin unified-top-nav-shell($bg: null) {
-  position: sticky;
-  top: 0;
-  z-index: 6;
-  display: flex;
-  justify-content: center;
-  padding: 14px 12px 8px;
-  backdrop-filter: blur(10px);
-
-  @if $bg != null {
-    background: $bg;
-  }
-}
-
-@mixin unified-top-nav-inner($prefix, $columns, $max-width: 520px) {
-  display: grid;
-  grid-template-columns: repeat($columns, 1fr);
-  gap: 6px;
-  padding: 6px;
-  border-radius: 999px;
-  background: #ffffff;
-  border: 1px solid var(--#{$prefix}-border, #e7ded2);
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
-  width: min(92vw, $max-width);
-}
-
-@mixin unified-top-nav-tab($prefix, $center: false) {
-  border: none;
-  background: transparent;
-  color: var(--#{$prefix}-sub, #6a5f54);
-  padding: 8px 12px;
-  border-radius: 999px;
-  font-size: 0.9rem;
-  letter-spacing: 0.08em;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  outline: none;
-
-  @if $center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
-@mixin unified-top-nav-tab-active($prefix, $shadow: 0 6px 16px rgba(177, 139, 79, 0.25)) {
-  background: var(--#{$prefix}-accent, #b48a4f);
-  color: #ffffff;
-  box-shadow: $shadow;
-  font-weight: 600;
-}
-
-@mixin unified-card-header(
-  $prefix,
-  $title-size: 1.02rem,
-  $title-spacing: 0.1em,
-  $guide-size: 0.78rem,
-  $margin-bottom: 10px
-) {
-  .card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: $margin-bottom;
-  }
-
-  .card-section-title {
-    font-family: "Source Han Serif SC", "Songti SC", "STSong", serif;
-    font-size: $title-size;
-    font-weight: 600;
-    letter-spacing: $title-spacing;
-    color: var(--#{$prefix}-text);
-  }
-
-  .card-section-guide {
-    font-size: $guide-size;
-    color: var(--#{$prefix}-sub);
-  }
-}
-
-// 按钮样式混合宏
-@mixin button-primary() {
-  background: $gradient-primary;
-  color: white;
-  border: none;
-  border-radius: $border-radius-lg;
-  font-weight: 700;
-  font-size: $font-size-xl;
-  &::after {
-    border: none;
-  }
-  &:disabled {
-    opacity: 0.6;
-  }
-}
-
-// 文字发光效果混合宏
-@mixin text-glow($color: $color-accent, $strength: 0.3) {
-  text-shadow: 0 0 10rpx rgba($color, $strength);
-}
-
-// 标题样式混合宏
-@mixin heading-style($size: $font-size-xl, $color: $color-accent, $glow: true) {
-  font-size: $size;
-  font-weight: bold;
-  color: $color;
-  @if $glow {
-    @include text-glow;
-  }
-}
-
-// 代码块样式混合宏
-@mixin code-block() {
-  background: $color-bg-code;
-  border: 1px solid $color-border-light;
-  border-radius: $border-radius-md;
-  padding: $spacing-md;
-  font-family: 'Courier New', monospace;
-  font-size: $font-size-lg;
-  line-height: 1.4;
-  overflow-x: auto;
-}
-
-// 引用块样式混合宏
-@mixin quote-block() {
-  border-left: 4px solid $color-accent;
-  background: $color-bg-quote;
-  padding: $spacing-md;
-  border-radius: 0 $border-radius-md $border-radius-md 0;
-  color: $color-text-secondary;
-  font-style: italic;
 }

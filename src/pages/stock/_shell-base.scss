@@ -1,37 +1,66 @@
-@use '../../styles/mixins.scss' as *;
+@use "../../styles/variables.scss" as *;
+@use "../../styles/mixins.scss" as *;
 
 .stock-page {
-  @include unified-page-shell('stock');
+  @include unified-page-shell("mystical");
   --stock-accent-deep: #8f6837;
   --stock-up: #c05a5a;
   --stock-down: #4b9f68;
   --stock-flat: #8f8579;
-  --stock-text-main: var(--stock-text);
-  --stock-text-sub: var(--stock-sub);
-  --stock-text-muted: var(--stock-muted);
-  --stock-bg-soft: var(--stock-soft);
-  --stock-border-soft: var(--stock-border);
+  --stock-text-main: $color-text-primary;
+  --stock-text-sub: $color-text-secondary;
+  --stock-text-muted: $color-text-muted;
+  --stock-bg-soft: $color-bg-card;
+  --stock-border-soft: $color-border;
   padding: 0 14px 28px;
 }
 
 .stock-top-nav {
-  @include unified-top-nav-shell();
+  position: sticky;
+  top: 0;
+  z-index: 6;
+  display: flex;
+  justify-content: center;
+  padding: 14px 12px 8px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .stock-top-nav-inner {
-  @include unified-top-nav-inner('stock', 2, 320px);
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
 }
 
 .stock-top-tab {
-  @include unified-top-nav-tab('stock', true);
-}
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: $color-text-secondary;
+  background: transparent;
+  border: 1px solid $color-border;
+  transition: all 0.3s ease;
+  cursor: pointer;
 
-.stock-top-tab text {
-  color: inherit;
+  &:hover {
+    color: $color-text-primary;
+    background: $color-bg-card;
+  }
+
+  text {
+    color: inherit;
+  }
 }
 
 .stock-top-tab.active {
-  @include unified-top-nav-tab-active('stock');
+  background: $color-accent;
+  color: $color-bg-primary;
+  border-color: $color-accent;
+  box-shadow: 0 6px 14px rgba($color-accent-dark, 0.2);
 }
 
 .stock-header {
@@ -40,32 +69,23 @@
 }
 
 .stock-title {
-  display: block;
-  color: var(--stock-text);
-  font-family: 'Source Han Serif SC', 'Songti SC', 'STSong', serif;
-  font-size: 1.48rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  @include mystical-text($font-size-xxxl, $color-text-primary);
   margin-bottom: 6px;
 }
 
 .stock-subtitle {
   display: block;
   margin-top: 4px;
-  color: var(--stock-sub);
-  font-size: 0.84rem;
+  color: $color-text-secondary;
+  font-size: $font-size-sm;
   line-height: 1.5;
 }
 
 .stock-page .section-title {
-  font-family: 'Source Han Serif SC', 'Songti SC', 'STSong', serif;
-  font-size: 0.94rem;
-  font-weight: 600;
-  color: var(--stock-text);
-  letter-spacing: 0.08em;
+  @include mystical-text($font-size-md, $color-text-primary);
 }
 
 .stock-card {
-  @include unified-surface-card('stock', 16px, 14px);
+  @include mystical-card(14px, $border-radius-lg);
   margin-bottom: 12px;
 }

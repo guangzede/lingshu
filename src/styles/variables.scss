@@ -1,61 +1,77 @@
-$color-strength-wang: #ffe066; // 旺 - 金黄
-$color-strength-xiang: #b6fcd5; // 相 - 青绿
-$color-strength-xiu: #b3c6ff; // 休 - 淡蓝
-$color-strength-qiu: #ffd6e0; // 囚 - 粉红
-$color-strength-si: #e0e0e0; // 死 - 灰白
+// ====== 核心设计系统 ======
 
 // 五行色彩
-$color-wuxing-metal: #FFD700; // 金 - 流光金
-$color-wuxing-wood: #00FF7F; // 木 - 荧光绿
-$color-wuxing-water: #00BFFF; // 水 - 深海蓝
-$color-wuxing-fire: #FF4500; // 火 - 烈焰红
-$color-wuxing-earth: #8B4513; // 土 - 琥珀褐
+$color-wuxing-metal: #ffd700;
+$color-wuxing-wood: #00ff7f;
+$color-wuxing-water: #00bfff;
+$color-wuxing-fire: #ff4500;
+$color-wuxing-earth: #8b4513;
 
-// 基础颜色变量
+// 状态强度
+$color-strength-wang: #ffe066;
+$color-strength-xiang: #b6fcd5;
+$color-strength-xiu: #b3c6ff;
+$color-strength-qiu: #ffd6e0;
+$color-strength-si: #e0e0e0;
+
+// ====== 主题色彩 ======
+// 深色主题
 $color-bg-primary: #050510;
-$color-text-primary: #FFFFFF;
+$color-bg-secondary: #0a0f1c;
+$color-bg-tertiary: #141a2e;
+$color-text-primary: #ffffff;
 $color-text-secondary: rgba(255, 255, 255, 0.85);
 $color-text-tertiary: rgba(255, 255, 255, 0.7);
+$color-text-muted: rgba(255, 255, 255, 0.5);
+
+// 神秘金色系
 $color-accent: #fbbf24;
 $color-accent-light: rgba(251, 191, 36, 0.1);
+$color-accent-medium: rgba(251, 191, 36, 0.3);
+$color-accent-dark: #b48a4f;
+$color-mystical-gold: #f5d89e;
+$color-mystical-gold-dark: #b48a4f;
+$color-mystical-gold-light: #fef4e4;
+
+// 边框和表面
 $color-border: rgba(255, 255, 255, 0.08);
 $color-border-light: rgba(255, 255, 255, 0.1);
+$color-border-medium: rgba(255, 255, 255, 0.15);
+$color-border-strong: rgba(251, 191, 36, 0.3);
 $color-bg-card: rgba(255, 255, 255, 0.06);
+$color-bg-card-hover: rgba(255, 255, 255, 0.08);
+$color-mystical-card-bg: rgba(15, 21, 38, 0.85);
+$color-mystical-card-hover: rgba(15, 21, 38, 0.95);
+$color-mystical-border: rgba(241, 211, 154, 0.15);
+$color-mystical-border-strong: rgba(241, 211, 154, 0.25);
+
+// 特殊用途
+$color-bg-overlay: rgba(0, 0, 0, 0.6);
 $color-bg-code: rgba(0, 0, 0, 0.3);
 $color-bg-quote: rgba(251, 191, 36, 0.1);
+$color-bg-success: rgba(34, 197, 94, 0.1);
+$color-bg-error: rgba(239, 68, 68, 0.1);
+$color-text-success: #22c55e;
+$color-text-error: #ef4444;
 
-// Mystical Theme Variables
-$color-mystical-gold: #f5d89e;
-$color-mystical-gold-dim: #cfc9bb;
-$color-mystical-gold-dark: #b48a4f;
-$color-mystical-bg-start: #0b0f1c;
-$color-mystical-bg-mid: #101625;
-$color-mystical-bg-end: #141a2e;
-$color-mystical-card-bg: rgba(15, 21, 38, 0.85);
-$color-mystical-border: rgba(241, 211, 154, 0.15);
-$color-mystical-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
-
-// 字体变量
+// ====== 字体系统 ======
 $font-family-serif: "Songti SC", "SimSun", "STSong", "Noto Serif SC", serif;
 $font-family-sans: "Noto Sans SC", "PingFang SC", sans-serif;
+$font-family-mono: "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", monospace;
 
-// 字体大小变量定义
-$font-size-xs: 20rpx;      // 10px
-$font-size-sm: 22rpx;      // 11px
-$font-size-base: 24rpx;    // 12px
-$font-size-md: 26rpx;      // 13px
-$font-size-lg: 28rpx;      // 14px
-$font-size-xl: 32rpx;      // 16px
-$font-size-xxl: 36rpx;     // 18px
-$font-size-xxxl: 40rpx;    // 20px
-$font-size-huge: 48rpx;    // 24px
-$font-size-massive: 96rpx; // 48px
+// 字体大小
+$font-size-xs: 20rpx;
+$font-size-sm: 22rpx;
+$font-size-base: 24rpx;
+$font-size-md: 26rpx;
+$font-size-lg: 28rpx;
+$font-size-xl: 32rpx;
+$font-size-xxl: 36rpx;
+$font-size-xxxl: 40rpx;
+$font-size-huge: 48rpx;
+$font-size-massive: 96rpx;
 
-// 全局基础字体大小
-$font-size-global-text: 28rpx;
-$font-size-global-button: 32rpx;
-
-// 间距变量
+// ====== 间距系统 ======
 $spacing-xs: 8rpx;
 $spacing-sm: 12rpx;
 $spacing-md: 16rpx;
@@ -63,31 +79,48 @@ $spacing-lg: 20rpx;
 $spacing-xl: 24rpx;
 $spacing-xxl: 30rpx;
 $spacing-xxxl: 40rpx;
+$spacing-huge: 48rpx;
+$spacing-massive: 64rpx;
 
-// 圆角变量
+// ====== 圆角系统 ======
 $border-radius-sm: 4rpx;
 $border-radius-md: 8rpx;
 $border-radius-lg: 12rpx;
 $border-radius-xl: 14rpx;
 $border-radius-xxl: 16rpx;
+$border-radius-xxxl: 20rpx;
 $border-radius-full: 50rpx;
+$border-radius-round: 999px;
 
-// 阴影变量
+// ====== 阴影系统 ======
 $shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
 $shadow-md: 0 4px 16px rgba(0, 0, 0, 0.2);
 $shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.25);
+$shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.3);
+$shadow-mystical: 0 12px 40px rgba(0, 0, 0, 0.35);
+$shadow-gold: 0 8px 24px rgba(251, 191, 36, 0.15);
+$shadow-gold-strong: 0 12px 32px rgba(251, 191, 36, 0.25);
 
-// 渐变变量
-$gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-$gradient-secondary: linear-gradient(90deg, #fbbf24, #f59e0b);
-$gradient-accent: linear-gradient(90deg, #f093fb 0%, #f5576c 100%);
+// ====== 渐变系统 ======
 $gradient-mystical-gold: linear-gradient(120deg, #f5d89e, #f0c56c);
+$gradient-mystical-bg: radial-gradient(
+  ellipse 180% 100% at 50% 0%,
+  #0d1428 0%,
+  #070912 55%,
+  #010204 100%
+);
+$gradient-dark-card: linear-gradient(
+  180deg,
+  rgba(15, 21, 38, 0.85),
+  rgba(10, 15, 25, 0.95)
+);
 
-// 玻璃态变量
+// ====== 玻璃态效果 ======
 $glass-bg: rgba(255, 255, 255, 0.04);
+$glass-bg-hover: rgba(255, 255, 255, 0.06);
 $glass-border: rgba(255, 255, 255, 0.08);
 $glass-blur: 8px;
 
-// 文字阴影变量
+// ====== 文字效果 ======
 $text-shadow-glow: 0 0 10rpx rgba(255, 215, 0, 0.3);
-$text-shadow-glow-sm: 0 0 8rpx rgba(255, 215, 0, 0.2);
+$text-shadow-gold: 0 0 12rpx rgba(245, 216, 158, 0.4);

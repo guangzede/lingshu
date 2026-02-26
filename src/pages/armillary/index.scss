@@ -1,54 +1,97 @@
+// ====== 浑天仪页面 - 神秘深色主题 ======
+@use "../../styles/variables.scss" as *;
+@use "../../styles/mixins.scss" as *;
+
 .armillary-page {
-  width: 100%;
-  min-height: 100vh;
-  background-color: #050510;
+  @include unified-page-shell("mystical");
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 40rpx;
-  padding: 40rpx;
+  gap: $spacing-xxxl;
+  padding: $spacing-xxxl;
   box-sizing: border-box;
-}
 
-.canvas-wrapper {
-  width: 100%;
-  height: 480rpx;
-  border: 4rpx solid #FFD700;
-  border-radius: 24rpx;
-  overflow: hidden;
-  background: radial-gradient(circle at 50% 40%, rgba(255, 215, 0, 0.08), rgba(0, 0, 0, 0.6));
-}
+  // ====== 画布容器 ======
+  .canvas-wrapper {
+    width: 100%;
+    height: 480rpx;
+    @include mystical-card(0, $border-radius-lg);
+    border: 4rpx solid $color-mystical-gold;
+    overflow: hidden;
+    background:
+      radial-gradient(
+        circle at 50% 40%,
+        rgba($color-mystical-gold, 0.08),
+        rgba(0, 0, 0, 0.6)
+      ),
+      $color-bg-tertiary;
 
-.info {
-  width: 100%;
-  background-color: #3E2723;
-  border: 4rpx solid #FFD700;
-  border-radius: 24rpx;
-  padding: 40rpx 32rpx;
-  box-shadow: 0 16rpx 64rpx rgba(255, 215, 0, 0.12);
-  text-align: center;
-}
+    canvas {
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+    }
+  }
 
-.title {
-  font-size: 48rpx;
-  color: #FFD700;
-  font-weight: bold;
-  margin-bottom: 16rpx;
-}
+  // ====== 信息卡片 ======
+  .info {
+    width: 100%;
+    @include mystical-card($spacing-xxxl $spacing-xl, $border-radius-lg);
+    text-align: center;
+    border: 4rpx solid $color-mystical-gold;
+    box-shadow: 0 16rpx 64rpx rgba($color-mystical-gold, 0.12);
 
-.desc {
-  font-size: 28rpx;
-  color: #00F0FF;
-  margin-bottom: 40rpx;
-}
+    .title {
+      @include mystical-text($font-size-huge, $color-mystical-gold);
+      font-weight: bold;
+      margin-bottom: $spacing-md;
+    }
 
-.back-button {
-  width: 100%;
-  height: 88rpx;
-  border-radius: 16rpx;
-  background-color: #00F0FF !important;
-  color: #050510 !important;
-  font-size: 32rpx;
-  font-weight: bold;
-  border: none;
+    .desc {
+      @include mystical-text($font-size-lg, $color-accent);
+      margin-bottom: $spacing-xxxl;
+    }
+
+    .back-button {
+      @include mystical-button(0, $font-size-xl);
+      width: 100%;
+      height: 88rpx;
+      border-radius: $border-radius-lg;
+      background: $color-accent;
+      color: $color-bg-primary;
+      font-weight: bold;
+      border: none;
+
+      &:hover {
+        background: lighten($color-accent, 10%);
+        transform: translateY(-2px);
+      }
+
+      &:active {
+        transform: translateY(0) scale(0.98);
+      }
+    }
+  }
+
+  // ====== 响应式设计 ======
+  @media (max-width: 768px) {
+    gap: $spacing-xl;
+    padding: $spacing-xl;
+
+    .canvas-wrapper {
+      height: 400rpx;
+    }
+
+    .info {
+      padding: $spacing-xl $spacing-lg;
+
+      .title {
+        font-size: $font-size-xxxl;
+      }
+
+      .desc {
+        font-size: $font-size-md;
+      }
+    }
+  }
 }

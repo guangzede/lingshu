@@ -1,240 +1,243 @@
 @use "../../styles/mixins.scss" as *;
 
-/* ====== BaZi Premium Redesign (1-6) ====== */
+// ====== 八字页面 - 神秘深色主题 ======
+@use "../../styles/variables.scss" as *;
+@use "../../styles/mixins.scss" as *;
+
 .bazi-page {
-  @include unified-page-shell("bazi", $padding-bottom: 48px);
+  @include unified-page-shell("mystical", $padding-bottom: 48px);
   --bazi-radius: 18px;
   --bazi-radius-sm: 12px;
   --bazi-gap: 16px;
-}
 
-.bazi-page::before {
-  opacity: 0.18;
-  background-image:
-    linear-gradient(120deg, rgba(0, 0, 0, 0.02), transparent 40%),
-    repeating-linear-gradient(
-      45deg,
-      rgba(0, 0, 0, 0.02),
-      rgba(0, 0, 0, 0.02) 1px,
-      transparent 1px,
-      transparent 10px
-    );
-}
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.18;
+    background-image:
+      linear-gradient(120deg, rgba(0, 0, 0, 0.02), transparent 40%),
+      repeating-linear-gradient(
+        45deg,
+        rgba(0, 0, 0, 0.02),
+        rgba(0, 0, 0, 0.02) 1px,
+        transparent 1px,
+        transparent 10px
+      );
+    pointer-events: none;
+  }
 
-.bazi-page.bazi-input-page,
-.bazi-page.bazi-result-page {
-  background: var(--bazi-bg);
-  color: var(--bazi-text);
-}
+  &.bazi-input-page,
+  &.bazi-result-page {
+    background: $color-bg-primary;
+    color: $color-text-primary;
+  }
 
-.bazi-section {
-  width: min(94vw, 980px);
-  margin: 18px auto;
-  animation: none;
-}
+  // ====== 布局组件 ======
+  .bazi-section {
+    width: min(94vw, 980px);
+    margin: $spacing-md auto;
+    animation: none;
+  }
 
-.bazi-section-full {
-  width: min(94vw, 980px);
-  margin: 18px auto;
-  grid-column: 1 / -1;
-}
+  .bazi-section-full {
+    width: min(94vw, 980px);
+    margin: $spacing-md auto;
+    grid-column: 1 / -1;
+  }
 
-.bazi-grid {
-  gap: var(--bazi-gap);
-  width: min(94vw, 980px);
-  margin: 18px auto;
-}
+  .bazi-grid {
+    gap: var(--bazi-gap);
+    width: min(94vw, 980px);
+    margin: $spacing-md auto;
+  }
 
-.bazi-card {
-  @include unified-surface-card("bazi", var(--bazi-radius), 20px);
-  color: var(--bazi-text);
-}
+  // ====== 卡片样式 ======
+  .bazi-card {
+    @include mystical-card($spacing-lg, var(--bazi-radius));
+    color: $color-text-primary;
+  }
 
-.bazi-input-card {
-  @include unified-surface-card("bazi");
-}
+  .bazi-input-card {
+    @include mystical-card();
+  }
 
-.bazi-title {
-  font-family: "Source Han Serif SC", "Songti SC", "STSong", serif;
-  font-size: 1.6rem;
-  letter-spacing: 0.12em;
-  color: var(--bazi-text);
-}
+  // ====== 文字样式 ======
+  .bazi-title {
+    @include mystical-text($font-size-xxxl, $color-mystical-gold);
+    letter-spacing: 0.12em;
+  }
 
-.bazi-subtitle {
-  color: var(--bazi-sub);
-  font-size: 0.92rem;
-}
+  .bazi-subtitle {
+    color: $color-text-secondary;
+    font-size: $font-size-md;
+  }
 
-.section-title {
-  font-family: "Source Han Serif SC", "Songti SC", "STSong", serif;
-  font-size: 1.18rem;
-  letter-spacing: 0.12em;
-  color: var(--bazi-text);
-}
+  .section-title {
+    @include mystical-text($font-size-xxl, $color-text-primary);
+    letter-spacing: 0.12em;
+  }
 
-.bazi-row {
-  border-bottom: 1px solid rgba(47, 41, 35, 0.08);
-  padding: 12px 0;
-}
+  // ====== 行样式 ======
+  .bazi-row {
+    border-bottom: 1px solid $color-border;
+    padding: $spacing-md 0;
 
-.bazi-row-label {
-  color: var(--bazi-text);
-  font-weight: 600;
-}
+    .bazi-row-label {
+      color: $color-text-primary;
+      font-weight: 600;
+    }
 
-.bazi-row-content {
-  gap: 10px;
-}
+    .bazi-row-content {
+      gap: $spacing-sm;
+    }
+  }
 
-.bazi-pill {
-  border: 1px solid var(--bazi-border);
-  background: #ffffff;
-  color: var(--bazi-sub);
-  padding: 6px 14px;
-  border-radius: 999px;
-  font-size: 0.86rem;
-  letter-spacing: 0.06em;
-}
+  // ====== 胶囊样式 ======
+  .bazi-pill {
+    border: 1px solid $color-border;
+    background: $color-bg-card;
+    color: $color-text-secondary;
+    padding: 6px $spacing-sm;
+    border-radius: $border-radius-round;
+    font-size: $font-size-sm;
+    letter-spacing: 0.06em;
+    transition: all 0.3s ease;
 
-.bazi-pill.active {
-  background: var(--bazi-accent);
-  border-color: var(--bazi-accent);
-  color: #ffffff;
-  box-shadow: 0 8px 16px rgba(177, 139, 79, 0.25);
-}
+    &.active {
+      @include mystical-button(6px $spacing-sm, $font-size-sm);
+      color: $color-text-primary;
+    }
+  }
 
-.bazi-text-input,
-.note-textarea,
-.bazi-input-col select,
-.bazi-pillar-controls select {
-  background: #ffffff;
-  border: 1px solid var(--bazi-border);
-  color: var(--bazi-text);
-  border-radius: 10px;
-}
+  // ====== 输入框样式 ======
+  .bazi-text-input,
+  .note-textarea,
+  .bazi-input-col select,
+  .bazi-pillar-controls select {
+    background: $color-bg-card;
+    border: 1px solid $color-border;
+    color: $color-text-primary;
+    border-radius: $border-radius-lg;
+    padding: $spacing-sm;
+    font-family: $font-family-serif;
 
-.bazi-input-col select {
-  min-width: 0;
-}
+    &:focus {
+      border-color: $color-accent;
+      box-shadow: 0 0 0 2px rgba($color-accent, 0.2);
+    }
+  }
 
-.bazi-primary-btn {
-  background: linear-gradient(180deg, #1b1714 0%, #0f0d0b 100%);
-  color: #f7d69c;
-  border: none;
-  border-radius: 999px;
-  padding: 10px 22px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  box-shadow: 0 12px 22px rgba(20, 15, 10, 0.25);
-}
+  .bazi-input-col select {
+    min-width: 0;
+  }
 
-.bazi-ghost-btn {
-  border: 1px solid var(--bazi-border);
-  color: var(--bazi-sub);
+  // ====== 按钮样式 ======
+  .bazi-primary-btn {
+    @include mystical-button(10px $spacing-lg, $font-size-lg);
+    letter-spacing: 0.12em;
+  }
 
-  background: #ffffff;
-  border-radius: 999px;
-  padding: 9px 18px;
-}
+  .bazi-ghost-btn {
+    @include ghost-button(9px $spacing-md, $font-size-lg);
+    color: $color-text-secondary;
+    border-color: $color-border;
 
-.result-hero {
-  display: grid;
-  gap: 16px;
-}
+    &:hover {
+      color: $color-text-primary;
+      border-color: $color-accent;
+    }
+  }
 
-.result-hero-main {
-  display: grid;
-  gap: 10px;
-}
+  // ====== 结果页面样式 ======
+  .result-hero {
+    display: grid;
+    gap: $spacing-md;
 
-.result-hero-actions {
-  display: flex;
-  justify-content: flex-end;
-}
+    .result-hero-main {
+      display: grid;
+      gap: $spacing-sm;
+    }
 
-.result-meta {
-  background: var(--bazi-soft);
-  border: 1px solid var(--bazi-border);
-  border-radius: 12px;
-  color: var(--bazi-sub);
-  padding: 10px 12px;
-  font-size: 0.86rem;
-}
+    .result-hero-actions {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
 
-.summary-card {
-  display: grid;
-  gap: 14px;
-}
+  .result-meta {
+    @include mystical-card($spacing-sm, $border-radius-lg);
+    color: $color-text-secondary;
+    font-size: $font-size-sm;
+  }
 
-.summary-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 10px;
-}
+  // ====== 摘要卡片 ======
+  .summary-card {
+    display: grid;
+    gap: $spacing-md;
 
-.summary-sub {
-  font-size: 0.85rem;
-  color: var(--bazi-sub);
-}
+    .summary-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: $spacing-sm;
 
-.summary-grid {
-  display: grid;
-  gap: 12px;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-}
+      .summary-sub {
+        font-size: $font-size-sm;
+        color: $color-text-secondary;
+      }
+    }
 
-.summary-item {
-  border: 1px solid var(--bazi-border);
-  border-radius: 14px;
-  padding: 12px;
-  background: #fffdf9;
-  min-width: 0;
-}
+    .summary-grid {
+      display: grid;
+      gap: $spacing-md;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
 
-.summary-label {
-  font-size: 0.8rem;
-  color: var(--bazi-sub);
-  margin-bottom: 4px;
-  letter-spacing: 0.08em;
-}
+      .summary-item {
+        @include mystical-card($spacing-md, $border-radius-lg);
+        min-width: 0;
 
-.summary-value {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--bazi-text);
-}
+        .summary-label {
+          font-size: $font-size-sm;
+          color: $color-text-secondary;
+          margin-bottom: 4px;
+          letter-spacing: 0.08em;
+        }
 
-.summary-desc {
-  font-size: 0.82rem;
-  color: var(--bazi-sub);
-  margin-top: 4px;
-}
+        .summary-value {
+          @include mystical-text($font-size-lg, $color-text-primary);
+        }
 
-.summary-tags {
-  display: grid;
-  gap: 10px;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-}
+        .summary-desc {
+          font-size: $font-size-sm;
+          color: $color-text-secondary;
+          margin-top: 4px;
+        }
+      }
+    }
 
-.summary-tag {
-  border: 1px solid var(--bazi-border);
-  border-radius: 12px;
-  padding: 10px 12px;
-  background: #ffffff;
-  display: grid;
-  gap: 6px;
-  color: var(--bazi-sub);
-  font-size: 0.86rem;
-}
+    .summary-tags {
+      display: grid;
+      gap: $spacing-sm;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
 
-.summary-tag span {
-  font-size: 0.78rem;
-  color: var(--bazi-muted);
-  letter-spacing: 0.08em;
-}
+      .summary-tag {
+        @include mystical-card($spacing-md, $border-radius-lg);
+        display: grid;
+        gap: 6px;
+        color: $color-text-secondary;
+        font-size: $font-size-sm;
 
-.analysis-line {
-  color: var(--bazi-sub);
+        span {
+          font-size: $font-size-xs;
+          color: $color-text-muted;
+          letter-spacing: 0.08em;
+        }
+      }
+    }
+  }
+
+  .analysis-line {
+    color: $color-text-secondary;
+  }
 }

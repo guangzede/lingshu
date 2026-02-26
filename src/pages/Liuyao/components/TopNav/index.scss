@@ -1,17 +1,46 @@
-@use '../../../../styles/mixins.scss' as *;
+@use "../../../../styles/variables.scss" as *;
+@use "../../../../styles/mixins.scss" as *;
 
 .liuyao-top-nav {
-  @include unified-top-nav-shell();
+  position: sticky;
+  top: 0;
+  z-index: 6;
+  display: flex;
+  justify-content: center;
+  padding: 14px 12px 8px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .liuyao-top-nav-inner {
-  @include unified-top-nav-inner("bazi", 4, 520px);
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
 }
 
 .liuyao-top-tab {
-  @include unified-top-nav-tab("bazi", true);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: $color-text-secondary;
+  background: transparent;
+  border: 1px solid $color-border;
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    color: $color-text-primary;
+    background: $color-bg-card;
+  }
 }
 
 .liuyao-top-tab.active {
-  @include unified-top-nav-tab-active("bazi", 0 4px 12px rgba(216, 170, 99, 0.3));
+  background: $color-accent;
+  color: $color-bg-primary;
+  border-color: $color-accent;
+  box-shadow: 0 6px 14px rgba($color-accent-dark, 0.2);
 }

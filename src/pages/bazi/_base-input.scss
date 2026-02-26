@@ -1,186 +1,177 @@
+// ====== 八字输入页面样式 ======
 @use "../../styles/variables.scss" as *;
 @use "../../styles/mixins.scss" as *;
 
+// ====== 深色模态表面 ======
 @mixin bazi-modal-dark-surface($padding) {
+  @include mystical-card($padding, $border-radius-lg);
   display: grid;
-  gap: 10px;
-  padding: $padding;
-  background: #141a29;
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  gap: $spacing-sm;
 }
 
+// ====== 即时排盘卡片 ======
 .bazi-instant-card {
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
-  padding: 18px;
+  @include mystical-card($spacing-lg, $border-radius-lg);
   display: grid;
-  gap: 12px;
+  gap: $spacing-md;
+
+  .instant-body {
+    display: grid;
+    gap: $spacing-md;
+
+    .instant-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: $spacing-sm;
+      align-items: center;
+
+      .instant-left {
+        display: grid;
+        gap: $spacing-sm;
+
+        .instant-pillars {
+          display: grid;
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          gap: $spacing-sm;
+          align-items: center;
+
+          .instant-pillar {
+            @include mystical-card(10px 6px, $border-radius-lg);
+            display: grid;
+            gap: 6px;
+            justify-items: center;
+            font-size: $font-size-lg;
+            font-weight: 600;
+            color: $color-text-primary;
+          }
+        }
+
+        .instant-meta {
+          display: grid;
+          gap: 6px;
+          align-content: center;
+          justify-items: start;
+        }
+      }
+
+      .instant-right {
+        display: grid;
+        gap: $spacing-sm;
+        justify-items: end;
+
+        .instant-time {
+          @include mystical-text($font-size-xl, $color-text-primary);
+        }
+
+        .instant-note {
+          font-size: $font-size-xs;
+          color: $color-text-tertiary;
+        }
+
+        .instant-btn {
+          justify-self: end;
+          @include mystical-button(10px $spacing-md, $font-size-sm);
+        }
+      }
+    }
+  }
 }
 
-.instant-body {
-  display: grid;
-  gap: 12px;
-}
-
-.instant-row {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 14px;
-  align-items: center;
-}
-
-.instant-left {
-  display: grid;
-  gap: 8px;
-}
-
-.instant-pillars {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 10px;
-  align-items: center;
-}
-
-.instant-pillar {
-  background: #f6f1ea;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  border-radius: 14px;
-  padding: 10px 6px;
-  display: grid;
-  gap: 6px;
-  justify-items: center;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #2e261f;
-}
-
-.instant-meta {
-  display: grid;
-  gap: 6px;
-  align-content: center;
-  justify-items: start;
-}
-
-.instant-right {
-  display: grid;
-  gap: 10px;
-  justify-items: end;
-}
-
-.instant-time {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #2e261f;
-}
-
-.instant-note {
-  font-size: 0.78rem;
-  color: rgba(46, 38, 31, 0.7);
-}
-
-.instant-btn {
-  justify-self: end;
-  padding: 10px 20px;
-  border-radius: 999px;
-}
-
+// ====== 输入表单样式 ======
 .bazi-input-header {
   text-align: center;
-  margin-bottom: 16px;
+  margin-bottom: $spacing-md;
 }
 
 .bazi-input-form {
   display: grid;
-  gap: 12px;
-}
+  gap: $spacing-md;
 
-.bazi-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-
-  &:last-child {
-    border-bottom: none;
-  }
-
-  &.bazi-row-save {
+  .bazi-row {
+    display: flex;
     align-items: center;
+    justify-content: space-between;
+    gap: $spacing-sm;
+    padding: $spacing-sm 0;
+    border-bottom: 1px solid $color-border;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &.bazi-row-save {
+      align-items: center;
+    }
+
+    &.bazi-row-dual {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: $spacing-md;
+      align-items: start;
+
+      .bazi-dual-group {
+        display: grid;
+        gap: 6px;
+
+        .bazi-dual-group-inner {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: $spacing-md;
+          width: 100%;
+
+          .bazi-dual-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: $spacing-sm;
+          }
+        }
+      }
+
+      &.bazi-row-dual-compact {
+        .bazi-dual-group {
+          align-items: center;
+        }
+
+        .bazi-dual-content {
+          justify-content: flex-start;
+        }
+      }
+    }
+
+    .bazi-row-label {
+      @include mystical-text($font-size-sm, $color-mystical-gold);
+      min-width: 80px;
+    }
+
+    .bazi-row-clickable {
+      cursor: pointer;
+    }
+
+    .bazi-row-value {
+      font-size: $font-size-sm;
+      color: $color-text-secondary;
+      letter-spacing: 0.04em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .bazi-row-arrow {
+      font-size: $font-size-lg;
+      color: $color-mystical-gold;
+      line-height: 1;
+    }
+
+    .bazi-row-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: $spacing-sm;
+      flex: 1;
+    }
   }
-
-  &.bazi-row-dual {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 12px;
-    align-items: start;
-  }
 }
 
-.bazi-row-label {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: $color-mystical-gold;
-  min-width: 80px;
-}
-
-.bazi-row-clickable {
-  cursor: pointer;
-}
-
-.bazi-row-value {
-  font-size: 0.92rem;
-  color: $color-text-secondary;
-  letter-spacing: 0.04em;
-  font-variant-numeric: tabular-nums;
-}
-
-.bazi-row-arrow {
-  font-size: 1.2rem;
-  color: $color-mystical-gold;
-  line-height: 1;
-}
-
-.bazi-row-content {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 8px;
-  flex: 1;
-}
-
-.bazi-dual-group {
-  display: grid;
-  gap: 6px;
-}
-
-.bazi-dual-group-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  width: 100%;
-}
-
-.bazi-dual-content {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.bazi-row-dual-compact {
-  .bazi-dual-group {
-    align-items: center;
-  }
-
-  .bazi-dual-content {
-    justify-content: flex-start;
-  }
-}
-
+// ====== 开关组件 ======
 .bazi-switch {
   position: relative;
   display: inline-flex;
@@ -195,10 +186,11 @@
   .bazi-switch-track {
     position: absolute;
     inset: 0;
-    background: rgba(255, 255, 255, 0.2);
+    background: $color-bg-card;
     border-radius: 15px;
     transition: background 0.25s ease-out;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+    border: 1px solid $color-border;
   }
 
   .bazi-switch-thumb {
@@ -208,7 +200,7 @@
     width: 26px;
     height: 26px;
     border-radius: 50%;
-    background: #ffffff;
+    background: $color-mystical-gold;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.18);
     transition: transform 0.25s ease-out;
     z-index: 1;
@@ -216,21 +208,23 @@
 
   &.active {
     .bazi-switch-track {
-      background: $color-mystical-gold-dark;
+      background: $color-accent-medium;
+      border-color: $color-accent;
     }
 
     .bazi-switch-thumb {
       transform: translateX(23px);
-      background: #fef4e4;
-      box-shadow: 0 3px 8px rgba(180, 138, 79, 0.25);
+      background: $color-mystical-gold-light;
+      box-shadow: 0 3px 8px rgba($color-mystical-gold-dark, 0.25);
     }
   }
 }
 
+// ====== 模态框样式 ======
 .bazi-modal-mask {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: $color-bg-overlay;
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -239,170 +233,165 @@
 }
 
 .bazi-modal {
+  @include mystical-card(12px 16px 22px, $border-radius-xxl 18px 0 0);
   width: 100%;
   max-width: none;
-  background: #1a1f2e;
-  border-radius: 18px 18px 0 0;
-  padding: 12px 16px 22px;
-  box-shadow: 0 -18px 40px rgba(0, 0, 0, 0.5);
-  border: 1px solid $color-mystical-border;
   border-bottom: none;
-}
 
-.bazi-modal-body {
-  padding: 6px 0 0;
-}
+  .bazi-modal-body {
+    padding: 6px 0 0;
 
-.bazi-modal-tabs {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
-  margin-bottom: 12px;
-}
+    .bazi-modal-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: $spacing-sm;
+      margin-bottom: $spacing-md;
 
-.bazi-modal-tab {
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 999px;
-  padding: 8px 0;
-  background: rgba(255, 255, 255, 0.05);
-  color: $color-text-secondary;
-  font-size: 0.82rem;
-  letter-spacing: 0.08em;
-  text-align: center;
+      .bazi-modal-tab {
+        @include ghost-button(8px 0, $font-size-xs);
+        letter-spacing: 0.08em;
 
-  &.active {
-    background: rgba(180, 138, 79, 0.22);
-    border-color: $color-mystical-gold;
-    color: $color-mystical-gold;
-    font-weight: 600;
-    box-shadow: 0 6px 14px rgba(180, 138, 79, 0.18);
-  }
-}
+        &.active {
+          @include mystical-button(8px 0, $font-size-xs);
+          font-weight: 600;
+        }
+      }
+    }
 
-.bazi-modal-wheel {
-  @include bazi-modal-dark-surface(12px 8px);
-  position: relative;
-  overflow: hidden;
-  --bazi-picker-row: 2.5rem;
-  --bazi-picker-view: calc(var(--bazi-picker-row) * 5);
-  --bazi-picker-gap: 0.5rem;
-}
+    .bazi-modal-wheel {
+      @include bazi-modal-dark-surface(12px 8px);
+      position: relative;
+      overflow: hidden;
+      --bazi-picker-row: 2.5rem;
+      --bazi-picker-view: calc(var(--bazi-picker-row) * 5);
+      --bazi-picker-gap: 0.5rem;
 
-.bazi-wheel-labels {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  column-gap: var(--bazi-picker-gap);
-  text-align: center;
-  font-size: 0.78rem;
-  letter-spacing: 0.16em;
-  color: rgba(255, 255, 255, 0.5);
-  padding: 0.25rem 0;
-  margin: 0;
+      .bazi-wheel-labels {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        column-gap: var(--bazi-picker-gap);
+        text-align: center;
+        font-size: $font-size-xs;
+        letter-spacing: 0.16em;
+        color: $color-text-muted;
+        padding: 0.25rem 0;
+        margin: 0;
 
-  span {
-    display: block;
-    padding: 0;
-    margin: 0;
-    line-height: 1.2;
-  }
-}
+        span {
+          display: block;
+          padding: 0;
+          margin: 0;
+          line-height: 1.2;
+        }
+      }
 
-.bazi-picker {
-  width: 100%;
-  height: var(--bazi-picker-view);
-  padding: 0 var(--bazi-picker-gap);
+      .bazi-picker {
+        width: 100%;
+        height: var(--bazi-picker-view);
+        padding: 0 var(--bazi-picker-gap);
 
-  .taro-picker-view-group {
-    display: flex;
-  }
+        .taro-picker-view-group {
+          display: flex;
+        }
 
-  .taro-picker-view-column {
-    flex: 1;
-    min-width: 0;
-  }
-}
+        .taro-picker-view-column {
+          flex: 1;
+          min-width: 0;
+        }
 
-.bazi-picker-item {
-  height: var(--bazi-picker-row);
-  line-height: var(--bazi-picker-row);
-  padding: 0;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  font-size: 1rem;
-  font-variant-numeric: tabular-nums;
-  font-feature-settings: "tnum";
-  color: rgba(255, 255, 255, 0.4);
-  white-space: nowrap;
+        .bazi-picker-item {
+          height: var(--bazi-picker-row);
+          line-height: var(--bazi-picker-row);
+          padding: 0;
+          margin: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          font-size: $font-size-base;
+          font-variant-numeric: tabular-nums;
+          font-feature-settings: "tnum";
+          color: $color-text-tertiary;
+          white-space: nowrap;
 
-  &.active {
-    color: $color-mystical-gold;
-    font-weight: 700;
-  }
-}
+          &.active {
+            @include mystical-text($font-size-base, $color-mystical-gold);
+            font-weight: 700;
+          }
+        }
 
-.taro-picker-view-mask {
-  background:
-    linear-gradient(to bottom, #141a29 10%, rgba(20, 26, 41, 0)),
-    linear-gradient(to top, #141a29 10%, rgba(20, 26, 41, 0));
-  background-size:
-    100% var(--bazi-picker-row),
-    100% var(--bazi-picker-row);
-  background-position: top, bottom;
-  background-repeat: no-repeat;
-}
+        .taro-picker-view-mask {
+          background:
+            linear-gradient(
+              to bottom,
+              $color-bg-tertiary 10%,
+              rgba($color-bg-tertiary, 0) 100%
+            ),
+            linear-gradient(
+              to top,
+              $color-bg-tertiary 10%,
+              rgba($color-bg-tertiary, 0) 100%
+            );
+          background-size:
+            100% var(--bazi-picker-row),
+            100% var(--bazi-picker-row);
+          background-position: top, bottom;
+          background-repeat: no-repeat;
+        }
 
-.bazi-picker-indicator {
-  height: var(--bazi-picker-row);
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(180, 138, 79, 0.08);
-  border-radius: 8px;
-  box-sizing: border-box;
-}
+        .bazi-picker-indicator {
+          height: var(--bazi-picker-row);
+          top: 50%;
+          transform: translateY(-50%);
+          background: $color-accent-light;
+          border-radius: $border-radius-lg;
+          box-sizing: border-box;
+        }
+      }
+    }
 
-.bazi-modal-manual {
-  @include bazi-modal-dark-surface(8px);
+    .bazi-modal-manual {
+      @include bazi-modal-dark-surface(8px);
 
-  .bazi-pillar-input {
-    margin: 0;
-    min-height: 66px;
-    padding: 10px 12px;
-    background: rgba(20, 26, 41, 0.92);
-    border: 1px solid rgba(245, 216, 158, 0.22);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
-  }
+      .bazi-pillar-input {
+        margin: 0;
+        min-height: 66px;
+        padding: $spacing-sm $spacing-md;
+        background: $color-bg-tertiary;
+        border: 1px solid $color-border-strong;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      }
 
-  .bazi-pillar-label {
-    min-width: 3.4em;
-    font-size: 0.84rem;
-    letter-spacing: 0.12em;
-    color: rgba(245, 216, 158, 0.82);
-  }
+      .bazi-pillar-label {
+        min-width: 3.4em;
+        font-size: $font-size-xs;
+        letter-spacing: 0.12em;
+        color: $color-mystical-gold;
+      }
 
-  .bazi-pillar-display {
-    gap: 8px;
-  }
+      .bazi-pillar-display {
+        gap: $spacing-sm;
 
-  .pillar-box {
-    width: 44px;
-    height: 44px;
-    font-size: 1.08rem;
-    letter-spacing: 0.04em;
-    border-radius: 10px;
-    border-color: rgba(245, 216, 158, 0.3);
-    background: linear-gradient(180deg, rgba(35, 42, 59, 0.98), rgba(24, 30, 45, 0.98));
-    box-shadow:
-      0 4px 10px rgba(0, 0, 0, 0.28),
-      inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  }
+        .pillar-box {
+          width: 44px;
+          height: 44px;
+          font-size: $font-size-lg;
+          letter-spacing: 0.04em;
+          border-radius: $border-radius-lg;
+          border-color: $color-border-strong;
+          background: $gradient-dark-card;
+          box-shadow:
+            $shadow-sm,
+            inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        }
+      }
 
-  .inline-note {
-    margin-top: 10px;
-    font-size: 0.8rem;
-    line-height: 1.55;
-    color: rgba(245, 216, 158, 0.78);
+      .inline-note {
+        margin-top: $spacing-sm;
+        font-size: $font-size-xs;
+        line-height: 1.55;
+        color: $color-mystical-gold;
+      }
+    }
   }
 }

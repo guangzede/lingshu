@@ -1,88 +1,101 @@
-@use '../../../styles/variables.scss' as *;
-@use '../../../styles/mixins.scss' as *;
+// ====== 六爻占卜页面 - 神秘深色主题 ======
+@use "../../../styles/variables.scss" as *;
+@use "../../../styles/mixins.scss" as *;
 
 .liuyao-divination-page {
-  @include unified-page-shell('bazi', $padding-bottom: $spacing-xl);
-  @include unified-card-header('bazi');
+  @include unified-page-shell("mystical", $padding-bottom: $spacing-xl);
 
-  .auth-status-bar.logged-in {
-    background: linear-gradient(180deg, #fffcf6 0%, #f7efe3 100%);
-    border: 1px solid rgba(180, 138, 79, 0.28);
-    box-shadow: 0 8px 18px rgba(47, 41, 35, 0.1);
-  }
+  // ====== 认证状态栏 ======
+  .auth-status-bar {
+    &.logged-in {
+      @include mystical-card($spacing-sm, $border-radius-lg);
+      margin: $spacing-md;
+    }
 
-  .auth-status-bar.unfixed {
-    background: linear-gradient(135deg, #9c7140 0%, #b8874d 100%);
-    border-bottom: 1px solid rgba(255, 240, 214, 0.34);
+    &.unfixed {
+      @include mystical-button($spacing-sm $spacing-lg, $font-size-sm);
+      border-bottom: 1px solid rgba($color-mystical-gold-light, 0.34);
 
-    &:active {
-      background: linear-gradient(135deg, #8d6538 0%, #ac7d45 100%);
+      &:active {
+        background: linear-gradient(
+          135deg,
+          $color-accent-dark 0%,
+          $color-mystical-gold-dark 100%
+        );
+      }
+
+      .auth-status-text {
+        color: $color-mystical-gold-light;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+      }
+    }
+
+    .auth-status-content {
+      min-height: 44px;
+    }
+
+    .auth-status-spacer {
+      height: 44px;
+    }
+
+    .auth-status-text,
+    .username-text,
+    .go-to-text {
+      color: $color-text-primary;
+    }
+
+    .arrow-icon {
+      color: $color-accent;
     }
   }
 
-  .auth-status-content {
-    min-height: 44px;
+  // ====== 顶部标签 ======
+  .liuyao-top-tab {
+    &.active {
+      @include mystical-button($spacing-sm $spacing-lg, $font-size-sm);
+    }
   }
 
-  .auth-status-spacer {
-    height: 44px;
-  }
-
-  .auth-status-text,
-  .username-text,
-  .go-to-text {
-    color: var(--bazi-text);
-  }
-
-  .auth-status-bar.unfixed .auth-status-text {
-    color: #fff5e6;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-  }
-
-  .arrow-icon {
-    color: var(--bazi-accent);
-  }
-
-  .liuyao-top-tab.active {
-    background: linear-gradient(135deg, #c89a5d 0%, #b98645 100%);
-    box-shadow: 0 6px 14px rgba(114, 79, 38, 0.2);
-  }
-
+  // ====== 玻璃卡片 ======
   .glass-card {
-    @include unified-surface-card('bazi', 16px, 16px);
-    margin: 12px 16px;
+    @include mystical-card($spacing-md, $border-radius-lg);
+    margin: $spacing-md;
   }
 
+  // ====== 摇币区域 ======
   .shake-section {
-    margin: 12px 16px;
+    margin: $spacing-md;
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    gap: 12px;
+    gap: $spacing-md;
+
+    .shake-coins {
+      width: 100%;
+      display: grid;
+      gap: $spacing-md;
+    }
+
+    .shake-tip {
+      color: $color-text-secondary;
+      font-size: $font-size-sm;
+      line-height: 1.6;
+    }
   }
 
-  .shake-coins {
-    width: 100%;
-    display: grid;
-    gap: 12px;
-  }
-
-  .shake-tip {
-    color: var(--bazi-sub);
-    font-size: 0.82rem;
-    line-height: 1.6;
-  }
-
+  // ====== 硬币舞台 ======
   .coins-stage {
     width: 100%;
     height: 280px;
-    border-radius: 14px;
+    @include mystical-card(0, $border-radius-lg);
     background:
-      radial-gradient(circle at 50% 30%, rgba(177, 139, 79, 0.1), transparent 62%),
-      linear-gradient(180deg, #fffdf9 0%, #f5efe7 100%);
-    border: 1px solid var(--bazi-border);
-    box-shadow: inset 0 0 0 1px rgba(177, 139, 79, 0.08);
+      radial-gradient(
+        circle at 50% 30%,
+        rgba($color-accent, 0.1),
+        transparent 62%
+      ),
+      $gradient-dark-card;
     overflow: hidden;
     position: relative;
     display: flex;
@@ -90,107 +103,119 @@
     justify-content: center;
 
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(120deg, rgba(47, 41, 35, 0.03) 1px, transparent 1px),
-        linear-gradient(210deg, rgba(47, 41, 35, 0.03) 1px, transparent 1px);
+        linear-gradient(
+          120deg,
+          rgba($color-text-primary, 0.03) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          210deg,
+          rgba($color-text-primary, 0.03) 1px,
+          transparent 1px
+        );
       background-size: 22px 22px;
       opacity: 0.22;
       pointer-events: none;
     }
-  }
 
-  .coins-row {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    gap: 8px;
-    padding: 0 14px;
-    position: relative;
-    z-index: 1;
-  }
+    .coins-row {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      gap: $spacing-sm;
+      padding: 0 $spacing-sm;
+      position: relative;
+      z-index: 1;
 
-  .coin-shell {
-    inline-size: clamp(5.4rem, 28vw, 8rem);
-    aspect-ratio: 1;
-    position: relative;
-    perspective: 980px;
-    transform-style: preserve-3d;
-    flex: 0 0 auto;
+      .coin-shell {
+        inline-size: clamp(5.4rem, 28vw, 8rem);
+        aspect-ratio: 1;
+        position: relative;
+        perspective: 980px;
+        transform-style: preserve-3d;
+        flex: 0 0 auto;
 
-    &::after {
-      content: '';
-      position: absolute;
-      left: 50%;
-      bottom: -10px;
-      transform: translateX(-50%);
-      width: 74%;
-      height: 12%;
-      border-radius: 50%;
-      background: radial-gradient(ellipse at center, rgba(47, 41, 35, 0.28), transparent);
-      filter: blur(2px);
+        &::after {
+          content: "";
+          position: absolute;
+          left: 50%;
+          bottom: -10px;
+          transform: translateX(-50%);
+          width: 74%;
+          height: 12%;
+          border-radius: 50%;
+          background: radial-gradient(
+            ellipse at center,
+            rgba($color-text-primary, 0.28),
+            transparent
+          );
+          filter: blur(2px);
+        }
+
+        &.is-tossing {
+          animation-name: coin-toss;
+          animation-timing-function: cubic-bezier(0.22, 0.8, 0.2, 1);
+          animation-fill-mode: both;
+        }
+
+        .coin-inner {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          transform-style: preserve-3d;
+          transition-property: transform;
+          transition-timing-function: cubic-bezier(0.2, 0.82, 0.24, 1);
+
+          .coin-face {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+
+            &.coin-face-back {
+              transform: rotateY(180deg);
+              filter: saturate(1.08);
+            }
+          }
+        }
+      }
     }
+  }
 
-    &.is-tossing {
-      animation-name: coin-toss;
-      animation-timing-function: cubic-bezier(0.22, 0.8, 0.2, 1);
-      animation-fill-mode: both;
+  // ====== 动画 ======
+  @keyframes coin-toss {
+    0% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    18% {
+      transform: translate3d(0, -24px, 0) scale(1.02);
+    }
+    52% {
+      transform: translate3d(0, -38px, 0) scale(1.04);
+    }
+    74% {
+      transform: translate3d(0, -10px, 0) scale(1.01);
+    }
+    100% {
+      transform: translate3d(0, 0, 0) scale(1);
     }
   }
 
-  .coin-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-    transition-property: transform;
-    transition-timing-function: cubic-bezier(0.2, 0.82, 0.24, 1);
-  }
-
-  .coin-face {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-  }
-
-  .coin-face-back {
-    transform: rotateY(180deg);
-    filter: saturate(1.08);
-  }
-}
-
-@keyframes coin-toss {
-  0% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  18% {
-    transform: translate3d(0, -24px, 0) scale(1.02);
-  }
-  52% {
-    transform: translate3d(0, -38px, 0) scale(1.04);
-  }
-  74% {
-    transform: translate3d(0, -10px, 0) scale(1.01);
-  }
-  100% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-}
-
-@media (max-width: 30em) {
-  .liuyao-divination-page {
+  // ====== 响应式设计 ======
+  @media (max-width: 30em) {
     .coins-stage {
       height: 240px;
     }
 
     .coins-row {
-      padding: 0 8px;
+      padding: 0 $spacing-sm;
     }
   }
 }

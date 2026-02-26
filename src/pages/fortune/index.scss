@@ -1,11 +1,144 @@
-@use '../../components/FortuneView.scss' as *;
+// ====== 运势页面 - 神秘深色主题 ======
+@use "../../styles/variables.scss" as *;
+@use "../../styles/mixins.scss" as *;
+@use "../../components/FortuneView.scss" as *;
 
 .fortune-page {
-  width: 100%;
-  min-height: 100vh;
-  background-color: #050510;
+  @include unified-page-shell("mystical");
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  // ====== 运势内容容器 ======
+  .fortune-content {
+    width: 100%;
+    max-width: 600px;
+    padding: $spacing-xl;
+
+    // ====== 运势卡片 ======
+    .fortune-card {
+      @include mystical-card($spacing-xl, $border-radius-lg);
+      margin-bottom: $spacing-lg;
+      text-align: center;
+
+      .fortune-title {
+        @include mystical-text($font-size-xxxl, $color-mystical-gold);
+        margin-bottom: $spacing-md;
+      }
+
+      .fortune-desc {
+        color: $color-text-secondary;
+        font-size: $font-size-lg;
+        line-height: 1.6;
+        margin-bottom: $spacing-lg;
+      }
+
+      .fortune-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: $spacing-md 0;
+        border-top: 1px solid $color-border;
+
+        .fortune-date {
+          font-size: $font-size-sm;
+          color: $color-text-tertiary;
+        }
+
+        .fortune-type {
+          @include mystical-text($font-size-sm, $color-accent);
+        }
+      }
+    }
+
+    // ====== 操作按钮 ======
+    .fortune-actions {
+      display: flex;
+      gap: $spacing-md;
+      justify-content: center;
+      margin-top: $spacing-xl;
+
+      .fortune-btn {
+        @include mystical-button($spacing-md $spacing-xl, $font-size-lg);
+        min-width: 120px;
+
+        &.secondary {
+          @include ghost-button($spacing-md $spacing-xl, $font-size-lg);
+        }
+      }
+    }
+
+    // ====== 运势详情 ======
+    .fortune-details {
+      @include mystical-card($spacing-lg, $border-radius-lg);
+      margin-top: $spacing-lg;
+
+      .detail-section {
+        margin-bottom: $spacing-lg;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        .detail-title {
+          @include mystical-text($font-size-xl, $color-mystical-gold);
+          margin-bottom: $spacing-sm;
+        }
+
+        .detail-content {
+          color: $color-text-secondary;
+          font-size: $font-size-md;
+          line-height: 1.6;
+
+          .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: $spacing-sm 0;
+            border-bottom: 1px solid $color-border;
+
+            &:last-child {
+              border-bottom: none;
+            }
+
+            .item-label {
+              color: $color-text-tertiary;
+              font-size: $font-size-sm;
+            }
+
+            .item-value {
+              @include mystical-text($font-size-sm, $color-text-primary);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // ====== 响应式设计 ======
+  @media (max-width: 768px) {
+    .fortune-content {
+      padding: $spacing-lg;
+
+      .fortune-card {
+        padding: $spacing-lg;
+
+        .fortune-title {
+          font-size: $font-size-xxl;
+        }
+
+        .fortune-desc {
+          font-size: $font-size-md;
+        }
+      }
+
+      .fortune-actions {
+        flex-direction: column;
+
+        .fortune-btn {
+          width: 100%;
+        }
+      }
+    }
+  }
 }

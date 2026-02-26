@@ -6,8 +6,18 @@
 }
 
 .question-card {
-  @include unified-surface-card("bazi", 16px, 16px);
-  @include unified-card-header("bazi");
+  @include mystical-card($spacing-lg, $border-radius-lg);
+
+  .question-title {
+    @include mystical-text($font-size-xl, $color-text-primary);
+    margin-bottom: $spacing-md;
+  }
+
+  .question-content {
+    color: $color-text-secondary;
+    font-size: $font-size-md;
+    line-height: 1.6;
+  }
 }
 
 .input-with-button {

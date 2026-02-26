@@ -1,10 +1,12 @@
-// ========== 赛博道教首页样式 - 沉浸式体验 ========== */
+// ====== 赛博道教首页样式 - 沉浸式体验 ======
+@use "../../styles/variables.scss" as *;
+@use "../../styles/mixins.scss" as *;
 
 .index-page {
+  @include mystical-dark-theme();
   position: relative;
   width: 100%;
   height: 100%;
-  background: radial-gradient(ellipse 180% 100% at 50% 0%, #0d1428 0%, #070912 55%, #010204 100%);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -22,267 +24,257 @@
     pointer-events: none;
   }
 
-.yin-yang {
-  position: absolute;
-  top:20%;
-  left: 50%;
-  width: 200px;
-  height: 200px;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  background: linear-gradient(90deg, #bda369  50%, #0a0a0a 50%);
-  box-shadow:
-    0 0 30px rgba(255, 255, 255, 0.4),
-    0 0 60px rgba(255, 255, 255, 0.3),
-    0 0 80px rgba(212, 175, 100, 0.4),
-    0 0 120px rgba(212, 175, 100, 0.3),
-    0 0 160px rgba(212, 175, 100, 0.15),
-    0 0 200px rgba(212, 175, 100, 0.08),
-    inset 0 2px 15px rgba(255, 255, 255, 0.08),
-    inset 0 -2px 8px rgba(0, 0, 0, 0.15);
-  overflow: hidden;
-  z-index: 3;
-  animation: yin-yang-rotate 16s linear infinite, pulse-glow 3s ease-in-out infinite;
-}
-
-.yin-yang::before,
-.yin-yang::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  transform: translateX(-50%);
-}
-
-.yin-yang::before {
-  top: 0;
-  background: radial-gradient(circle, #0a0a0a 20%, #0a0a0a 20%, transparent 22%);
-  background-color: #bda369 ;
-}
-
-.yin-yang::after {
-  bottom: 0;
-  background: radial-gradient(circle, #bda369  20%, #f4f4f4 20%, transparent 22%);
-  background-color: #0a0a0a;
-}
-
-@keyframes yin-yang-rotate {
-  from { transform: translate(-50%, -50%) rotate(0deg); }
-  to { transform: translate(-50%, -50%) rotate(360deg); }
-}
-
-@keyframes yin-yang-glow {
-  0%, 100% {
+  // ====== 太极图 ======
+  .yin-yang {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: linear-gradient(
+      90deg,
+      $color-mystical-gold 50%,
+      $color-bg-primary 50%
+    );
     box-shadow:
       0 0 30px rgba(255, 255, 255, 0.4),
       0 0 60px rgba(255, 255, 255, 0.3),
-      0 0 80px rgba(212, 175, 100, 0.3),
-      0 0 120px rgba(212, 175, 100, 0.2),
-      0 0 160px rgba(212, 175, 100, 0.1),
-      0 0 200px rgba(212, 175, 100, 0.05),
-      inset 0 2px 8px rgba(255, 255, 255, 0.08),
+      0 0 80px rgba($color-mystical-gold, 0.4),
+      0 0 120px rgba($color-mystical-gold, 0.3),
+      0 0 160px rgba($color-mystical-gold, 0.15),
+      0 0 200px rgba($color-mystical-gold, 0.08),
+      inset 0 2px 15px rgba(255, 255, 255, 0.08),
       inset 0 -2px 8px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    z-index: 3;
+    animation:
+      yin-yang-rotate 16s linear infinite,
+      pulse-glow 3s ease-in-out infinite;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      transform: translateX(-50%);
+    }
+
+    &::before {
+      top: 0;
+      background: radial-gradient(
+        circle,
+        $color-bg-primary 20%,
+        $color-bg-primary 20%,
+        transparent 22%
+      );
+      background-color: $color-mystical-gold;
+    }
+
+    &::after {
+      bottom: 0;
+      background: radial-gradient(
+        circle,
+        $color-mystical-gold 20%,
+        #f4f4f4 20%,
+        transparent 22%
+      );
+      background-color: $color-bg-primary;
+    }
   }
-  50% {
-    box-shadow:
-      0 0 40px rgba(255, 255, 255, 0.5),
-      0 0 80px rgba(255, 255, 255, 0.4),
-      0 0 120px rgba(212, 175, 100, 0.5),
-      0 0 160px rgba(212, 175, 100, 0.35),
-      0 0 200px rgba(212, 175, 100, 0.2),
-      0 0 240px rgba(212, 175, 100, 0.1),
-      inset 0 2px 8px rgba(255, 255, 255, 0.08),
-      inset 0 -2px 8px rgba(0, 0, 0, 0.15);
+
+  // ====== 星空背景 ======
+  .star-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    pointer-events: none;
+    opacity: 0.85;
+    display: block;
+    flex-shrink: 0;
+    background: transparent;
+    filter: brightness(0.9) contrast(1);
   }
-}
-}
 
-.star-canvas {
-  position: absolute;
-  left: 0;
-  top: 0;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 5;
-  pointer-events: none;
-  opacity: 0.85;
-  display: block;
-  flex-shrink: 0;
-  background: transparent;
-  filter: brightness(0.9) contrast(1.0);
-}
-
-.bg-noise {
-  position: absolute;
-  inset: 0;
-  background-image:
-    url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="4.2" numOctaves="4" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
-  opacity: 0.12;
-  pointer-events: none;
-  z-index: 2;
-  mix-blend-mode: soft-light;
-}
-
-.bg-gradient {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg, rgba(100, 150, 200, 0.12) 0%, transparent 40%),
-    radial-gradient(ellipse 140% 90% at 50% 38%, rgba(212, 175, 100, 0.08) 0%, transparent 40%),
-    radial-gradient(ellipse 100% 70% at 50% 70%, rgba(10, 15, 25, 0.4) 0%, transparent 60%);
-  opacity: 0.9;
-  pointer-events: none;
-  z-index: 1;
-  animation: gradient-breathe 50s ease-in-out infinite;
-}
-
-@keyframes gradient-breathe {
-  0%, 100% {
-    opacity: 0.8;
+  // ====== 噪点纹理 ======
+  .bg-noise {
+    position: absolute;
+    inset: 0;
+    background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="4.2" numOctaves="4" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+    opacity: 0.12;
+    pointer-events: none;
+    z-index: 2;
+    mix-blend-mode: soft-light;
   }
-  50% {
-    opacity: 1;
+
+  // ====== 渐变背景 ======
+  .bg-gradient {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(100, 150, 200, 0.12) 0%, transparent 40%),
+      radial-gradient(
+        ellipse 140% 90% at 50% 38%,
+        rgba($color-mystical-gold, 0.08) 0%,
+        transparent 40%
+      ),
+      radial-gradient(
+        ellipse 100% 70% at 50% 70%,
+        rgba($color-bg-secondary, 0.4) 0%,
+        transparent 60%
+      );
+    opacity: 0.9;
+    pointer-events: none;
+    z-index: 1;
+    animation: gradient-breathe 50s ease-in-out infinite;
   }
-}
 
-.menu-page {
-  position: relative;
-  z-index: 20;
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  color: #f3f4f8;
-  padding: 15vh 16px 8vh 16px;
-  font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', serif, -apple-system, BlinkMacSystemFont;
-}
-
-.center-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-  width: 100%;
-  margin-top: 15vh;
-}
-
-.bottom-actions {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  width: 100%;
-  padding: 0 24px;
-  font-size: 30px;
-  margin-bottom: 6vh;
-}
-
-.menu-header {
-  text-align: center;
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 18px;
-}
-
-.menu-logo {
-  font-size: 80px;
-  font-weight: 600;
-  letter-spacing: 28px;
-  color: #c9ad6f;
-  text-shadow:
-    0 0 12px rgba(201, 173, 111, 0.15),
-    0 2px 8px rgba(0, 0, 0, 0.3);
-  line-height: 1.2;
-  font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', 'STSong', serif;
-}
-
-.menu-sub {
-  font-size: 30px;
-  letter-spacing: 8px;
-  color: rgba(201, 173, 111, 0.85);
-  line-height: 1.6;
-  font-weight: 500;
-  position: relative;
-  z-index: 2;
-  font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', 'STSong', serif;
-  text-shadow:
-    0 0 10px rgba(201, 173, 111, 0.12),
-    0 1px 6px rgba(0, 0, 0, 0.25);
-}
-
-.ghost-button {
-  background: transparent !important;
-  border: 1.5px solid rgba(201, 173, 111, 0.6);
-  border-radius: 50px;
-  padding: 18px 48px;
-  font-size: 25px;
-  font-weight: 400;
-  color: rgba(201, 173, 111, 0.95);
-  font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', 'STSong', serif;
-  letter-spacing: 6px;
-  box-shadow:
-    0 0 20px rgba(201, 173, 111, 0.08),
-    inset 0 0 15px rgba(201, 173, 111, 0.03);
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  max-width: 280px;
-  min-width: 200px;
-  text-align: center;
-}
-
-.ghost-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(201, 173, 111, 0.12), transparent);
-  transition: left 0.6s ease;
-  pointer-events: none;
-}
-
-.ghost-button:active {
-  transform: scale(0.97);
-  border-color: rgba(201, 173, 111, 0.85);
-  color: rgba(201, 173, 111, 1);
-  box-shadow:
-    0 0 30px rgba(201, 173, 111, 0.2),
-    inset 0 0 25px rgba(201, 173, 111, 0.08);
-}
-
-.ghost-button:active::before {
-  left: 100%;
-}
-
-@media (min-width: 768px) {
+  // ====== 菜单页面 ======
   .menu-page {
-    padding: 18vh 32px 10vh 32px;
+    position: relative;
+    z-index: 20;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    color: $color-text-primary;
+    padding: 15vh 16px 8vh 16px;
+    font-family: $font-family-serif;
   }
 
-  .yin-yang {
-    width: 220px;
-    height: 220px;
+  .center-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    width: 100%;
+    margin-top: 15vh;
   }
 
+  .bottom-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-md;
+    width: 100%;
+    padding: 0 24px;
+    font-size: 30px;
+    margin-bottom: 6vh;
+  }
 
+  // ====== 菜单头部 ======
+  .menu-header {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
 
+  .menu-logo {
+    @include mystical-text(80px, $color-mystical-gold);
+    letter-spacing: 28px;
+    text-shadow:
+      0 0 12px rgba($color-mystical-gold, 0.15),
+      0 2px 8px rgba(0, 0, 0, 0.3);
+    line-height: 1.2;
+  }
 
+  .menu-sub {
+    font-size: 30px;
+    letter-spacing: 8px;
+    color: rgba($color-mystical-gold, 0.85);
+    line-height: 1.6;
+    font-weight: 500;
+    position: relative;
+    z-index: 2;
+    font-family: $font-family-serif;
+    text-shadow:
+      0 0 10px rgba($color-mystical-gold, 0.12),
+      0 1px 6px rgba(0, 0, 0, 0.25);
+  }
 
+  // ====== 幽灵按钮 ======
   .ghost-button {
-    font-size: 18px;
-    padding: 20px 56px;
-    max-width: 320px;
+    @include ghost-button(18px 48px, 25px);
+    max-width: 280px;
+    min-width: 200px;
+    text-align: center;
+    letter-spacing: 6px;
+  }
+
+  // ====== 动画 ======
+  @keyframes yin-yang-rotate {
+    from {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+
+  @keyframes yin-yang-glow {
+    0%,
+    100% {
+      box-shadow:
+        0 0 30px rgba(255, 255, 255, 0.4),
+        0 0 60px rgba(255, 255, 255, 0.3),
+        0 0 80px rgba($color-mystical-gold, 0.3),
+        0 0 120px rgba($color-mystical-gold, 0.2),
+        0 0 160px rgba($color-mystical-gold, 0.1),
+        0 0 200px rgba($color-mystical-gold, 0.05),
+        inset 0 2px 8px rgba(255, 255, 255, 0.08),
+        inset 0 -2px 8px rgba(0, 0, 0, 0.15);
+    }
+    50% {
+      box-shadow:
+        0 0 40px rgba(255, 255, 255, 0.5),
+        0 0 80px rgba(255, 255, 255, 0.4),
+        0 0 120px rgba($color-mystical-gold, 0.5),
+        0 0 160px rgba($color-mystical-gold, 0.35),
+        0 0 200px rgba($color-mystical-gold, 0.2),
+        0 0 240px rgba($color-mystical-gold, 0.1),
+        inset 0 2px 8px rgba(255, 255, 255, 0.08),
+        inset 0 -2px 8px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  @keyframes gradient-breathe {
+    0%,
+    100% {
+      opacity: 0.8;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  // ====== 响应式设计 ======
+  @media (min-width: 768px) {
+    .menu-page {
+      padding: 18vh 32px 10vh 32px;
+    }
+
+    .yin-yang {
+      width: 220px;
+      height: 220px;
+    }
+
+    .ghost-button {
+      font-size: 18px;
+      padding: 20px 56px;
+      max-width: 320px;
+    }
   }
 }

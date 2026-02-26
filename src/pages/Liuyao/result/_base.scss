@@ -1,9 +1,11 @@
-@use '../../../styles/variables.scss' as *;
-@use '../../../styles/mixins.scss' as *;
+@use "../../../styles/variables.scss" as *;
+@use "../../../styles/mixins.scss" as *;
 
 .liuyao-result-page {
-  @include unified-page-shell('bazi', $padding-bottom: calc(96px + env(safe-area-inset-bottom)));
-  @include unified-card-header('bazi');
+  @include unified-page-shell(
+    "mystical",
+    $padding-bottom: calc(96px + env(safe-area-inset-bottom))
+  );
 
   @media (min-width: 1024px) {
     display: grid;
@@ -41,7 +43,7 @@
 }
 
 .glass-card {
-  @include unified-surface-card('bazi', 16px, 16px);
+  @include unified-surface-card("bazi", 16px, 16px);
 }
 
 .analysis-card {

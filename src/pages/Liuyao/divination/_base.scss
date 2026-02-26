@@ -1,4 +1,6 @@
-@use '../../../styles/variables.scss' as *;
+// ====== 六爻占卜基础样式 ======
+@use "../../../styles/variables.scss" as *;
+@use "../../../styles/mixins.scss" as *;
 
 .liuyao-divination-page {
   padding-bottom: $spacing-xl;
@@ -8,98 +10,106 @@
     flex-direction: column;
     max-width: 56rem;
     margin: 0 auto;
-    padding: 24px;
-  }
-}
-
-.shake-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-}
-
-.divinate-button-container {
-  display: flex;
-  justify-content: center;
-  margin: 14px 16px 18px;
-
-  @media (min-width: 64em) {
-    margin: 14px 0 18px;
-  }
-}
-
-.divinate-button {
-  position: relative;
-  inline-size: min(100%, 26rem);
-  text-align: center;
-  border-radius: 999px;
-  padding: 11px 22px;
-  border: 1px solid rgba(147, 108, 58, 0.34);
-  background: linear-gradient(135deg, #c89a5d 0%, #b98645 52%, #ad7838 100%);
-  box-shadow: 0 8px 16px rgba(114, 79, 38, 0.18);
-  overflow: hidden;
-}
-
-.divinate-text {
-  position: relative;
-  z-index: 2;
-  color: #fffaf0;
-  font-size: 1rem;
-  letter-spacing: 0.08em;
-  font-weight: 600;
-}
-
-.energy-flow {
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  animation: energyFlow 2s infinite;
-  z-index: 1;
-}
-
-@keyframes energyFlow {
-  0% {
-    left: -100%;
+    padding: $spacing-lg;
   }
 
-  100% {
-    left: 100%;
+  // ====== 摇币区域 ======
+  .shake-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-sm;
   }
-}
 
-.divination-loading {
-  position: fixed;
-  inset: 0;
-  z-index: 999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 250, 243, 0.7);
-  backdrop-filter: blur(8px);
-}
+  // ====== 占卜按钮容器 ======
+  .divinate-button-container {
+    display: flex;
+    justify-content: center;
+    margin: $spacing-md $spacing-md $spacing-lg;
 
-.divination-loading-card {
-  inline-size: min(86vw, 22.5rem);
-  padding: 22px 18px;
-  border-radius: 16px;
-  background: #ffffff;
-  border: 1px solid var(--bazi-border);
-  box-shadow: var(--bazi-shadow);
-  text-align: center;
-}
+    @media (min-width: 64em) {
+      margin: $spacing-md 0 $spacing-lg;
+    }
+  }
 
-.divination-loading-title {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--bazi-text);
-  margin-bottom: 8px;
-}
+  // ====== 占卜按钮 ======
+  .divinate-button {
+    @include mystical-button(11px 22px, $font-size-base);
+    position: relative;
+    inline-size: min(100%, 26rem);
+    text-align: center;
+    border-radius: $border-radius-round;
+    border: 1px solid rgba($color-accent-dark, 0.34);
+    background: linear-gradient(
+      135deg,
+      $color-accent 0%,
+      $color-accent-dark 52%,
+      $color-mystical-gold-dark 100%
+    );
+    box-shadow: $shadow-md;
+    overflow: hidden;
 
-.divination-loading-desc {
-  font-size: 0.86rem;
-  color: var(--bazi-sub);
+    .divinate-text {
+      position: relative;
+      z-index: 2;
+      color: $color-text-primary;
+      font-size: $font-size-base;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+    }
+
+    .energy-flow {
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+      );
+      animation: energyFlow 2s infinite;
+      z-index: 1;
+    }
+  }
+
+  // ====== 能量流动动画 ======
+  @keyframes energyFlow {
+    0% {
+      left: -100%;
+    }
+    100% {
+      left: 100%;
+    }
+  }
+
+  // ====== 占卜加载状态 ======
+  .divination-loading {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba($color-mystical-gold-light, 0.1);
+    backdrop-filter: blur(8px);
+
+    .divination-loading-card {
+      @include mystical-card(22px 18px, $border-radius-lg);
+      inline-size: min(86vw, 22.5rem);
+      text-align: center;
+
+      .divination-loading-title {
+        @include mystical-text($font-size-base, $color-text-primary);
+        margin-bottom: $spacing-sm;
+      }
+
+      .divination-loading-desc {
+        font-size: $font-size-sm;
+        color: $color-text-secondary;
+      }
+    }
+  }
 }
