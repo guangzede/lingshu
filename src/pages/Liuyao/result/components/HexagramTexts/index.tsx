@@ -33,17 +33,17 @@ const HexagramTexts: React.FC<HexagramTextsProps> = ({ result }) => {
 
   if (!hasBase && !hasVariant) {
     return (
-      <View className="glass-card hex-texts-card">
-        <View className="hex-texts-header">
-          <View className="card-header">
-            <View className="hex-texts-title-wrap">
-              <Text className="card-section-title">卦词·象曰·爻辞</Text>
-              <Text className="card-section-guide">暂无卦象</Text>
+      <View className='glass-card hex-texts-card'>
+        <View className='hex-texts-header'>
+          <View className='card-header'>
+            <View className='hex-texts-title-wrap'>
+              <Text className='card-section-title'>卦词·象曰·爻辞</Text>
+              <Text className='card-section-guide'>暂无卦象</Text>
             </View>
           </View>
         </View>
-        <View className="hex-texts-body">
-          <Text className="hex-texts-empty">暂无卦辞数据，请先完成排盘</Text>
+        <View className='hex-texts-body'>
+          <Text className='hex-texts-empty'>暂无卦辞数据，请先完成排盘</Text>
         </View>
       </View>
     )
@@ -59,15 +59,15 @@ const HexagramTexts: React.FC<HexagramTextsProps> = ({ result }) => {
   const xiang = (texts.xiang || '').trim()
 
   return (
-    <View className="glass-card hex-texts-card">
-      <View className="hex-texts-header">
-        <View className="card-header">
-          <View className="hex-texts-title-wrap">
-            <Text className="card-section-title">卦词·象曰·爻辞</Text>
-            <Text className="card-section-guide">{currentName}</Text>
+    <View className='glass-card hex-texts-card'>
+      <View className='hex-texts-header'>
+        <View className='card-header'>
+          <View className='hex-texts-title-wrap'>
+            <Text className='card-section-title'>卦词·象曰·爻辞</Text>
+            <Text className='card-section-guide'>{currentName}</Text>
           </View>
         </View>
-        <View className="hex-texts-tabs">
+        <View className='hex-texts-tabs'>
           {hasBase && (
             <View
               className={`hex-texts-tab ${active === 'base' ? 'active' : ''}`}
@@ -87,46 +87,46 @@ const HexagramTexts: React.FC<HexagramTextsProps> = ({ result }) => {
         </View>
       </View>
 
-      <View className="hex-texts-body">
-        <View className="hex-texts-block">
-          <Text className="hex-texts-block-title">卦词</Text>
-          <Text className="hex-texts-block-content">
+      <View className='hex-texts-body'>
+        <View className='hex-texts-block'>
+          <Text className='hex-texts-block-title'>卦词</Text>
+          <Text className='hex-texts-block-content'>
             {tuan || `暂无卦词：${currentName}`}
           </Text>
         </View>
 
-        <View className="hex-texts-block">
-          <Text className="hex-texts-block-title">象曰</Text>
-          <Text className="hex-texts-block-content">
+        <View className='hex-texts-block'>
+          <Text className='hex-texts-block-title'>象曰</Text>
+          <Text className='hex-texts-block-content'>
             {xiang || `暂无象曰：${currentName}`}
           </Text>
         </View>
 
-        <View className="hex-texts-block">
-          <Text className="hex-texts-block-title">爻辞</Text>
-          <View className="hex-texts-yao-list">
+        <View className='hex-texts-block'>
+          <Text className='hex-texts-block-title'>爻辞</Text>
+          <View className='hex-texts-yao-list'>
             {yaoItems.length > 0 ? (
               yaoItems.map((item, index) => (
-                <View key={`${currentName}-${index}`} className="hex-texts-yao-item">
-                  <Text className="hex-texts-yao-label">
+                <View key={`${currentName}-${index}`} className='hex-texts-yao-item'>
+                  <Text className='hex-texts-yao-label'>
                     {YAO_LABELS[index] || `第${index + 1}爻`}
                   </Text>
-                  <Text className="hex-texts-yao-text">
+                  <Text className='hex-texts-yao-text'>
                     {item.text || `暂无爻辞：${currentName}`}
                   </Text>
                   {item.marker && (
-                    <Text className="hex-texts-yao-marker">{item.marker}</Text>
+                    <Text className='hex-texts-yao-marker'>{item.marker}</Text>
                   )}
                 </View>
               ))
             ) : (
-              <Text className="hex-texts-empty">暂无爻辞</Text>
+              <Text className='hex-texts-empty'>暂无爻辞</Text>
             )}
             {yongItems.map((text, index) => (
-              <View key={`${currentName}-yong-${index}`} className="hex-texts-yao-item hex-texts-yong-item">
-                <Text className="hex-texts-yao-label">用爻</Text>
-                <Text className="hex-texts-yao-text">{text}</Text>
-                <Text className="hex-texts-yao-marker">
+              <View key={`${currentName}-yong-${index}`} className='hex-texts-yao-item hex-texts-yong-item'>
+                <Text className='hex-texts-yao-label'>用爻</Text>
+                <Text className='hex-texts-yao-text'>{text}</Text>
+                <Text className='hex-texts-yao-marker'>
                   {text.includes('用九') ? '用九' : text.includes('用六') ? '用六' : '用爻'}
                 </Text>
               </View>

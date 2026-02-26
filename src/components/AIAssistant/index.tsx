@@ -224,51 +224,51 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
   const isEmpty = !isGenerating && !aiResponse;
 
   return (
-    <View className="ai-assistant">
-      <View className="ai-response-section">
+    <View className='ai-assistant'>
+      <View className='ai-response-section'>
         <ScrollView
           className={`ai-response-content${isEmpty ? ' is-empty' : ''}`}
           scrollY
-          scrollIntoView="bottom"
+          scrollIntoView='bottom'
           style={{ maxHeight: '60vh', minHeight: isEmpty ? '180rpx' : '40vh', marginTop: '8px' }}
         >
           {isGenerating && !aiResponse ? (
-            <View className="loading-panel">
-              <View className="loading-spinner" />
-              <Text className="loading-title">正在生成分析报告</Text>
-              <Text className="loading-subtitle">
+            <View className='loading-panel'>
+              <View className='loading-spinner' />
+              <Text className='loading-title'>正在生成分析报告</Text>
+              <Text className='loading-subtitle'>
                 {Taro.getEnv && Taro.getEnv() === Taro.ENV_TYPE.WEAPP
                   ? '小程序端不支持流式，将一次性返回'
                   : '正在流式生成…'}
               </Text>
-              <Text className="loading-elapsed">已等待 {elapsed} 秒</Text>
-              <View className="loading-tips">{currentTip}</View>
-              <View className="skeleton">
-                <View className="skeleton-line" />
-                <View className="skeleton-line" />
-                <View className="skeleton-line short" />
+              <Text className='loading-elapsed'>已等待 {elapsed} 秒</Text>
+              <View className='loading-tips'>{currentTip}</View>
+              <View className='skeleton'>
+                <View className='skeleton-line' />
+                <View className='skeleton-line' />
+                <View className='skeleton-line short' />
               </View>
             </View>
           ) : isEmpty ? (
-            <View className="empty-panel">
-              <Text className="empty-title">等待解读</Text>
-              <Text className="empty-subtitle">点击下方按钮生成分析报告，结果会显示在这里。</Text>
+            <View className='empty-panel'>
+              <Text className='empty-title'>等待解读</Text>
+              <Text className='empty-subtitle'>点击下方按钮生成分析报告，结果会显示在这里。</Text>
             </View>
           ) : (
             <>
               <MarkdownRenderer content={aiResponse} />
               {isGenerating && (
-                <View className="streaming-indicator">
+                <View className='streaming-indicator'>
                   <Text>● 正在生成中... ({elapsed}s)</Text>
                 </View>
               )}
             </>
           )}
-          {isGenerating && <View id="bottom"></View>}
+          {isGenerating && <View id='bottom'></View>}
         </ScrollView>
         {!isGenerating && aiResponse && (
           <Button
-            className="copy-btn"
+            className='copy-btn'
             onClick={copyToClipboard}
           >
             复制结果
@@ -276,12 +276,12 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
         )}
       </View>
       {error && (
-        <View className="error-section">
+        <View className='error-section'>
           <Text>{error}</Text>
         </View>
       )}
       <Button
-        className="primary-btn"
+        className='primary-btn'
         onClick={handleGenerateAIAnalysis}
         disabled={isGenerating}
         style={{ opacity: isGenerating ? 0.6 : 1, cursor: isGenerating ? 'not-allowed' : 'pointer' }}

@@ -54,7 +54,7 @@ const ArmillarySphereScene: React.FC = () => {
   return (
     <>
       {/* 环境光 - 提供整体光照 */}
-      <ambientLight intensity={0.6} color="#ffffff" />
+      <ambientLight intensity={0.6} color='#ffffff' />
 
       {/* 点光源 - 从上方照射，增强金色光泽 */}
       <pointLight
@@ -73,9 +73,9 @@ const ArmillarySphereScene: React.FC = () => {
       />
 
       {/* 三个旋转圆环 - 模拟浑天仪 */}
-      <TorusRing radius={2.0} speed={0.001} axis="x" />
-      <TorusRing radius={2.6} speed={0.0012} axis="y" />
-      <TorusRing radius={3.2} speed={0.0008} axis="z" />
+      <TorusRing radius={2.0} speed={0.001} axis='x' />
+      <TorusRing radius={2.6} speed={0.0012} axis='y' />
+      <TorusRing radius={3.2} speed={0.0008} axis='z' />
     </>
   )
 }

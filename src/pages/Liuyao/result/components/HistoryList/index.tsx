@@ -64,45 +64,45 @@ const HistoryList: React.FC<HistoryListProps> = ({ cases, onClose }) => {
 
   if (cases.length === 0) {
     return (
-      <View className="history-list">
-        <View className="history-empty">
-          <Text className="empty-icon">📭</Text>
-          <Text className="empty-text">暂无历史记录</Text>
+      <View className='history-list'>
+        <View className='history-empty'>
+          <Text className='empty-icon'>📭</Text>
+          <Text className='empty-text'>暂无历史记录</Text>
         </View>
       </View>
     )
   }
 
   return (
-    <View className="history-list">
+    <View className='history-list'>
       {cases.map((caseItem) => {
         const createdDate = new Date(caseItem.createdAt)
         const dateStr = createdDate.toLocaleDateString('zh-CN')
         const timeStr = createdDate.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })
 
         return (
-          <View key={caseItem.id} className="history-item">
-            <View className="history-item-main" onClick={() => handleLoadCase(caseItem.id)}>
-              <View className="history-item-header">
-                <Text className="history-date">{dateStr} {timeStr}</Text>
-                <Text className="history-hexagram">
+          <View key={caseItem.id} className='history-item'>
+            <View className='history-item-main' onClick={() => handleLoadCase(caseItem.id)}>
+              <View className='history-item-header'>
+                <Text className='history-date'>{dateStr} {timeStr}</Text>
+                <Text className='history-hexagram'>
                   {caseItem.baseHexName && caseItem.variantHexName
                     ? `${caseItem.baseHexName}→${caseItem.variantHexName}`
                     : '卦象'}
                 </Text>
               </View>
-              <Text className="history-question" numberOfLines={2}>
+              <Text className='history-question' numberOfLines={2}>
                 {caseItem.question || '(无求测事项)'}
               </Text>
               {caseItem.remark && (
-                <Text className="history-remark" numberOfLines={1}>
+                <Text className='history-remark' numberOfLines={1}>
                   💬 {caseItem.remark}
                 </Text>
               )}
             </View>
 
             <Button
-              className="history-item-delete"
+              className='history-item-delete'
               onClick={() => handleDeleteCase(caseItem.id, caseItem.question)}
               disabled={loading}
             >

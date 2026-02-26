@@ -31,11 +31,11 @@ const VersionDisplay: React.FC<VersionDisplayProps> = ({
 
   return (
     <View className={`version-display ${className}`}>
-      <Text className="version-text">
+      <Text className='version-text'>
         v{version}
       </Text>
       {showBuildTime && buildTime && (
-        <Text className="build-time-text">
+        <Text className='build-time-text'>
           Build: {buildTime}
         </Text>
       )}

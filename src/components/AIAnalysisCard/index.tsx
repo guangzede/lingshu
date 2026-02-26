@@ -121,16 +121,16 @@ const AIAnalysisCard: React.FC<AIAnalysisCardProps> = ({ question, result, isFro
   };
 
   return (
-    <View className="ai-analysis-card glass-card">
-      <View className="card-header">
-        <Text className="card-section-title">智能参谋</Text>
-        <Text className="card-section-guide">汲取传统智慧，辅助生活决策</Text>
+    <View className='ai-analysis-card glass-card'>
+      <View className='card-header'>
+        <Text className='card-section-title'>智能参谋</Text>
+        <Text className='card-section-guide'>汲取传统智慧，辅助生活决策</Text>
       </View>
-      <View className="card-body">
-        <Text className="label">此刻想法</Text>
-        <Text className="content">{question || '暂无填写'}</Text>
-        <Text className="label with-gap">解读概要</Text>
-        <Text className="content subtle">本卦：{normalizedResult?.hex?.name ? `${normalizedResult.hex.name}     变卦： ${normalizedResult.variant?.name || '—'}` : '等待生成'}</Text>
+      <View className='card-body'>
+        <Text className='label'>此刻想法</Text>
+        <Text className='content'>{question || '暂无填写'}</Text>
+        <Text className='label with-gap'>解读概要</Text>
+        <Text className='content subtle'>本卦：{normalizedResult?.hex?.name ? `${normalizedResult.hex.name}     变卦： ${normalizedResult.variant?.name || '—'}` : '等待生成'}</Text>
         <AIAssistant
           question={question}
           result={normalizedResult}

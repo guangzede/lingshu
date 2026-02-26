@@ -21,7 +21,7 @@ const BaZiPage: React.FC = () => {
       {activeTab === 'input' && <UserInput />}
       {activeTab === 'result' && <ResultPanel />}
       {activeTab === 'history' && (
-        <div className="bazi-section">
+        <div className='bazi-section'>
           <HistoryPanel />
         </div>
       )}

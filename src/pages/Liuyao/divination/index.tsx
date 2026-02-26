@@ -84,10 +84,10 @@ const LiuyaoDivinationPage: React.FC = () => {
   }, [])
 
   return (
-    <View className="liuyao-divination-page">
+    <View className='liuyao-divination-page'>
       {/* 认证状态栏 */}
       <AuthStatusBar />
-      <TopNav active="divination" />
+      <TopNav active='divination' />
 
       {/* 顶部：模式选择器 */}
       <ModeSelector
@@ -123,10 +123,10 @@ const LiuyaoDivinationPage: React.FC = () => {
 
       {/* 摇卦区域 - 仅摇卦模式 */}
       {mode === 'shake' && (
-        <View className="glass-card shake-section">
-          <View className="card-header">
-            <Text className="card-section-title">摇卦起卦</Text>
-            <Text className="card-section-guide">点击进行摇卦</Text>
+        <View className='glass-card shake-section'>
+          <View className='card-header'>
+            <Text className='card-section-title'>摇卦起卦</Text>
+            <Text className='card-section-guide'>点击进行摇卦</Text>
           </View>
           <ShakeCoins
             step={shakeStep}
@@ -141,22 +141,22 @@ const LiuyaoDivinationPage: React.FC = () => {
 
       {/* 排盘按钮 */}
       {(mode === 'manual' || mode === 'count' || mode === 'auto' || (mode === 'shake' && shakeStep >= 6)) && (
-        <View className="divinate-button-container">
+        <View className='divinate-button-container'>
           <View
-            className="divinate-button"
+            className='divinate-button'
             onClick={handlePaipan}
           >
-            <Text className="divinate-text">{mode === 'shake' ? '开始排盘' : '开始推演'}</Text>
-            <View className="energy-flow" />
+            <Text className='divinate-text'>{mode === 'shake' ? '开始排盘' : '开始推演'}</Text>
+            <View className='energy-flow' />
           </View>
         </View>
       )}
 
       {isComputing && (
-        <View className="divination-loading">
-          <View className="divination-loading-card">
-            <Text className="divination-loading-title">正在排盘</Text>
-            <Text className="divination-loading-desc">天机推演中...</Text>
+        <View className='divination-loading'>
+          <View className='divination-loading-card'>
+            <Text className='divination-loading-title'>正在排盘</Text>
+            <Text className='divination-loading-desc'>天机推演中...</Text>
           </View>
         </View>
       )}

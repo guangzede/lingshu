@@ -157,11 +157,11 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ value, onChange, readOnly =
   const showCloud = !isCompleted && !manualMode && !readOnly
 
   return (
-    <View className="question-card-container">
+    <View className='question-card-container'>
       {/* ==================== Energy Core: Input Area ==================== */}
-      <View className="glass-card question-card energy-core">
-        <View className="card-header">
-          <Text className="card-section-title">决策主题</Text>
+      <View className='glass-card question-card energy-core'>
+        <View className='card-header'>
+          <Text className='card-section-title'>决策主题</Text>
           {/* <Text className="card-section-guide">
             {readOnly
               ? '📋 仅查看 - 已加载的卦例不可修改'
@@ -174,9 +174,9 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ value, onChange, readOnly =
         </View>
 
         {/*统一的输入组件*/}
-        <View className="input-with-button">
+        <View className='input-with-button'>
           {/*输入容器*/}
-          <View className="input-container">
+          <View className='input-container'>
             {/*根据 manualMode 状态渲染不同内容*/}
             <Input
               className={`question-input ${manualMode ? 'manual' : 'tags-mode'}`}
@@ -189,21 +189,21 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ value, onChange, readOnly =
 
             {/*标签模式下的标签显示*/}
             {!manualMode && (
-              <View className="tags-overlay">
+              <View className='tags-overlay'>
                 {selections.map((selection, idx) => (
                   <View
                     key={`tag-${selection.step}-${selection.id}`}
                     onClick={() => handleTagClick(idx)}
-                    className="selected-tag"
+                    className='selected-tag'
                     style={{ opacity: readOnly ? 0.7 : 1, cursor: readOnly ? 'default' : 'pointer' }}
                   >
-                    <View className="tag-content">
-                      <Text className="tag-text">{selection.label}</Text>
+                    <View className='tag-content'>
+                      <Text className='tag-text'>{selection.label}</Text>
                       {selection.desc && (
-                        <Text className="tag-desc">{selection.desc}</Text>
+                        <Text className='tag-desc'>{selection.desc}</Text>
                       )}
                     </View>
-                    {!readOnly && <Text className="tag-close">✕</Text>}
+                    {!readOnly && <Text className='tag-close'>✕</Text>}
                   </View>
                 ))}
 
@@ -211,16 +211,16 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ value, onChange, readOnly =
                 {selections.length === 0 && (
                   value && value.trim() ? (
                     <View
-                      className="selected-tag existing-value"
+                      className='selected-tag existing-value'
                       onClick={() => !readOnly && setManualMode(true)}
                       style={{ cursor: readOnly ? 'default' : 'pointer' }}
                     >
-                      <View className="tag-content">
-                        <Text className="tag-text">{value}</Text>
+                      <View className='tag-content'>
+                        <Text className='tag-text'>{value}</Text>
                       </View>
                       {!readOnly && (
                         <Text
-                          className="tag-close"
+                          className='tag-close'
                           onClick={(e: any) => {
                             e?.stopPropagation?.()
                             onChange('')
@@ -232,7 +232,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ value, onChange, readOnly =
                       )}
                     </View>
                   ) : (
-                    <View className="placeholder-dots">
+                    <View className='placeholder-dots'>
                       <View></View>
                       <View></View>
                       <View></View>
@@ -247,7 +247,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ value, onChange, readOnly =
           {!readOnly && (
             <View
               onClick={() => setManualMode(!manualMode)}
-              className="input-button"
+              className='input-button'
             >
               {manualMode ? '返回选择' : '添加备注'}
             </View>
@@ -256,37 +256,37 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ value, onChange, readOnly =
 
         {/* ==================== Stardust Cloud: Keyword Selection ==================== */}
         {showCloud && (
-          <View className="stardust-cloud">
-            <View className="cloud-header">
+          <View className='stardust-cloud'>
+            <View className='cloud-header'>
               {step > 0 && (
                 <View
                   onClick={() => {
                     setSelections(selections.slice(0, step - 1))
                     setStep((step - 1) as Step)
                   }}
-                  className="back-arrow"
+                  className='back-arrow'
                 >
                   ← 返回
                 </View>
               )}
             </View>
 
-            <View className="cloud-guide-text">点击下方泡泡组合最符合您的想法</View>
+            <View className='cloud-guide-text'>点击下方泡泡组合最符合您的想法</View>
 
-            <View className="keywords-grid">
+            <View className='keywords-grid'>
               {currentKeywords.map((keyword) => (
                 <View
                   key={`keyword-${step}-${keyword.id}`}
                   onClick={() => handleKeywordClick(keyword)}
-                  className="keyword-item"
+                  className='keyword-item'
                 >
-                  <View className="keyword-content">
-                    <Text className="keyword-text">{keyword.label}</Text>
+                  <View className='keyword-content'>
+                    <Text className='keyword-text'>{keyword.label}</Text>
                     {keyword.desc && (
-                      <Text className="keyword-desc">{keyword.desc}</Text>
+                      <Text className='keyword-desc'>{keyword.desc}</Text>
                     )}
                   </View>
-                  <View className="keyword-glow" />
+                  <View className='keyword-glow' />
                 </View>
               ))}
             </View>

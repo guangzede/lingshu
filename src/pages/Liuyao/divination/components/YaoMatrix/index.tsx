@@ -1,8 +1,9 @@
 import React from 'react'
 import { View, Text } from '@tarojs/components'
-const YAO_LABEL_ORDER = ['上爻', '五爻', '四爻', '三爻', '二爻', '初爻']
 import type { LineState } from '../../../types'
 import './index.scss'
+
+const YAO_LABEL_ORDER = ['上爻', '五爻', '四爻', '三爻', '二爻', '初爻']
 
 interface YaoMatrixProps {
   lines: LineState[]
@@ -34,10 +35,10 @@ const YaoMatrix: React.FC<YaoMatrixProps> = ({
   }
 
   return (
-    <View className="glass-card yao-matrix-section">
-      <View className="card-header">
-        <Text className="card-section-title">六爻模型</Text>
-        <Text className="card-section-guide">点击条目切换阴阳状态</Text>
+    <View className='glass-card yao-matrix-section'>
+      <View className='card-header'>
+        <Text className='card-section-title'>六爻模型</Text>
+        <Text className='card-section-guide'>点击条目切换阴阳状态</Text>
       </View>
       {YAO_LABEL_ORDER.map((label, displayIndex) => {
         const realIndex = displayIndex
@@ -45,21 +46,21 @@ const YaoMatrix: React.FC<YaoMatrixProps> = ({
         const isMoving = l.isMoving
 
         return (
-          <View key={label} className="yao-row">
-            <Text className="yao-label-elegant">{label}（{getYaoState(l)}）</Text>
+          <View key={label} className='yao-row'>
+            <Text className='yao-label-elegant'>{label}（{getYaoState(l)}）</Text>
 
             <View
               className={`yao-symbol ${l.isYang ? 'yang' : 'yin'} ${isMoving ? 'moving' : ''} clickable`}
               onClick={() => handleYaoClick(realIndex, l)}
             >
               {l.isYang ? (
-                <View className="yang-line">
-                  <View className="line-segment full" />
+                <View className='yang-line'>
+                  <View className='line-segment full' />
                 </View>
               ) : (
-                <View className="yin-line">
-                  <View className="line-segment left" />
-                  <View className="line-segment right" />
+                <View className='yin-line'>
+                  <View className='line-segment left' />
+                  <View className='line-segment right' />
                 </View>
               )}
             </View>

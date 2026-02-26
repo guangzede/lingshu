@@ -171,9 +171,9 @@ const UserInput: React.FC = () => {
     const p = manualPillars[key]
     const allowedBranches = YANG_STEMS.includes(p.stem) ? YANG_BRANCHES : YIN_BRANCHES
     return (
-      <div className="dlr-pillar-input" key={label}>
-        <div className="dlr-pillar-label">{label}</div>
-        <div className="dlr-pillar-controls">
+      <div className='dlr-pillar-input' key={label}>
+        <div className='dlr-pillar-label'>{label}</div>
+        <div className='dlr-pillar-controls'>
           <select
             value={p.stem}
             onChange={(e) => {
@@ -197,72 +197,72 @@ const UserInput: React.FC = () => {
   }
 
   return (
-    <section className="daliuren-section">
-      <div className="daliuren-card daliuren-input-card">
-        <div className="daliuren-input-header">
-          <div className="daliuren-title">大六壬排盘</div>
-          <div className="daliuren-subtitle">选择起课时间与历法，生成六壬盘</div>
+    <section className='daliuren-section'>
+      <div className='daliuren-card daliuren-input-card'>
+        <div className='daliuren-input-header'>
+          <div className='daliuren-title'>大六壬排盘</div>
+          <div className='daliuren-subtitle'>选择起课时间与历法，生成六壬盘</div>
         </div>
 
-        <div className="daliuren-form">
-          <div className="daliuren-row">
-            <div className="daliuren-label">姓名</div>
-            <div className="daliuren-content">
+        <div className='daliuren-form'>
+          <div className='daliuren-row'>
+            <div className='daliuren-label'>姓名</div>
+            <div className='daliuren-content'>
               <input
-                className="daliuren-text"
+                className='daliuren-text'
                 value={caseName}
                 onChange={(e) => setCaseName(e.target.value)}
-                placeholder="可选"
+                placeholder='可选'
               />
             </div>
           </div>
 
-          <div className="daliuren-row">
-            <div className="daliuren-label">备注</div>
-            <div className="daliuren-content">
+          <div className='daliuren-row'>
+            <div className='daliuren-label'>备注</div>
+            <div className='daliuren-content'>
               <input
-                className="daliuren-text"
+                className='daliuren-text'
                 value={caseNote}
                 onChange={(e) => setCaseNote(e.target.value)}
-                placeholder="可选"
+                placeholder='可选'
               />
             </div>
           </div>
 
-          <div className="daliuren-row">
-            <div className="daliuren-label">主题</div>
-            <div className="daliuren-content">
+          <div className='daliuren-row'>
+            <div className='daliuren-label'>主题</div>
+            <div className='daliuren-content'>
               <input
-                className="daliuren-text"
+                className='daliuren-text'
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
-                placeholder="求测事项 / 主题"
+                placeholder='求测事项 / 主题'
               />
             </div>
           </div>
 
-          <div className="daliuren-row daliuren-toggle-row">
-            <div className="daliuren-toggle-group">
+          <div className='daliuren-row daliuren-toggle-row'>
+            <div className='daliuren-toggle-group'>
               <button className={`daliuren-pill ${calendar === 'solar' && !manualMode ? 'active' : ''}`} onClick={() => { setManualMode(false); setCalendar('solar') }}>公历</button>
               <button className={`daliuren-pill ${calendar === 'lunar' && !manualMode ? 'active' : ''}`} onClick={() => { setManualMode(false); setCalendar('lunar') }}>农历</button>
               <button className={`daliuren-pill ${manualMode ? 'active' : ''}`} onClick={() => setManualMode(true)}>四柱</button>
             </div>
           </div>
 
-          <div className="daliuren-row daliuren-row-clickable" onClick={() => setDateModalOpen(true)}>
-            <div className="daliuren-label">起课时间</div>
-            <div className="daliuren-content">
-              <div className="daliuren-value">{manualMode ? '四柱手动' : displayText}</div>
-              <div className="daliuren-arrow">›</div>
+          <div className='daliuren-row daliuren-row-clickable' onClick={() => setDateModalOpen(true)}>
+            <div className='daliuren-label'>起课时间</div>
+            <div className='daliuren-content'>
+              <div className='daliuren-value'>{manualMode ? '四柱手动' : displayText}</div>
+              <div className='daliuren-arrow'>›</div>
             </div>
           </div>
 
-          <div className="daliuren-row daliuren-row-save">
-            <div className="daliuren-label">保存</div>
-            <div className="daliuren-content">
-              <label className="daliuren-switch">
+          <div className='daliuren-row daliuren-row-save'>
+            <div className='daliuren-label'>保存</div>
+            <div className='daliuren-content'>
+              <label className='daliuren-switch'>
                 <input
-                  type="checkbox"
+                  type='checkbox'
                   checked={autoSave}
                   onChange={(e) => setAutoSave(e.target.checked)}
                 />
@@ -272,7 +272,7 @@ const UserInput: React.FC = () => {
           </div>
 
           <button
-            className="daliuren-primary"
+            className='daliuren-primary'
             onClick={async () => {
               const res = await compute()
               if (res) setActiveTab('result')
@@ -284,10 +284,10 @@ const UserInput: React.FC = () => {
       </div>
 
       {dateModalOpen && (
-        <div className="dlr-modal-mask" onClick={() => setDateModalOpen(false)}>
-          <div className="dlr-modal" onClick={(e) => e.stopPropagation()}>
-            <div className="dlr-modal-body">
-              <div className="dlr-modal-tabs">
+        <div className='dlr-modal-mask' onClick={() => setDateModalOpen(false)}>
+          <div className='dlr-modal' onClick={(e) => e.stopPropagation()}>
+            <div className='dlr-modal-body'>
+              <div className='dlr-modal-tabs'>
                 <button
                   className={`dlr-modal-tab ${calendar === 'solar' && !manualMode ? 'active' : ''}`}
                   onClick={() => {
@@ -314,16 +314,16 @@ const UserInput: React.FC = () => {
                 </button>
               </div>
               {manualMode ? (
-                <div className="dlr-modal-manual">
+                <div className='dlr-modal-manual'>
                   {renderPillarSelect('年柱', 'year')}
                   {renderPillarSelect('月柱', 'month')}
                   {renderPillarSelect('日柱', 'day')}
                   {renderPillarSelect('时柱', 'hour')}
-                  <div className="dlr-inline-note">手动四柱遵循“阳干配阳支、阴干配阴支”规则。</div>
+                  <div className='dlr-inline-note'>手动四柱遵循“阳干配阳支、阴干配阴支”规则。</div>
                 </div>
               ) : (
-                <div className="dlr-modal-wheel">
-                  <div className="dlr-wheel-labels">
+                <div className='dlr-modal-wheel'>
+                  <div className='dlr-wheel-labels'>
                     <span>年</span>
                     <span>月</span>
                     <span>日</span>
@@ -331,7 +331,7 @@ const UserInput: React.FC = () => {
                     <span>分</span>
                   </div>
                   <PickerView
-                    className="dlr-picker"
+                    className='dlr-picker'
                     indicatorStyle={`height: ${PICKER_ROW}px;`}
                     value={pickerValue}
                     onChange={(e) => {

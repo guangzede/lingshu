@@ -27,10 +27,10 @@ const FourPillars: React.FC = () => {
 
   if (!result?.pillars) {
     return (
-      <section className="bazi-section">
-        <div className="bazi-card">
-          <div className="section-title">基本排盘</div>
-          <div className="empty">暂无排盘结果</div>
+      <section className='bazi-section'>
+        <div className='bazi-card'>
+          <div className='section-title'>基本排盘</div>
+          <div className='empty'>暂无排盘结果</div>
         </div>
       </section>
     )
@@ -130,51 +130,51 @@ const FourPillars: React.FC = () => {
   }
 
   return (
-    <section className="bazi-section">
-      <div className="bazi-card">
-        <div className="section-title">基本排盘</div>
-        <div className="bazi-table-wrap">
-          <table className="bazi-table">
+    <section className='bazi-section'>
+      <div className='bazi-card'>
+        <div className='section-title'>基本排盘</div>
+        <div className='bazi-table-wrap'>
+          <table className='bazi-table'>
             <thead>
               <tr>
-                <th className="row-label">日期</th>
+                <th className='row-label'>日期</th>
                 {columns.map((col) => (
-                  <th key={col.key} className="col-label">
+                  <th key={col.key} className='col-label'>
                     <div>{col.label}</div>
-                    {col.sub ? <div className="col-sub">{col.sub}</div> : null}
+                    {col.sub ? <div className='col-sub'>{col.sub}</div> : null}
                   </th>
                 ))}
               </tr>
             </thead>
             <tbody>
               <tr>
-                <th className="row-label">主星</th>
+                <th className='row-label'>主星</th>
                 {columns.map((col) => (
-                  <td key={`${col.key}-ten`} className="cell-text">{col.data?.tenGod || '--'}</td>
+                  <td key={`${col.key}-ten`} className='cell-text'>{col.data?.tenGod || '--'}</td>
                 ))}
               </tr>
               <tr>
-                <th className="row-label">天干</th>
+                <th className='row-label'>天干</th>
                 {columns.map((col) => (
-                  <td key={`${col.key}-stem`} className="cell-stem">
+                  <td key={`${col.key}-stem`} className='cell-stem'>
                     {col.data?.stem ? <span className={`element-${col.data.stemElement}`}>{col.data.stem}</span> : '--'}
                   </td>
                 ))}
               </tr>
               <tr>
-                <th className="row-label">地支</th>
+                <th className='row-label'>地支</th>
                 {columns.map((col) => (
-                  <td key={`${col.key}-branch`} className="cell-branch">
+                  <td key={`${col.key}-branch`} className='cell-branch'>
                     {col.data?.branch ? <span className={`element-${col.data.branchElement}`}>{col.data.branch}</span> : '--'}
                   </td>
                 ))}
               </tr>
               <tr>
-                <th className="row-label">藏干</th>
+                <th className='row-label'>藏干</th>
                 {columns.map((col) => (
-                  <td key={`${col.key}-hidden`} className="cell-hidden">
+                  <td key={`${col.key}-hidden`} className='cell-hidden'>
                     {col.data?.hiddenStems?.length ? (
-                      <div className="hidden-line">
+                      <div className='hidden-line'>
                         {col.data.hiddenStems.map((h) => (
                           <span key={`${col.key}-${h.stem}-${h.tenGod}`} className={`hidden-stem element-${h.element}`}>
                             {h.stem}
@@ -186,13 +186,13 @@ const FourPillars: React.FC = () => {
                 ))}
               </tr>
               <tr>
-                <th className="row-label">藏干十神</th>
+                <th className='row-label'>藏干十神</th>
                 {columns.map((col) => (
-                  <td key={`${col.key}-hidden-god`} className="cell-hidden">
+                  <td key={`${col.key}-hidden-god`} className='cell-hidden'>
                     {col.data?.hiddenStems?.length ? (
-                      <div className="hidden-god-list">
+                      <div className='hidden-god-list'>
                         {col.data.hiddenStems.map((h) => (
-                          <div key={`${col.key}-${h.stem}-${h.tenGod}-god`} className="hidden-god-line">
+                          <div key={`${col.key}-${h.stem}-${h.tenGod}-god`} className='hidden-god-line'>
                             {h.tenGod}
                           </div>
                         ))}
@@ -204,42 +204,42 @@ const FourPillars: React.FC = () => {
               {viewMode === 'pro' && (
                 <>
                   <tr>
-                    <th className="row-label">星运</th>
+                    <th className='row-label'>星运</th>
                     {columns.map((col) => (
-                      <td key={`${col.key}-star`} className="cell-text">{col.data?.star || '--'}</td>
+                      <td key={`${col.key}-star`} className='cell-text'>{col.data?.star || '--'}</td>
                     ))}
                   </tr>
                   <tr>
-                    <th className="row-label">自坐</th>
+                    <th className='row-label'>自坐</th>
                     {columns.map((col) => (
-                      <td key={`${col.key}-self`} className="cell-text">{col.data?.selfStar || '--'}</td>
+                      <td key={`${col.key}-self`} className='cell-text'>{col.data?.selfStar || '--'}</td>
                     ))}
                   </tr>
                   <tr>
-                    <th className="row-label">空亡</th>
+                    <th className='row-label'>空亡</th>
                     {columns.map((col) => (
-                      <td key={`${col.key}-xun`} className="cell-text">{col.data?.xunKong?.join('') || '--'}</td>
+                      <td key={`${col.key}-xun`} className='cell-text'>{col.data?.xunKong?.join('') || '--'}</td>
                     ))}
                   </tr>
                 </>
               )}
-              <tr className="nayin-row">
-                <th className="row-label">纳音</th>
+              <tr className='nayin-row'>
+                <th className='row-label'>纳音</th>
                 {columns.map((col) => (
-                  <td key={`${col.key}-nayin`} className="cell-text">{col.data?.naYin || '--'}</td>
+                  <td key={`${col.key}-nayin`} className='cell-text'>{col.data?.naYin || '--'}</td>
                 ))}
               </tr>
               {viewMode === 'pro' && (
                 <tr>
-                  <th className="row-label">神煞</th>
+                  <th className='row-label'>神煞</th>
                   {columns.map((col) => {
                     const list = pickShenSha(col.key, col.data?.stem, col.data?.branch)
                     return (
-                      <td key={`${col.key}-shensha`} className="cell-shensha">
+                      <td key={`${col.key}-shensha`} className='cell-shensha'>
                         {list.length ? (
-                          <div className="shen-wrap">
+                          <div className='shen-wrap'>
                             {list.map((name) => (
-                              <span key={`${col.key}-${name}`} className="shen-item">{name}</span>
+                              <span key={`${col.key}-${name}`} className='shen-item'>{name}</span>
                             ))}
                           </div>
                         ) : '--'}

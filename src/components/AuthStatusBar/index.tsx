@@ -68,21 +68,21 @@ const AuthStatusBar: React.FC = () => {
         onClick={handleNavigate}
       >
         {!isLoggedIn ? (
-          <View className="auth-status-content">
-            <Text className="auth-status-text">未登录 · 点击登录</Text>
+          <View className='auth-status-content'>
+            <Text className='auth-status-text'>未登录 · 点击登录</Text>
           </View>
         ) : (
-          <View className="auth-status-content logged-content">
-            <View className="user-info">
-              <Text className="username-text">{username}</Text>
-              <Text className="go-to-text">已登录</Text>
+          <View className='auth-status-content logged-content'>
+            <View className='user-info'>
+              <Text className='username-text'>{username}</Text>
+              <Text className='go-to-text'>已登录</Text>
             </View>
-            <View className="arrow-icon">›</View>
+            <View className='arrow-icon'>›</View>
           </View>
         )}
       </View>
       {/* 未登录时添加占位符，防止内容被 fixed 组件遮挡 */}
-      {!isLoggedIn && <View className="auth-status-spacer" />}
+      {!isLoggedIn && <View className='auth-status-spacer' />}
     </>
   )
 }

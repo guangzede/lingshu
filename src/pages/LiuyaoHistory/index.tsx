@@ -85,62 +85,62 @@ const LiuyaoHistoryPage: React.FC = () => {
   }
 
   return (
-    <View className="liuyao-history-page">
-      <TopNav active="history" />
-      <View className="history-header">
-        <Text className="history-title">复盘</Text>
-        <Text className="history-count">共 {cases.length} 条锦囊</Text>
+    <View className='liuyao-history-page'>
+      <TopNav active='history' />
+      <View className='history-header'>
+        <Text className='history-title'>复盘</Text>
+        <Text className='history-count'>共 {cases.length} 条锦囊</Text>
       </View>
 
       {isLoading ? (
-        <View className="history-empty">
-          <Text className="empty-text">加载中...</Text>
+        <View className='history-empty'>
+          <Text className='empty-text'>加载中...</Text>
         </View>
       ) : cases.length === 0 ? (
-        <View className="history-empty">
-          <Text className="empty-text">暂无保存的卦例</Text>
+        <View className='history-empty'>
+          <Text className='empty-text'>暂无保存的卦例</Text>
         </View>
       ) : (
-        <ScrollView scrollY className="history-content">
-          <View className="history-list">
+        <ScrollView scrollY className='history-content'>
+          <View className='history-list'>
             {cases.map((item, idx) => (
-              <View key={item.id} className="case-card">
+              <View key={item.id} className='case-card'>
                 {/* 卦例标题和时间 */}
-                <View className="case-header">
-                  <Text className="case-number-title">
+                <View className='case-header'>
+                  <Text className='case-number-title'>
                     {idx + 1}. {item.question || '未记录您的想法'}
                   </Text>
-                  <Text className="case-time">
+                  <Text className='case-time'>
                     {formatDate(item.dateValue, item.timeValue)}
                   </Text>
                 </View>
 
                 {/* 卦象信息 */}
-                <View className="hexagram-info">
-                  <View className="hexagram-item">
-                    <Text className="hexagram-label">本卦</Text>
-                    <Text className="hexagram-name">{item.baseHexName || '—'}</Text>
+                <View className='hexagram-info'>
+                  <View className='hexagram-item'>
+                    <Text className='hexagram-label'>本卦</Text>
+                    <Text className='hexagram-name'>{item.baseHexName || '—'}</Text>
                   </View>
-                  <View className="hexagram-item">
-                    <Text className="hexagram-label">变卦</Text>
-                    <Text className="hexagram-name">{item.variantHexName || '—'}</Text>
+                  <View className='hexagram-item'>
+                    <Text className='hexagram-label'>变卦</Text>
+                    <Text className='hexagram-name'>{item.variantHexName || '—'}</Text>
                   </View>
                 </View>
 
                 {/* 备注 */}
                 {item.remark && (
-                  <View className="remark-section">
-                    <Text className="remark-label">备注</Text>
-                    <Text className="remark-text">{item.remark}</Text>
+                  <View className='remark-section'>
+                    <Text className='remark-label'>备注</Text>
+                    <Text className='remark-text'>{item.remark}</Text>
                   </View>
                 )}
 
                 {/* 操作按钮 */}
-                <View className="case-actions">
-                  <Button className="btn-load" onClick={() => handleLoadCase(item.id)}>
+                <View className='case-actions'>
+                  <Button className='btn-load' onClick={() => handleLoadCase(item.id)}>
                     加载
                   </Button>
-                  <Button className="btn-delete" onClick={() => handleDeleteCase(item.id)}>
+                  <Button className='btn-delete' onClick={() => handleDeleteCase(item.id)}>
                     删除
                   </Button>
                 </View>
@@ -151,8 +151,8 @@ const LiuyaoHistoryPage: React.FC = () => {
       )}
 
       {/* 底部返回按钮 */}
-      <View className="history-footer">
-        <Button className="btn-back" onClick={() => Taro.redirectTo({ url: '/pages/index/index' })}>
+      <View className='history-footer'>
+        <Button className='btn-back' onClick={() => Taro.redirectTo({ url: '/pages/index/index' })}>
           返回
         </Button>
       </View>

@@ -39,16 +39,16 @@ const ModalPortal: React.FC = () => {
   if (!visible) return null
 
   return (
-    <View className="qrcode-modal" onClick={() => Taro.eventCenter.trigger('closeQRModal')}>
-      <View className="qrcode-content" onClick={(e: any) => e?.stopPropagation?.()}>
-        <View className="qrcode-header">
-          <Text className="qrcode-title">共同学习</Text>
-          <Text className="qrcode-close" onClick={() => Taro.eventCenter.trigger('closeQRModal')}>✕</Text>
+    <View className='qrcode-modal' onClick={() => Taro.eventCenter.trigger('closeQRModal')}>
+      <View className='qrcode-content' onClick={(e: any) => e?.stopPropagation?.()}>
+        <View className='qrcode-header'>
+          <Text className='qrcode-title'>共同学习</Text>
+          <Text className='qrcode-close' onClick={() => Taro.eventCenter.trigger('closeQRModal')}>✕</Text>
         </View>
         {payload?.image && (
-          <Image className="qrcode-image" src={payload.image} mode="widthFix" showMenuByLongpress />
+          <Image className='qrcode-image' src={payload.image} mode='widthFix' showMenuByLongpress />
         )}
-        <Text className="qrcode-tip">长按识别二维码或保存图片</Text>
+        <Text className='qrcode-tip'>长按识别二维码或保存图片</Text>
       </View>
     </View>
   )

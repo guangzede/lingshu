@@ -13,10 +13,10 @@ const EnergyFlowDirection: React.FC = () => {
 
   if (!result?.wuxing) {
     return (
-      <section className="bazi-section bazi-section-full">
-        <div className="bazi-card">
-          <div className="section-title">五行能量流转</div>
-          <div className="empty">暂无排盘结果</div>
+      <section className='bazi-section bazi-section-full'>
+        <div className='bazi-card'>
+          <div className='section-title'>五行能量流转</div>
+          <div className='empty'>暂无排盘结果</div>
         </div>
       </section>
     )
@@ -29,27 +29,27 @@ const EnergyFlowDirection: React.FC = () => {
   const seq = buildFlowSeq(maxElement)
 
   return (
-    <section className="bazi-section bazi-section-full">
-      <div className="bazi-card">
-        <div className="section-title">五行能量流转</div>
-        <div className="flow-card">
-          <div className="flow-top">
+    <section className='bazi-section bazi-section-full'>
+      <div className='bazi-card'>
+        <div className='section-title'>五行能量流转</div>
+        <div className='flow-card'>
+          <div className='flow-top'>
             <div className={`flow-mode ${isGreedy ? 'is-strong' : ''}`}>{isGreedy ? '贪生忘克' : '生克并行'}</div>
-            <div className="flow-main">
+            <div className='flow-main'>
               <span className={`flow-main-element element-${maxElement}`}>{maxElement}</span>
-              <span className="flow-main-percent">{max?.percent ?? '--'}%</span>
+              <span className='flow-main-percent'>{max?.percent ?? '--'}%</span>
             </div>
           </div>
-          <div className="flow-track">
+          <div className='flow-track'>
             {seq.map((el, idx) => (
               <React.Fragment key={`${el}-${idx}`}>
                 <div className={`flow-node element-${el} ${el === maxElement ? 'active' : ''}`}>{el}</div>
-                {idx < seq.length - 1 && <span className="flow-arrow">→</span>}
+                {idx < seq.length - 1 && <span className='flow-arrow'>→</span>}
               </React.Fragment>
             ))}
-            <span className="flow-loop">⟲</span>
+            <span className='flow-loop'>⟲</span>
           </div>
-          <div className="flow-note">
+          <div className='flow-note'>
             {isGreedy
               ? '主气过旺，偏向相生循环，克制力量被弱化。'
               : '五行分布较均衡，生克关系相对完整。'}

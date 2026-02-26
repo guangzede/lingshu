@@ -23,14 +23,14 @@ const YaoAnalysis: React.FC<YaoAnalysisProps> = ({ result }) => {
   }
 
   return (
-    <View className="yao-analysis-section">
-      <View className="yao-analysis-header">
-        <Text className="yao-analysis-title">爻位动态</Text>
+    <View className='yao-analysis-section'>
+      <View className='yao-analysis-header'>
+        <Text className='yao-analysis-title'>爻位动态</Text>
       </View>
 
       {yaoUi.length === 0 && (
-        <View className="yao-analysis-empty">
-          <Text className="yao-analysis-empty-text">暂无爻位动态，请先完成排盘</Text>
+        <View className='yao-analysis-empty'>
+          <Text className='yao-analysis-empty-text'>暂无爻位动态，请先完成排盘</Text>
         </View>
       )}
 
@@ -59,16 +59,16 @@ const YaoAnalysis: React.FC<YaoAnalysisProps> = ({ result }) => {
         const mergedTags = Array.from(tagMap.values())
 
         return (
-          <View key={item.yaoIndex} className="yao-analysis-item">
-            <View className="yao-analysis-item-header">
-              <Text className="yao-analysis-label">
+          <View key={item.yaoIndex} className='yao-analysis-item'>
+            <View className='yao-analysis-item-header'>
+              <Text className='yao-analysis-label'>
                 {item.yaoLabel} {item.yaoInfo}
-                {isMoving ? <Text className="moving-tag">（动爻）</Text> : null}
+                {isMoving ? <Text className='moving-tag'>（动爻）</Text> : null}
                 {fiveElement ? (
                   <Text className={`wuxing-tag ${wuxingClass}`}>五行·{fiveElement}</Text>
                 ) : null}
               </Text>
-              <Text className="yao-analysis-strength">
+              <Text className='yao-analysis-strength'>
                 {seasonStrength ? (
                   <Text className={strengthClass}>{seasonStrength}</Text>
                 ) : ''}
@@ -79,33 +79,33 @@ const YaoAnalysis: React.FC<YaoAnalysisProps> = ({ result }) => {
 
             {/* 动爻分析：以当前动爻为主语 */}
             {isMoving && analysis && analysis.relations.length > 0 && (
-              <Text className="yao-analysis-relations">
+              <Text className='yao-analysis-relations'>
                 {analysis.relations.join('，')}
               </Text>
             )}
 
             {/* 与变卦同位爻的关系（仅动爻显示） */}
             {isMoving && item.variantRelation && (
-              <Text className="yao-analysis-variant">与变卦：{item.variantRelation}</Text>
+              <Text className='yao-analysis-variant'>与变卦：{item.variantRelation}</Text>
             )}
 
             {energyLine && (
-              <View className="yao-analysis-energy">
-                <Text className="yao-analysis-energy-score">
+              <View className='yao-analysis-energy'>
+                <Text className='yao-analysis-energy-score'>
                   初始分：{energyLine.baseScore} | 最终分：{energyLine.finalScore}（{energyLine.level}）
                 </Text>
               </View>
             )}
 
             {mergedTags.length > 0 && (
-              <View className="yao-analysis-tags">
+              <View className='yao-analysis-tags'>
                 {mergedTags.map((tag: any) => (
                   <View
                     key={`${tag.code || tag.label}-${tag.label}`}
                     className={`yao-tag-item yao-tag-${tag.type || 'neutral'}`}
                     onClick={() => handleTagClick(tag)}
                   >
-                    <Text className="yao-tag-label">{tag.label}</Text>
+                    <Text className='yao-tag-label'>{tag.label}</Text>
                   </View>
                 ))}
               </View>

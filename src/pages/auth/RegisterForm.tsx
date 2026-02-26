@@ -73,48 +73,48 @@ export default function RegisterForm() {
   };
 
   return (
-    <View className="auth-form">
+    <View className='auth-form'>
       <Input
-        className="auth-input"
-        placeholder="用户名"
+        className='auth-input'
+        placeholder='用户名'
         value={username}
         onInput={e => setUsername(e.detail.value)}
       />
       <Input
-        className="auth-input"
-        placeholder="密码"
+        className='auth-input'
+        placeholder='密码'
         password
         value={password}
         onInput={e => setPassword(e.detail.value)}
       />
       <Input
-        className="auth-input"
-        placeholder="手机号"
+        className='auth-input'
+        placeholder='手机号'
         value={phone}
         onInput={e => setPhone(e.detail.value)}
       />
       <Input
-        className="auth-input"
-        placeholder="邀请码（选填）"
+        className='auth-input'
+        placeholder='邀请码（选填）'
         value={inviteCode}
         onInput={e => setInviteCode(e.detail.value)}
       />
-      <View className="auth-agreement">
+      <View className='auth-agreement'>
         <View className={`auth-checkbox ${agreed ? 'checked' : ''}`} onClick={() => setAgreed(!agreed)} />
-        <Text className="auth-agreement-text">我已阅读并同意</Text>
-        <Text className="auth-agreement-link" onClick={() => setShowAgreement(true)}>《用户协议与隐私政策》</Text>
+        <Text className='auth-agreement-text'>我已阅读并同意</Text>
+        <Text className='auth-agreement-link' onClick={() => setShowAgreement(true)}>《用户协议与隐私政策》</Text>
       </View>
       {/* 预留可编辑项 */}
-      {error && <View className="auth-error">{error}</View>}
-      <Button className="auth-btn" onClick={handleRegister}>注册</Button>
+      {error && <View className='auth-error'>{error}</View>}
+      <Button className='auth-btn' onClick={handleRegister}>注册</Button>
       {showAgreement && (
-        <View className="auth-modal-mask" onClick={() => setShowAgreement(false)}>
-          <View className="auth-modal" onClick={e => e.stopPropagation()}>
-            <View className="auth-modal-title">协议预览</View>
-            <View className="auth-modal-content">
+        <View className='auth-modal-mask' onClick={() => setShowAgreement(false)}>
+          <View className='auth-modal' onClick={e => e.stopPropagation()}>
+            <View className='auth-modal-title'>协议预览</View>
+            <View className='auth-modal-content'>
               <MarkdownRenderer content={agreementMarkdown} />
             </View>
-            <Button className="auth-modal-btn" onClick={() => setShowAgreement(false)}>关闭</Button>
+            <Button className='auth-modal-btn' onClick={() => setShowAgreement(false)}>关闭</Button>
           </View>
         </View>
       )}

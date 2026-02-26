@@ -114,32 +114,32 @@ const AiAnalysis: React.FC = () => {
   })()
 
   return (
-    <section className="bazi-section ai-analysis">
-      <div className="bazi-card">
-        <div className="section-title">AI详解2026年运势报告</div>
-        <div className="ai-actions">
-          <button className="bazi-primary-btn" onClick={handleGenerate}>生成报告</button>
-          {!isLoggedIn && <span className="ai-hint">未登录仅展示摘要与模糊全文</span>}
+    <section className='bazi-section ai-analysis'>
+      <div className='bazi-card'>
+        <div className='section-title'>AI详解2026年运势报告</div>
+        <div className='ai-actions'>
+          <button className='bazi-primary-btn' onClick={handleGenerate}>生成报告</button>
+          {!isLoggedIn && <span className='ai-hint'>未登录仅展示摘要与模糊全文</span>}
         </div>
 
-        <div className="ai-report-grid">
-          <div className="ai-panel">
-            <div className="ai-panel-title">摘要预览</div>
-            <div className="ai-panel-body">{previewDisplay}</div>
+        <div className='ai-report-grid'>
+          <div className='ai-panel'>
+            <div className='ai-panel-title'>摘要预览</div>
+            <div className='ai-panel-body'>{previewDisplay}</div>
           </div>
 
-          <div className="ai-panel ai-panel-full">
-            <div className="ai-panel-title">完整报告</div>
+          <div className='ai-panel ai-panel-full'>
+            <div className='ai-panel-title'>完整报告</div>
             <div className={`ai-panel-body ${isLoggedIn && isUnlocked ? '' : 'blur'}`}>
               {fullDisplay}
             </div>
             {!isLoggedIn && (
-              <div className="ai-mask">
+              <div className='ai-mask'>
                 <div>登录后解锁完整内容</div>
               </div>
             )}
             {isLoggedIn && !isUnlocked && status === 'done' && (
-              <div className="ai-mask">
+              <div className='ai-mask'>
                 <div>充值会员后可解锁全文（暂未开放充值）</div>
               </div>
             )}

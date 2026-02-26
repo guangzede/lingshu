@@ -67,7 +67,7 @@ const TestPage: React.FC = () => {
         return <YaoMatrix {...mockData.yaoMatrix} />;
       default:
         return (
-          <View className="default-message">
+          <View className='default-message'>
             <Text>请输入正确的组件ID，例如：/test/1</Text>
             <Text>组件ID对应关系：</Text>
             <Text>1: AIAnalysisCard</Text>
@@ -88,14 +88,14 @@ const TestPage: React.FC = () => {
   };
 
   return (
-    <View className="test-page">
-      <View className="page-header">
-        <Text className="page-title">组件测试页面</Text>
-        <Text className="component-info">
+    <View className='test-page'>
+      <View className='page-header'>
+        <Text className='page-title'>组件测试页面</Text>
+        <Text className='component-info'>
           当前测试组件：{componentName || '未知组件'}
         </Text>
       </View>
-      <View className="component-container">
+      <View className='component-container'>
         {renderComponent()}
       </View>
     </View>

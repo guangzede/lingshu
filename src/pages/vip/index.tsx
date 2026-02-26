@@ -101,78 +101,78 @@ export default function VipPage() {
   if (!user) return null;
 
   return (
-    <View className="vip-page">
-      <View className="vip-hero">
-        <View className="vip-hero__glow" />
-        <Text className="vip-hero__title">会员中心</Text>
-        <Text className="vip-hero__subtitle">解锁更深层的卦象指引</Text>
-        <View className="vip-hero__card">
-          <View className="vip-hero__card-left">
-            <Text className="vip-hero__label">当前状态</Text>
-            <Text className="vip-hero__value">{isVip ? '已开通' : '未开通'}</Text>
-            <Text className="vip-hero__hint">到期时间：{formatDate(memberExpireAt)}</Text>
+    <View className='vip-page'>
+      <View className='vip-hero'>
+        <View className='vip-hero__glow' />
+        <Text className='vip-hero__title'>会员中心</Text>
+        <Text className='vip-hero__subtitle'>解锁更深层的卦象指引</Text>
+        <View className='vip-hero__card'>
+          <View className='vip-hero__card-left'>
+            <Text className='vip-hero__label'>当前状态</Text>
+            <Text className='vip-hero__value'>{isVip ? '已开通' : '未开通'}</Text>
+            <Text className='vip-hero__hint'>到期时间：{formatDate(memberExpireAt)}</Text>
           </View>
-          <View className="vip-hero__card-right">
-            <Text className="vip-hero__label">灵石余额</Text>
-            <Text className="vip-hero__value">{balance}</Text>
-            <Text className="vip-hero__hint">可用于兑换会员与券</Text>
-          </View>
-        </View>
-      </View>
-
-      <View className="vip-section">
-        <Text className="vip-section__title">会员权益</Text>
-        <View className="vip-benefits">
-          <View className="vip-benefit">
-            <Text className="vip-benefit__title">高级断语</Text>
-            <Text className="vip-benefit__desc">更深层卦象解读与趋势提示</Text>
-          </View>
-          <View className="vip-benefit">
-            <Text className="vip-benefit__title">专属配额</Text>
-            <Text className="vip-benefit__desc">会员免扣费，次数不受限</Text>
-          </View>
-          <View className="vip-benefit">
-            <Text className="vip-benefit__title">优先体验</Text>
-            <Text className="vip-benefit__desc">新功能先行开放测试</Text>
+          <View className='vip-hero__card-right'>
+            <Text className='vip-hero__label'>灵石余额</Text>
+            <Text className='vip-hero__value'>{balance}</Text>
+            <Text className='vip-hero__hint'>可用于兑换会员与券</Text>
           </View>
         </View>
       </View>
 
-      <View className="vip-section">
-        <Text className="vip-section__title">当前配额</Text>
-        <View className="vip-quota">
-          <View className="vip-quota__item">
-            <Text className="vip-quota__label">每日免费</Text>
-            <Text className="vip-quota__value">{status?.dailyFreeQuota ?? 0}</Text>
+      <View className='vip-section'>
+        <Text className='vip-section__title'>会员权益</Text>
+        <View className='vip-benefits'>
+          <View className='vip-benefit'>
+            <Text className='vip-benefit__title'>高级断语</Text>
+            <Text className='vip-benefit__desc'>更深层卦象解读与趋势提示</Text>
           </View>
-          <View className="vip-quota__item">
-            <Text className="vip-quota__label">赠送次数</Text>
-            <Text className="vip-quota__value">{status?.bonusQuota ?? 0}</Text>
+          <View className='vip-benefit'>
+            <Text className='vip-benefit__title'>专属配额</Text>
+            <Text className='vip-benefit__desc'>会员免扣费，次数不受限</Text>
           </View>
-          <View className="vip-quota__item">
-            <Text className="vip-quota__label">是否可用</Text>
-            <Text className="vip-quota__value">{status?.canDivine ? '可排盘' : '不可排盘'}</Text>
-          </View>
-          <View className="vip-quota__item vip-quota__full">
-            <Text className="vip-quota__label">提示</Text>
-            <Text className="vip-quota__value">{status?.reason || '—'}</Text>
+          <View className='vip-benefit'>
+            <Text className='vip-benefit__title'>优先体验</Text>
+            <Text className='vip-benefit__desc'>新功能先行开放测试</Text>
           </View>
         </View>
       </View>
 
-      <View className="vip-section">
-        <Text className="vip-section__title">灵石兑换</Text>
-        <View className="vip-exchange">
+      <View className='vip-section'>
+        <Text className='vip-section__title'>当前配额</Text>
+        <View className='vip-quota'>
+          <View className='vip-quota__item'>
+            <Text className='vip-quota__label'>每日免费</Text>
+            <Text className='vip-quota__value'>{status?.dailyFreeQuota ?? 0}</Text>
+          </View>
+          <View className='vip-quota__item'>
+            <Text className='vip-quota__label'>赠送次数</Text>
+            <Text className='vip-quota__value'>{status?.bonusQuota ?? 0}</Text>
+          </View>
+          <View className='vip-quota__item'>
+            <Text className='vip-quota__label'>是否可用</Text>
+            <Text className='vip-quota__value'>{status?.canDivine ? '可排盘' : '不可排盘'}</Text>
+          </View>
+          <View className='vip-quota__item vip-quota__full'>
+            <Text className='vip-quota__label'>提示</Text>
+            <Text className='vip-quota__value'>{status?.reason || '—'}</Text>
+          </View>
+        </View>
+      </View>
+
+      <View className='vip-section'>
+        <Text className='vip-section__title'>灵石兑换</Text>
+        <View className='vip-exchange'>
           {EXCHANGE_OPTIONS.map((opt) => {
             const disabled = loadingType !== null || (balance ?? 0) < opt.cost;
             return (
-              <View key={opt.value} className="vip-exchange__card">
-                <View className="vip-exchange__tag">{opt.tag}</View>
-                <Text className="vip-exchange__title">{opt.label}</Text>
-                <Text className="vip-exchange__desc">{opt.desc}</Text>
-                <View className="vip-exchange__price">
-                  <Text className="vip-exchange__price-num">{opt.cost}</Text>
-                  <Text className="vip-exchange__price-unit">灵石</Text>
+              <View key={opt.value} className='vip-exchange__card'>
+                <View className='vip-exchange__tag'>{opt.tag}</View>
+                <Text className='vip-exchange__title'>{opt.label}</Text>
+                <Text className='vip-exchange__desc'>{opt.desc}</Text>
+                <View className='vip-exchange__price'>
+                  <Text className='vip-exchange__price-num'>{opt.cost}</Text>
+                  <Text className='vip-exchange__price-unit'>灵石</Text>
                 </View>
                 <Button
                   className={disabled ? 'vip-exchange__btn vip-exchange__btn--disabled' : 'vip-exchange__btn'}

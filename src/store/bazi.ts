@@ -215,7 +215,7 @@ export const useBaziStore = create<BaziState>((set, get) => ({
       let luckStart: any = {}
       let isForward = true
 
-      let extra: any = undefined
+      let extra: any
 
       if (state.manualMode) {
         pillars = state.manualPillars

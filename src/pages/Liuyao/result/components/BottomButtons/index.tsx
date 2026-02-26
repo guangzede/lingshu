@@ -46,10 +46,10 @@ const BottomButtons: React.FC<BottomButtonsProps> = ({ isLoadingHistory, hasResu
 
   if (isLoadingHistory) {
     return (
-      <View className="bottom-buttons-container">
+      <View className='bottom-buttons-container'>
         <Button
           onClick={handleViewHistory}
-          className="btn-view-history"
+          className='btn-view-history'
         >
           返回卦簿
         </Button>
@@ -58,17 +58,17 @@ const BottomButtons: React.FC<BottomButtonsProps> = ({ isLoadingHistory, hasResu
   }
 
   return (
-    <View className="bottom-buttons-container">
+    <View className='bottom-buttons-container'>
       <Button
         onClick={handleSaveCase}
         disabled={!hasResult}
-        className="btn-save-case"
+        className='btn-save-case'
       >
         保存案例
       </Button>
       <Button
         onClick={handleViewHistory}
-        className="btn-view-history"
+        className='btn-view-history'
       >
         历史记录
       </Button>

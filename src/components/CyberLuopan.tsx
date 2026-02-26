@@ -254,7 +254,7 @@ const CyberLuopan: React.FC<CyberLuopanProps> = ({ isComputing = false, animatio
           side={THREE.DoubleSide}
           metalness={0.65}
           roughness={0.35}
-          emissive="#FFD700"
+          emissive='#FFD700'
           emissiveIntensity={0.9}
           depthTest={false}
         />
@@ -281,7 +281,7 @@ const CyberLuopan: React.FC<CyberLuopanProps> = ({ isComputing = false, animatio
             metalness={1.0} // 提升金属感
             roughness={0.25}
             map={textures[i]} // 应用纹理贴图（文字）
-            emissive="#FFD700" // 自发光颜色（金色）
+            emissive='#FFD700' // 自发光颜色（金色）
             emissiveMap={textures[i]} // 自发光贴图（根据纹理的亮度自发光）
             emissiveIntensity={2.5} // 自发光强度很高（明亮的金色发光）
             transparent // 启用透明度支持

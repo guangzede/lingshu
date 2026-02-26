@@ -2,6 +2,8 @@ import React from 'react'
 import Taro from '@tarojs/taro'
 import { View, Text, Canvas } from '@tarojs/components'
 import './index.scss'
+ 
+import { WUXING_COLORS } from '@/constants/luopanData'
 
 interface Props {
   metal: { base: number }
@@ -10,8 +12,6 @@ interface Props {
   fire: { base: number }
   earth: { base: number }
 }
- 
-import { WUXING_COLORS } from '@/constants/luopanData'
 
 const FiveElementsAnalysis: React.FC<Props> = ({ metal, wood, water, fire, earth }) => {
   const baseItems = React.useMemo(
@@ -163,29 +163,29 @@ const FiveElementsAnalysis: React.FC<Props> = ({ metal, wood, water, fire, earth
   }, [baseItems])
 
   return (
-    <View className="five-elements-card glass-card">
-      <View className="card-header">
-        <Text className="card-section-title">五行能量分析</Text>
-        <Text className="card-section-guide">直观感受能量强弱</Text>
+    <View className='five-elements-card glass-card'>
+      <View className='card-header'>
+        <Text className='card-section-title'>五行能量分析</Text>
+        <Text className='card-section-guide'>直观感受能量强弱</Text>
       </View>
-      <View className="card-body">
-        <View className="radar-container">
-          <View className="radar-col" style={{ width: '70%', maxWidth: '70%', margin: '0 auto' }}>
-            <Text className="radar-title">五行分布</Text>
-            <View className="radar-wrap">
+      <View className='card-body'>
+        <View className='radar-container'>
+          <View className='radar-col' style={{ width: '70%', maxWidth: '70%', margin: '0 auto' }}>
+            <Text className='radar-title'>五行分布</Text>
+            <View className='radar-wrap'>
               <Canvas
-                className="radar-canvas"
-                id="five-elements-base"
-                canvasId="five-elements-base"
-                type="2d"
+                className='radar-canvas'
+                id='five-elements-base'
+                canvasId='five-elements-base'
+                type='2d'
                 style={{ width: '70vw', height: '70vw', maxWidth: 500, maxHeight: 500, display: 'block' }}
               />
-              <View className="radar-legend">
+              <View className='radar-legend'>
                 {baseItems.map((item) => (
-                  <View key={item.key} className="legend-item">
-                    <View className="legend-dot" style={{ backgroundColor: item.color }} />
-                    <Text className="legend-label">{item.key}</Text>
-                    <Text className="legend-value">{item.value}</Text>
+                  <View key={item.key} className='legend-item'>
+                    <View className='legend-dot' style={{ backgroundColor: item.color }} />
+                    <Text className='legend-label'>{item.key}</Text>
+                    <Text className='legend-value'>{item.value}</Text>
                   </View>
                 ))}
               </View>

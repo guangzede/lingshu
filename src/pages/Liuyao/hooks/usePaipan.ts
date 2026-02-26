@@ -1,4 +1,5 @@
 import { useCallback } from 'react'
+
 const TRIGRAM_MAP: Record<number, [boolean, boolean, boolean]> = {
   1: [true, true, true],
   2: [true, true, false],

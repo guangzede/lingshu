@@ -106,14 +106,14 @@ const LuckTrack: React.FC = () => {
     const keywords = [stemInfo?.keywords, branchInfo?.keywords].filter(Boolean).join(' / ') || '--'
     const desc = [stemInfo?.desc, branchInfo?.desc].filter(Boolean).join('；') || '暂无解读信息'
     return (
-      <div className="luck-detail-card">
-        <div className="detail-title">{title}</div>
-        <div className="detail-line">
+      <div className='luck-detail-card'>
+        <div className='detail-title'>{title}</div>
+        <div className='detail-line'>
           <span>干：{stem || '--'} · {stemTen || '--'}</span>
           <span>支：{branch || '--'} · {branchTen || '--'}</span>
         </div>
-        <div className="detail-keywords">关键词：{keywords}</div>
-        <div className="detail-desc">{desc}</div>
+        <div className='detail-keywords'>关键词：{keywords}</div>
+        <div className='detail-desc'>{desc}</div>
       </div>
     )
   }
@@ -128,32 +128,32 @@ const LuckTrack: React.FC = () => {
 
   if (!result?.luck) {
     return (
-      <section className="bazi-section bazi-section-full">
-        <div className="bazi-card">
-          <div className="section-title">大运流年</div>
-          <div className="empty">暂无排盘结果</div>
+      <section className='bazi-section bazi-section-full'>
+        <div className='bazi-card'>
+          <div className='section-title'>大运流年</div>
+          <div className='empty'>暂无排盘结果</div>
         </div>
       </section>
     )
   }
 
   return (
-    <section className="bazi-section bazi-section-full">
-      <div className="bazi-card">
-        <div className="section-title">大运流年</div>
-        <div className="luck-meta">
-          <div className="luck-meta-left">
+    <section className='bazi-section bazi-section-full'>
+      <div className='bazi-card'>
+        <div className='section-title'>大运流年</div>
+        <div className='luck-meta'>
+          <div className='luck-meta-left'>
             <div>起运：{formatAge(result.luck.startAge)}岁 · 交运：{result.luck.startYear ?? '--'}年</div>
             <div>当前年龄：{currentAge ?? '--'} · 司命：{dayStem}</div>
           </div>
-          <button className="luck-today" onClick={handleToday}>今</button>
+          <button className='luck-today' onClick={handleToday}>今</button>
         </div>
 
-        <div className="luck-panel">
-          <div className="luck-row">
-            <div className="luck-label">大运</div>
+        <div className='luck-panel'>
+          <div className='luck-row'>
+            <div className='luck-label'>大运</div>
             {dayunList.length ? (
-              <div className="luck-grid dayun-grid" style={{ ['--count' as any]: dayunList.length }}>
+              <div className='luck-grid dayun-grid' style={{ ['--count' as any]: dayunList.length }}>
                 {dayunList.map((dy: any, idx: number) => {
                   const dyStem = toStem(dy.stem)
                   const dyBranch = toBranch(dy.branch)
@@ -163,18 +163,18 @@ const LuckTrack: React.FC = () => {
                     className={`luck-item dayun-item ${idx === currentIndex ? 'active' : ''}`}
                     onClick={() => setSelectedDaYunIndex(idx)}
                   >
-                    <div className="luck-year">{dy.startYear ?? '--'}</div>
-                    <div className="luck-age">
+                    <div className='luck-year'>{dy.startYear ?? '--'}</div>
+                    <div className='luck-age'>
                       {formatAge(dy.startAge)}{dy.endAge !== undefined ? `~${formatAge(dy.endAge)}` : ''}
                     </div>
-                    <div className="luck-gz-stack">
-                      <div className="luck-gz-line">
+                    <div className='luck-gz-stack'>
+                      <div className='luck-gz-line'>
                         <span className={`luck-char element-${dyStem ? STEM_ELEMENT[dyStem] : ''}`}>{dy.stem || '--'}</span>
-                        <span className="luck-god">{TEN_GOD_SHORT[dy.tenGod] || dy.tenGod}</span>
+                        <span className='luck-god'>{TEN_GOD_SHORT[dy.tenGod] || dy.tenGod}</span>
                       </div>
-                      <div className="luck-gz-line">
+                      <div className='luck-gz-line'>
                         <span className={`luck-char element-${dyBranch ? BRANCH_ELEMENT[dyBranch] : ''}`}>{dy.branch || '--'}</span>
-                        <span className="luck-god">{getBranchTenGodShort(dyBranch)}</span>
+                        <span className='luck-god'>{getBranchTenGodShort(dyBranch)}</span>
                       </div>
                     </div>
                   </button>
@@ -182,14 +182,14 @@ const LuckTrack: React.FC = () => {
                 })}
               </div>
             ) : (
-              <div className="empty">暂无大运信息</div>
+              <div className='empty'>暂无大运信息</div>
             )}
           </div>
 
-          <div className="luck-row">
-            <div className="luck-label">流年</div>
+          <div className='luck-row'>
+            <div className='luck-label'>流年</div>
             {currentDayun?.liuNian?.length ? (
-              <div className="luck-grid liunian-grid" style={{ ['--count' as any]: currentDayun.liuNian.length }}>
+              <div className='luck-grid liunian-grid' style={{ ['--count' as any]: currentDayun.liuNian.length }}>
                 {currentDayun.liuNian.map((ln: any) => {
                   const stem = toStem(ln.ganZhi?.[0])
                   const branch = toBranch(ln.ganZhi?.[1])
@@ -202,15 +202,15 @@ const LuckTrack: React.FC = () => {
                       className={`luck-item liunian-item ${isActive ? 'active' : ''} ${isCurrent ? 'current' : ''}`}
                       onClick={() => setSelectedYear(ln.year)}
                     >
-                      <div className="luck-year">{ln.year}</div>
-                      <div className="luck-gz-stack">
-                        <div className="luck-gz-line">
+                      <div className='luck-year'>{ln.year}</div>
+                      <div className='luck-gz-stack'>
+                        <div className='luck-gz-line'>
                           <span className={`luck-char element-${stem ? STEM_ELEMENT[stem] : ''}`}>{stem || '--'}</span>
-                          <span className="luck-god">{TEN_GOD_SHORT[ln.tenGod] || ln.tenGod}</span>
+                          <span className='luck-god'>{TEN_GOD_SHORT[ln.tenGod] || ln.tenGod}</span>
                         </div>
-                        <div className="luck-gz-line">
+                        <div className='luck-gz-line'>
                           <span className={`luck-char element-${branch ? BRANCH_ELEMENT[branch] : ''}`}>{branch || '--'}</span>
-                          <span className="luck-god">{branchTen}</span>
+                          <span className='luck-god'>{branchTen}</span>
                         </div>
                       </div>
                     </div>
@@ -218,14 +218,14 @@ const LuckTrack: React.FC = () => {
                 })}
               </div>
             ) : (
-              <div className="empty">暂无流年信息</div>
+              <div className='empty'>暂无流年信息</div>
             )}
           </div>
 
-          <div className="luck-row">
-            <div className="luck-label">流月</div>
+          <div className='luck-row'>
+            <div className='luck-label'>流月</div>
             {liuYueList.length ? (
-              <div className="luck-grid liuyue-grid" style={{ ['--count' as any]: liuYueList.length }}>
+              <div className='luck-grid liuyue-grid' style={{ ['--count' as any]: liuYueList.length }}>
                 {liuYueList.map((lm) => {
                   const isCurrent = selectedYear === currentYear && lm.index === currentLunarMonthIndex
                   const isActive = lm.index === selectedMonthIndex
@@ -235,15 +235,15 @@ const LuckTrack: React.FC = () => {
                       className={`luck-item liuyue-item ${isActive ? 'active' : ''} ${isCurrent ? 'current' : ''}`}
                       onClick={() => setSelectedMonthIndex(lm.index)}
                     >
-                      <div className="luck-month">{lm.label}月</div>
-                      <div className="luck-gz-stack">
-                        <div className="luck-gz-line">
+                      <div className='luck-month'>{lm.label}月</div>
+                      <div className='luck-gz-stack'>
+                        <div className='luck-gz-line'>
                           <span className={`luck-char element-${STEM_ELEMENT[lm.gan]}`}>{lm.gan}</span>
-                          <span className="luck-god">{TEN_GOD_SHORT[lm.stemTen] || lm.stemTen}</span>
+                          <span className='luck-god'>{TEN_GOD_SHORT[lm.stemTen] || lm.stemTen}</span>
                         </div>
-                        <div className="luck-gz-line">
+                        <div className='luck-gz-line'>
                           <span className={`luck-char element-${BRANCH_ELEMENT[lm.zhi]}`}>{lm.zhi}</span>
-                          <span className="luck-god">{TEN_GOD_SHORT[lm.branchTen] || lm.branchTen}</span>
+                          <span className='luck-god'>{TEN_GOD_SHORT[lm.branchTen] || lm.branchTen}</span>
                         </div>
                       </div>
                     </div>
@@ -251,12 +251,12 @@ const LuckTrack: React.FC = () => {
                 })}
               </div>
             ) : (
-              <div className="empty">暂无流月信息</div>
+              <div className='empty'>暂无流月信息</div>
             )}
           </div>
 
           {(activeLiuNian || liuYueList.length) && (
-            <div className="luck-detail">
+            <div className='luck-detail'>
               {activeLiuNian ? buildDetail(
                 `流年解读 · ${activeLiuNian.year}`,
                 toStem(activeLiuNian.ganZhi?.[0]),

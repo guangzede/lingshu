@@ -18,19 +18,19 @@ const BranchRelation: React.FC<BranchRelationProps> = ({ result }) => {
   const formatRelation = (rel: any) => rel.relationText || ''
 
   return (
-    <View className="branch-relation-section">
-      <View className="branch-relation-header">
-        <Text className="branch-relation-title">日支/时支关系</Text>
+    <View className='branch-relation-section'>
+      <View className='branch-relation-header'>
+        <Text className='branch-relation-title'>日支/时支关系</Text>
       </View>
 
       {/* 日支关系 */}
-      <View className="relation-group">
-        <Text className="relation-group-title">日支分析：</Text>
+      <View className='relation-group'>
+        <Text className='relation-group-title'>日支分析：</Text>
         {dayRelations.map((rel: any, idx: number) => {
           if (!rel.isHarmony && !rel.isClash && !rel.isTriple && !rel.isPunish) return null
           const relationStr = formatRelation(rel)
           return (
-            <Text key={idx} className="relation-item">
+            <Text key={idx} className='relation-item'>
               ({dayBranch})({rel.branch}) {relationStr} · {labelMap[idx]}
             </Text>
           )
@@ -38,13 +38,13 @@ const BranchRelation: React.FC<BranchRelationProps> = ({ result }) => {
       </View>
 
       {/* 时支关系 */}
-      <View className="relation-group">
-        <Text className="relation-group-title">时支分析：</Text>
+      <View className='relation-group'>
+        <Text className='relation-group-title'>时支分析：</Text>
         {hourRelations.map((rel: any, idx: number) => {
           if (!rel.isHarmony && !rel.isClash && !rel.isTriple && !rel.isPunish) return null
           const relationStr = formatRelation(rel)
           return (
-            <Text key={idx} className="relation-item">
+            <Text key={idx} className='relation-item'>
               ({hourBranch})({rel.branch}) {relationStr} · {labelMap[idx]}
             </Text>
           )

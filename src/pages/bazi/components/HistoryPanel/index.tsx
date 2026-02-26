@@ -79,61 +79,61 @@ const HistoryPanel: React.FC = () => {
     : cases
 
   return (
-    <View className="bazi-history-panel">
-      <View className="history-header">
-        <Text className="history-title">排盘记录</Text>
-        <Text className="history-count">共 {cases.length} 条记录 · 当前 {visibleCases.length} 条</Text>
+    <View className='bazi-history-panel'>
+      <View className='history-header'>
+        <Text className='history-title'>排盘记录</Text>
+        <Text className='history-count'>共 {cases.length} 条记录 · 当前 {visibleCases.length} 条</Text>
       </View>
 
-      <View className="history-toolbar">
-        <View className="history-search-row">
-          <Text className="history-search-label">搜索</Text>
+      <View className='history-toolbar'>
+        <View className='history-search-row'>
+          <Text className='history-search-label'>搜索</Text>
           <input
-            className="history-search-input"
+            className='history-search-input'
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="姓名 / 备注 / 日期"
+            placeholder='姓名 / 备注 / 日期'
           />
-          <Button className="history-clear" onClick={() => setQuery('')}>
+          <Button className='history-clear' onClick={() => setQuery('')}>
             清空
           </Button>
         </View>
       </View>
 
       {isLoading ? (
-        <View className="history-empty">
-          <Text className="empty-text">加载中...</Text>
+        <View className='history-empty'>
+          <Text className='empty-text'>加载中...</Text>
         </View>
       ) : visibleCases.length === 0 ? (
-        <View className="history-empty">
-          <Text className="empty-text">暂无保存的排盘记录</Text>
+        <View className='history-empty'>
+          <Text className='empty-text'>暂无保存的排盘记录</Text>
         </View>
       ) : (
-        <View className="history-content">
-          <View className="history-list">
+        <View className='history-content'>
+          <View className='history-list'>
             {visibleCases.map((item, idx) => (
-              <View key={item.id} className="case-card">
-                <View className="case-header">
-                  <Text className="case-number-title">
+              <View key={item.id} className='case-card'>
+                <View className='case-header'>
+                  <Text className='case-number-title'>
                     {idx + 1}. {item.name || '未命名排盘'}
                   </Text>
-                  <Text className="case-time">
+                  <Text className='case-time'>
                     {formatDate(item.birthDate, item.birthTime)}
                   </Text>
                 </View>
 
                 {item.note && (
-                  <View className="remark-section">
-                    <Text className="remark-label">备注</Text>
-                    <Text className="remark-text">{item.note}</Text>
+                  <View className='remark-section'>
+                    <Text className='remark-label'>备注</Text>
+                    <Text className='remark-text'>{item.note}</Text>
                   </View>
                 )}
 
-                <View className="case-actions">
-                  <Button className="btn-load" onClick={() => handleLoadCase(item.id)}>
+                <View className='case-actions'>
+                  <Button className='btn-load' onClick={() => handleLoadCase(item.id)}>
                     查看
                   </Button>
-                  <Button className="btn-delete" onClick={() => handleDeleteCase(item.id)}>
+                  <Button className='btn-delete' onClick={() => handleDeleteCase(item.id)}>
                     删除
                   </Button>
                 </View>
@@ -143,7 +143,7 @@ const HistoryPanel: React.FC = () => {
         </View>
       )}
 
-      <View className="history-note">
+      <View className='history-note'>
         <Text>提示：记录仅保存在当前账号，支持搜索姓名/备注/日期，删除后不可恢复。</Text>
       </View>
     </View>

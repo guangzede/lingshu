@@ -584,7 +584,7 @@ const LingShuCompass = forwardRef<LingShuCompassRef, LingShuCompassProps>(({ onL
         };
     }, [flyStartPos]);
 
-    return <div ref={mountRef} className="compass-container" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }} />;
+    return <div ref={mountRef} className='compass-container' style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }} />;
 });
 
 // --- [主页面] ---
@@ -621,11 +621,11 @@ export default function Index() {
     };
 
     return (
-        <div className="page-index" style={{ position: 'relative', width: '100%', height: '100vh', backgroundColor: '#000000', overflow: 'hidden' }}>
+        <div className='page-index' style={{ position: 'relative', width: '100%', height: '100vh', backgroundColor: '#000000', overflow: 'hidden' }}>
             <LingShuCompass
-                ref={compassRef}
-                flyStartPos={startPos}
-                onTransitionComplete={handleEnd}
+              ref={compassRef}
+              flyStartPos={startPos}
+              onTransitionComplete={handleEnd}
             />
             <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '96px 0', zIndex: 2 }}>
                 <div style={{ textAlign: 'center', transition: 'opacity 0.7s', opacity: phase === 'idle' ? 1 : 0 }}>
@@ -638,8 +638,8 @@ export default function Index() {
             <div style={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'center', gap: '32px', pointerEvents: 'auto', position: 'fixed', bottom: '20%', zIndex: 3 }}>
                 {showAction && (
                     <button
-                        onClick={handleAction}
-                        style={{
+                      onClick={handleAction}
+                      style={{
                             padding: '16px 48px', borderRadius: '999px', border: '1px solid #FFD54F', color: '#FFD54F', boxShadow: '0 0 25px rgba(255, 179, 0, 0.5)',
                             transition: 'all 0.5s',
                             opacity: 1, transform: 'translateY(0)',

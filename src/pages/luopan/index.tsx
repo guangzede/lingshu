@@ -26,9 +26,9 @@ const LuopanPage: React.FC = () => {
   }
 
   return (
-    <View className="luopan-page">
+    <View className='luopan-page'>
       {/* 3D 罗盘场景 */}
-      <View className="canvas-container">
+      <View className='canvas-container'>
         <Canvas
           camera={{ position: [0, 100, 0.01], fov: 400 }}
           style={{
@@ -61,13 +61,13 @@ const LuopanPage: React.FC = () => {
       </View>
 
       {/* 控制面板 */}
-      <View className="control-panel" style={{ display: 'flex' }}>
+      <View className='control-panel' style={{ display: 'flex' }}>
         {/* <Text className="title">赛博罗盘</Text>
         <Text className="subtitle">机械环枢 · 磁悬浮流转</Text> */}
 
-        <View className="button-group">
+        <View className='button-group'>
           <Button
-            className="control-button"
+            className='control-button'
             onClick={handleFlyIn}
             disabled={animationState !== 'idle'}
           >
@@ -75,7 +75,7 @@ const LuopanPage: React.FC = () => {
           </Button>
 
           <Button
-            className="control-button"
+            className='control-button'
             onClick={handleRotate}
             disabled={animationState !== 'flyIn'}
           >
@@ -83,7 +83,7 @@ const LuopanPage: React.FC = () => {
           </Button>
 
           <Button
-            className="control-button"
+            className='control-button'
             onClick={handleStart}
             disabled={animationState !== 'rotating' || isComputing}
           >

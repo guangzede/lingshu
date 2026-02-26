@@ -7,9 +7,9 @@ const ResultPanel: React.FC = () => {
 
   if (!result) {
     return (
-      <section className="daliuren-section">
-        <div className="daliuren-card">
-          <div className="daliuren-empty">暂无排盘结果，请先排盘。</div>
+      <section className='daliuren-section'>
+        <div className='daliuren-card'>
+          <div className='daliuren-empty'>暂无排盘结果，请先排盘。</div>
         </div>
       </section>
     )
@@ -59,21 +59,21 @@ const ResultPanel: React.FC = () => {
   })
 
   return (
-    <section className="daliuren-section">
-      <div className="daliuren-card daliuren-basic">
-        <div className="section-title">起课信息</div>
-        <div className="basic-grid">
+    <section className='daliuren-section'>
+      <div className='daliuren-card daliuren-basic'>
+        <div className='section-title'>起课信息</div>
+        <div className='basic-grid'>
           <div>
-            <div className="label">公历</div>
-            <div className="value">{`${result.solar?.date || '--'} ${result.solar?.time || ''}`}</div>
+            <div className='label'>公历</div>
+            <div className='value'>{`${result.solar?.date || '--'} ${result.solar?.time || ''}`}</div>
           </div>
           <div>
-            <div className="label">农历</div>
-            <div className="value">{`农历 ${result.lunar?.year || ''}年${result.lunar?.month || ''}月${result.lunar?.day || ''}`}</div>
+            <div className='label'>农历</div>
+            <div className='value'>{`农历 ${result.lunar?.year || ''}年${result.lunar?.month || ''}月${result.lunar?.day || ''}`}</div>
           </div>
           <div>
-            <div className="label">干支</div>
-            <div className="value">
+            <div className='label'>干支</div>
+            <div className='value'>
               {`${result.ganzhi?.year?.stem || ''}${result.ganzhi?.year?.branch || ''} ` +
                 `${result.ganzhi?.month?.stem || ''}${result.ganzhi?.month?.branch || ''} ` +
                 `${result.ganzhi?.day?.stem || ''}${result.ganzhi?.day?.branch || ''} ` +
@@ -81,19 +81,19 @@ const ResultPanel: React.FC = () => {
             </div>
           </div>
           <div>
-            <div className="label">旬空</div>
-            <div className="value">{(result.xunKong || []).join('')}</div>
+            <div className='label'>旬空</div>
+            <div className='value'>{(result.xunKong || []).join('')}</div>
           </div>
         </div>
       </div>
 
-      <div className="daliuren-card">
-        <div className="section-title">天盘地盘</div>
-        <div className="plate-board">
-          <div className="plate-grid">
+      <div className='daliuren-card'>
+        <div className='section-title'>天盘地盘</div>
+        <div className='plate-board'>
+          <div className='plate-grid'>
             {boardSlots.map((p: any, idx: number) => {
               if (!p) {
-                return <div key={`slot-${idx}`} className="plate-slot" />
+                return <div key={`slot-${idx}`} className='plate-slot' />
               }
               const isHour = p.earth === hourBranch
               const isNoble = nobleBranches.includes(p.earth)
@@ -102,7 +102,7 @@ const ResultPanel: React.FC = () => {
               const transLabel = transmissionIndex >= 0 ? ['初', '中', '末'][transmissionIndex] : ''
               const hasBadges = isHour || isNoble || isVoid || Boolean(transLabel)
               return (
-                <div key={`slot-${idx}`} className="plate-slot">
+                <div key={`slot-${idx}`} className='plate-slot'>
                   <div
                     className={[
                       'plate-node',
@@ -113,138 +113,138 @@ const ResultPanel: React.FC = () => {
                       transLabel ? 'is-trans' : ''
                     ].filter(Boolean).join(' ')}
                   >
-                    <div className="plate-badges">
-                      {isHour && <span className="plate-badge hour">时</span>}
-                      {isNoble && <span className="plate-badge noble">贵</span>}
-                      {isVoid && <span className="plate-badge void">空</span>}
-                      {transLabel && <span className="plate-badge trans">{transLabel}</span>}
+                    <div className='plate-badges'>
+                      {isHour && <span className='plate-badge hour'>时</span>}
+                      {isNoble && <span className='plate-badge noble'>贵</span>}
+                      {isVoid && <span className='plate-badge void'>空</span>}
+                      {transLabel && <span className='plate-badge trans'>{transLabel}</span>}
                     </div>
-                    <div className="plate-earth">{p.earth}</div>
-                    <div className="plate-heaven">{p.heaven}</div>
-                    <div className="plate-general">{p.general}</div>
+                    <div className='plate-earth'>{p.earth}</div>
+                    <div className='plate-heaven'>{p.heaven}</div>
+                    <div className='plate-general'>{p.general}</div>
                   </div>
                 </div>
               )
             })}
           </div>
-          <div className="plate-center">
-            <div className="plate-center-title">天盘地盘</div>
-            <div className="plate-center-meta">
+          <div className='plate-center'>
+            <div className='plate-center-title'>天盘地盘</div>
+            <div className='plate-center-meta'>
               <span>日干 {dayStem || '--'}</span>
               <span>时支 {hourBranch || '--'}</span>
             </div>
-            <div className="plate-center-hint">上为天盘，下为地盘与天将</div>
+            <div className='plate-center-hint'>上为天盘，下为地盘与天将</div>
           </div>
         </div>
       </div>
 
-      <div className="daliuren-card">
-        <div className="section-title">四课</div>
-        <div className="lesson-grid">
+      <div className='daliuren-card'>
+        <div className='section-title'>四课</div>
+        <div className='lesson-grid'>
           {lessons.map((l: any) => {
             const upperEl = l.upperElement || ''
             const lowerEl = l.lowerElement || ''
             const relationText = relationMeaning[l.relation] || relationMeaning['—']
             return (
-              <div key={l.label} className="lesson-item">
-                <div className="lesson-head">
-                  <div className="lesson-label">{l.label}</div>
-                  <span className="lesson-tag">{l.relation || '—'}</span>
+              <div key={l.label} className='lesson-item'>
+                <div className='lesson-head'>
+                  <div className='lesson-label'>{l.label}</div>
+                  <span className='lesson-tag'>{l.relation || '—'}</span>
                 </div>
-                <div className="lesson-main">
-                  <div className="lesson-side">
-                    <div className="lesson-title">上神</div>
+                <div className='lesson-main'>
+                  <div className='lesson-side'>
+                    <div className='lesson-title'>上神</div>
                     <div className={`lesson-value ${upperEl ? `element-${upperEl}` : ''}`}>{l.upper?.value || '—'}</div>
-                    <div className="lesson-sub">{upperEl}</div>
+                    <div className='lesson-sub'>{upperEl}</div>
                   </div>
-                  <span className="lesson-arrow">→</span>
-                  <div className="lesson-side">
-                    <div className="lesson-title">下神</div>
+                  <span className='lesson-arrow'>→</span>
+                  <div className='lesson-side'>
+                    <div className='lesson-title'>下神</div>
                     <div className={`lesson-value ${lowerEl ? `element-${lowerEl}` : ''}`}>{l.lower?.value || '—'}</div>
-                    <div className="lesson-sub">{lowerEl}</div>
+                    <div className='lesson-sub'>{lowerEl}</div>
                   </div>
                 </div>
-                <div className="lesson-extra">
-                  <div className="lesson-extra-item">
+                <div className='lesson-extra'>
+                  <div className='lesson-extra-item'>
                     <span>上神本位</span>
                     <strong>{l.upperHome || '—'}</strong>
                   </div>
-                  <div className="lesson-extra-item">
+                  <div className='lesson-extra-item'>
                     <span>上将</span>
                     <strong>{l.upperGeneral || '—'}</strong>
                   </div>
-                  <div className="lesson-extra-item">
+                  <div className='lesson-extra-item'>
                     <span>下将</span>
                     <strong>{l.lowerGeneral || '—'}</strong>
                   </div>
                 </div>
-                <div className="lesson-meta">
+                <div className='lesson-meta'>
                   <span>{upperEl}</span>
-                  <span className="lesson-dot">·</span>
+                  <span className='lesson-dot'>·</span>
                   <span>{l.relation || '—'}</span>
-                  <span className="lesson-dot">·</span>
+                  <span className='lesson-dot'>·</span>
                   <span>{lowerEl}</span>
                 </div>
-                <div className="lesson-meaning">{relationText}</div>
+                <div className='lesson-meaning'>{relationText}</div>
               </div>
             )
           })}
         </div>
       </div>
 
-      <div className="daliuren-card">
-        <div className="section-title">三传</div>
-        <div className="transmission-grid">
+      <div className='daliuren-card'>
+        <div className='section-title'>三传</div>
+        <div className='transmission-grid'>
           {transmissions.map((t: any) => (
-            <div key={t.label} className="transmission-item">
-              <div className="transmission-label">{t.label}</div>
-              <div className="transmission-branch">{t.branch}</div>
-              <div className="transmission-meta">{`${t.general || ''} · ${t.element || ''} · ${t.relation || ''}`}</div>
+            <div key={t.label} className='transmission-item'>
+              <div className='transmission-label'>{t.label}</div>
+              <div className='transmission-branch'>{t.branch}</div>
+              <div className='transmission-meta'>{`${t.general || ''} · ${t.element || ''} · ${t.relation || ''}`}</div>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="daliuren-card">
-        <div className="section-title">课体与神煞</div>
-        <div className="dlr-section-block">
-          <div className="dlr-subtitle">课体判式</div>
-          <div className="tag-row">
+      <div className='daliuren-card'>
+        <div className='section-title'>课体与神煞</div>
+        <div className='dlr-section-block'>
+          <div className='dlr-subtitle'>课体判式</div>
+          <div className='tag-row'>
             {(keTi.length ? keTi : ['平课']).map((tag: string) => (
-              <span key={tag} className="tag">{tag}</span>
+              <span key={tag} className='tag'>{tag}</span>
             ))}
           </div>
-          <div className="dlr-hint-list">
+          <div className='dlr-hint-list'>
             {(result.summary?.hints || []).length ? (
               (result.summary?.hints || []).map((item: string) => (
-                <div key={item} className="dlr-hint-item">{item}</div>
+                <div key={item} className='dlr-hint-item'>{item}</div>
               ))
             ) : (
-              <div className="dlr-hint-item muted">课体平稳，暂无明显反吟、伏吟等特征。</div>
+              <div className='dlr-hint-item muted'>课体平稳，暂无明显反吟、伏吟等特征。</div>
             )}
           </div>
         </div>
 
-        <div className="dlr-section-block">
-          <div className="dlr-subtitle">关系格局</div>
-          <div className="tag-row">
+        <div className='dlr-section-block'>
+          <div className='dlr-subtitle'>关系格局</div>
+          <div className='tag-row'>
             {relationTags.length ? relationTags.map((tag: string) => (
-              <span key={tag} className="tag subtle">{tag}</span>
-            )) : <span className="tag subtle">关系平稳</span>}
+              <span key={tag} className='tag subtle'>{tag}</span>
+            )) : <span className='tag subtle'>关系平稳</span>}
           </div>
         </div>
 
-        <div className="dlr-section-block">
-          <div className="dlr-subtitle">神煞速查</div>
-          <div className="dlr-shen-sha-groups">
+        <div className='dlr-section-block'>
+          <div className='dlr-subtitle'>神煞速查</div>
+          <div className='dlr-shen-sha-groups'>
             {shenShaGroups.map((group) => (
-              <div key={group.title} className="dlr-shen-sha-group">
-                <div className="dlr-group-title">{group.title}</div>
-                <div className="dlr-shen-sha-grid">
+              <div key={group.title} className='dlr-shen-sha-group'>
+                <div className='dlr-group-title'>{group.title}</div>
+                <div className='dlr-shen-sha-grid'>
                   {group.keys.map((key) => (
-                    <div key={key} className="dlr-shen-sha-item">
-                      <span className="dlr-shen-sha-name">{key}</span>
-                      <strong className="dlr-shen-sha-value">{(shenSha[key] || []).join('') || '--'}</strong>
+                    <div key={key} className='dlr-shen-sha-item'>
+                      <span className='dlr-shen-sha-name'>{key}</span>
+                      <strong className='dlr-shen-sha-value'>{(shenSha[key] || []).join('') || '--'}</strong>
                     </div>
                   ))}
                 </div>
@@ -254,10 +254,10 @@ const ResultPanel: React.FC = () => {
         </div>
       </div>
 
-      <div className="daliuren-card">
-        <div className="section-title">断语摘要</div>
-        <div className="summary-text">{result.summary?.main || '—'}</div>
-        <ul className="summary-list">
+      <div className='daliuren-card'>
+        <div className='section-title'>断语摘要</div>
+        <div className='summary-text'>{result.summary?.main || '—'}</div>
+        <ul className='summary-list'>
           {(result.summary?.hints || []).map((item: string) => (
             <li key={item}>{item}</li>
           ))}
@@ -265,9 +265,9 @@ const ResultPanel: React.FC = () => {
       </div>
 
       {warnings.length > 0 && (
-        <div className="daliuren-card warning-card">
-          <div className="section-title">规则提示</div>
-          <ul className="summary-list">
+        <div className='daliuren-card warning-card'>
+          <div className='section-title'>规则提示</div>
+          <ul className='summary-list'>
             {warnings.map((item: string) => (
               <li key={item}>{item}</li>
             ))}

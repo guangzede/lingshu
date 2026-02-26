@@ -16,17 +16,17 @@ const CountInput: React.FC<CountInputProps> = ({
   if (!isVisible) return null
 
   return (
-    <View className="input-area">
-      <View className="glass-card count-input-card">
-        <View className="card-header">
-          <Text className="card-section-title">报数起卦</Text>
-          <Text className="card-section-guide">根据数字起卦</Text>
+    <View className='input-area'>
+      <View className='glass-card count-input-card'>
+        <View className='card-header'>
+          <Text className='card-section-title'>报数起卦</Text>
+          <Text className='card-section-guide'>根据数字起卦</Text>
         </View>
         <Input
-          className="number-input-elegant"
-          type="number"
+          className='number-input-elegant'
+          type='number'
           value={countNumbers}
-          placeholder="建议输入3个数字（如：1 2 3）"
+          placeholder='建议输入3个数字（如：1 2 3）'
           style={{ height: '52px', lineHeight: '26px' }}
           onInput={(e) => onCountNumbersChange(e.detail.value)}
         />

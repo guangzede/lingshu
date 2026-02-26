@@ -26,10 +26,10 @@ const TiaoHouYongShen: React.FC = () => {
 
   if (!result?.pillars) {
     return (
-      <section className="bazi-section bazi-section-full">
-        <div className="bazi-card">
-          <div className="section-title">调候用神</div>
-          <div className="empty">暂无排盘结果</div>
+      <section className='bazi-section bazi-section-full'>
+        <div className='bazi-card'>
+          <div className='section-title'>调候用神</div>
+          <div className='empty'>暂无排盘结果</div>
         </div>
       </section>
     )
@@ -42,40 +42,40 @@ const TiaoHouYongShen: React.FC = () => {
   const yongShen = result.yongShen || { use: [], favor: [], avoid: [] }
 
   return (
-    <section className="bazi-section bazi-section-full">
-      <div className="bazi-card tiao-card">
-        <div className="section-title">调候用神</div>
-        <div className="tiao-header">
-          <div className="tiao-title">月令：{monthBranch} · {mapping?.season || '--'}季</div>
-          <div className="tiao-chip">日主：{dayStem}{dayElement || ''}</div>
+    <section className='bazi-section bazi-section-full'>
+      <div className='bazi-card tiao-card'>
+        <div className='section-title'>调候用神</div>
+        <div className='tiao-header'>
+          <div className='tiao-title'>月令：{monthBranch} · {mapping?.season || '--'}季</div>
+          <div className='tiao-chip'>日主：{dayStem}{dayElement || ''}</div>
         </div>
-        <div className="tiao-grid">
-          <div className="tiao-block">
-            <div className="tiao-label">气候</div>
-            <div className="tiao-value">{mapping?.climate || '--'}</div>
+        <div className='tiao-grid'>
+          <div className='tiao-block'>
+            <div className='tiao-label'>气候</div>
+            <div className='tiao-value'>{mapping?.climate || '--'}</div>
           </div>
-          <div className="tiao-block">
-            <div className="tiao-label">调候主用</div>
+          <div className='tiao-block'>
+            <div className='tiao-label'>调候主用</div>
             <div className={`tiao-value ${mapping?.main ? `element-${mapping.main}` : ''}`}>{mapping?.main || '--'}</div>
           </div>
-          <div className="tiao-block">
-            <div className="tiao-label">调候辅用</div>
+          <div className='tiao-block'>
+            <div className='tiao-label'>调候辅用</div>
             <div className={`tiao-value ${mapping?.secondary ? `element-${mapping.secondary}` : ''}`}>{mapping?.secondary || '--'}</div>
           </div>
-          <div className="tiao-block">
-            <div className="tiao-label">综合用神</div>
-            <div className="tiao-value">{formatList(yongShen.use)}</div>
+          <div className='tiao-block'>
+            <div className='tiao-label'>综合用神</div>
+            <div className='tiao-value'>{formatList(yongShen.use)}</div>
           </div>
         </div>
-        <div className="tiao-desc">{mapping?.note || '调候以月令寒热燥湿为先，结合用神综合判断。'}</div>
-        <div className="tiao-lines">
-          <div className="tiao-line">
-            <span className="tiao-key">喜神</span>
-            <span className="tiao-val">{formatList(yongShen.favor)}</span>
+        <div className='tiao-desc'>{mapping?.note || '调候以月令寒热燥湿为先，结合用神综合判断。'}</div>
+        <div className='tiao-lines'>
+          <div className='tiao-line'>
+            <span className='tiao-key'>喜神</span>
+            <span className='tiao-val'>{formatList(yongShen.favor)}</span>
           </div>
-          <div className="tiao-line">
-            <span className="tiao-key">忌神</span>
-            <span className="tiao-val">{formatList(yongShen.avoid)}</span>
+          <div className='tiao-line'>
+            <span className='tiao-key'>忌神</span>
+            <span className='tiao-val'>{formatList(yongShen.avoid)}</span>
           </div>
         </div>
       </div>

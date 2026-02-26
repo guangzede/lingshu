@@ -37,35 +37,35 @@ const HumanQACard: React.FC<HumanQACardProps> = ({ question }) => {
 
   return (
     <>
-      <View className="human-qa-card glass-card">
-        <View className="card-header">
-          <Text className="card-title">深度咨询</Text>
-          <Text className="card-desc">针对当前盘面，共同探讨易学文化。</Text>
+      <View className='human-qa-card glass-card'>
+        <View className='card-header'>
+          <Text className='card-title'>深度咨询</Text>
+          <Text className='card-desc'>针对当前盘面，共同探讨易学文化。</Text>
         </View>
-        <View className="card-body">
-          <Text className="content">{question || '暂无填写'}</Text>
-          <Text className="tips">注：咨询内容仅供学术探讨或娱乐化参考。</Text>
+        <View className='card-body'>
+          <Text className='content'>{question || '暂无填写'}</Text>
+          <Text className='tips'>注：咨询内容仅供学术探讨或娱乐化参考。</Text>
         </View>
-        <Button className="primary-btn" onClick={handleConsult}>
+        <Button className='primary-btn' onClick={handleConsult}>
           预约咨询服务
         </Button>
       </View>
 
       {/* 二维码弹窗 */}
       {showQRCode && (
-        <View className="qrcode-modal" onClick={handleClose} onTouchMove={(e) => { e?.stopPropagation?.(); }}>
-          <View className="qrcode-content" onClick={handleContentClick} onTouchMove={(e) => { e?.stopPropagation?.(); }}>
-            <View className="qrcode-header">
-              <Text className="qrcode-title">共同学习</Text>
-              <Text className="qrcode-close" onClick={handleClose}>✕</Text>
+        <View className='qrcode-modal' onClick={handleClose} onTouchMove={(e) => { e?.stopPropagation?.(); }}>
+          <View className='qrcode-content' onClick={handleContentClick} onTouchMove={(e) => { e?.stopPropagation?.(); }}>
+            <View className='qrcode-header'>
+              <Text className='qrcode-title'>共同学习</Text>
+              <Text className='qrcode-close' onClick={handleClose}>✕</Text>
             </View>
             <Image
-              className="qrcode-image"
+              className='qrcode-image'
               src={require('./qrcode.jpg')}
-              mode="widthFix"
+              mode='widthFix'
               showMenuByLongpress
             />
-            <Text className="qrcode-tip">长按识别二维码或保存图片</Text>
+            <Text className='qrcode-tip'>长按识别二维码或保存图片</Text>
           </View>
         </View>
       )}

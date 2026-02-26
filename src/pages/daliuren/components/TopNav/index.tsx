@@ -35,8 +35,8 @@ const TopNav: React.FC<{ active: ActiveNavKey; onSelect?: (key: ActiveNavKey) =>
   }
 
   return (
-    <div className="daliuren-top-nav">
-      <div className="daliuren-top-nav-inner">
+    <div className='daliuren-top-nav'>
+      <div className='daliuren-top-nav-inner'>
         {NAVS.map((item) => (
           <button
             key={item.key}

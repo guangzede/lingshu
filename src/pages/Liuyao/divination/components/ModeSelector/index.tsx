@@ -13,8 +13,8 @@ const ModeSelector: React.FC<ModeSelectorProps> = ({ mode, onModeChange, isLoadi
   if (isLoadingHistory) return null
 
   return (
-    <View className="top-section">
-      <View className="mode-selector">
+    <View className='top-section'>
+      <View className='mode-selector'>
         <Text
           className={`mode-tab ${mode === 'manual' ? 'mode-tab-active' : ''}`}
           onClick={() => onModeChange('manual')}

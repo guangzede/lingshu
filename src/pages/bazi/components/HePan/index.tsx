@@ -131,10 +131,10 @@ const HePan: React.FC = () => {
 
   if (!result?.pillars) {
     return (
-      <section className="bazi-section">
-        <div className="bazi-card">
-          <div className="section-title">八字合盘</div>
-          <div className="empty">暂无排盘结果</div>
+      <section className='bazi-section'>
+        <div className='bazi-card'>
+          <div className='section-title'>八字合盘</div>
+          <div className='empty'>暂无排盘结果</div>
         </div>
       </section>
     )
@@ -299,23 +299,23 @@ const HePan: React.FC = () => {
   }
 
   return (
-    <section className="bazi-section">
-      <div className="bazi-card hepan-card">
-        <div className="section-title">八字合盘</div>
-        <div className="hepan-head">
-          <div className="hepan-col">
-            <div className="hepan-label">本命盘</div>
-            <div className="hepan-name">{caseName || '当前排盘'}</div>
-            <div className="hepan-meta hepan-meta-base">{baseMeta}</div>
+    <section className='bazi-section'>
+      <div className='bazi-card hepan-card'>
+        <div className='section-title'>八字合盘</div>
+        <div className='hepan-head'>
+          <div className='hepan-col'>
+            <div className='hepan-label'>本命盘</div>
+            <div className='hepan-name'>{caseName || '当前排盘'}</div>
+            <div className='hepan-meta hepan-meta-base'>{baseMeta}</div>
           </div>
-          <div className="hepan-col">
-            <div className="hepan-label">合盘对象</div>
+          <div className='hepan-col'>
+            <div className='hepan-label'>合盘对象</div>
             <select
-              className="hepan-select"
+              className='hepan-select'
               value={selectedId}
               onChange={(e) => setSelectedId(e.target.value)}
             >
-              <option value="">请选择记录</option>
+              <option value=''>请选择记录</option>
               {cases.map((item) => (
                 <option key={item.id} value={item.id}>
                   {getSelectLabel(item)}
@@ -323,23 +323,23 @@ const HePan: React.FC = () => {
               ))}
             </select>
             {targetMeta
-              ? <div className="hepan-meta">{targetMeta}</div>
-              : <div className="hepan-meta hepan-meta-placeholder">{'\u00A0'}</div>}
-            {loading && <div className="hepan-note">加载中...</div>}
-            {error && <div className="hepan-note">{error}</div>}
+              ? <div className='hepan-meta'>{targetMeta}</div>
+              : <div className='hepan-meta hepan-meta-placeholder'>{'\u00A0'}</div>}
+            {loading && <div className='hepan-note'>加载中...</div>}
+            {error && <div className='hepan-note'>{error}</div>}
           </div>
         </div>
 
         {targetPillars.length > 0 && (
-          <div className="hepan-network">
-            <div className="hepan-network-title">合盘矩阵</div>
-            <div className="hepan-network-grid">
-              <div className="hepan-network-corner">
-                <span className="corner-diag corner-base"><em>本盘</em></span>
-                <span className="corner-diag corner-target"><em>合盘</em></span>
+          <div className='hepan-network'>
+            <div className='hepan-network-title'>合盘矩阵</div>
+            <div className='hepan-network-grid'>
+              <div className='hepan-network-corner'>
+                <span className='corner-diag corner-base'><em>本盘</em></span>
+                <span className='corner-diag corner-target'><em>合盘</em></span>
               </div>
               {targetPillars.map((p) => (
-                <div key={`net-head-${p.label}`} className="hepan-network-head">
+                <div key={`net-head-${p.label}`} className='hepan-network-head'>
                   {/* <div className="net-label">{p.label}</div> */}
                   <div className={`net-stem element-${STEM_ELEMENT[p.stem as keyof typeof STEM_ELEMENT]}`}>{p.stem}</div>
                   <div className={`net-branch element-${BRANCH_ELEMENT[p.branch as keyof typeof BRANCH_ELEMENT]}`}>{p.branch}</div>
@@ -347,7 +347,7 @@ const HePan: React.FC = () => {
               ))}
               {basePillars.map((base) => (
                 <React.Fragment key={`net-row-${base.label}`}>
-                  <div className="hepan-network-side">
+                  <div className='hepan-network-side'>
                     {/* <div className="net-label">{base.label}</div> */}
                     <div className={`net-stem element-${STEM_ELEMENT[base.stem as keyof typeof STEM_ELEMENT]}`}>{base.stem}</div>
                     <div className={`net-branch element-${BRANCH_ELEMENT[base.branch as keyof typeof BRANCH_ELEMENT]}`}>{base.branch}</div>
@@ -359,10 +359,10 @@ const HePan: React.FC = () => {
                       <div key={`net-cell-${base.label}-${target.label}`} className={`hepan-network-cell ${toneClass}`}>
                         {relation.tags.length ? (
                           relation.tags.map((tag) => (
-                            <span key={`${base.label}-${target.label}-${tag}`} className="hepan-network-tag">{tag}</span>
+                            <span key={`${base.label}-${target.label}-${tag}`} className='hepan-network-tag'>{tag}</span>
                           ))
                         ) : (
-                          <span className="hepan-network-tag muted">平</span>
+                          <span className='hepan-network-tag muted'>平</span>
                         )}
                       </div>
                     )
@@ -374,23 +374,23 @@ const HePan: React.FC = () => {
         )}
 
         {!targetPillars.length ? (
-          <div className="hepan-empty">请选择一条记录进行合盘对比</div>
+          <div className='hepan-empty'>请选择一条记录进行合盘对比</div>
         ) : (
           <>
-            <div className="hepan-metrics">
-              <div className="hepan-metric">
+            <div className='hepan-metrics'>
+              <div className='hepan-metric'>
                 <span>合盘指数</span>
                 <strong>{score}</strong>
               </div>
-              <div className="hepan-metric">
+              <div className='hepan-metric'>
                 <span>日主关系</span>
                 <strong>{dayRelation.label}</strong>
               </div>
-              <div className="hepan-metric">
+              <div className='hepan-metric'>
                 <span>五行互补</span>
                 <strong>{Math.round(complementScore)}%</strong>
               </div>
-              <div className="hepan-metric">
+              <div className='hepan-metric'>
                 <span>合冲刑害</span>
                 <strong>{`合${positive}`}</strong>
                 <strong>{`冲${chongPairs.length} `}</strong>
@@ -399,54 +399,54 @@ const HePan: React.FC = () => {
               </div>
             </div>
 
-            <div className="hepan-verdicts">
+            <div className='hepan-verdicts'>
               {verdicts.map((line, idx) => (
                 <div key={`verdict-${idx}`}>{line}</div>
               ))}
             </div>
 
-            <div className="hepan-relations">
-              <div className="hepan-rel-group">
-                <div className="hepan-rel-title">合局与半合</div>
-                <div className="hepan-rel-list">
+            <div className='hepan-relations'>
+              <div className='hepan-rel-group'>
+                <div className='hepan-rel-title'>合局与半合</div>
+                <div className='hepan-rel-list'>
                   {sanheList.length ? sanheList.map((item, idx) => (
-                    <span key={`sanhe-${idx}`} className="hepan-rel-item">{item}</span>
-                  )) : <span className="hepan-rel-item">暂无三合/半合</span>}
+                    <span key={`sanhe-${idx}`} className='hepan-rel-item'>{item}</span>
+                  )) : <span className='hepan-rel-item'>暂无三合/半合</span>}
                 </div>
               </div>
 
-              <div className="hepan-rel-group">
-                <div className="hepan-rel-title">六合</div>
-                <div className="hepan-rel-list">
+              <div className='hepan-rel-group'>
+                <div className='hepan-rel-title'>六合</div>
+                <div className='hepan-rel-list'>
                   {hePairs.length ? hePairs.map((item, idx) => (
-                    <span key={`he-${idx}`} className="hepan-rel-item">{item.label}</span>
-                  )) : <span className="hepan-rel-item">暂无六合</span>}
+                    <span key={`he-${idx}`} className='hepan-rel-item'>{item.label}</span>
+                  )) : <span className='hepan-rel-item'>暂无六合</span>}
                 </div>
               </div>
 
-              <div className="hepan-rel-group">
-                <div className="hepan-rel-title">天干合</div>
-                <div className="hepan-rel-list">
+              <div className='hepan-rel-group'>
+                <div className='hepan-rel-title'>天干合</div>
+                <div className='hepan-rel-list'>
                   {stemHePairs.length ? stemHePairs.map((item, idx) => (
-                    <span key={`stem-${idx}`} className="hepan-rel-item">{item.label}</span>
-                  )) : <span className="hepan-rel-item">暂无天干合</span>}
+                    <span key={`stem-${idx}`} className='hepan-rel-item'>{item.label}</span>
+                  )) : <span className='hepan-rel-item'>暂无天干合</span>}
                 </div>
               </div>
 
-              <div className="hepan-rel-group">
-                <div className="hepan-rel-title">冲、刑、害</div>
-                <div className="hepan-rel-list hepan-rel-list-block">
+              <div className='hepan-rel-group'>
+                <div className='hepan-rel-title'>冲、刑、害</div>
+                <div className='hepan-rel-list hepan-rel-list-block'>
                   {chongPairs.map((item, idx) => (
-                    <span key={`chong-${idx}`} className="hepan-rel-item">{`冲：${item.label}`}</span>
+                    <span key={`chong-${idx}`} className='hepan-rel-item'>{`冲：${item.label}`}</span>
                   ))}
                   {xingPairs.map((item, idx) => (
-                    <span key={`xing-${idx}`} className="hepan-rel-item">{`刑：${item.label}`}</span>
+                    <span key={`xing-${idx}`} className='hepan-rel-item'>{`刑：${item.label}`}</span>
                   ))}
                   {haiPairs.map((item, idx) => (
-                    <span key={`hai-${idx}`} className="hepan-rel-item">{`害：${item.label}`}</span>
+                    <span key={`hai-${idx}`} className='hepan-rel-item'>{`害：${item.label}`}</span>
                   ))}
                   {!chongPairs.length && !xingPairs.length && !haiPairs.length && (
-                    <span className="hepan-rel-item">暂无冲刑害</span>
+                    <span className='hepan-rel-item'>暂无冲刑害</span>
                   )}
                 </div>
               </div>

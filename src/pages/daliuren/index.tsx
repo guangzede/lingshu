@@ -16,7 +16,7 @@ const DaLiuRenPage: React.FC = () => {
       {activeTab === 'input' && <UserInput />}
       {activeTab === 'result' && <ResultPanel />}
       {activeTab === 'history' && (
-        <div className="daliuren-section">
+        <div className='daliuren-section'>
           <HistoryPanel />
         </div>
       )}

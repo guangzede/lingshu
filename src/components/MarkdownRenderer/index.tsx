@@ -152,7 +152,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
   const htmlContent = markdownToHtml(content);
 
   return (
-    <View className="markdown-renderer">
+    <View className='markdown-renderer'>
       <RichText nodes={htmlContent} />
     </View>
   );

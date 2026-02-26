@@ -45,8 +45,8 @@ const TopNav: React.FC<{ active: ActiveNavKey; onSelect?: (key: ActiveNavKey) =>
   }
 
   return (
-    <div className="bazi-top-nav">
-      <div className="bazi-top-nav-inner">
+    <div className='bazi-top-nav'>
+      <div className='bazi-top-nav-inner'>
         {NAVS.map((item) => (
           <button
             key={item.key}

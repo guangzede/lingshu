@@ -7,10 +7,10 @@ const EnergyFlow: React.FC = () => {
 
   if (!result?.relations) {
     return (
-      <section className="bazi-section bazi-section-full">
-        <div className="bazi-card">
-          <div className="section-title">合冲刑害</div>
-          <div className="empty">暂无排盘结果</div>
+      <section className='bazi-section bazi-section-full'>
+        <div className='bazi-card'>
+          <div className='section-title'>合冲刑害</div>
+          <div className='empty'>暂无排盘结果</div>
         </div>
       </section>
     )
@@ -43,53 +43,53 @@ const EnergyFlow: React.FC = () => {
   }
 
   return (
-    <section className="bazi-section bazi-section-full">
-      <div className="bazi-card">
-        <div className="section-head" onClick={() => setOpen(!open)}>
-          <div className="section-title">合冲刑害</div>
+    <section className='bazi-section bazi-section-full'>
+      <div className='bazi-card'>
+        <div className='section-head' onClick={() => setOpen(!open)}>
+          <div className='section-title'>合冲刑害</div>
           <button className={`section-toggle ${open ? 'open' : ''}`}>
             {open ? '收起' : '展开'}
           </button>
         </div>
 
         {!open ? (
-          <div className="inline-note">内容已折叠，点击展开查看详情。</div>
+          <div className='inline-note'>内容已折叠，点击展开查看详情。</div>
         ) : (
           <>
             {combos.length > 0 ? (
-              <div className="tag-list">
+              <div className='tag-list'>
                 {combos.map((c: any, idx: number) => (
-                  <span key={`${c.type}-${idx}`} className="tag">{c.type} {c.detail}</span>
+                  <span key={`${c.type}-${idx}`} className='tag'>{c.type} {c.detail}</span>
                 ))}
               </div>
             ) : (
-              <div className="empty">暂无合局/半合信息</div>
+              <div className='empty'>暂无合局/半合信息</div>
             )}
 
             {viewMode === 'pro' && (
-              <div className="relation-list">
+              <div className='relation-list'>
                 {branches.length > 0 ? branches.map((r: any, idx: number) => {
                   const info = formatBranchRelation(r)
                   return (
-                    <div key={`${r.type}-${idx}`} className="relation-item">
-                      <span className="relation-type">{r.type}</span>
-                      <span className="relation-pillars">{info.detail}</span>
-                      <span className="relation-brief">{info.short || r.detail || ''}</span>
+                    <div key={`${r.type}-${idx}`} className='relation-item'>
+                      <span className='relation-type'>{r.type}</span>
+                      <span className='relation-pillars'>{info.detail}</span>
+                      <span className='relation-brief'>{info.short || r.detail || ''}</span>
                     </div>
                   )
-                }) : <div className="empty">暂无刑冲克害</div>}
+                }) : <div className='empty'>暂无刑冲克害</div>}
               </div>
             )}
 
             {viewMode === 'pro' && stems?.length ? (
-              <div className="relation-list">
+              <div className='relation-list'>
                 {stems.map((r: any, idx: number) => {
                   const info = formatStemRelation(r)
                   return (
-                    <div key={`${r.type}-stem-${idx}`} className="relation-item">
-                      <span className="relation-type">{r.type}</span>
-                      <span className="relation-pillars">{info.detail}</span>
-                      <span className="relation-brief">{info.short || ''}{r.detail ? ` · ${r.detail}` : ''}</span>
+                    <div key={`${r.type}-stem-${idx}`} className='relation-item'>
+                      <span className='relation-type'>{r.type}</span>
+                      <span className='relation-pillars'>{info.detail}</span>
+                      <span className='relation-brief'>{info.short || ''}{r.detail ? ` · ${r.detail}` : ''}</span>
                     </div>
                   )
                 })}

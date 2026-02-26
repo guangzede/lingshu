@@ -6,10 +6,10 @@ const AuxStars: React.FC = () => {
 
   if (!result?.shenSha) {
     return (
-      <section className="bazi-section">
-        <div className="bazi-card">
-          <div className="section-title">神煞</div>
-          <div className="empty">暂无排盘结果</div>
+      <section className='bazi-section'>
+        <div className='bazi-card'>
+          <div className='section-title'>神煞</div>
+          <div className='empty'>暂无排盘结果</div>
         </div>
       </section>
     )
@@ -32,17 +32,17 @@ const AuxStars: React.FC = () => {
   }).filter(([, value]) => value.length > 0)
 
   return (
-    <section className="bazi-section">
-      <div className="bazi-card">
-        <div className="section-title">神煞</div>
+    <section className='bazi-section'>
+      <div className='bazi-card'>
+        <div className='section-title'>神煞</div>
         {entries.length === 0 ? (
-          <div className="empty">暂无神煞信息</div>
+          <div className='empty'>暂无神煞信息</div>
         ) : (
-          <div className="shen-sha-grid">
+          <div className='shen-sha-grid'>
             {entries.map(([key, value]) => (
-              <div key={key} className="shen-sha-item">
-                <span className="shen-sha-name">{key}</span>
-                <span className="shen-sha-value">{Array.isArray(value) ? value.join('、') : value}</span>
+              <div key={key} className='shen-sha-item'>
+                <span className='shen-sha-name'>{key}</span>
+                <span className='shen-sha-value'>{Array.isArray(value) ? value.join('、') : value}</span>
               </div>
             ))}
           </div>

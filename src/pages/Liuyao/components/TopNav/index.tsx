@@ -41,8 +41,8 @@ const TopNav: React.FC<{ active: ActiveNavKey }> = ({ active }) => {
   }
 
   return (
-    <div className="liuyao-top-nav">
-      <div className="liuyao-top-nav-inner">
+    <div className='liuyao-top-nav'>
+      <div className='liuyao-top-nav-inner'>
         {NAVS.map((item) => (
           <button
             key={item.key}

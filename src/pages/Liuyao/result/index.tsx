@@ -147,10 +147,10 @@ const LiuyaoResultPage: React.FC = () => {
     <View className={`liuyao-result-page ${drawerOpen ? 'has-drawer' : ''}`}>
       {/* 认证状态栏 */}
       <AuthStatusBar />
-      <TopNav active="result" />
+      <TopNav active='result' />
 
       {/* 分析内容主体 (左侧) */}
-      <View className="analysis-main">
+      <View className='analysis-main'>
         {/* 决策主体卡片 */}
         <View>
           <QuestionCard value={resolvedQuestion} onChange={setQuestion} readOnly={isLoadingHistory} />
@@ -160,17 +160,17 @@ const LiuyaoResultPage: React.FC = () => {
         <InfoGrid result={safeResult} />
 
         {/* 卦象详细分析卡片 */}
-        <View className="glass-card analysis-card">
-          <View className="card-header">
-            <Text className="card-section-title">六爻详细分析</Text>
-            <Text className="card-section-guide">本卦、变卦及爻位的详细信息</Text>
+        <View className='glass-card analysis-card'>
+          <View className='card-header'>
+            <Text className='card-section-title'>六爻详细分析</Text>
+            <Text className='card-section-guide'>本卦、变卦及爻位的详细信息</Text>
           </View>
 
           {/* 本卦和变卦表格 */}
           <HexagramTable result={safeResult} />
           {/* 五行能量分析 */}
           <View className={`five-elements-wrap ${isLoggedIn ? '' : 'is-locked'}`}>
-            <View className="five-elements-content">
+            <View className='five-elements-content'>
               <FiveElementsAnalysis
                 metal={fiveElementCounts.metal}
                 wood={fiveElementCounts.wood}
@@ -181,10 +181,10 @@ const LiuyaoResultPage: React.FC = () => {
             </View>
             {!isLoggedIn && (
               <View
-                className="five-elements-mask"
+                className='five-elements-mask'
                 onClick={() => Taro.redirectTo({ url: `/pages/auth/index?redirect=${redirectTarget}` })}
               >
-                <Text className="five-elements-mask-text">登录后解锁五行能量分析</Text>
+                <Text className='five-elements-mask-text'>登录后解锁五行能量分析</Text>
               </View>
             )}
           </View>
@@ -211,7 +211,7 @@ const LiuyaoResultPage: React.FC = () => {
 
       {/* PC 模式下的历史侧栏 (右侧) */}
       {isPcMode && (
-        <View className="history-sidebar">
+        <View className='history-sidebar'>
           <HistoryList cases={historyCases} onClose={() => setDrawerOpen(false)} />
         </View>
       )}

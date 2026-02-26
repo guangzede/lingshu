@@ -703,18 +703,19 @@ export const ShakeCoins: React.FC<ShakeCoinsProps> = ({ step, disabled, onDone }
   }, [disabled, isShaking, startShake])
 
   return (
-    <View className="shake-section">
+    <View className='shake-section'>
       <Text style={{
         color: 'rgba(201, 173, 111, 0.75)',
         fontSize: '22px',
         fontFamily: "'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', serif",
         letterSpacing: '2px',
         lineHeight: '1.6'
-      }}>
+      }}
+      >
         摇卦：点击"摇一摇"六次，依次生成自下而上的六爻
       </Text>
       <Canvas
-        type="2d"
+        type='2d'
         id={canvasId}
         canvasId={canvasId}
         style={{
@@ -731,14 +732,15 @@ export const ShakeCoins: React.FC<ShakeCoinsProps> = ({ step, disabled, onDone }
           color: '#ff6b6b',
           fontSize: '22px',
           fontFamily: "'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', serif"
-        }}>
+        }}
+        >
           {initError}
         </Text>
       ) : null}
       {step < 6 && (
-        <View className="shake-actions">
+        <View className='shake-actions'>
           <Button
-            size="default"
+            size='default'
             className={`btn-shake ${isShaking ? 'disabled' : ''}`}
             disabled={isShaking || disabled}
             onClick={startShake}

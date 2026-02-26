@@ -99,125 +99,125 @@ export default function ProfilePage() {
   if (!user) return <View>未登录</View>;
 
   return (
-    <View className="profile-page">
-      <View className="profile-hero">
-        <View className="profile-avatar">灵</View>
-        <View className="profile-hero-info">
-          <View className="profile-name">{user.username}</View>
-          <View className="profile-subtitle">
+    <View className='profile-page'>
+      <View className='profile-hero'>
+        <View className='profile-avatar'>灵</View>
+        <View className='profile-hero-info'>
+          <View className='profile-name'>{user.username}</View>
+          <View className='profile-subtitle'>
             {user.memberLevel === 1 && user.memberExpireAt > Date.now() ? '会员有效' : '普通用户'}
           </View>
         </View>
       </View>
 
-      <View className="profile-card">
-        <View className="profile-row">
-          <View className="profile-label">称呼</View>
+      <View className='profile-card'>
+        <View className='profile-row'>
+          <View className='profile-label'>称呼</View>
           {edit ? (
             <Input
-              className="profile-input"
+              className='profile-input'
               value={form.nickname || ''}
               onInput={e => handleChange('nickname', e.detail.value)}
             />
           ) : (
-            <View className="profile-value">{user.nickname || '-'}</View>
+            <View className='profile-value'>{user.nickname || '-'}</View>
           )}
         </View>
-        <View className="profile-row">
-          <View className="profile-label">性别</View>
+        <View className='profile-row'>
+          <View className='profile-label'>性别</View>
           {edit ? (
             <Input
-              className="profile-input"
-              placeholder="男/女/其他"
+              className='profile-input'
+              placeholder='男/女/其他'
               value={form.gender || ''}
               onInput={e => handleChange('gender', e.detail.value)}
             />
           ) : (
-            <View className="profile-value">{user.gender || '-'}</View>
+            <View className='profile-value'>{user.gender || '-'}</View>
           )}
         </View>
-        <View className="profile-row">
-          <View className="profile-label">生日</View>
+        <View className='profile-row'>
+          <View className='profile-label'>生日</View>
           {edit ? (
             <Input
-              className="profile-input"
-              placeholder="YYYY-MM-DD"
+              className='profile-input'
+              placeholder='YYYY-MM-DD'
               value={form.birthday || ''}
               onInput={e => handleChange('birthday', e.detail.value)}
             />
           ) : (
-            <View className="profile-value">{user.birthday || '-'}</View>
+            <View className='profile-value'>{user.birthday || '-'}</View>
           )}
         </View>
-        <View className="profile-row">
-          <View className="profile-label">手机号</View>
+        <View className='profile-row'>
+          <View className='profile-label'>手机号</View>
           {edit ? (
             <Input
-              className="profile-input"
+              className='profile-input'
               value={form.phone || ''}
               onInput={e => handleChange('phone', e.detail.value)}
             />
           ) : (
-            <View className="profile-value">{user.phone || '-'}</View>
+            <View className='profile-value'>{user.phone || '-'}</View>
           )}
         </View>
-        <View className="profile-row">
-          <View className="profile-label">邀请码</View>
-          <View className="profile-value mono">{inviteCode || '-'}</View>
+        <View className='profile-row'>
+          <View className='profile-label'>邀请码</View>
+          <View className='profile-value mono'>{inviteCode || '-'}</View>
         </View>
-        <View className="profile-row">
-          <View className="profile-label">邀请链接</View>
-          <View className="profile-value link">{shareUrl || '-'}</View>
+        <View className='profile-row'>
+          <View className='profile-label'>邀请链接</View>
+          <View className='profile-value link'>{shareUrl || '-'}</View>
         </View>
-        <Button className="profile-btn ghost" onClick={handleShareInvite}>复制邀请链接</Button>
+        <Button className='profile-btn ghost' onClick={handleShareInvite}>复制邀请链接</Button>
       </View>
 
-      <View className="profile-card">
-        <View className="profile-row">
-          <View className="profile-label">购卡状态</View>
-          <View className="profile-value">
+      <View className='profile-card'>
+        <View className='profile-row'>
+          <View className='profile-label'>购卡状态</View>
+          <View className='profile-value'>
             {user.memberLevel === 1 && user.memberExpireAt > Date.now() ? '已购卡' : '未购卡'}
           </View>
         </View>
-        <View className="profile-row">
-          <View className="profile-label">购买日期</View>
-          <View className="profile-value">
+        <View className='profile-row'>
+          <View className='profile-label'>购买日期</View>
+          <View className='profile-value'>
             {user.memberPurchasedAt ? new Date(user.memberPurchasedAt).toLocaleDateString() : '-'}
           </View>
         </View>
-        <View className="profile-row">
-          <View className="profile-label">到期时间</View>
-          <View className="profile-value">
+        <View className='profile-row'>
+          <View className='profile-label'>到期时间</View>
+          <View className='profile-value'>
             {user.memberExpireAt ? new Date(user.memberExpireAt).toLocaleDateString() : '-'}
           </View>
         </View>
       </View>
 
-      <View className="profile-card grid">
-        <View className="profile-metric">
-          <View className="profile-metric-value">{user.lingshi ?? '-'}</View>
-          <View className="profile-metric-label">灵石</View>
+      <View className='profile-card grid'>
+        <View className='profile-metric'>
+          <View className='profile-metric-value'>{user.lingshi ?? '-'}</View>
+          <View className='profile-metric-label'>灵石</View>
         </View>
-        <View className="profile-metric">
-          <View className="profile-metric-value">{user.dailyFreeQuota ?? '-'}</View>
-          <View className="profile-metric-label">今日免费</View>
+        <View className='profile-metric'>
+          <View className='profile-metric-value'>{user.dailyFreeQuota ?? '-'}</View>
+          <View className='profile-metric-label'>今日免费</View>
         </View>
-        <View className="profile-metric">
-          <View className="profile-metric-value">{user.bonusQuota ?? '-'}</View>
-          <View className="profile-metric-label">赠送配额</View>
+        <View className='profile-metric'>
+          <View className='profile-metric-value'>{user.bonusQuota ?? '-'}</View>
+          <View className='profile-metric-label'>赠送配额</View>
         </View>
-        <View className="profile-metric">
-          <View className="profile-metric-value">{user.invitedCount ?? 0}</View>
-          <View className="profile-metric-label">已邀请</View>
+        <View className='profile-metric'>
+          <View className='profile-metric-value'>{user.invitedCount ?? 0}</View>
+          <View className='profile-metric-label'>已邀请</View>
         </View>
       </View>
 
-      <View className="profile-actions">
-        <Button className="profile-btn secondary" onClick={handleBackHome}>返回首页</Button>
+      <View className='profile-actions'>
+        <Button className='profile-btn secondary' onClick={handleBackHome}>返回首页</Button>
         {edit ? (
-          <Button className="profile-btn" onClick={handleSave}>保存</Button>
+          <Button className='profile-btn' onClick={handleSave}>保存</Button>
         ) : (
-          <Button className="profile-btn" onClick={() => setEdit(true)}>编辑资料</Button>
+          <Button className='profile-btn' onClick={() => setEdit(true)}>编辑资料</Button>
         )}
       </View>
     </View>

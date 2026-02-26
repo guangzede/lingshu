@@ -34,29 +34,29 @@ const Loading: React.FC<LoadingProps> = ({ onFinish, duration = 500 }) => {
 
   return (
     <View className={`loading-page ${fadeOut ? 'fade-out' : ''}`}>
-      <View className="loading-content">
+      <View className='loading-content'>
         {/* 太极图作为Loading图标 */}
-        <View className="loading-taiji">
-          <View className="taiji-rotate" />
+        <View className='loading-taiji'>
+          <View className='taiji-rotate' />
         </View>
 
         {/* 应用名称 */}
-        <Text className="loading-title">灵枢</Text>
-        <Text className="loading-subtitle">占·演·观</Text>
+        <Text className='loading-title'>灵枢</Text>
+        <Text className='loading-subtitle'>占·演·观</Text>
 
         {/* 进度条 */}
-        <View className="progress-container">
-          <View className="progress-bar" style={{ width: `${progress}%` }} />
+        <View className='progress-container'>
+          <View className='progress-bar' style={{ width: `${progress}%` }} />
         </View>
-        <Text className="progress-text">{Math.floor(progress)}%</Text>
+        <Text className='progress-text'>{Math.floor(progress)}%</Text>
       </View>
 
       {/* 星空背景 - 简化版 */}
-      <View className="loading-stars">
+      <View className='loading-stars'>
         {[...Array(30)].map((_, i) => (
           <View
             key={i}
-            className="star"
+            className='star'
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,

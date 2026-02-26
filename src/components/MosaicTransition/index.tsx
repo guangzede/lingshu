@@ -40,7 +40,7 @@ const MosaicTransition: React.FC<MosaicTransitionProps> = ({
 
   return (
     <div
-      className="mosaic-overlay"
+      className='mosaic-overlay'
       style={{
         ['--cols' as string]: cols,
         ['--rows' as string]: rows

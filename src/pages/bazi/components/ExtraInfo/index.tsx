@@ -109,10 +109,10 @@ const ExtraInfo: React.FC = () => {
 
   if (!extra) {
     return (
-      <section className="bazi-section">
-        <div className="bazi-card">
-          <div className="section-title">命理要素</div>
-          <div className="empty">{result ? '手动八字未提供出生信息，命宫等暂不可用' : '暂无排盘结果'}</div>
+      <section className='bazi-section'>
+        <div className='bazi-card'>
+          <div className='section-title'>命理要素</div>
+          <div className='empty'>{result ? '手动八字未提供出生信息，命宫等暂不可用' : '暂无排盘结果'}</div>
         </div>
       </section>
     )
@@ -131,50 +131,50 @@ const ExtraInfo: React.FC = () => {
     const hint = `${hintBase}${element ? `，${element}气${tendency}` : ''}`
 
     return (
-      <div className="extra-item">
-        <div className="extra-header">
-          <div className="extra-label">{label}</div>
+      <div className='extra-item'>
+        <div className='extra-header'>
+          <div className='extra-label'>{label}</div>
           <div className={`extra-chip ${element ? `element-${element}` : ''}`}>
             {element ? `${element}${tendency}` : '--'}
           </div>
         </div>
-        <div className="extra-main">
-          <div className="extra-value">{value || '--'}</div>
-          <div className="extra-note">{nayin || ''}</div>
+        <div className='extra-main'>
+          <div className='extra-value'>{value || '--'}</div>
+          <div className='extra-note'>{nayin || ''}</div>
         </div>
-        <div className="extra-desc">{hint}</div>
-        <div className="extra-line">
-          <span className="extra-key">十神</span>
-          <span className="extra-val">{tenGodShort}</span>
+        <div className='extra-desc'>{hint}</div>
+        <div className='extra-line'>
+          <span className='extra-key'>十神</span>
+          <span className='extra-val'>{tenGodShort}</span>
         </div>
-        <div className="extra-strength">
-          <span className="extra-key">强弱</span>
-          <div className="extra-bar">
-            <div className="extra-bar-fill" style={{ width: `${percent}%` }} />
+        <div className='extra-strength'>
+          <span className='extra-key'>强弱</span>
+          <div className='extra-bar'>
+            <div className='extra-bar-fill' style={{ width: `${percent}%` }} />
           </div>
-          <span className="extra-val">{percent}%</span>
+          <span className='extra-val'>{percent}%</span>
         </div>
-        <div className="extra-line">
-          <span className="extra-key">神煞</span>
-          <span className="extra-tags">
+        <div className='extra-line'>
+          <span className='extra-key'>神煞</span>
+          <span className='extra-tags'>
             {shenShaTags.length ? shenShaTags.map((name) => (
-              <span key={`${label}-${name}`} className="extra-tag">{name}</span>
-            )) : <span className="extra-empty">--</span>}
+              <span key={`${label}-${name}`} className='extra-tag'>{name}</span>
+            )) : <span className='extra-empty'>--</span>}
           </span>
         </div>
-        <div className="extra-line">
-          <span className="extra-key">合冲刑害</span>
-          <span className="extra-val">{relationText}</span>
+        <div className='extra-line'>
+          <span className='extra-key'>合冲刑害</span>
+          <span className='extra-val'>{relationText}</span>
         </div>
       </div>
     )
   }
 
   return (
-    <section className="bazi-section">
-      <div className="bazi-card">
-        <div className="section-title">命理要素</div>
-        <div className="extra-grid">
+    <section className='bazi-section'>
+      <div className='bazi-card'>
+        <div className='section-title'>命理要素</div>
+        <div className='extra-grid'>
           {renderItem('命宫', extra.mingGong, extra.mingGongNaYin)}
           {renderItem('身宫', extra.shenGong, extra.shenGongNaYin)}
           {renderItem('胎元', extra.taiYuan, extra.taiYuanNaYin)}

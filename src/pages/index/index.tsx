@@ -217,29 +217,29 @@ const IndexPage: React.FC = () => {
     <View className={`index-page ${isVisible ? 'visible' : ''}`}>
       {showOverlay && (
         <>
-          <Canvas type="2d" id="starfield" canvasId="starfield" className="star-canvas" disableScroll ref={canvasElRef as any} />
-          <View className="bg-gradient" />
-          <View className="bg-noise" />
+          <Canvas type='2d' id='starfield' canvasId='starfield' className='star-canvas' disableScroll ref={canvasElRef as any} />
+          <View className='bg-gradient' />
+          <View className='bg-noise' />
           {/* 中心太极图 - 纯CSS实现 */}
-          <View className="yin-yang" />
+          <View className='yin-yang' />
         </>
       )}
 
-      <View className="menu-page">
+      <View className='menu-page'>
         {/* 中心标题区域 */}
-        <View className="center-content">
-          <View className="menu-header">
-            <Text className="menu-logo">灵枢</Text>
-            <Text className="menu-sub">寂然不动 · 感而遂通</Text>
+        <View className='center-content'>
+          <View className='menu-header'>
+            <Text className='menu-logo'>灵枢</Text>
+            <Text className='menu-sub'>寂然不动 · 感而遂通</Text>
           </View>
         </View>
 
         {/* 底部幽灵按钮 */}
-        <View className="bottom-actions">
+        <View className='bottom-actions'>
           {menuItems.map((item) => (
             <Button
               key={item.id}
-              className="ghost-button"
+              className='ghost-button'
               onClick={() => handleNav(item.url, item.id === 'liuyao')}
             >
               {item.label}

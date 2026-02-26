@@ -41,22 +41,22 @@ export default function LoginForm() {
   };
 
   return (
-    <View className="auth-form">
+    <View className='auth-form'>
       <Input
-        className="auth-input"
-        placeholder="用户名"
+        className='auth-input'
+        placeholder='用户名'
         value={username}
         onInput={e => setUsername(e.detail.value)}
       />
       <Input
-        className="auth-input"
-        placeholder="密码"
+        className='auth-input'
+        placeholder='密码'
         password
         value={password}
         onInput={e => setPassword(e.detail.value)}
       />
-      {error && <View className="auth-error">{error}</View>}
-      <Button className="auth-btn" onClick={handleLogin}>登录</Button>
+      {error && <View className='auth-error'>{error}</View>}
+      <Button className='auth-btn' onClick={handleLogin}>登录</Button>
     </View>
   );
 }

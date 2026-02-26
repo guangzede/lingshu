@@ -69,13 +69,13 @@ interface PillarSelectProps {
 
 const PillarSelect: React.FC<PillarSelectProps> = ({ label, value, onClickStem, onClickBranch }) => {
   return (
-    <div className="bazi-pillar-input">
-      <div className="bazi-pillar-label">{label}</div>
-      <div className="bazi-pillar-display">
-        <div className="pillar-box stem-box" onClick={onClickStem}>
+    <div className='bazi-pillar-input'>
+      <div className='bazi-pillar-label'>{label}</div>
+      <div className='bazi-pillar-display'>
+        <div className='pillar-box stem-box' onClick={onClickStem}>
           {value.stem}
         </div>
-        <div className="pillar-box branch-box" onClick={onClickBranch}>
+        <div className='pillar-box branch-box' onClick={onClickBranch}>
           {value.branch}
         </div>
       </div>
@@ -91,9 +91,9 @@ interface WheelPickerProps {
 
 const WheelPicker: React.FC<WheelPickerProps> = ({ value, onChange, columns }) => (
   <PickerView
-    className="bazi-picker"
+    className='bazi-picker'
     value={value}
-    indicatorClass="bazi-picker-indicator"
+    indicatorClass='bazi-picker-indicator'
     onChange={(e) => onChange(e.detail.value as PickerValue)}
   >
     {columns.map((column, columnIndex) => (
@@ -175,12 +175,12 @@ const DateModal: React.FC<DateModalProps> = ({
 
     if (selectionTarget.part === 'stem') {
       return (
-        <div className="bazi-grid-picker">
-          <div className="picker-header">
+        <div className='bazi-grid-picker'>
+          <div className='picker-header'>
             <span>选择天干</span>
-            <span className="close-btn" onClick={() => setSelectionTarget(null)}>×</span>
+            <span className='close-btn' onClick={() => setSelectionTarget(null)}>×</span>
           </div>
-          <div className="picker-grid stems">
+          <div className='picker-grid stems'>
             {STEMS.map((s) => (
               <div
                 key={s}
@@ -199,12 +199,12 @@ const DateModal: React.FC<DateModalProps> = ({
       const currentStem = manualPillars[selectionTarget.pillar].stem
       const allowed = getAllowedBranches(currentStem)
       return (
-        <div className="bazi-grid-picker">
-          <div className="picker-header">
+        <div className='bazi-grid-picker'>
+          <div className='picker-header'>
             <span>选择地支 ({YANG_STEMS.includes(currentStem) ? '阳' : '阴'})</span>
-            <span className="close-btn" onClick={() => setSelectionTarget(null)}>×</span>
+            <span className='close-btn' onClick={() => setSelectionTarget(null)}>×</span>
           </div>
-          <div className="picker-grid branches">
+          <div className='picker-grid branches'>
             {BRANCHES.map((b) => {
               const isAllowed = allowed.includes(b)
               return (
@@ -225,11 +225,11 @@ const DateModal: React.FC<DateModalProps> = ({
   }
 
   return (
-    <div className="bazi-modal-mask" onClick={onClose}>
-      <div className="bazi-modal" onClick={(e) => e.stopPropagation()}>
-        <div className="bazi-modal-body">
+    <div className='bazi-modal-mask' onClick={onClose}>
+      <div className='bazi-modal' onClick={(e) => e.stopPropagation()}>
+        <div className='bazi-modal-body'>
           {!selectionTarget && (
-            <div className="bazi-modal-tabs">
+            <div className='bazi-modal-tabs'>
               <button
                 className={`bazi-modal-tab ${calendar === 'solar' && !manualMode ? 'active' : ''}`}
                 onClick={onSelectSolar}
@@ -255,37 +255,37 @@ const DateModal: React.FC<DateModalProps> = ({
             selectionTarget ? (
               renderSelectionGrid()
             ) : (
-              <div className="bazi-modal-manual">
+              <div className='bazi-modal-manual'>
                 <PillarSelect
-                  label="年柱"
+                  label='年柱'
                   value={manualPillars.year}
                   onClickStem={() => setSelectionTarget({ pillar: 'year', part: 'stem' })}
                   onClickBranch={() => setSelectionTarget({ pillar: 'year', part: 'branch' })}
                 />
                 <PillarSelect
-                  label="月柱"
+                  label='月柱'
                   value={manualPillars.month}
                   onClickStem={() => setSelectionTarget({ pillar: 'month', part: 'stem' })}
                   onClickBranch={() => setSelectionTarget({ pillar: 'month', part: 'branch' })}
                 />
                 <PillarSelect
-                  label="日柱"
+                  label='日柱'
                   value={manualPillars.day}
                   onClickStem={() => setSelectionTarget({ pillar: 'day', part: 'stem' })}
                   onClickBranch={() => setSelectionTarget({ pillar: 'day', part: 'branch' })}
                 />
                 <PillarSelect
-                  label="时柱"
+                  label='时柱'
                   value={manualPillars.hour}
                   onClickStem={() => setSelectionTarget({ pillar: 'hour', part: 'stem' })}
                   onClickBranch={() => setSelectionTarget({ pillar: 'hour', part: 'branch' })}
                 />
-                <div className="inline-note">点击干支进行修改。遵循“阳配阳、阴配阴”规则。</div>
+                <div className='inline-note'>点击干支进行修改。遵循“阳配阳、阴配阴”规则。</div>
               </div>
             )
           ) : (
-            <div className="bazi-modal-wheel">
-              <div className="bazi-wheel-labels">
+            <div className='bazi-modal-wheel'>
+              <div className='bazi-wheel-labels'>
                 <span>年</span>
                 <span>月</span>
                 <span>日</span>
@@ -528,46 +528,46 @@ const UserInput: React.FC = () => {
   const instantData = buildInstantData()
 
   return (
-    <section className="bazi-section">
-      <div className="bazi-card bazi-input-card">
-        <div className="bazi-input-header">
-          <div className="bazi-title">灵枢 八字</div>
-          <div className="bazi-subtitle">选择历法与出生信息，解构人生密码</div>
+    <section className='bazi-section'>
+      <div className='bazi-card bazi-input-card'>
+        <div className='bazi-input-header'>
+          <div className='bazi-title'>灵枢 八字</div>
+          <div className='bazi-subtitle'>选择历法与出生信息，解构人生密码</div>
         </div>
 
-        <div className="bazi-input-form">
-          <div className="bazi-row">
-            <div className="bazi-row-label">姓名</div>
-            <div className="bazi-row-content">
+        <div className='bazi-input-form'>
+          <div className='bazi-row'>
+            <div className='bazi-row-label'>姓名</div>
+            <div className='bazi-row-content'>
               <input
-                className="bazi-text-input"
+                className='bazi-text-input'
                 value={caseName}
                 onChange={(e) => setCaseName(e.target.value)}
-                placeholder="可选"
+                placeholder='可选'
               />
             </div>
           </div>
 
-          <div className="bazi-row">
-            <div className="bazi-row-label">备注</div>
-            <div className="bazi-row-content">
+          <div className='bazi-row'>
+            <div className='bazi-row-label'>备注</div>
+            <div className='bazi-row-content'>
               <input
-                className="bazi-text-input"
+                className='bazi-text-input'
                 value={caseNote}
                 onChange={(e) => setCaseNote(e.target.value)}
-                placeholder="可选"
+                placeholder='可选'
               />
             </div>
           </div>
 
-          <div className="bazi-row bazi-row-dual bazi-row-dual-compact">
-            <div className="bazi-dual-group">
-              <div className="bazi-dual-group-inner">
-                <div className="bazi-dual-content">
+          <div className='bazi-row bazi-row-dual bazi-row-dual-compact'>
+            <div className='bazi-dual-group'>
+              <div className='bazi-dual-group-inner'>
+                <div className='bazi-dual-content'>
                   <button className={`bazi-pill ${gender === 'male' ? 'active' : ''}`} onClick={() => setGender('male')}>男</button>
                   <button className={`bazi-pill ${gender === 'female' ? 'active' : ''}`} onClick={() => setGender('female')}>女</button>
                 </div>
-                <div className="bazi-dual-content">
+                <div className='bazi-dual-content'>
                   <button
                     className={`bazi-pill ${!manualMode && calendar === 'solar' ? 'active' : ''}`}
                     onClick={() => { setManualMode(false); setCalendar('solar') }}
@@ -591,57 +591,57 @@ const UserInput: React.FC = () => {
             </div>
           </div>
 
-          <div className="bazi-row bazi-row-clickable" onClick={() => setDateModalOpen(true)}>
-            <div className="bazi-row-label">出生时间</div>
-            <div className="bazi-row-content">
-              <div className="bazi-row-value">{manualMode ? manualDisplay : birthDisplayText}</div>
-              <div className="bazi-row-arrow">›</div>
+          <div className='bazi-row bazi-row-clickable' onClick={() => setDateModalOpen(true)}>
+            <div className='bazi-row-label'>出生时间</div>
+            <div className='bazi-row-content'>
+              <div className='bazi-row-value'>{manualMode ? manualDisplay : birthDisplayText}</div>
+              <div className='bazi-row-arrow'>›</div>
             </div>
           </div>
 
-          <div className="bazi-row bazi-row-save">
-            <div className="bazi-row-label">保存</div>
-            <div className="bazi-row-content">
+          <div className='bazi-row bazi-row-save'>
+            <div className='bazi-row-label'>保存</div>
+            <div className='bazi-row-content'>
               <label className={`bazi-switch ${autoSave ? 'active' : ''}`}>
                 <input
-                  type="checkbox"
+                  type='checkbox'
                   checked={autoSave}
                   style={{ "visibility": "hidden" }}
                   onChange={(e) => setAutoSave(e.target.checked)}
                 />
-                <span className="bazi-switch-track" />
-                <span className="bazi-switch-thumb" />
+                <span className='bazi-switch-track' />
+                <span className='bazi-switch-thumb' />
               </label>
             </div>
           </div>
         </div>
 
-        <div className="bazi-action-row">
-          <button className="bazi-primary-btn" onClick={handleCompute}>开始排盘</button>
+        <div className='bazi-action-row'>
+          <button className='bazi-primary-btn' onClick={handleCompute}>开始排盘</button>
         </div>
       </div>
 
       {!manualMode && (
-        <div className="bazi-card bazi-instant-card">
-          <div className="instant-body">
-            <div className="instant-row">
-              <div className="instant-left">
-                <div className="instant-pillars">
+        <div className='bazi-card bazi-instant-card'>
+          <div className='instant-body'>
+            <div className='instant-row'>
+              <div className='instant-left'>
+                <div className='instant-pillars'>
                   {instantData.pillars.map((p, idx) => (
-                    <div key={`instant-${idx}`} className="instant-pillar">
+                    <div key={`instant-${idx}`} className='instant-pillar'>
                       <span>{p.stem}</span>
                       <span>{p.branch}</span>
                     </div>
                   ))}
                 </div>
-                <div className="instant-meta">
-                  <div className="instant-note">{`农历 ${instantData.lunar.getYearInChinese()}年${instantData.lunar.getMonthInChinese()}月${instantData.lunar.getDayInChinese()} ${instantData.lunar.getTimeZhi()}时`}</div>
-                  <div className="instant-note">{`公历 ${instantData.instantNow.getFullYear()}-${pad2(instantData.instantNow.getMonth() + 1)}-${pad2(instantData.instantNow.getDate())} ${pad2(instantData.instantNow.getHours())}:${pad2(instantData.instantNow.getMinutes())}`}</div>
+                <div className='instant-meta'>
+                  <div className='instant-note'>{`农历 ${instantData.lunar.getYearInChinese()}年${instantData.lunar.getMonthInChinese()}月${instantData.lunar.getDayInChinese()} ${instantData.lunar.getTimeZhi()}时`}</div>
+                  <div className='instant-note'>{`公历 ${instantData.instantNow.getFullYear()}-${pad2(instantData.instantNow.getMonth() + 1)}-${pad2(instantData.instantNow.getDate())} ${pad2(instantData.instantNow.getHours())}:${pad2(instantData.instantNow.getMinutes())}`}</div>
                 </div>
               </div>
-              <div className="instant-right">
-                <div className="instant-time">{`${pad2(instantData.instantNow.getHours())}:${pad2(instantData.instantNow.getMinutes())}`}</div>
-                <button className="bazi-ghost-btn instant-btn" onClick={applyNowAndCompute}>即时排盘</button>
+              <div className='instant-right'>
+                <div className='instant-time'>{`${pad2(instantData.instantNow.getHours())}:${pad2(instantData.instantNow.getMinutes())}`}</div>
+                <button className='bazi-ghost-btn instant-btn' onClick={applyNowAndCompute}>即时排盘</button>
               </div>
             </div>
           </div>
