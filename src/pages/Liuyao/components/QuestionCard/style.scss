@@ -2,11 +2,13 @@
 
 .question-card-container {
   display: grid;
-  gap: 10px;
+  gap: 8px;
 }
 
 .question-card {
   @include mystical-card($spacing-lg, $border-radius-lg);
+  display: grid;
+  gap: 10px;
 
   .question-title {
     @include mystical-text($font-size-xl, $color-text-primary);
@@ -21,8 +23,7 @@
 }
 
 .input-with-button {
-  display: flex;
-  align-items: center;
+  display: grid;
   gap: 8px;
 }
 
@@ -32,8 +33,9 @@
   min-height: 52px;
   border: 1px solid var(--bazi-border);
   border-radius: 12px;
-  background: #ffffff;
-  padding: 8px;
+  background: var(--bazi-soft);
+  padding: 8px 10px;
+  box-sizing: border-box;
 }
 
 .question-input {
@@ -64,9 +66,11 @@
   z-index: 2;
   min-height: 52px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  align-content: flex-start;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
+  padding-top: 1px;
 }
 
 .selected-tag {
@@ -75,10 +79,13 @@
   gap: 6px;
   border: 1px solid rgba(177, 139, 79, 0.44);
   border-radius: 999px;
-  padding: 5px 11px;
+  padding: 4px 10px;
   color: var(--bazi-text);
   background: rgba(177, 139, 79, 0.14);
   transition: all 0.2s ease;
+  max-width: 100%;
+  min-height: 28px;
+  box-sizing: border-box;
 }
 
 .selected-tag:hover {
@@ -86,25 +93,34 @@
 }
 
 .tag-content {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 4px;
+  min-width: 0;
+  flex-wrap: wrap;
 }
 
 .tag-text {
   font-size: 0.84rem;
-  font-weight: 500;
+  font-weight: 600;
+  line-height: 1.35;
 }
 
 .tag-desc {
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   color: var(--bazi-sub);
+  line-height: 1.35;
 }
 
 .tag-close {
   font-size: 0.74rem;
   font-weight: 600;
   color: var(--bazi-accent);
+  line-height: 1;
+}
+
+.selected-tag.existing-value {
+  border-style: dashed;
 }
 
 .placeholder-dots {
@@ -120,18 +136,21 @@
 }
 
 .input-button {
-  flex-shrink: 0;
+  width: 100%;
+  min-height: 40px;
   padding: 10px 14px;
   border-radius: 10px;
   border: 1px solid var(--bazi-border);
-  background: #f3ece1;
+  background: var(--bazi-soft);
   color: var(--bazi-text);
   font-size: 0.88rem;
   letter-spacing: 0.06em;
+  text-align: center;
+  box-sizing: border-box;
 }
 
 .stardust-cloud {
-  margin-top: 8px;
+  margin-top: 0;
   border: 1px solid var(--bazi-border);
   border-radius: 12px;
   background: var(--bazi-soft);
@@ -148,6 +167,7 @@
 .cloud-guide-text {
   font-size: 0.76rem;
   color: var(--bazi-sub);
+  line-height: 1.45;
 }
 
 .back-arrow {
@@ -162,14 +182,14 @@
 .keywords-grid {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px;
 }
 
 .keyword-item {
   border: 1px solid var(--bazi-border);
   border-radius: 10px;
-  background: #ffffff;
+  background: var(--bazi-soft);
   color: var(--bazi-sub);
   padding: 8px 10px;
   display: inline-flex;
@@ -187,7 +207,7 @@
 }
 
 .keyword-desc {
-  font-size: 0.7rem;
+  font-size: 0.6rem;
   color: var(--bazi-muted);
 }
 
@@ -197,8 +217,7 @@
 
 @media (max-width: 42.5em) {
   .input-with-button {
-    flex-direction: column;
-    align-items: stretch;
+    gap: 8px;
   }
 
   .input-button {

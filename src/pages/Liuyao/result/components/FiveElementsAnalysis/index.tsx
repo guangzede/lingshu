@@ -2,7 +2,7 @@ import React from 'react'
 import Taro from '@tarojs/taro'
 import { View, Text, Canvas } from '@tarojs/components'
 import './index.scss'
- 
+
 import { WUXING_COLORS } from '@/constants/luopanData'
 
 interface Props {
