@@ -7,7 +7,7 @@ const ResultPanel: React.FC = () => {
 
   if (!result) {
     return (
-      <section className='daliuren-section'>
+      <section className='daliuren-section daliuren-result-panel'>
         <div className='daliuren-card'>
           <div className='daliuren-empty'>暂无排盘结果，请先排盘。</div>
         </div>
@@ -59,7 +59,7 @@ const ResultPanel: React.FC = () => {
   })
 
   return (
-    <section className='daliuren-section'>
+    <section className='daliuren-section daliuren-result-panel'>
       <div className='daliuren-card daliuren-basic'>
         <div className='section-title'>起课信息</div>
         <div className='basic-grid'>

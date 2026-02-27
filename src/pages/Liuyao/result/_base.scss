@@ -24,12 +24,20 @@
 }
 
 .analysis-main {
+  display: grid;
+  gap: 12px;
+
+  > view {
+    min-width: 0;
+  }
+
   @media (min-width: 1024px) {
     grid-column: 1;
     grid-row: 2;
     overflow-y: auto;
     max-height: calc(100vh - 96px);
     padding-right: 4px;
+    gap: 14px;
   }
 }
 
@@ -48,11 +56,25 @@
 
 .analysis-card {
   min-height: 200px;
+  display: grid;
+  gap: 12px;
+
+  > .card-header {
+    margin-bottom: 0;
+  }
+
+  .hexagram-table,
+  .yao-analysis-section,
+  .hex-texts-card,
+  .ai-analysis-card,
+  .five-elements-wrap {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
 }
 
 .five-elements-wrap {
   position: relative;
-  margin-top: 12px;
 }
 
 .five-elements-wrap.is-locked .five-elements-content {
@@ -75,4 +97,18 @@
   font-size: 0.92rem;
   color: var(--bazi-text);
   letter-spacing: 0.08em;
+}
+
+@media (max-width: 768px) {
+  .analysis-main {
+    gap: 10px;
+  }
+
+  .analysis-card {
+    gap: 10px;
+  }
+
+  .five-elements-mask-text {
+    font-size: 0.86rem;
+  }
 }

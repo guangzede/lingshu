@@ -24,15 +24,17 @@
 }
 
 .yao-analysis-section {
-  margin: 12px 0;
+  margin: 0;
   border: 1px solid var(--bazi-border);
   border-radius: 12px;
-  background: #fffdf9;
+  background: var(--bazi-soft);
   padding: 12px;
+  display: grid;
+  gap: 10px;
 }
 
 .yao-analysis-header {
-  margin-bottom: 10px;
+  margin-bottom: 0;
   padding-bottom: 8px;
   border-bottom: 1px solid var(--bazi-border);
 }
@@ -56,9 +58,9 @@
 }
 
 .yao-analysis-item {
-  margin-bottom: 10px;
+  margin-bottom: 0;
   padding: 10px;
-  background: #ffffff;
+  background: var(--bazi-soft);
   border-radius: 10px;
   border: 1px solid var(--bazi-border);
 }

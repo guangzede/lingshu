@@ -26,4 +26,25 @@
   .wuxing-tag {
     color: var(--bazi-accent);
   }
+
+  .analysis-main {
+    .glass-card {
+      box-sizing: border-box;
+    }
+
+    .card-header {
+      display: grid;
+      gap: 2px;
+      margin-bottom: 0;
+      align-items: start;
+    }
+
+    .card-section-title {
+      line-height: 1.35;
+    }
+
+    .card-section-guide {
+      line-height: 1.4;
+    }
+  }
 }

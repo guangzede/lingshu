@@ -1,12 +1,12 @@
 .hexagram-table {
   display: flex;
   flex-direction: column;
-  margin-top: 8px;
+  margin-top: 0;
   width: 100%;
   border: 1px solid var(--bazi-border);
   border-radius: 12px;
   overflow: hidden;
-  background: #ffffff;
+  background: var(--bazi-soft);
 }
 
 .table-header,
@@ -62,7 +62,7 @@
 
 .subheader-left,
 .subheader-right {
-  padding: 6px 2px;
+  padding: 7px 4px;
 }
 
 .col-label {
@@ -84,7 +84,7 @@
 .row-left,
 .row-right {
   align-items: center;
-  padding: 4px 2px;
+  padding: 5px 4px;
 }
 
 .cell {
@@ -93,6 +93,7 @@
   white-space: nowrap;
   font-size: 0.76rem;
   color: var(--bazi-sub);
+  line-height: 1.4;
 }
 
 .fushen-cell {

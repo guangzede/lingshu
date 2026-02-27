@@ -170,7 +170,7 @@ const FiveElementsAnalysis: React.FC<Props> = ({ metal, wood, water, fire, earth
       </View>
       <View className='card-body'>
         <View className='radar-container'>
-          <View className='radar-col' style={{ width: '70%', maxWidth: '70%', margin: '0 auto' }}>
+          <View className='radar-col'>
             <Text className='radar-title'>五行分布</Text>
             <View className='radar-wrap'>
               <Canvas
@@ -178,7 +178,7 @@ const FiveElementsAnalysis: React.FC<Props> = ({ metal, wood, water, fire, earth
                 id='five-elements-base'
                 canvasId='five-elements-base'
                 type='2d'
-                style={{ width: '70vw', height: '70vw', maxWidth: 500, maxHeight: 500, display: 'block' }}
+                style={{ display: 'block' }}
               />
               <View className='radar-legend'>
                 {baseItems.map((item) => (

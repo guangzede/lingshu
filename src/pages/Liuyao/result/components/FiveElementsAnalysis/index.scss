@@ -1,7 +1,7 @@
 .five-elements-card {
   border: 1px solid var(--bazi-border);
   border-radius: 12px;
-  background: #ffffff;
+  background: var(--bazi-soft);
   padding: 12px;
   display: grid;
   gap: 10px;
@@ -27,6 +27,15 @@
   gap: 10px;
 }
 
+.radar-container {
+  display: grid;
+  justify-items: center;
+}
+
+.radar-col {
+  width: min(100%, 520px);
+}
+
 .radar-title {
   font-size: 0.84rem;
   color: var(--bazi-text);
@@ -42,10 +51,10 @@
 }
 
 .radar-canvas {
-  width: 240px;
-  height: 240px;
+  width: min(70vw, 500px);
+  height: min(70vw, 500px);
   border-radius: 10px;
-  background: #fffdf9;
+  background: var(--bazi-soft);
   border: 1px solid var(--bazi-border);
 }
 
@@ -61,7 +70,7 @@
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  background: #ffffff;
+  background: var(--bazi-soft);
   border: 1px solid var(--bazi-border);
   border-radius: 8px;
   padding: 6px 4px;
@@ -86,8 +95,8 @@
 
 @media (max-width: 640px) {
   .radar-canvas {
-    width: 200px;
-    height: 200px;
+    width: min(72vw, 360px);
+    height: min(72vw, 360px);
   }
 
   .radar-legend {

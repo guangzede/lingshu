@@ -1,12 +1,24 @@
 @use "./shared.scss" as *;
 
+.daliuren-result-panel {
+  > .daliuren-card {
+    display: grid;
+    gap: 10px;
+  }
+
+  .section-title {
+    margin-bottom: 0;
+    line-height: 1.35;
+  }
+}
+
 .lesson-grid {
   @include dlr-grid();
 }
 
 .lesson-item {
   @include dlr-grid();
-  @include dlr-surface(12px, 10px);
+  @include dlr-surface(12px, 10px, var(--dlr-soft), var(--dlr-border));
 }
 
 .lesson-label {
@@ -19,6 +31,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 8px;
 }
 
 .lesson-tag {
@@ -27,16 +40,18 @@
   padding: 2px 8px;
   border-radius: 999px;
   background: var(--dlr-accent-soft);
+  border: 1px solid var(--dlr-border);
 }
 
 .lesson-main {
-  @include dlr-grid(8px, 1fr auto 1fr);
+  @include dlr-grid(8px, 1fr 20px 1fr);
   align-items: center;
 }
 
 .lesson-side {
   @include dlr-grid(2px);
   text-align: center;
+  min-width: 0;
 }
 
 .lesson-title {
@@ -48,6 +63,7 @@
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--dlr-text);
+  line-height: 1.2;
 }
 
 .lesson-sub {
@@ -57,12 +73,15 @@
 
 .lesson-arrow {
   color: var(--dlr-sub);
+  text-align: center;
+  font-size: 0.9rem;
 }
 
 .lesson-meta {
   font-size: 0.78rem;
   color: var(--dlr-sub);
   display: flex;
+  flex-wrap: wrap;
   gap: 6px;
   align-items: center;
   justify-content: center;
@@ -75,17 +94,17 @@
 .lesson-meaning {
   font-size: 0.78rem;
   color: var(--dlr-text);
-  @include dlr-surface(10px, 6px 8px, #f6f1ea, transparent);
+  @include dlr-surface(10px, 6px 8px, var(--dlr-soft), var(--dlr-border));
 }
 
 .lesson-extra {
-  @include dlr-grid(8px, repeat(3, minmax(0, 1fr)));
+  @include dlr-grid(8px, repeat(3, minmax(68px, 1fr)));
 }
 
 .lesson-extra-item {
   @include dlr-grid(4px);
   text-align: center;
-  @include dlr-surface(10px, 6px 4px, #fbf7f1, rgba(47, 41, 35, 0.08));
+  @include dlr-surface(10px, 6px 4px, var(--dlr-soft), var(--dlr-border));
   font-size: 0.72rem;
   color: var(--dlr-sub);
 }
@@ -97,12 +116,12 @@
 }
 
 .transmission-grid {
-  @include dlr-grid(10px, repeat(3, minmax(0, 1fr)));
+  @include dlr-grid(10px, repeat(auto-fit, minmax(92px, 1fr)));
 }
 
 .transmission-item {
   @include dlr-grid(6px);
-  @include dlr-surface(12px, 10px);
+  @include dlr-surface(12px, 10px, var(--dlr-soft), var(--dlr-border));
   text-align: center;
 }
 
@@ -114,11 +133,13 @@
 .transmission-branch {
   font-size: 1.05rem;
   font-weight: 700;
+  color: var(--dlr-text);
 }
 
 .transmission-meta {
   font-size: 0.72rem;
   color: var(--dlr-sub);
+  line-height: 1.45;
 }
 
 .tag-row {
@@ -134,18 +155,18 @@
   background: var(--dlr-accent-soft);
   color: var(--dlr-text);
   font-size: 0.75rem;
-  border: 1px solid rgba(180, 138, 79, 0.35);
+  border: 1px solid var(--dlr-border);
 
   &.subtle {
-    background: #faf6ef;
-    color: #6b6055;
-    border-color: rgba(120, 105, 90, 0.25);
+    background: var(--dlr-soft);
+    color: var(--dlr-sub);
+    border-color: var(--dlr-border);
   }
 }
 
 .dlr-section-block {
   @include dlr-grid();
-  padding: 10px 0;
+  padding: 12px 0;
   border-top: 1px dashed var(--dlr-border);
 }
 
@@ -167,11 +188,11 @@
 .dlr-hint-item {
   font-size: 0.8rem;
   color: var(--dlr-text);
-  @include dlr-surface(10px, 6px 10px, #f6f1ea, transparent);
+  @include dlr-surface(10px, 6px 10px, var(--dlr-soft), var(--dlr-border));
 
   &.muted {
     color: var(--dlr-sub);
-    background: #faf6ef;
+    background: var(--dlr-soft);
   }
 }
 
@@ -190,40 +211,70 @@
 }
 
 .dlr-shen-sha-grid {
-  @include dlr-grid(10px, repeat(3, minmax(0, 1fr)));
+  @include dlr-grid(10px, repeat(auto-fit, minmax(92px, 1fr)));
   margin-top: 10px;
 }
 
 .dlr-shen-sha-item {
   @include dlr-grid(6px);
-  @include dlr-surface(12px, 8px 10px, #fbf7f1, rgba(47, 41, 35, 0.08));
+  @include dlr-surface(12px, 8px 10px, var(--dlr-soft), var(--dlr-border));
 }
 
 .dlr-shen-sha-name {
   font-size: 0.75rem;
-  color: #6a5f54;
+  color: var(--dlr-sub);
 }
 
 .dlr-shen-sha-value {
   font-size: 0.9rem;
-  color: #2f2923;
+  color: var(--dlr-text);
   font-weight: 600;
 }
 
 .summary-text {
   font-size: 0.95rem;
   color: var(--dlr-text);
-  margin-bottom: 8px;
+  margin-bottom: 2px;
+  line-height: 1.6;
 }
 
 .summary-list {
   margin: 0;
-  padding-left: 16px;
+  padding-left: 18px;
   color: var(--dlr-sub);
   font-size: 0.78rem;
   @include dlr-grid(4px);
+
+  li {
+    line-height: 1.5;
+
+    &::marker {
+      color: var(--dlr-accent);
+    }
+  }
 }
 
 .warning-card {
-  border-color: rgba(180, 138, 79, 0.35);
+  border-color: var(--dlr-border);
+  background: var(--dlr-soft);
+}
+
+@media (max-width: 520px) {
+  .daliuren-result-panel {
+    > .daliuren-card {
+      gap: 8px;
+    }
+  }
+
+  .lesson-extra {
+    @include dlr-grid(8px, repeat(auto-fit, minmax(86px, 1fr)));
+  }
+
+  .lesson-main {
+    @include dlr-grid(6px, 1fr);
+  }
+
+  .lesson-arrow {
+    transform: rotate(90deg);
+  }
 }
