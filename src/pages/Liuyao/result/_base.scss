@@ -29,6 +29,7 @@
 
   > view {
     min-width: 0;
+    margin: 0;
   }
 
   @media (min-width: 1024px) {
@@ -37,7 +38,7 @@
     overflow-y: auto;
     max-height: calc(100vh - 96px);
     padding-right: 4px;
-    gap: 14px;
+    gap: 12px;
   }
 }
 
@@ -66,8 +67,7 @@
   .hexagram-table,
   .yao-analysis-section,
   .hex-texts-card,
-  .ai-analysis-card,
-  .five-elements-wrap {
+  .ai-analysis-card {
     margin-top: 0;
     margin-bottom: 0;
   }
@@ -75,6 +75,8 @@
 
 .five-elements-wrap {
   position: relative;
+  border-radius: 16px;
+  overflow: hidden;
 }
 
 .five-elements-wrap.is-locked .five-elements-content {
@@ -101,7 +103,7 @@
 
 @media (max-width: 768px) {
   .analysis-main {
-    gap: 10px;
+    gap: 12px;
   }
 
   .analysis-card {

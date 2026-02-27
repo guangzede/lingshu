@@ -75,29 +75,28 @@
 }
 
 .shensha-item {
-  display: grid;
+  display: flex;
   gap: 4px;
   padding: 8px;
   background: var(--bazi-soft);
   border-radius: 10px;
   border: 1px solid var(--bazi-border);
+  justify-content: space-between;
 }
 
 .shensha-item.highlight-jade {
-  border-left: 3px solid #54b17d;
+  border-left: 6px solid #54b17d;
 }
 
 .shensha-item.highlight-red {
-  border-left: 3px solid #c05a5a;
+  border-left: 6px solid #c05a5a;
 }
 
 .shensha-key {
-  font-size: 0.72rem;
   color: var(--bazi-muted);
 }
 
 .shensha-val {
-  font-size: 0.8rem;
   color: var(--bazi-sub);
   line-height: 1.45;
 }
@@ -122,13 +121,5 @@
   .info-row {
     flex-direction: column;
     gap: 4px;
-  }
-
-  .ganzhi-row {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .shensha-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

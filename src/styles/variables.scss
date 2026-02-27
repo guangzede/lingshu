@@ -71,6 +71,10 @@ $font-size-xxxl: 40rpx;
 $font-size-huge: 48rpx;
 $font-size-massive: 96rpx;
 
+// 全局兼容别名（兼容旧样式变量命名）
+$font-size-global-text: $font-size-base;
+$font-size-global-button: $font-size-base;
+
 // ====== 间距系统 ======
 $spacing-xs: 8rpx;
 $spacing-sm: 12rpx;
@@ -114,6 +118,11 @@ $gradient-dark-card: linear-gradient(
   rgba(15, 21, 38, 0.85),
   rgba(10, 15, 25, 0.95)
 );
+
+// 全局兼容别名（兼容旧样式变量命名）
+$gradient-primary: $gradient-mystical-gold;
+$gradient-secondary: $gradient-dark-card;
+$gradient-accent: linear-gradient(135deg, $color-accent, $color-accent-dark);
 
 // ====== 玻璃态效果 ======
 $glass-bg: rgba(255, 255, 255, 0.04);

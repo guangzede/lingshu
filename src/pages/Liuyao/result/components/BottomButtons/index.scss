@@ -1,17 +1,21 @@
 .bottom-buttons-container {
-  margin: 16px;
+  margin: 12px 16px;
   display: flex;
-  gap: 10px;
+  gap: 8px;
   justify-content: center;
   padding-bottom: calc(12px + env(safe-area-inset-bottom));
+  &:last-child {
+    margin: 0;
+  }
 
   .btn-save-case,
   .btn-view-history {
     flex: 1;
     border-radius: 999px !important;
-    font-size: 0.86rem;
-    letter-spacing: 0.1em;
-    min-height: 44px;
+    font-size: 0.84rem;
+    letter-spacing: 0.06em;
+    min-height: 42px;
+    line-height: 1.2;
   }
 
   .btn-save-case {
@@ -34,7 +38,7 @@
 
     .btn-save-case,
     .btn-view-history {
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       letter-spacing: 0.06em;
     }
   }

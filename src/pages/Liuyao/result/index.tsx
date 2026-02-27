@@ -168,26 +168,6 @@ const LiuyaoResultPage: React.FC = () => {
 
           {/* 本卦和变卦表格 */}
           <HexagramTable result={safeResult} />
-          {/* 五行能量分析 */}
-          <View className={`five-elements-wrap ${isLoggedIn ? '' : 'is-locked'}`}>
-            <View className='five-elements-content'>
-              <FiveElementsAnalysis
-                metal={fiveElementCounts.metal}
-                wood={fiveElementCounts.wood}
-                water={fiveElementCounts.water}
-                fire={fiveElementCounts.fire}
-                earth={fiveElementCounts.earth}
-              />
-            </View>
-            {!isLoggedIn && (
-              <View
-                className='five-elements-mask'
-                onClick={() => Taro.redirectTo({ url: `/pages/auth/index?redirect=${redirectTarget}` })}
-              >
-                <Text className='five-elements-mask-text'>登录后解锁五行能量分析</Text>
-              </View>
-            )}
-          </View>
           {/* 爻位动态分析 */}
           <YaoAnalysis result={safeResult} />
           <HexagramTexts result={safeResult} />
@@ -199,6 +179,27 @@ const LiuyaoResultPage: React.FC = () => {
             savedAiAnalysis={savedAiAnalysis}
             onAnalysisGenerated={setCurrentAiAnalysis}
           />
+        </View>
+
+        {/* 五行能量分析卡片（独立于六爻详细分析） */}
+        <View className={`five-elements-wrap ${isLoggedIn ? '' : 'is-locked'}`}>
+          <View className='five-elements-content'>
+            <FiveElementsAnalysis
+              metal={fiveElementCounts.metal}
+              wood={fiveElementCounts.wood}
+              water={fiveElementCounts.water}
+              fire={fiveElementCounts.fire}
+              earth={fiveElementCounts.earth}
+            />
+          </View>
+          {!isLoggedIn && (
+            <View
+              className='five-elements-mask'
+              onClick={() => Taro.redirectTo({ url: `/pages/auth/index?redirect=${redirectTarget}` })}
+            >
+              <Text className='five-elements-mask-text'>登录后解锁五行能量分析</Text>
+            </View>
+          )}
         </View>
       </View>
 
