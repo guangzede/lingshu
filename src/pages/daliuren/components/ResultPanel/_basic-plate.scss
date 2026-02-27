@@ -1,6 +1,6 @@
 // ====== 大六壬基础盘面样式 - 神秘深色主题 ======
-@use "../../../styles/variables.scss" as *;
-@use "../../../styles/mixins.scss" as *;
+@use "../../../../styles/variables.scss" as *;
+@use "../../../../styles/mixins.scss" as *;
 
 // ====== 深色主题变量 ======
 :root {
@@ -13,7 +13,7 @@
   --dlr-muted: #{$color-text-muted};
   --dlr-accent: #{$color-mystical-gold};
   --dlr-accent-soft: #{$color-accent-light};
-  --dlr-shadow: #{$color-mystical-shadow};
+  --dlr-shadow: #{$shadow-mystical};
 }
 
 .daliuren-basic {

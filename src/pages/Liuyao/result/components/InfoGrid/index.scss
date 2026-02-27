@@ -2,6 +2,11 @@
   margin: 0;
   display: grid;
   gap: 10px;
+  padding: 12px;
+  border: 1px solid var(--bazi-border);
+  border-radius: 14px;
+  background: var(--bazi-card);
+  box-shadow: var(--bazi-shadow);
 }
 
 %info-divider-row {
@@ -106,6 +111,10 @@
   justify-content: center;
   align-items: center;
   min-height: 120px;
+  border: 1px solid var(--bazi-border);
+  border-radius: 10px;
+  background: var(--bazi-soft);
+  padding: 10px;
 }
 
 .module-empty-text {

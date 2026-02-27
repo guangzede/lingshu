@@ -1,3 +1,4 @@
+@use "../../../../styles/variables.scss" as *;
 @use "../../../../styles/mixins.scss" as *;
 
 .question-card-container {
@@ -6,7 +7,13 @@
 }
 
 .question-card {
-  @include mystical-card($spacing-lg, $border-radius-lg);
+  padding: 12px;
+  border: 1px solid var(--bazi-border);
+  border-radius: 14px;
+  background: var(--bazi-soft);
+  box-shadow: var(--bazi-shadow);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   display: grid;
   gap: 10px;
 
@@ -33,7 +40,7 @@
   min-height: 52px;
   border: 1px solid var(--bazi-border);
   border-radius: 12px;
-  background: var(--bazi-soft);
+  background: var(--bazi-card);
   padding: 8px 10px;
   box-sizing: border-box;
 }
@@ -142,7 +149,7 @@
   padding: 10px 14px;
   border-radius: 10px;
   border: 1px solid var(--bazi-border);
-  background: var(--bazi-soft);
+  background: var(--bazi-card);
   color: var(--bazi-text);
   font-size: 0.88rem;
   letter-spacing: 0.06em;
@@ -154,7 +161,7 @@
   margin-top: 0;
   border: 1px solid var(--bazi-border);
   border-radius: 12px;
-  background: var(--bazi-soft);
+  background: var(--bazi-card);
   padding: 10px;
   display: grid;
   gap: 10px;
@@ -190,7 +197,7 @@
 .keyword-item {
   border: 1px solid var(--bazi-border);
   border-radius: 10px;
-  background: var(--bazi-soft);
+  background: var(--bazi-card);
   color: var(--bazi-sub);
   padding: 8px 10px;
   display: inline-flex;
