@@ -1,5 +1,5 @@
 .flow-card {
-  background: #ffffff;
+  background: var(--bazi-card);
   border: 1px solid var(--bazi-border);
   border-radius: 14px;
   padding: 12px;
@@ -23,7 +23,7 @@
   padding: 3px 10px;
   border-radius: 999px;
   white-space: nowrap;
-  background: #fffaf3;
+  background: var(--bazi-soft);
 }
 
 .flow-mode.is-strong {
@@ -66,12 +66,12 @@
   font-weight: 600;
   font-size: 0.9rem;
   color: var(--bazi-text);
-  background: #fffaf3;
+  background: var(--bazi-soft);
 }
 
 .flow-node.active {
   border-color: var(--bazi-accent);
-  background: #fff2da;
+  background: rgba(214, 178, 122, 0.2);
   box-shadow: 0 6px 12px rgba(177, 139, 79, 0.2);
 }
 
@@ -107,7 +107,7 @@
 
 .section-toggle {
   border: 1px solid var(--bazi-border);
-  background: #ffffff;
+  background: var(--bazi-soft);
   color: var(--bazi-sub);
   padding: 4px 10px;
   border-radius: 999px;

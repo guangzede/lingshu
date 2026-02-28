@@ -24,7 +24,7 @@
   position: relative;
   border-radius: 14px;
   border: 1px solid var(--bazi-border);
-  background: #fffaf3;
+  background: var(--bazi-soft);
   padding: 14px 16px;
   display: grid;
   gap: 8px;
@@ -58,7 +58,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 250, 243, 0.72);
+  background: rgba(21, 27, 43, 0.72);
   backdrop-filter: blur(8px);
   border-radius: 14px;
   color: var(--bazi-text);

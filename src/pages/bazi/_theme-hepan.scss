@@ -36,7 +36,7 @@
   border: 1px solid var(--bazi-border);
   border-radius: 10px;
   padding: 6px 8px;
-  background: #ffffff;
+  background: var(--bazi-card);
   color: var(--bazi-text);
 }
 
@@ -70,7 +70,7 @@
 .hepan-metric {
   border: 1px solid var(--bazi-border);
   border-radius: 12px;
-  background: #fffdf8;
+  background: var(--bazi-card);
   padding: 10px 12px;
   display: grid;
   gap: 6px;
@@ -123,7 +123,7 @@
   padding: 4px 8px;
   font-size: 0.78rem;
   color: var(--bazi-sub);
-  background: #ffffff;
+  background: var(--bazi-soft);
 }
 
 .hepan-empty {
@@ -132,7 +132,7 @@
 }
 
 .bazi-table-wrap {
-  background: #ffffff;
+  background: var(--bazi-card);
   border-color: var(--bazi-border);
 }
 
@@ -154,7 +154,7 @@
 
 .bazi-table tbody tr:nth-child(even) td,
 .bazi-table tbody tr:nth-child(even) th {
-  background: #fcfaf6;
+  background: var(--bazi-soft);
 }
 
 .cell-text,
@@ -164,12 +164,12 @@
 }
 
 .ai-report {
-  background: #fffaf3;
+  background: var(--bazi-soft);
   border-color: var(--bazi-border);
   color: var(--bazi-text);
 }
 
 .ai-mask {
-  background: rgba(255, 250, 243, 0.7);
+  background: rgba(21, 27, 43, 0.72);
   color: var(--bazi-text);
 }

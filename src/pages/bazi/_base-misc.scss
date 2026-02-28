@@ -23,7 +23,7 @@
   font-size: 0.75rem;
   border: 1px solid var(--bazi-border);
   color: var(--bazi-sub);
-  background: #fffaf3;
+  background: var(--bazi-soft);
   white-space: nowrap;
 }
 
@@ -37,7 +37,7 @@
   border-radius: 12px;
   border: 1px solid var(--bazi-border);
   padding: 10px;
-  background: #ffffff;
+  background: var(--bazi-card);
   display: grid;
   gap: 6px;
 }

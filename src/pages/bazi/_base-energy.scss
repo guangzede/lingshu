@@ -1,4 +1,4 @@
-@use '../../styles/variables.scss' as *;
+@use "../../styles/variables.scss" as *;
 
 .core-grid {
   display: grid;
@@ -8,7 +8,7 @@
 }
 
 .core-block {
-  background: #ffffff;
+  background: var(--bazi-card);
   padding: 12px;
   border-radius: 12px;
   border: 1px solid var(--bazi-border);
@@ -90,7 +90,11 @@
 .energy-bar-fill,
 .ten-god-bar-fill {
   height: 100%;
-  background: linear-gradient(90deg, rgba(177, 139, 79, 0.9), rgba(177, 139, 79, 0.25));
+  background: linear-gradient(
+    90deg,
+    rgba(177, 139, 79, 0.9),
+    rgba(177, 139, 79, 0.25)
+  );
 }
 
 .energy-percent {
@@ -125,7 +129,7 @@
   border: 1px solid var(--bazi-border);
   font-size: 0.78rem;
   color: var(--bazi-sub);
-  background: #ffffff;
+  background: var(--bazi-soft);
 }
 
 .relation-list {
@@ -150,7 +154,7 @@
   border: 1px solid var(--bazi-border);
   text-align: center;
   color: var(--bazi-text);
-  background: #fffaf3;
+  background: var(--bazi-soft);
 }
 
 .relation-pillars,
@@ -170,7 +174,7 @@
 }
 
 .shen-sha-item {
-  background: #ffffff;
+  background: var(--bazi-card);
   border-radius: 12px;
   padding: 8px 10px;
   border: 1px solid var(--bazi-border);
@@ -242,7 +246,7 @@
     border: 1px solid var(--bazi-border);
     border-radius: 10px;
     padding: 8px;
-    background: #fffdf9;
+    background: var(--bazi-soft);
   }
 
   .relation-type {

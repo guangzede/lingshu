@@ -5,7 +5,7 @@
 }
 
 .bazi-page.bazi-input-page .bazi-row {
-  border-bottom: 1px solid rgba(47, 41, 35, 0.08);
+  border-bottom: 1px solid var(--bazi-border);
 }
 
 .bazi-page.bazi-input-page .bazi-input-header {
@@ -30,7 +30,7 @@
 }
 
 .bazi-page.bazi-input-page .bazi-pillar-controls select {
-  background: #ffffff;
+  background: var(--bazi-card);
   border-color: var(--bazi-border);
   color: var(--bazi-text);
 }

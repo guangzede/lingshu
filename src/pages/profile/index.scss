@@ -124,7 +124,6 @@
   display: flex;
   justify-content: flex-end;
   gap: 12px;
-  margin-top: 10px;
 }
 
 .profile-btn {
@@ -136,6 +135,7 @@
   font-weight: 600;
   border: none;
   box-shadow: 0 12px 22px rgba(20, 15, 10, 0.25);
+  margin: 0;
 }
 
 .profile-btn.secondary {

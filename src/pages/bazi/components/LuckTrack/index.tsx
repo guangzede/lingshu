@@ -8,6 +8,14 @@ const STEMS: Stem[] = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '
 const BRANCHES: Branch[] = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥']
 const toStem = (value: unknown): Stem | undefined => STEMS.find((item) => item === value)
 const toBranch = (value: unknown): Branch | undefined => BRANCHES.find((item) => item === value)
+const toTenGodShort = (value?: string) => {
+  if (!value || value === '--') return '--'
+  return TEN_GOD_SHORT[value] || value[0] || '--'
+}
+const formatLiuYueLabel = (label?: string) => {
+  if (!label) return '--'
+  return label === '十一' || label === '十二' ? label : `${label}月`
+}
 
 const LuckTrack: React.FC = () => {
   const { result, selectedDaYunIndex, setSelectedDaYunIndex } = useBaziStore()
@@ -34,7 +42,7 @@ const LuckTrack: React.FC = () => {
 
   const getBranchTenGodShort = (branch?: Branch) => {
     const full = getBranchTenGodFull(branch)
-    return TEN_GOD_SHORT[full] || full
+    return toTenGodShort(full)
   }
 
   const buildLiuYueList = (ganZhi?: string) => {
@@ -103,14 +111,16 @@ const LuckTrack: React.FC = () => {
   const buildDetail = (title: string, stem?: Stem, stemTen?: string, branch?: Branch, branchTen?: string) => {
     const stemInfo = TEN_GOD_HINTS[stemTen || '']
     const branchInfo = TEN_GOD_HINTS[branchTen || '']
+    const stemTenDisplay = toTenGodShort(stemTen)
+    const branchTenDisplay = toTenGodShort(branchTen)
     const keywords = [stemInfo?.keywords, branchInfo?.keywords].filter(Boolean).join(' / ') || '--'
     const desc = [stemInfo?.desc, branchInfo?.desc].filter(Boolean).join('；') || '暂无解读信息'
     return (
       <div className='luck-detail-card'>
         <div className='detail-title'>{title}</div>
         <div className='detail-line'>
-          <span>干：{stem || '--'} · {stemTen || '--'}</span>
-          <span>支：{branch || '--'} · {branchTen || '--'}</span>
+          <span>干：{stem || '--'} · {stemTenDisplay}</span>
+          <span>支：{branch || '--'} · {branchTenDisplay}</span>
         </div>
         <div className='detail-keywords'>关键词：{keywords}</div>
         <div className='detail-desc'>{desc}</div>
@@ -158,26 +168,26 @@ const LuckTrack: React.FC = () => {
                   const dyStem = toStem(dy.stem)
                   const dyBranch = toBranch(dy.branch)
                   return (
-                  <button
-                    key={dy.index}
-                    className={`luck-item dayun-item ${idx === currentIndex ? 'active' : ''}`}
-                    onClick={() => setSelectedDaYunIndex(idx)}
-                  >
-                    <div className='luck-year'>{dy.startYear ?? '--'}</div>
-                    <div className='luck-age'>
-                      {formatAge(dy.startAge)}{dy.endAge !== undefined ? `~${formatAge(dy.endAge)}` : ''}
-                    </div>
-                    <div className='luck-gz-stack'>
-                      <div className='luck-gz-line'>
-                        <span className={`luck-char element-${dyStem ? STEM_ELEMENT[dyStem] : ''}`}>{dy.stem || '--'}</span>
-                        <span className='luck-god'>{TEN_GOD_SHORT[dy.tenGod] || dy.tenGod}</span>
+                    <button
+                      key={dy.index}
+                      className={`luck-item dayun-item ${idx === currentIndex ? 'active' : ''}`}
+                      onClick={() => setSelectedDaYunIndex(idx)}
+                    >
+                      <div className='luck-year'>{dy.startYear ?? '--'}</div>
+                      <div className='luck-age'>
+                        {formatAge(dy.startAge)}{dy.endAge !== undefined ? `~${formatAge(dy.endAge)}` : ''}
                       </div>
-                      <div className='luck-gz-line'>
-                        <span className={`luck-char element-${dyBranch ? BRANCH_ELEMENT[dyBranch] : ''}`}>{dy.branch || '--'}</span>
-                        <span className='luck-god'>{getBranchTenGodShort(dyBranch)}</span>
+                      <div className='luck-gz-stack'>
+                        <div className='luck-gz-line'>
+                          <span className={`luck-char element-${dyStem ? STEM_ELEMENT[dyStem] : ''}`}>{dy.stem || '--'}</span>
+                          <span className='luck-god'>{toTenGodShort(dy.tenGod)}</span>
+                        </div>
+                        <div className='luck-gz-line'>
+                          <span className={`luck-char element-${dyBranch ? BRANCH_ELEMENT[dyBranch] : ''}`}>{dy.branch || '--'}</span>
+                          <span className='luck-god'>{getBranchTenGodShort(dyBranch)}</span>
+                        </div>
                       </div>
-                    </div>
-                  </button>
+                    </button>
                   )
                 })}
               </div>
@@ -206,7 +216,7 @@ const LuckTrack: React.FC = () => {
                       <div className='luck-gz-stack'>
                         <div className='luck-gz-line'>
                           <span className={`luck-char element-${stem ? STEM_ELEMENT[stem] : ''}`}>{stem || '--'}</span>
-                          <span className='luck-god'>{TEN_GOD_SHORT[ln.tenGod] || ln.tenGod}</span>
+                          <span className='luck-god'>{toTenGodShort(ln.tenGod)}</span>
                         </div>
                         <div className='luck-gz-line'>
                           <span className={`luck-char element-${branch ? BRANCH_ELEMENT[branch] : ''}`}>{branch || '--'}</span>
@@ -235,15 +245,15 @@ const LuckTrack: React.FC = () => {
                       className={`luck-item liuyue-item ${isActive ? 'active' : ''} ${isCurrent ? 'current' : ''}`}
                       onClick={() => setSelectedMonthIndex(lm.index)}
                     >
-                      <div className='luck-month'>{lm.label}月</div>
+                      <div className='luck-month'>{formatLiuYueLabel(lm.label)}</div>
                       <div className='luck-gz-stack'>
                         <div className='luck-gz-line'>
                           <span className={`luck-char element-${STEM_ELEMENT[lm.gan]}`}>{lm.gan}</span>
-                          <span className='luck-god'>{TEN_GOD_SHORT[lm.stemTen] || lm.stemTen}</span>
+                          <span className='luck-god'>{toTenGodShort(lm.stemTen)}</span>
                         </div>
                         <div className='luck-gz-line'>
                           <span className={`luck-char element-${BRANCH_ELEMENT[lm.zhi]}`}>{lm.zhi}</span>
-                          <span className='luck-god'>{TEN_GOD_SHORT[lm.branchTen] || lm.branchTen}</span>
+                          <span className='luck-god'>{toTenGodShort(lm.branchTen)}</span>
                         </div>
                       </div>
                     </div>
@@ -265,7 +275,7 @@ const LuckTrack: React.FC = () => {
                 getBranchTenGodFull(toBranch(activeLiuNian.ganZhi?.[1]))
               ) : null}
               {liuYueList[selectedMonthIndex] ? buildDetail(
-                `流月解读 · ${liuYueList[selectedMonthIndex].label}月`,
+                `流月解读 · ${formatLiuYueLabel(liuYueList[selectedMonthIndex].label)}`,
                 liuYueList[selectedMonthIndex].gan,
                 liuYueList[selectedMonthIndex].stemTen,
                 liuYueList[selectedMonthIndex].zhi,

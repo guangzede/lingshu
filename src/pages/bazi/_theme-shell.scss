@@ -9,6 +9,14 @@
   --bazi-radius: 18px;
   --bazi-radius-sm: 12px;
   --bazi-gap: 16px;
+  --bazi-text: #eaf0ff;
+  --bazi-sub: #c7d1ea;
+  --bazi-muted: #9ba9c9;
+  --bazi-accent: #d6b27a;
+  --bazi-border: rgba(154, 169, 199, 0.22);
+  --bazi-soft: #1c2538;
+  --bazi-card: #151b2b;
+  --bazi-shadow: 0 12px 30px rgba(5, 9, 20, 0.45);
 
   &::before {
     content: "";
@@ -55,11 +63,18 @@
   // ====== 卡片样式 ======
   .bazi-card {
     @include mystical-card($spacing-lg, var(--bazi-radius));
-    color: $color-text-primary;
+    background: var(--bazi-card);
+    border: 1px solid var(--bazi-border);
+    box-shadow: var(--bazi-shadow);
+    color: var(--bazi-text);
   }
 
   .bazi-input-card {
     @include mystical-card();
+    background: var(--bazi-card);
+    border: 1px solid var(--bazi-border);
+    box-shadow: var(--bazi-shadow);
+    color: var(--bazi-text);
   }
 
   // ====== 文字样式 ======
@@ -69,22 +84,22 @@
   }
 
   .bazi-subtitle {
-    color: $color-text-secondary;
+    color: var(--bazi-sub);
     font-size: $font-size-md;
   }
 
   .section-title {
-    @include mystical-text($font-size-xxl, $color-text-primary);
+    @include mystical-text($font-size-xxl, var(--bazi-text));
     letter-spacing: 0.12em;
   }
 
   // ====== 行样式 ======
   .bazi-row {
-    border-bottom: 1px solid $color-border;
+    border-bottom: 1px solid var(--bazi-border);
     padding: $spacing-md 0;
 
     .bazi-row-label {
-      color: $color-text-primary;
+      color: var(--bazi-text);
       font-weight: 600;
     }
 
@@ -95,9 +110,9 @@
 
   // ====== 胶囊样式 ======
   .bazi-pill {
-    border: 1px solid $color-border;
-    background: $color-bg-card;
-    color: $color-text-secondary;
+    border: 1px solid var(--bazi-border);
+    background: var(--bazi-soft);
+    color: var(--bazi-sub);
     padding: 6px $spacing-sm;
     border-radius: $border-radius-round;
     font-size: $font-size-sm;
@@ -106,7 +121,7 @@
 
     &.active {
       @include mystical-button(6px $spacing-sm, $font-size-sm);
-      color: $color-text-primary;
+      color: var(--bazi-text);
     }
   }
 
@@ -167,7 +182,9 @@
 
   .result-meta {
     @include mystical-card($spacing-sm, $border-radius-lg);
-    color: $color-text-secondary;
+    background: var(--bazi-soft);
+    border: 1px solid var(--bazi-border);
+    color: var(--bazi-sub);
     font-size: $font-size-sm;
   }
 
@@ -184,7 +201,7 @@
 
       .summary-sub {
         font-size: $font-size-sm;
-        color: $color-text-secondary;
+        color: var(--bazi-sub);
       }
     }
 
@@ -199,18 +216,18 @@
 
         .summary-label {
           font-size: $font-size-sm;
-          color: $color-text-secondary;
+          color: var(--bazi-sub);
           margin-bottom: 4px;
           letter-spacing: 0.08em;
         }
 
         .summary-value {
-          @include mystical-text($font-size-lg, $color-text-primary);
+          @include mystical-text($font-size-lg, var(--bazi-text));
         }
 
         .summary-desc {
           font-size: $font-size-sm;
-          color: $color-text-secondary;
+          color: var(--bazi-sub);
           margin-top: 4px;
         }
       }
@@ -225,12 +242,14 @@
         @include mystical-card($spacing-md, $border-radius-lg);
         display: grid;
         gap: 6px;
-        color: $color-text-secondary;
+        background: var(--bazi-soft);
+        border: 1px solid var(--bazi-border);
+        color: var(--bazi-sub);
         font-size: $font-size-sm;
 
         span {
           font-size: $font-size-xs;
-          color: $color-text-muted;
+          color: var(--bazi-muted);
           letter-spacing: 0.08em;
         }
       }
@@ -238,6 +257,6 @@
   }
 
   .analysis-line {
-    color: $color-text-secondary;
+    color: var(--bazi-sub);
   }
 }
