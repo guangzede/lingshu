@@ -2,7 +2,9 @@
 
 .form-card {
   padding: 14px 12px;
-  background: linear-gradient(180deg, #ffffff 0%, var(--stock-soft) 100%);
+  background: var(--stock-card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .field-row {
@@ -75,7 +77,9 @@
   line-height: 2.7rem;
   border-radius: 10px;
   border: 1px solid var(--stock-border);
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   padding: 0 12px;
   color: var(--stock-text-main);
   font-size: 0.9rem;
@@ -84,18 +88,20 @@
 }
 
 .field-input-stock {
-  border-color: rgba(177, 139, 79, 0.4);
-  background: #ffffff;
+  border-color: rgba(251, 191, 36, 0.35);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .field-input-stock:focus {
   border-color: var(--stock-accent);
-  box-shadow: 0 0 0 2px rgba(177, 139, 79, 0.2);
+  box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2), 0 0 12px rgba(251, 191, 36, 0.12);
 }
 
 .field-input-stock::placeholder,
 .field-input::placeholder {
-  color: var(--stock-muted);
+  color: rgba(255, 255, 255, 0.35);
   font-size: 0.84rem;
 }
 
@@ -124,7 +130,7 @@
 }
 
 .quick-fill-chip:active {
-  background: #fffaf3;
+  background: rgba(251, 191, 36, 0.12);
 }
 
 .quick-fill-name {
@@ -230,12 +236,12 @@
 }
 
 .error-card {
-  background: rgba(192, 90, 90, 0.12);
-  border-color: rgba(192, 90, 90, 0.3);
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.3);
 }
 
 .error-text {
-  color: #b14a4a;
+  color: #ef9999;
   font-size: 0.86rem;
 }
 
@@ -267,9 +273,9 @@
 }
 
 .history-direction.up {
-  @include stock-trend-chip(var(--stock-up), rgba(192, 90, 90, 0.12), rgba(192, 90, 90, 0.25));
+  @include stock-trend-chip(var(--stock-up), rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.25));
 }
 
 .history-direction.down {
-  @include stock-trend-chip(var(--stock-down), rgba(75, 159, 104, 0.12), rgba(75, 159, 104, 0.25));
+  @include stock-trend-chip(var(--stock-down), rgba(34, 197, 94, 0.1), rgba(34, 197, 94, 0.25));
 }

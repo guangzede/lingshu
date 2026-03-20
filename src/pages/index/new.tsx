@@ -78,8 +78,8 @@ const createCloudTexture = () => {
 };
 
 const drawRingText = (ctx: CanvasRenderingContext2D, cx: number, cy: number, radius: number, data: any[], fontSize = 40, opts: any = {}) => {
-    const { isUpright = false, font = "KaiTi", isGold = false } = opts;
-    ctx.font = `900 ${fontSize}px "${font}", "STKaiti", serif`;
+    const { isUpright = false, font = "PingFang SC", isGold = false } = opts;
+    ctx.font = `900 ${fontSize}px "${font}", "Hiragino Sans GB", "Noto Sans SC", sans-serif`;
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     const count = data.length; const step = (Math.PI * 2) / count;
 
@@ -629,9 +629,9 @@ export default function Index() {
             />
             <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '96px 0', zIndex: 2 }}>
                 <div style={{ textAlign: 'center', transition: 'opacity 0.7s', opacity: phase === 'idle' ? 1 : 0 }}>
-                    <h1 style={{ fontSize: '72px', fontWeight: 'bold', letterSpacing: '0.5em', color: '#D4AF37', textShadow: '0 0 30px rgba(212, 175, 55, 0.4)', fontFamily: 'serif', margin: 0 }}>灵 枢</h1>
+                    <h1 style={{ fontSize: '72px', fontWeight: 'bold', letterSpacing: '0.5em', color: '#D4AF37', textShadow: '0 0 30px rgba(212, 175, 55, 0.4)', fontFamily: '"PingFang SC", "Hiragino Sans GB", "Noto Sans SC", sans-serif', margin: 0 }}>灵 枢</h1>
                     <div style={{ width: '64px', height: '2px', backgroundColor: '#D4AF37', margin: '32px auto', opacity: 0.8 }}></div>
-                    <p style={{ fontSize: '24px', letterSpacing: '0.3em', opacity: 0.9, fontWeight: 300, color: '#FFFFFF', fontFamily: 'serif', margin: 0 }}>寂然不动 · 感而遂通</p>
+                    <p style={{ fontSize: '24px', letterSpacing: '0.3em', opacity: 0.9, fontWeight: 300, color: '#FFFFFF', fontFamily: '"PingFang SC", "Hiragino Sans GB", "Noto Sans SC", sans-serif', margin: 0 }}>寂然不动 · 感而遂通</p>
                 </div>
 
             </div>
@@ -645,7 +645,7 @@ export default function Index() {
                             opacity: 1, transform: 'translateY(0)',
                             pointerEvents: 'auto',
                             background: 'rgba(255, 179, 0, 0.1)',
-                            fontFamily: 'serif', letterSpacing: '0.2em', cursor: 'pointer'
+                            fontFamily: '"PingFang SC", "Hiragino Sans GB", "Noto Sans SC", sans-serif', letterSpacing: '0.2em', cursor: 'pointer'
                         }}
                     >
                         <span style={{ fontSize: '20px', fontWeight: 600 }}>六爻排盘</span>

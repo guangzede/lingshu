@@ -3,16 +3,47 @@
 
 .stock-page {
   @include unified-page-shell("mystical");
+  position: relative;
+  overflow-x: hidden;
+  // 涨跌色
+  --stock-up: #ef4444;
+  --stock-down: #22c55e;
+  --stock-flat: #{$color-text-muted};
+  // 文字色
+  --stock-accent: #{$color-accent};
   --stock-accent-deep: #8f6837;
-  --stock-up: #c05a5a;
-  --stock-down: #4b9f68;
-  --stock-flat: #8f8579;
-  --stock-text-main: $color-text-primary;
-  --stock-text-sub: $color-text-secondary;
-  --stock-text-muted: $color-text-muted;
-  --stock-bg-soft: $color-bg-card;
-  --stock-border-soft: $color-border;
+  --stock-text-main: #{$color-text-primary};
+  --stock-text-sub: #{$color-text-secondary};
+  --stock-muted: #{$color-text-muted};
+  --stock-sub: #{$color-text-secondary};
+  // 边框/背景
+  --stock-border: #{$color-border};
+  --stock-border-soft: #{$color-border};
+  --stock-soft: #{$color-bg-card};
+  --stock-bg-soft: #{$color-bg-card};
+  // 卡片背景（深色毛玻璃）
+  --stock-card-bg: #{$color-mystical-card-bg};
+  --stock-card-border: #{$color-mystical-border};
   padding: 0 14px 28px;
+}
+
+.stock-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 120% 70% at 50% 0%, rgba($color-mystical-gold, 0.06) 0%, transparent 45%),
+    linear-gradient(180deg, rgba(9, 15, 29, 0.18) 0%, transparent 30%);
+}
+
+.stock-page::after {
+  content: "";
+  position: fixed;
+  inset: auto 0 0;
+  height: 18vh;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 0%, rgba(4, 7, 18, 0.42) 100%);
 }
 
 .stock-top-nav {
@@ -21,35 +52,17 @@
   z-index: 6;
   display: flex;
   justify-content: center;
-  padding: 14px 12px 8px;
+  padding: 14px 12px 10px;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
 
 .stock-top-nav-inner {
-  width: 100%;
-  max-width: 320px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
+  @include frosted-top-nav-shell();
 }
 
 .stock-top-tab {
-  padding: 8px 16px;
-  border-radius: 999px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: $color-text-secondary;
-  background: transparent;
-  border: 1px solid $color-border;
-  transition: all 0.3s ease;
-  cursor: pointer;
-
-  &:hover {
-    color: $color-text-primary;
-    background: $color-bg-card;
-  }
+  @include frosted-top-nav-tab();
 
   text {
     color: inherit;
@@ -57,20 +70,22 @@
 }
 
 .stock-top-tab.active {
-  background: $color-accent;
+  background: linear-gradient(180deg, rgba($color-accent, 0.96), rgba($color-accent-dark, 0.92));
   color: $color-bg-primary;
-  border-color: $color-accent;
-  box-shadow: 0 6px 14px rgba($color-accent-dark, 0.2);
+  border-color: rgba($color-accent, 0.92);
+  box-shadow: 0 8px 18px rgba($color-accent-dark, 0.22);
 }
 
 .stock-header {
-  margin: 10px 0 16px;
+  position: relative;
+  z-index: 1;
+  margin: 12px 0 18px;
   text-align: center;
 }
 
 .stock-title {
   @include mystical-text($font-size-xxxl, $color-text-primary);
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .stock-subtitle {
@@ -88,4 +103,23 @@
 .stock-card {
   @include mystical-card(14px, $border-radius-lg);
   margin-bottom: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 420px) {
+  .stock-top-nav {
+    padding: 10px 10px 8px;
+  }
+
+  .stock-top-nav-inner {
+    gap: 8px;
+    padding: 6px;
+  }
+
+  .stock-top-tab {
+    min-height: 38px;
+    padding: 8px 12px;
+    font-size: 0.84rem;
+  }
 }

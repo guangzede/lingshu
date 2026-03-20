@@ -1,10 +1,10 @@
 {/* <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; text-align: center; pointer-events: none; z-index: 10; animation: 2s ease 0s 1 normal forwards running fadeIn;"><style>
                 @keyframes fadeIn { from { opacity: 0; transform: translate(-50%, -40%); } to { opacity: 1; transform: translate(-50%, -50%); } }
-                .destiny-text { 
-                    font-family: 'KaiTi', serif; 
-                    font-size: 24px; 
+                .destiny-text {
+                    font-family: 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans SC', sans-serif;
+                    font-size: 24px;
                     line-height: 1.6;
-                    color: #FFD700; 
+                    color: #FFD700;
                     text-shadow: 0 0 20px #FFD700;
                     letter-spacing: 0.1em;
                     background: rgba(0, 0, 0, 0.6);

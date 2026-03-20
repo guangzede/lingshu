@@ -1,12 +1,16 @@
+@use "../../styles/variables.scss" as *;
+
 @mixin stock-surface(
   $radius: 10px,
   $padding: null,
-  $border: var(--stock-border),
-  $background: #ffffff
+  $border: var(--stock-card-border),
+  $background: var(--stock-card-bg)
 ) {
   border: 1px solid $border;
   border-radius: $radius;
   background: $background;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 
   @if $padding != null {
     padding: $padding;

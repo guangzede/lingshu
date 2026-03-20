@@ -1,7 +1,9 @@
 @use './shared.scss' as *;
 
 .result-card {
-  background: linear-gradient(180deg, #ffffff 0%, #f9f5ed 100%);
+  background: var(--stock-card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .result-header {
@@ -90,7 +92,7 @@
 .prob-bar {
   height: 10px;
   border-radius: 999px;
-  background: #efe9e1;
+  background: rgba(255, 255, 255, 0.1);
   overflow: hidden;
 }
 
@@ -100,11 +102,11 @@
 }
 
 .prob-fill.up {
-  background: linear-gradient(90deg, #d07272, #c05a5a);
+  background: linear-gradient(90deg, #f87171, #ef4444);
 }
 
 .prob-fill.down {
-  background: linear-gradient(90deg, #74b88e, #4b9f68);
+  background: linear-gradient(90deg, #4ade80, #22c55e);
 }
 
 .metrics-grid {

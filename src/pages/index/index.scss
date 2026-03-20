@@ -1,4 +1,4 @@
-// ====== 赛博道教首页样式 - 沉浸式体验 ======
+// 首页：克制的玄学仪式感入口
 @use "../../styles/variables.scss" as *;
 @use "../../styles/mixins.scss" as *;
 
@@ -6,215 +6,262 @@
   @include mystical-dark-theme();
   position: relative;
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
   overflow: hidden;
   opacity: 0;
-  transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: opacity 420ms ease;
 
   &.visible {
     opacity: 1;
   }
 
-  &.hidden {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  // ====== 太极图 ======
+  .bg-gradient,
+  .bg-noise,
+  .star-canvas,
   .yin-yang {
     position: absolute;
-    top: 20%;
+  }
+
+  .yin-yang {
+    top: 18%;
     left: 50%;
-    width: 200px;
-    height: 200px;
+    width: 194px;
+    height: 194px;
     transform: translate(-50%, -50%);
     border-radius: 50%;
-    background: linear-gradient(
-      90deg,
-      $color-mystical-gold 50%,
-      $color-bg-primary 50%
-    );
+    background: linear-gradient(90deg, $color-mystical-gold 50%, $color-bg-primary 50%);
     box-shadow:
-      0 0 30px rgba(255, 255, 255, 0.4),
-      0 0 60px rgba(255, 255, 255, 0.3),
-      0 0 80px rgba($color-mystical-gold, 0.4),
-      0 0 120px rgba($color-mystical-gold, 0.3),
-      0 0 160px rgba($color-mystical-gold, 0.15),
-      0 0 200px rgba($color-mystical-gold, 0.08),
-      inset 0 2px 15px rgba(255, 255, 255, 0.08),
-      inset 0 -2px 8px rgba(0, 0, 0, 0.15);
+      0 0 28px rgba(255, 255, 255, 0.3),
+      0 0 64px rgba($color-mystical-gold, 0.22),
+      0 0 120px rgba($color-mystical-gold, 0.08),
+      inset 0 2px 12px rgba(255, 255, 255, 0.08),
+      inset 0 -2px 10px rgba(0, 0, 0, 0.18);
     overflow: hidden;
     z-index: 3;
     animation:
-      yin-yang-rotate 16s linear infinite,
-      pulse-glow 3s ease-in-out infinite;
+      yin-yang-rotate 24s linear infinite,
+      yin-yang-breath 5.5s ease-in-out infinite;
 
     &::before,
     &::after {
       content: "";
       position: absolute;
       left: 50%;
-      width: 100px;
-      height: 100px;
+      width: 97px;
+      height: 97px;
       border-radius: 50%;
       transform: translateX(-50%);
     }
 
     &::before {
       top: 0;
-      background: radial-gradient(
-        circle,
-        $color-bg-primary 20%,
-        $color-bg-primary 20%,
-        transparent 22%
-      );
       background-color: $color-mystical-gold;
+      background-image: radial-gradient(circle, $color-bg-primary 20%, transparent 23%);
     }
 
     &::after {
       bottom: 0;
-      background: radial-gradient(
-        circle,
-        $color-mystical-gold 20%,
-        #f4f4f4 20%,
-        transparent 22%
-      );
       background-color: $color-bg-primary;
+      background-image: radial-gradient(circle, $color-mystical-gold 20%, transparent 23%);
     }
   }
 
-  // ====== 星空背景 ======
   .star-canvas {
-    position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
-    z-index: 5;
-    pointer-events: none;
-    opacity: 0.85;
-    display: block;
-    flex-shrink: 0;
-    background: transparent;
-    filter: brightness(0.9) contrast(1);
-  }
-
-  // ====== 噪点纹理 ======
-  .bg-noise {
-    position: absolute;
-    inset: 0;
-    background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="4.2" numOctaves="4" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
-    opacity: 0.12;
-    pointer-events: none;
     z-index: 2;
-    mix-blend-mode: soft-light;
-  }
-
-  // ====== 渐变背景 ======
-  .bg-gradient {
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(180deg, rgba(100, 150, 200, 0.12) 0%, transparent 40%),
-      radial-gradient(
-        ellipse 140% 90% at 50% 38%,
-        rgba($color-mystical-gold, 0.08) 0%,
-        transparent 40%
-      ),
-      radial-gradient(
-        ellipse 100% 70% at 50% 70%,
-        rgba($color-bg-secondary, 0.4) 0%,
-        transparent 60%
-      );
-    opacity: 0.9;
     pointer-events: none;
-    z-index: 1;
-    animation: gradient-breathe 50s ease-in-out infinite;
+    opacity: 0.82;
+    background: transparent;
+    filter: brightness(0.96) contrast(1.03);
   }
 
-  // ====== 菜单页面 ======
+  .bg-noise {
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.08;
+    mix-blend-mode: soft-light;
+    background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="3.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+  }
+
+  .bg-gradient {
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 140% 95% at 50% 14%, rgba($color-mystical-gold, 0.12) 0%, transparent 42%),
+      radial-gradient(ellipse 120% 70% at 50% 72%, rgba($color-bg-secondary, 0.5) 0%, transparent 62%),
+      linear-gradient(180deg, rgba(115, 149, 196, 0.08) 0%, transparent 36%);
+    animation: gradient-breathe 24s ease-in-out infinite;
+  }
+
   .menu-page {
     position: relative;
-    z-index: 20;
+    z-index: 4;
     width: 100%;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    color: $color-text-primary;
-    padding: 15vh 16px 8vh 16px;
-    font-family: $font-family-serif;
-  }
-
-  .center-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    flex: 1;
-    width: 100%;
-    margin-top: 15vh;
+    padding:
+      calc(env(safe-area-inset-top) + 10vh)
+      20px
+      calc(env(safe-area-inset-bottom) + 28px);
+    gap: 22px;
+    color: $color-text-primary;
   }
 
-  .bottom-actions {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: $spacing-md;
-    width: 100%;
-    padding: 0 24px;
-    font-size: 30px;
-    margin-bottom: 6vh;
-  }
-
-  // ====== 菜单头部 ======
-  .menu-header {
+  .hero-card {
+    width: min(100%, 640px);
+    padding: 24px 22px 20px;
+    border: 1px solid rgba($color-mystical-gold, 0.14);
+    border-radius: 26px;
+    background: rgba(8, 12, 22, 0.5);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.24);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
     text-align: center;
-    position: relative;
-    z-index: 2;
+  }
+
+  .hero-kicker {
+    display: block;
+    font-size: 20px;
+    letter-spacing: 0.26em;
+    color: rgba($color-mystical-gold, 0.68);
+    margin-bottom: 14px;
+  }
+
+  .menu-header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 18px;
+    gap: 10px;
   }
 
   .menu-logo {
-    @include mystical-text(80px, $color-mystical-gold);
-    letter-spacing: 28px;
+    @include mystical-text(78px, $color-mystical-gold);
+    letter-spacing: 0.28em;
+    line-height: 1.05;
+    text-indent: 0.28em;
     text-shadow:
-      0 0 12px rgba($color-mystical-gold, 0.15),
-      0 2px 8px rgba(0, 0, 0, 0.3);
-    line-height: 1.2;
+      0 0 16px rgba($color-mystical-gold, 0.12),
+      0 2px 8px rgba(0, 0, 0, 0.32);
   }
 
   .menu-sub {
-    font-size: 30px;
-    letter-spacing: 8px;
-    color: rgba($color-mystical-gold, 0.85);
-    line-height: 1.6;
+    font-size: 28px;
+    letter-spacing: 0.16em;
+    color: rgba($color-mystical-gold, 0.86);
+    line-height: 1.55;
     font-weight: 500;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.22);
+  }
+
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 18px;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    border-radius: 999px;
+    border: 1px solid rgba($color-mystical-gold, 0.16);
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba($color-mystical-gold, 0.9);
+    font-size: 22px;
+    letter-spacing: 0.12em;
+  }
+
+  .menu-grid {
+    width: min(100%, 640px);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .menu-card {
+    @include glass-effect(rgba(255, 255, 255, 0.05), rgba($color-mystical-gold, 0.12), 16px);
     position: relative;
-    z-index: 2;
-    font-family: $font-family-serif;
-    text-shadow:
-      0 0 10px rgba($color-mystical-gold, 0.12),
-      0 1px 6px rgba(0, 0, 0, 0.25);
+    width: 100%;
+    min-height: 98px;
+    padding: 18px 18px 16px;
+    border-radius: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.16);
+    color: $color-text-primary;
+    text-align: left;
+    overflow: hidden;
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: auto -22px -22px auto;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba($color-mystical-gold, 0.12) 0%, transparent 72%);
+      pointer-events: none;
+    }
+
+    &:active {
+      transform: scale(0.99);
+    }
   }
 
-  // ====== 幽灵按钮 ======
-  .ghost-button {
-    @include ghost-button(18px 48px, 25px);
-    max-width: 280px;
-    min-width: 200px;
+  .menu-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .menu-card-title {
+    font-size: 34px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: $color-text-primary;
+  }
+
+  .menu-card-badge {
+    flex-shrink: 0;
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba($color-mystical-gold, 0.18);
+    background: rgba($color-mystical-gold, 0.08);
+    color: rgba($color-mystical-gold, 0.95);
+    font-size: 20px;
+    letter-spacing: 0.12em;
+  }
+
+  .menu-card-desc {
+    font-size: 24px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.72);
+    letter-spacing: 0.06em;
+  }
+
+  .menu-footer {
+    width: min(100%, 640px);
     text-align: center;
-    letter-spacing: 6px;
+    font-size: 22px;
+    line-height: 1.7;
+    letter-spacing: 0.1em;
+    color: rgba($color-mystical-gold, 0.6);
+    padding: 4px 12px 0;
   }
 
-  // ====== 动画 ======
   @keyframes yin-yang-rotate {
     from {
       transform: translate(-50%, -50%) rotate(0deg);
@@ -224,57 +271,95 @@
     }
   }
 
-  @keyframes yin-yang-glow {
+  @keyframes yin-yang-breath {
     0%,
     100% {
+      filter: brightness(1);
       box-shadow:
-        0 0 30px rgba(255, 255, 255, 0.4),
-        0 0 60px rgba(255, 255, 255, 0.3),
-        0 0 80px rgba($color-mystical-gold, 0.3),
-        0 0 120px rgba($color-mystical-gold, 0.2),
-        0 0 160px rgba($color-mystical-gold, 0.1),
-        0 0 200px rgba($color-mystical-gold, 0.05),
-        inset 0 2px 8px rgba(255, 255, 255, 0.08),
-        inset 0 -2px 8px rgba(0, 0, 0, 0.15);
+        0 0 28px rgba(255, 255, 255, 0.3),
+        0 0 64px rgba($color-mystical-gold, 0.18),
+        0 0 120px rgba($color-mystical-gold, 0.08),
+        inset 0 2px 12px rgba(255, 255, 255, 0.08),
+        inset 0 -2px 10px rgba(0, 0, 0, 0.18);
     }
     50% {
+      filter: brightness(1.08);
       box-shadow:
-        0 0 40px rgba(255, 255, 255, 0.5),
-        0 0 80px rgba(255, 255, 255, 0.4),
-        0 0 120px rgba($color-mystical-gold, 0.5),
-        0 0 160px rgba($color-mystical-gold, 0.35),
-        0 0 200px rgba($color-mystical-gold, 0.2),
-        0 0 240px rgba($color-mystical-gold, 0.1),
-        inset 0 2px 8px rgba(255, 255, 255, 0.08),
-        inset 0 -2px 8px rgba(0, 0, 0, 0.15);
+        0 0 34px rgba(255, 255, 255, 0.34),
+        0 0 80px rgba($color-mystical-gold, 0.26),
+        0 0 140px rgba($color-mystical-gold, 0.1),
+        inset 0 2px 12px rgba(255, 255, 255, 0.08),
+        inset 0 -2px 10px rgba(0, 0, 0, 0.18);
     }
   }
 
   @keyframes gradient-breathe {
     0%,
     100% {
-      opacity: 0.8;
+      opacity: 0.84;
     }
     50% {
       opacity: 1;
     }
   }
 
-  // ====== 响应式设计 ======
   @media (min-width: 768px) {
     .menu-page {
-      padding: 18vh 32px 10vh 32px;
+      padding:
+        calc(env(safe-area-inset-top) + 12vh)
+        32px
+        calc(env(safe-area-inset-bottom) + 36px);
+      gap: 24px;
     }
 
-    .yin-yang {
-      width: 220px;
-      height: 220px;
+    .hero-card {
+      padding: 30px 28px 24px;
     }
 
-    .ghost-button {
-      font-size: 18px;
-      padding: 20px 56px;
-      max-width: 320px;
+    .menu-logo {
+      font-size: 86px;
+    }
+
+    .menu-sub {
+      font-size: 30px;
+    }
+
+    .menu-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .menu-card {
+      min-height: 114px;
+    }
+
+    .menu-card-title {
+      font-size: 32px;
+    }
+  }
+
+  @media (max-width: 374px) {
+    .hero-card,
+    .menu-grid,
+    .menu-footer {
+      width: 100%;
+    }
+
+    .menu-logo {
+      font-size: 70px;
+      letter-spacing: 0.18em;
+      text-indent: 0.18em;
+    }
+
+    .menu-sub {
+      font-size: 24px;
+    }
+
+    .menu-card-title {
+      font-size: 30px;
+    }
+
+    .menu-card-desc {
+      font-size: 22px;
     }
   }
 }

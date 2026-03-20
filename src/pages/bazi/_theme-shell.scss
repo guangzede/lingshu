@@ -6,6 +6,7 @@
 
 .bazi-page {
   @include unified-page-shell("mystical", $padding-bottom: 48px);
+  position: relative;
   --bazi-radius: 18px;
   --bazi-radius-sm: 12px;
   --bazi-gap: 16px;
@@ -35,6 +36,16 @@
     pointer-events: none;
   }
 
+  &::after {
+    content: "";
+    position: fixed;
+    inset: auto 0 0;
+    height: 22vh;
+    background: linear-gradient(180deg, transparent 0%, rgba(4, 7, 18, 0.4) 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
   &.bazi-input-page,
   &.bazi-result-page {
     background: $color-bg-primary;
@@ -43,27 +54,31 @@
 
   // ====== 布局组件 ======
   .bazi-section {
-    width: min(94vw, 980px);
-    margin: $spacing-md auto;
+    width: min(92vw, 960px);
+    margin: $spacing-lg auto;
     animation: none;
   }
 
   .bazi-section-full {
-    width: min(94vw, 980px);
-    margin: $spacing-md auto;
+    width: min(92vw, 960px);
+    margin: $spacing-lg auto;
     grid-column: 1 / -1;
   }
 
   .bazi-grid {
     gap: var(--bazi-gap);
-    width: min(94vw, 980px);
-    margin: $spacing-md auto;
+    width: min(92vw, 960px);
+    margin: $spacing-lg auto;
   }
 
   // ====== 卡片样式 ======
   .bazi-card {
     @include mystical-card($spacing-lg, var(--bazi-radius));
-    background: var(--bazi-card);
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at top right, rgba($color-mystical-gold, 0.06), transparent 28%),
+      var(--bazi-card);
     border: 1px solid var(--bazi-border);
     box-shadow: var(--bazi-shadow);
     color: var(--bazi-text);
@@ -71,7 +86,11 @@
 
   .bazi-input-card {
     @include mystical-card();
-    background: var(--bazi-card);
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at top right, rgba($color-mystical-gold, 0.05), transparent 28%),
+      var(--bazi-card);
     border: 1px solid var(--bazi-border);
     box-shadow: var(--bazi-shadow);
     color: var(--bazi-text);
@@ -182,7 +201,7 @@
 
   .result-meta {
     @include mystical-card($spacing-sm, $border-radius-lg);
-    background: var(--bazi-soft);
+    background: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--bazi-border);
     color: var(--bazi-sub);
     font-size: $font-size-sm;
@@ -258,5 +277,13 @@
 
   .analysis-line {
     color: var(--bazi-sub);
+  }
+
+  @media (max-width: 767px) {
+    .bazi-section,
+    .bazi-section-full,
+    .bazi-grid {
+      width: min(94vw, 960px);
+    }
   }
 }

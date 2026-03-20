@@ -3,23 +3,49 @@
 
 .daliuren-page {
   @include unified-page-shell("dlr", $padding-bottom: 48px);
+  position: relative;
+  overflow-x: hidden;
+}
+
+.daliuren-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 120% 70% at 50% 0%, rgba($color-mystical-gold, 0.06) 0%, transparent 45%),
+    linear-gradient(180deg, rgba(9, 15, 29, 0.2) 0%, transparent 28%);
+}
+
+.daliuren-page::after {
+  content: "";
+  position: fixed;
+  inset: auto 0 0;
+  height: 18vh;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 0%, rgba(4, 7, 18, 0.42) 100%);
 }
 
 .daliuren-section {
-  width: min(94vw, 780px);
-  margin: 0 auto 18px;
+  position: relative;
+  z-index: 1;
+  width: min(92vw, 840px);
+  margin: 0 auto 20px;
   display: grid;
-  gap: 18px;
+  gap: 16px;
 }
 
 .daliuren-card {
   @include unified-surface-card("dlr", 18px, 16px);
+  background:
+    radial-gradient(circle at top right, rgba($color-mystical-gold, 0.06), transparent 30%),
+    var(--dlr-card, rgba(15, 21, 38, 0.86));
 }
 
 .section-title {
-  font-family: "Source Han Serif SC", "Songti SC", "STSong", serif;
-  font-size: 1.05rem;
-  letter-spacing: 0.12em;
+  font-family: $font-family-sans;
+  font-size: 1.02rem;
+  letter-spacing: 0.14em;
   color: var(--dlr-text);
   margin-bottom: 12px;
   font-weight: 600;
@@ -45,4 +71,11 @@
   text-align: center;
   color: var(--dlr-sub);
   padding: 20px 0;
+}
+
+@media (max-width: 420px) {
+  .daliuren-section {
+    width: min(94vw, 840px);
+    gap: 14px;
+  }
 }

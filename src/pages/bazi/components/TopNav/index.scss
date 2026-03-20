@@ -7,40 +7,43 @@
   z-index: 6;
   display: flex;
   justify-content: center;
-  padding: 14px 12px 8px;
+  padding: 14px 12px 10px;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
 
 .bazi-top-nav-inner {
-  width: 100%;
-  max-width: 520px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
+  @include frosted-top-nav-shell();
 }
 
 .bazi-top-tab {
-  padding: 8px 16px;
-  border-radius: 999px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: $color-text-secondary;
-  background: transparent;
-  border: 1px solid $color-border;
-  transition: all 0.3s ease;
-  cursor: pointer;
+  @include frosted-top-nav-tab();
 
-  &:hover {
-    color: $color-text-primary;
-    background: $color-bg-card;
+  text {
+    color: inherit;
   }
 }
 
 .bazi-top-tab.active {
-  background: $color-accent;
+  background: linear-gradient(180deg, rgba($color-accent, 0.96), rgba($color-accent-dark, 0.92));
   color: $color-bg-primary;
-  border-color: $color-accent;
-  box-shadow: 0 6px 14px rgba($color-accent-dark, 0.2);
+  border-color: rgba($color-accent, 0.92);
+  box-shadow: 0 8px 18px rgba($color-accent-dark, 0.22);
+}
+
+@media (max-width: 420px) {
+  .bazi-top-nav {
+    padding: 10px 10px 8px;
+  }
+
+  .bazi-top-nav-inner {
+    gap: 8px;
+    padding: 6px;
+  }
+
+  .bazi-top-tab {
+    min-height: 38px;
+    padding: 8px 12px;
+    font-size: 0.84rem;
+  }
 }

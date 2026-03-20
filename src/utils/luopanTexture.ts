@@ -75,7 +75,7 @@ function layoutSegmentsByDegree(
  * 设置金色霓虹发光样式
  */
 function applyGoldenGlowStyle(ctx: CanvasRenderingContext2D, fontSize: number = 60) {
-  ctx.font = `900 ${fontSize}px 'Songti SC', 'SimSun', serif`
+  ctx.font = `900 ${fontSize}px 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans SC', sans-serif`
   ctx.fillStyle = '#FFD700'
   ctx.lineWidth = 0
   ctx.strokeStyle = 'transparent'

@@ -161,7 +161,7 @@ export const ShakeCoins: React.FC<ShakeCoinsProps> = ({ step, disabled, onDone }
     // 增强描边：深棕色 + 更粗的线宽实现高对比
     ctx.strokeStyle = 'rgba(101,50,15,0.85)'
     ctx.lineWidth = 2.1
-    ctx.font = '900 18px "Noto Serif SC", serif'
+    ctx.font = '900 18px "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", sans-serif'
     ctx.textAlign = 'center'
     ctx.textBaseline = 'middle'
     // 增强阴影营造质感
@@ -707,7 +707,7 @@ export const ShakeCoins: React.FC<ShakeCoinsProps> = ({ step, disabled, onDone }
       <Text style={{
         color: 'rgba(201, 173, 111, 0.75)',
         fontSize: '22px',
-        fontFamily: "'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', serif",
+        fontFamily: "'PingFang SC', 'Hiragino Sans GB', 'Noto Sans SC', sans-serif",
         letterSpacing: '2px',
         lineHeight: '1.6'
       }}
@@ -731,7 +731,7 @@ export const ShakeCoins: React.FC<ShakeCoinsProps> = ({ step, disabled, onDone }
         <Text style={{
           color: '#ff6b6b',
           fontSize: '22px',
-          fontFamily: "'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', serif"
+          fontFamily: "'PingFang SC', 'Hiragino Sans GB', 'Noto Sans SC', sans-serif"
         }}
         >
           {initError}

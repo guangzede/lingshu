@@ -6,10 +6,10 @@ import { navigateWithH5Fade } from '@/utils/h5Fade'
 import './index.scss'
 
 const menuItems = [
-  { id: 'bazi', label: '八字排盘', url: '/pages/bazi/index' },
-  { id: 'liuyao', label: '六爻排盘', url: '/pages/Liuyao/divination/index' },
-  { id: 'daliuren', label: '大六壬排盘', url: '/pages/daliuren/index' },
-  { id: 'stock', label: '干支测股', url: '/pages/stock/index' },
+  { id: 'bazi', label: '八字排盘', hint: '命局结构 · 大运流年', badge: '四柱', url: '/pages/bazi/index' },
+  { id: 'liuyao', label: '六爻排盘', hint: '起卦断事 · 动静取象', badge: '占断', url: '/pages/Liuyao/divination/index' },
+  { id: 'daliuren', label: '大六壬排盘', hint: '课式推演 · 天盘地盘', badge: '课式', url: '/pages/daliuren/index' },
+  { id: 'stock', label: '干支测股', hint: '节气推势 · 市场观察', badge: '择时', url: '/pages/stock/index' },
   // { id: 'experience', label: '体验旧版首页(暂弃用)', url: '/pages/experience/index' },
   // { id: 'luopan', label: '赛博罗盘(未完成)', url: '/pages/luopan/index' },
   // { id: 'ziwei', label: '紫微斗数(未完成)', url: '/pages/armillary/index' },
@@ -26,8 +26,7 @@ const IndexPage: React.FC = () => {
     Taro.navigateTo({ url })
   }
 
-  const [showOverlay, setShowOverlay] = React.useState(true)
-  const [isVisible, setIsVisible] = React.useState(true)
+  const showOverlay = true
   const canvasElRef = React.useRef<HTMLCanvasElement | null>(null)
 
   React.useEffect(() => {
@@ -214,7 +213,7 @@ const IndexPage: React.FC = () => {
   }, [showOverlay])
 
   return (
-    <View className={`index-page ${isVisible ? 'visible' : ''}`}>
+    <View className='index-page visible'>
       {showOverlay && (
         <>
           <Canvas type='2d' id='starfield' canvasId='starfield' className='star-canvas' disableScroll ref={canvasElRef as any} />
@@ -226,26 +225,37 @@ const IndexPage: React.FC = () => {
       )}
 
       <View className='menu-page'>
-        {/* 中心标题区域 */}
-        <View className='center-content'>
+        <View className='hero-card'>
+          <Text className='hero-kicker'>灵枢 · 命理与术数工作台</Text>
           <View className='menu-header'>
             <Text className='menu-logo'>灵枢</Text>
             <Text className='menu-sub'>寂然不动 · 感而遂通</Text>
           </View>
+          <View className='hero-tags'>
+            <Text className='hero-tag'>八字</Text>
+            <Text className='hero-tag'>六爻</Text>
+            <Text className='hero-tag'>大六壬</Text>
+            <Text className='hero-tag'>干支测股</Text>
+          </View>
         </View>
 
-        {/* 底部幽灵按钮 */}
-        <View className='bottom-actions'>
+        <View className='menu-grid'>
           {menuItems.map((item) => (
             <Button
               key={item.id}
-              className='ghost-button'
+              className='menu-card'
               onClick={() => handleNav(item.url, item.id === 'liuyao')}
             >
-              {item.label}
+              <View className='menu-card-head'>
+                <Text className='menu-card-title'>{item.label}</Text>
+                <Text className='menu-card-badge'>{item.badge}</Text>
+              </View>
+              <Text className='menu-card-desc'>{item.hint}</Text>
             </Button>
           ))}
         </View>
+
+        <Text className='menu-footer'>以一页为门，进入排盘、推演与记录的沉浸式工作流</Text>
       </View>
     </View>
   )
