@@ -24,7 +24,6 @@ const VersionDisplay: React.FC<VersionDisplayProps> = ({
       setVersion(versionModule.APP_VERSION)
       setBuildTime(versionModule.BUILD_TIME)
     }).catch((err) => {
-      console.warn('Failed to load version info:', err)
       setVersion('unknown')
     })
   }, [])

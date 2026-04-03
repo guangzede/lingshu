@@ -60,7 +60,6 @@ export function saveCaseToStorage(caseData: SavedCase): boolean {
     storage.setItem(STORAGE_KEY, dataStr)
     return true
   } catch (error) {
-    console.error('Failed to save case to storage:', error)
     return false
   }
 }
@@ -75,7 +74,6 @@ export function getAllCasesFromStorage(): SavedCase[] {
     const parsed = typeof data === 'string' ? JSON.parse(data) : data
     return Array.isArray(parsed) ? parsed : []
   } catch (error) {
-    console.error('Failed to get cases from storage:', error)
     return []
   }
 }
@@ -88,7 +86,6 @@ export function getCaseFromStorage(id: string): SavedCase | null {
     const cases = getAllCasesFromStorage()
     return cases.find(c => c.id === id) || null
   } catch (error) {
-    console.error('Failed to get case from storage:', error)
     return null
   }
 }
@@ -104,7 +101,6 @@ export function deleteCaseFromStorage(id: string): boolean {
     storage.setItem(STORAGE_KEY, dataStr)
     return true
   } catch (error) {
-    console.error('Failed to delete case from storage:', error)
     return false
   }
 }
@@ -117,7 +113,6 @@ export function clearAllCasesFromStorage(): boolean {
     storage.removeItem(STORAGE_KEY)
     return true
   } catch (error) {
-    console.error('Failed to clear cases from storage:', error)
     return false
   }
 }

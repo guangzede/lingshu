@@ -34,7 +34,7 @@
   }
 
   .content.subtle {
-    color: var(--bazi-text, #2f2923);
+    color: var(--bazi-text, var(--color-text-primary));
     opacity: 0.78;
   }
 }

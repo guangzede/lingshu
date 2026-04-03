@@ -35,12 +35,12 @@
 }
 
 .direction-tag.up {
-  color: #ffffff;
+  color: var(--color-text-primary);
   background: var(--stock-up);
 }
 
 .direction-tag.down {
-  color: #ffffff;
+  color: var(--color-text-primary);
   background: var(--stock-down);
 }
 

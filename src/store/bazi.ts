@@ -271,7 +271,6 @@ export const useBaziStore = create<BaziState>((set, get) => ({
       }
       return merged
     } catch (err: any) {
-      console.error('Failed to compute bazi', err)
       Taro.showToast({ title: err?.message || '排盘失败', icon: 'none' })
       set({ result: null })
       return null

@@ -1,75 +1,57 @@
-// ====== 核心混合宏 ======
-@use "./variables.scss" as *;
+// ============================================
+// 灵枢设计系统 - 混合宏
+// ============================================
 
-// 玻璃态效果
-@mixin glass-effect(
-  $bg: $glass-bg,
-  $border: $glass-border,
-  $blur: $glass-blur
-) {
-  background: $bg;
-  border: 1px solid $border;
-  backdrop-filter: blur($blur);
-  -webkit-backdrop-filter: blur($blur);
+@use "variables" as v;
+
+// ====== 玻璃态效果 ======
+@mixin glass-effect($bg: null, $border: null, $blur: null) {
+  background: $bg or map-get(v.$glass, bg);
+  border: 1px solid $border or map-get(v.$glass, border);
+  backdrop-filter: blur($blur or map-get(v.$glass, blur));
+  -webkit-backdrop-filter: blur($blur or map-get(v.$glass, blur));
 
   &:hover {
-    background: $glass-bg-hover;
+    background: map-get(v.$glass, bg-hover);
   }
 }
 
-// 神秘深色主题
-@mixin mystical-dark-theme($prefix: null) {
-  @if $prefix {
-    --#{$prefix}-bg-primary: #{$color-bg-primary};
-    --#{$prefix}-text-primary: #{$color-text-primary};
-    --#{$prefix}-accent: #{$color-accent};
-    --#{$prefix}-mystical-gold: #{$color-mystical-gold};
-  } @else {
-    background: $gradient-mystical-bg;
-    color: $color-text-primary;
-    font-family: $font-family-serif;
-  }
-}
-
-// 神秘卡片
-@mixin mystical-card($padding: $spacing-lg, $radius: $border-radius-lg) {
-  @include glass-effect(
-    $color-mystical-card-bg,
-    $color-mystical-border,
-    $glass-blur
-  );
+// ====== 神秘卡片 ======
+@mixin mystical-card($padding: v.$spacing-lg, $radius: v.$border-radius-lg) {
+  @include glass-effect(v.$color-mystical-card-bg, v.$color-mystical-border, v.$glass-blur);
+  
   border-radius: $radius;
   padding: $padding;
-  box-shadow: $shadow-mystical;
-  transition: all 0.3s ease;
+  box-shadow: map-get(v.$shadow, mystical);
+  transition: all map-get(v.$transition, base);
 
   &:hover {
-    background: $color-mystical-card-hover;
-    border-color: $color-mystical-border-strong;
-    box-shadow: $shadow-xl;
+    background: v.$color-mystical-card-hover;
+    border-color: map-get(v.$color-mystical, border-strong);
+    box-shadow: map-get(v.$shadow, xl);
   }
 }
 
-// 神秘按钮
-@mixin mystical-button(
-  $padding: $spacing-md $spacing-xl,
-  $size: $font-size-lg
-) {
-  background: $gradient-mystical-gold;
-  color: $color-bg-primary;
+// ====== 神秘按钮 ======
+@mixin mystical-button($padding: null, $size: null) {
+  $padding: $padding or (v.$spacing-md v.$spacing-xl);
+  $size: $size or map-get(v.$font-size, lg);
+  
+  background: map-get(v.$gradient, mystical-gold);
+  color: map-get(v.$color-bg, primary);
   border: none;
-  border-radius: $border-radius-round;
+  border-radius: map-get(v.$border-radius, round);
   padding: $padding;
   font-size: $size;
   font-weight: 600;
-  font-family: $font-family-serif;
+  font-family: map-get(v.$font-family, serif);
   cursor: pointer;
-  box-shadow: $shadow-gold;
+  box-shadow: map-get(v.$shadow, gold);
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: $shadow-gold-strong;
+    box-shadow: map-get(v.$shadow, gold-strong);
   }
 
   &:active {
@@ -77,173 +59,86 @@
   }
 }
 
-@mixin button-primary($padding: $spacing-md $spacing-xl, $size: $font-size-lg) {
-  @include mystical-button($padding, $size);
-  color: $color-text-primary;
-}
-
-// 幽灵按钮
-@mixin ghost-button($padding: $spacing-md $spacing-xl, $size: $font-size-lg) {
+// ====== 次要按钮 ======
+@mixin button-secondary($padding: null, $size: null) {
+  $padding: $padding or (v.$spacing-md v.$spacing-xl);
+  $size: $size or map-get(v.$font-size, lg);
+  
   background: transparent;
-  border: 1.5px solid $color-mystical-gold;
-  border-radius: $border-radius-round;
+  border: 1.5px solid map-get(v.$color-gold, DEFAULT);
+  border-radius: map-get(v.$border-radius, round);
   padding: $padding;
   font-size: $size;
-  color: $color-mystical-gold;
-  font-family: $font-family-serif;
+  color: map-get(v.$color-gold, DEFAULT);
+  font-family: map-get(v.$font-family, serif);
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 
   &:hover {
-    border-color: $color-mystical-gold-light;
-    color: $color-mystical-gold-light;
-    box-shadow: 0 0 30px rgba($color-mystical-gold, 0.15);
+    border-color: map-get(v.$color-gold, light);
+    color: map-get(v.$color-gold, light);
+    box-shadow: 0 0 30px rgba(map-get(v.$color-gold, DEFAULT), 0.15);
+  }
+
+  &:active {
+    transform: scale(0.98);
   }
 }
 
-// 神秘文字
-@mixin mystical-text($size: $font-size-lg, $color: $color-mystical-gold) {
+// ====== 文字发光 ======
+@mixin text-glow($shadow: null) {
+  text-shadow: $shadow or map-get(v.$text-shadow, glow);
+}
+
+// ====== 神秘文字 ======
+@mixin mystical-text($size: v.$font-size-lg, $color: v.$color-gold-DEFAULT) {
   font-size: $size;
   color: $color;
-  font-family: $font-family-serif;
+  font-family: map-get(v.$font-family, serif);
   font-weight: 600;
-  text-shadow: $text-shadow-gold;
+  text-shadow: map-get(v.$text-shadow, gold);
 }
 
-@mixin text-glow($shadow: $text-shadow-glow) {
-  text-shadow: $shadow;
-}
-
-@mixin heading-style($size, $color, $with-border: false) {
-  @include mystical-text($size, $color);
-
-  @if $with-border {
-    padding-bottom: $spacing-xs;
-    border-bottom: 1px solid rgba($color, 0.35);
+// ====== 响应式断点 ======
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == small {
+    @media (max-width: 374px) { @content; }
+  } @else if $breakpoint == medium {
+    @media (min-width: 768px) { @content; }
+  } @else if $breakpoint == large {
+    @media (min-width: 1024px) { @content; }
   }
 }
 
-@mixin quote-block() {
-  padding: $spacing-sm $spacing-md;
-  border-left: 4px solid $color-accent;
-  background: $color-bg-quote;
-  border-radius: $border-radius-sm;
-  color: $color-text-secondary;
+// ====== 安全区域适配 ======
+@mixin safe-area-padding($top: 0, $bottom: 0, $left: 0, $right: 0) {
+  padding-top: calc(#{$top} + env(safe-area-inset-top));
+  padding-bottom: calc(#{$bottom} + env(safe-area-inset-bottom));
+  padding-left: calc(#{$left} + env(safe-area-inset-left));
+  padding-right: calc(#{$right} + env(safe-area-inset-right));
 }
 
-@mixin code-block() {
-  padding: $spacing-sm $spacing-md;
-  background: $color-bg-code;
-  border: 1px solid $color-border;
-  border-radius: $border-radius-md;
-  overflow-x: auto;
-}
-
-@mixin card-style($padding: $spacing-lg, $radius: $border-radius-lg) {
-  @include mystical-card($padding, $radius);
-}
-
-// 统一主题变量（浅色卡片系）
-@mixin unified-light-theme-vars($prefix) {
-  --#{$prefix}-text: #2f2923;
-  --#{$prefix}-sub: #6c5b45;
-  --#{$prefix}-muted: #8f7d66;
-  --#{$prefix}-accent: #b18b4f;
-  --#{$prefix}-border: rgba(177, 139, 79, 0.28);
-  --#{$prefix}-soft: #f5f0e8;
-  --#{$prefix}-card: #ffffff;
-  --#{$prefix}-shadow: 0 8px 24px rgba(31, 24, 16, 0.08);
-}
-
-// 统一主题变量（深色神秘系）
+// ====== 统一主题变量 ======
 @mixin unified-dark-theme-vars($prefix) {
-  --#{$prefix}-bg: #{$color-bg-primary};
-  --#{$prefix}-text: #{$color-text-primary};
-  --#{$prefix}-sub: #{$color-text-secondary};
-  --#{$prefix}-muted: #{$color-text-muted};
-  --#{$prefix}-accent: #{$color-accent};
+  --#{$prefix}-bg: #{map-get(v.$color-bg, primary)};
+  --#{$prefix}-text: #{map-get(v.$color-text, primary)};
+  --#{$prefix}-sub: #{map-get(v.$color-text, secondary)};
+  --#{$prefix}-muted: #{map-get(v.$color-text, muted)};
+  --#{$prefix}-accent: #{map-get(v.$color-accent, DEFAULT)};
   --#{$prefix}-accent-soft: rgba(251, 191, 36, 0.16);
   --#{$prefix}-border: rgba(255, 255, 255, 0.16);
   --#{$prefix}-soft: rgba(255, 255, 255, 0.06);
   --#{$prefix}-card: rgba(15, 21, 38, 0.86);
-  --#{$prefix}-shadow: #{$shadow-mystical};
+  --#{$prefix}-shadow: #{map-get(v.$shadow, mystical)};
 }
 
-// 统一表面卡片
-@mixin unified-surface-card($theme, $radius: 16px, $padding: 16px) {
+// ====== 统一表面卡片 ======
+@mixin unified-surface-card($theme: null, $radius: 16px, $padding: 16px) {
   border-radius: $radius;
   padding: $padding;
-  border: 1px solid var(--#{$theme}-border, #{$color-border});
+  border: 1px solid var(--#{$theme}-border, map-get(v.$color-border, DEFAULT));
   background: var(--#{$theme}-card, rgba(255, 255, 255, 0.08));
-  box-shadow: var(--#{$theme}-shadow, #{$shadow-sm});
-  color: var(--#{$theme}-text, #{$color-text-primary});
+  box-shadow: var(--#{$theme}-shadow, map-get(v.$shadow, sm));
+  color: var(--#{$theme}-text, map-get(v.$color-text, primary));
   box-sizing: border-box;
-}
-
-// 统一页面容器
-@mixin unified-page-shell($theme: "mystical", $padding: null, $padding-bottom: null) {
-  min-height: 100vh;
-
-  @if $theme == "mystical" {
-    @include mystical-dark-theme();
-    @include unified-light-theme-vars("bazi");
-    @include unified-dark-theme-vars("dlr");
-  } @else if $theme == "profile" {
-    @include unified-light-theme-vars("profile");
-    background: linear-gradient(180deg, #f7f3eb 0%, #f2ece2 100%);
-    color: var(--profile-text);
-  } @else if $theme == "auth" {
-    @include unified-light-theme-vars("auth");
-    background: linear-gradient(180deg, #f7f3eb 0%, #f2ece2 100%);
-    color: var(--auth-text);
-  } @else if $theme == "dlr" {
-    @include unified-dark-theme-vars("dlr");
-    background: $gradient-mystical-bg;
-    color: var(--dlr-text);
-  } @else if $theme == "bazi" {
-    @include unified-light-theme-vars("bazi");
-    background: linear-gradient(180deg, #f7f3eb 0%, #f2ece2 100%);
-    color: var(--bazi-text);
-  }
-
-  @if $padding {
-    padding: $padding;
-  }
-
-  @if $padding-bottom {
-    padding-bottom: $padding-bottom;
-  }
-}
-
-@mixin frosted-top-nav-shell($max-width: 560px) {
-  width: 100%;
-  max-width: $max-width;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  padding: 8px;
-  border-radius: 999px;
-  border: 1px solid rgba($color-mystical-gold, 0.12);
-  background: rgba(10, 14, 24, 0.52);
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.14);
-  overflow: hidden;
-}
-
-@mixin frosted-top-nav-tab() {
-  min-height: 42px;
-  padding: 8px 16px;
-  border-radius: 999px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: $color-text-secondary;
-  background: transparent;
-  border: 1px solid $color-border;
-  transition: all 0.3s ease;
-  cursor: pointer;
-
-  &:hover {
-    color: $color-text-primary;
-    background: $color-bg-card;
-  }
 }

@@ -10,7 +10,6 @@ try {
   // console.warn will be visible when running tests
   // tslint:disable-next-line:no-console
   // use any to avoid TS inference issues
-  console.warn('[hexagram_texts] failed to load JSON, using empty dataset', (e as any) && (e as any).message)
 }
 
 export interface HexagramTexts {

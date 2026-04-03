@@ -192,14 +192,14 @@
   min-height: 44px;
   border-radius: 999px;
   border: none !important;
-  color: #f7d69c !important;
-  background: linear-gradient(180deg, #1b1714 0%, #0f0d0b 100%) !important;
+  color: var(--color-gold-default) !important;
+  background: linear-gradient(180deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%) !important;
   letter-spacing: 0.12em;
   box-shadow: 0 10px 20px rgba(20, 15, 10, 0.22);
 }
 
 .predict-btn text {
-  color: #f7d69c !important;
+  color: var(--color-gold-default) !important;
   font-size: 0.94rem !important;
   font-weight: 700;
   letter-spacing: 0.12em;

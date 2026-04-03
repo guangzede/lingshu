@@ -27,7 +27,6 @@ async function withAiFallback<T>(requester: (url: string) => Promise<T>, primary
     return await requester(primaryUrl);
   } catch (err: any) {
     if (primaryUrl !== REMOTE_AI_URL && isGatewayFailure(err)) {
-      console.warn('[DeepSeek] 主通道失败，切换远程兜底通道:', err?.message || err);
       return requester(REMOTE_AI_URL);
     }
     throw err;
@@ -63,7 +62,6 @@ export async function deepseekChat(options: AIChatOptions): Promise<string> {
 
   try {
     const env = typeof Taro !== 'undefined' && Taro.getEnv ? Taro.getEnv() : undefined;
-    console.log('[DeepSeek] 当前环境:', env, 'stream:', stream, 'typeof fetch:', typeof fetch);
 
     // 微信小程序：使用 wx.request（不支持流式，自动降级）
     if (env === Taro.ENV_TYPE.WEAPP) {
@@ -81,7 +79,6 @@ export async function deepseekChat(options: AIChatOptions): Promise<string> {
       );
     }
 
-    console.log('[DeepSeek] 使用非流式方式（Taro.request）');
     // 其它环境或不支持流式：统一走非流式（Taro.request）
     return await withAiFallback(
       (targetUrl) => fetchViaTaro(targetUrl, token, { ...payload, stream: false }),
@@ -98,7 +95,6 @@ async function fetchStream(
   data: any,
   onDelta?: (text: string) => void
 ): Promise<string> {
-  console.log('[DeepSeek] 进入 Web 流式分支');
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 45000);
 
@@ -115,13 +111,11 @@ async function fetchStream(
     });
   } catch (err) {
     clearTimeout(timeoutId);
-    console.warn('[DeepSeek] 流式请求超时或失败，降级到非流式', err);
     return await fetchNonStream(url, token, { ...data, stream: false });
   } finally {
     clearTimeout(timeoutId);
   }
 
-  console.log('[DeepSeek] fetch response.ok:', response.ok, 'status:', response.status);
 
   if (!response.ok) {
     if (response.status === 401) throw new Error('API 密钥无效，请检查配置');
@@ -131,7 +125,6 @@ async function fetchStream(
 
   const contentType = response.headers.get('content-type') || '';
   if (!response.body || !contentType.includes('text/event-stream')) {
-    console.log('[DeepSeek] response.body 不存在，降级到非流式');
     return await fetchNonStream(url, token, { ...data, stream: false });
   }
 

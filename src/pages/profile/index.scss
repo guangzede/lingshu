@@ -90,7 +90,7 @@
   padding: 10px 12px;
   border: 1px solid var(--profile-border);
   border-radius: 10px;
-  background: #ffffff;
+  background: var(--color-text-primary);
   color: var(--profile-text);
 }
 
@@ -127,8 +127,8 @@
 }
 
 .profile-btn {
-  background: linear-gradient(180deg, #1b1714 0%, #0f0d0b 100%);
-  color: #f7d69c;
+  background: linear-gradient(180deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%);
+  color: var(--color-gold-default);
   font-size: 24px;
   border-radius: 999px;
   padding: 12px 20px;
@@ -139,7 +139,7 @@
 }
 
 .profile-btn.secondary {
-  background: #ffffff;
+  background: var(--color-text-primary);
   color: var(--profile-sub);
   border: 1px solid var(--profile-border);
   box-shadow: none;
@@ -147,7 +147,7 @@
 
 .profile-btn.ghost {
   width: 100%;
-  background: #ffffff;
+  background: var(--color-text-primary);
   color: var(--profile-sub);
   border: 1px solid var(--profile-border);
   box-shadow: none;

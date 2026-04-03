@@ -71,7 +71,7 @@
   border-radius: 10px;
   border: 1px solid rgba(245, 216, 158, 0.25);
   background: rgba(9, 12, 24, 0.6);
-  color: #f5d89e;
+  color: var(--color-gold-default);
 }
 
 .note-textarea {
@@ -111,7 +111,7 @@
   border-radius: 10px;
   background: rgba(12, 16, 32, 0.8);
   border: 1px solid rgba(245, 216, 158, 0.25);
-  color: #f5d89e;
+  color: var(--color-gold-default);
   font-size: 1.3rem;
   font-weight: 700;
   cursor: pointer;
@@ -143,7 +143,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: #f5d89e;
+  color: var(--color-gold-default);
   font-size: 1rem;
   font-weight: 600;
   padding: 0 4px;
@@ -191,8 +191,8 @@
 
 .grid-cell.active {
   background: linear-gradient(135deg, rgba(180, 138, 79, 0.4), rgba(180, 138, 79, 0.1));
-  border-color: #f5d89e;
-  color: #f5d89e;
+  border-color: var(--color-gold-default);
+  color: var(--color-gold-default);
   box-shadow: 0 0 12px rgba(180, 138, 79, 0.25);
   font-weight: 700;
 }

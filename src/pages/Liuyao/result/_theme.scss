@@ -7,7 +7,7 @@
   }
 
   .auth-status-bar.logged-in {
-    background: #ffffff;
+    background: var(--color-text-primary);
     border: 1px solid var(--bazi-border);
     box-shadow: var(--bazi-shadow);
   }

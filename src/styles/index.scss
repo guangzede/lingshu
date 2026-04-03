@@ -1,0 +1,13 @@
+// ============================================
+// 灵枢设计系统 - 样式入口
+// ============================================
+
+@use "./variables" as v;
+@use "./mixins" as m;
+@use "./global" as g;
+@use "./components/card" as card;
+@use "./components/button" as btn;
+
+// 导出常用变量和 mixin
+@forward "./variables" as v-*;
+@forward "./mixins" as m-*;

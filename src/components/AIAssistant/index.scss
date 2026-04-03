@@ -16,7 +16,7 @@
     .ai-response-content {
       font-size: $font-size-lg;
       line-height: 1.6;
-      color: var(--bazi-text, #2f2923);
+      color: var(--bazi-text, var(--color-text-primary));
       background: var(--bazi-soft, #f5f0e8);
       padding: $spacing-md;
       border-radius: $border-radius-lg;
@@ -39,7 +39,7 @@
         border: none !important;
         box-shadow: none !important;
         padding: 0 !important;
-        color: var(--bazi-text, #2f2923) !important;
+        color: var(--bazi-text, var(--color-text-primary)) !important;
       }
 
       .markdown-renderer p,
@@ -48,14 +48,14 @@
       .markdown-renderer ul,
       .markdown-renderer strong,
       .markdown-renderer span {
-        color: var(--bazi-text, #2f2923) !important;
+        color: var(--bazi-text, var(--color-text-primary)) !important;
       }
 
       .markdown-renderer h1,
       .markdown-renderer h2,
       .markdown-renderer h3,
       .markdown-renderer h4 {
-        color: var(--bazi-text, #2f2923) !important;
+        color: var(--bazi-text, var(--color-text-primary)) !important;
         text-shadow: none !important;
       }
 

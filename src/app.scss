@@ -1,8 +1,12 @@
-// 引入公共样式文件
-@use './styles/variables.scss' as *;
-@use './styles/mixins.scss' as *;
-@use './styles/global.scss' as *;
+// ============================================
+// 灵枢应用 - 入口样式
+// ============================================
+// 文档：引入统一设计系统
+// ============================================
 
+@use './styles/index.scss' as *;
+
+// 根元素
 html,
 body,
 page {
@@ -18,5 +22,13 @@ page {
 body {
   min-height: 100%;
   overflow-x: hidden;
+  // 平滑滚动（H5）
+  scroll-behavior: smooth;
 }
-// 应用特定样式可以在这里添加
+
+// 应用级通用样式
+.app-container {
+  @include unified-page-shell("mystical");
+  @include safe-area-padding(0, 0, 0, 0);
+}
+

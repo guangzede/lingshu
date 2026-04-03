@@ -67,14 +67,12 @@ const IndexPage: React.FC = () => {
 
         const canvas = resolveCanvas(rawEl)
         if (!canvas) {
-          console.error('[H5 Canvas] Unable to resolve inner <canvas> from element:', (rawEl as any).tagName)
           setTimeout(init, 100)
           return
         }
 
         const ctx = canvas.getContext('2d')
         if (!ctx) {
-          console.error('[H5 Canvas] Failed to get 2d context')
           return
         }
 

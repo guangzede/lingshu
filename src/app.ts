@@ -23,7 +23,6 @@ Taro.addInterceptor(authInterceptor)
 
 const App: React.FC<AppProps> = (props) => {
   useLaunch(() => {
-    console.log('App launched.')
   })
 
   // props.children is the pages rendered by router

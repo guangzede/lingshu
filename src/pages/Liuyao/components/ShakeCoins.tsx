@@ -123,9 +123,7 @@ export const ShakeCoins: React.FC<ShakeCoinsProps> = ({ step, disabled, onDone }
         }
 
         setInitError(null)
-        console.log('[ShakeCoins] canvas initialized', w, h, dpr)
       } catch (error) {
-        console.error('Canvas init error:', error)
         setInitError(`初始化失败: ${error instanceof Error ? error.message : String(error)}`)
       }
     }

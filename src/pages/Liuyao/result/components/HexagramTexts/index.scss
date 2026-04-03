@@ -36,12 +36,12 @@
   border: 1px solid var(--bazi-border);
   color: var(--bazi-sub);
   font-size: 0.74rem;
-  background: #ffffff;
+  background: var(--color-text-primary);
   transition: all 0.2s ease;
 }
 
 .hex-texts-tab.active {
-  color: #ffffff;
+  color: var(--color-text-primary);
   border-color: var(--bazi-accent);
   background: var(--bazi-accent);
 }

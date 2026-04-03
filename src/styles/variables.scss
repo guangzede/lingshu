@@ -1,136 +1,184 @@
-// ====== 核心设计系统 ======
+// ============================================
+// 灵枢设计系统 - 样式变量
+// ============================================
 
-// 五行色彩
-$color-wuxing-metal: #ffd700;
-$color-wuxing-wood: #00ff7f;
-$color-wuxing-water: #00bfff;
-$color-wuxing-fire: #ff4500;
-$color-wuxing-earth: #8b4513;
+// ====== 五行色彩 ======
+$color-wuxing: (
+  metal: #ffd700,
+  wood: #00ff7f,
+  water: #00bfff,
+  fire: #ff4500,
+  earth: #8b4513
+);
 
-// 状态强度
-$color-strength-wang: #ffe066;
-$color-strength-xiang: #b6fcd5;
-$color-strength-xiu: #b3c6ff;
-$color-strength-qiu: #ffd6e0;
-$color-strength-si: #e0e0e0;
+// ====== 状态强度 ======
+$color-strength: (
+  wang: #ffe066,
+  xiang: #b6fcd5,
+  xiu: #b3c6ff,
+  qiu: #ffd6e0,
+  si: #e0e0e0
+);
 
 // ====== 主题色彩 ======
-// 深色主题
-$color-bg-primary: #040712;
-$color-bg-secondary: #090f1d;
-$color-bg-tertiary: #12182a;
-$color-text-primary: #ffffff;
-$color-text-secondary: rgba(255, 255, 255, 0.9);
-$color-text-tertiary: rgba(255, 255, 255, 0.8);
-$color-text-muted: rgba(255, 255, 255, 0.6);
+$color-bg: (
+  primary: #040712,
+  secondary: #090f1d,
+  tertiary: #12182a,
+  card: rgba(255, 255, 255, 0.07),
+  card-hover: rgba(255, 255, 255, 0.11),
+  overlay: rgba(0, 0, 0, 0.6),
+  code: rgba(0, 0, 0, 0.3),
+  quote: rgba(251, 191, 36, 0.1)
+);
 
-// 神秘金色系
-$color-accent: #f3c86b;
-$color-accent-light: rgba(243, 200, 107, 0.15);
-$color-accent-medium: rgba(243, 200, 107, 0.4);
-$color-accent-dark: #b48a4f;
-$color-mystical-gold: #f5daaa;
-$color-mystical-gold-dark: #b98a47;
-$color-mystical-gold-light: #fff3dd;
-$color-mystical-gold-dim: rgba(245, 218, 170, 0.72);
+$color-text: (
+  primary: #ffffff,
+  secondary: rgba(255, 255, 255, 0.9),
+  tertiary: rgba(255, 255, 255, 0.8),
+  muted: rgba(255, 255, 255, 0.6)
+);
 
-// 边框和表面
-$color-border: rgba(255, 255, 255, 0.11);
-$color-border-light: rgba(255, 255, 255, 0.14);
-$color-border-medium: rgba(255, 255, 255, 0.18);
-$color-border-strong: rgba(243, 200, 107, 0.4);
-$color-bg-card: rgba(255, 255, 255, 0.07);
-$color-bg-card-hover: rgba(255, 255, 255, 0.11);
-$color-mystical-card-bg: rgba(13, 19, 34, 0.84);
-$color-mystical-card-hover: rgba(13, 19, 34, 0.95);
-$color-mystical-border: rgba(241, 211, 154, 0.18);
-$color-mystical-border-strong: rgba(241, 211, 154, 0.32);
+$color-accent: (
+  DEFAULT: #f3c86b,
+  light: rgba(243, 200, 107, 0.15),
+  medium: rgba(243, 200, 107, 0.4),
+  dark: #b48a4f
+);
 
-// 特殊用途
-$color-bg-overlay: rgba(0, 0, 0, 0.6);
-$color-bg-code: rgba(0, 0, 0, 0.3);
-$color-bg-quote: rgba(251, 191, 36, 0.1);
-$color-bg-success: rgba(34, 197, 94, 0.1);
-$color-bg-error: rgba(239, 68, 68, 0.1);
-$color-text-success: #22c55e;
-$color-text-error: #ef4444;
+$color-gold: (
+  DEFAULT: #f5daaa,
+  dark: #b98a47,
+  light: #fff3dd,
+  dim: rgba(245, 218, 170, 0.72)
+);
+
+$color-border: (
+  DEFAULT: rgba(255, 255, 255, 0.11),
+  light: rgba(255, 255, 255, 0.14),
+  medium: rgba(255, 255, 255, 0.18),
+  strong: rgba(243, 200, 107, 0.4)
+);
+
+$color-mystical: (
+  card-bg: rgba(13, 19, 34, 0.84),
+  card-hover: rgba(13, 19, 34, 0.95),
+  border: rgba(241, 211, 154, 0.18),
+  border-strong: rgba(241, 211, 154, 0.32)
+);
+
+// ====== 状态色 ======
+$color-state: (
+  success-bg: rgba(34, 197, 94, 0.1),
+  error-bg: rgba(239, 68, 68, 0.1),
+  success: #22c55e,
+  error: #ef4444
+);
+
+// ====== 股票颜色 ======
+$color-stock: (
+  up: #ef4444,
+  down: #22c55e,
+  flat: #9ca3af,
+  up-bg: rgba(239, 68, 68, 0.08),
+  down-bg: rgba(34, 197, 94, 0.08),
+  flat-bg: rgba(156, 163, 175, 0.08),
+  up-border: rgba(239, 68, 68, 0.3),
+  down-border: rgba(34, 197, 94, 0.3),
+  flat-border: rgba(156, 163, 175, 0.3)
+);
 
 // ====== 字体系统 ======
-$font-family-serif: "PingFang SC", "Hiragino Sans GB", "Source Han Sans SC", "Noto Sans SC", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-$font-family-sans: "PingFang SC", "Hiragino Sans GB", "Source Han Sans SC", "Noto Sans SC", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-$font-family-mono: "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", monospace;
+$font-family: (
+  serif: "PingFang SC", "Hiragino Sans GB", "Source Han Sans SC", "Noto Sans SC", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif,
+  sans: "PingFang SC", "Hiragino Sans GB", "Source Han Sans SC", "Noto Sans SC", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif,
+  mono: "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", monospace
+);
 
-// 字体大小
-$font-size-xs: 20rpx;
-$font-size-sm: 22rpx;
-$font-size-base: 24rpx;
-$font-size-md: 26rpx;
-$font-size-lg: 28rpx;
-$font-size-xl: 32rpx;
-$font-size-xxl: 36rpx;
-$font-size-xxxl: 40rpx;
-$font-size-huge: 48rpx;
-$font-size-massive: 96rpx;
-
-// 全局兼容别名（兼容旧样式变量命名）
-$font-size-global-text: $font-size-base;
-$font-size-global-button: $font-size-base;
+$font-size: (
+  xs: 20rpx,
+  sm: 22rpx,
+  base: 24rpx,
+  md: 26rpx,
+  lg: 28rpx,
+  xl: 32rpx,
+  xxl: 36rpx,
+  xxxl: 40rpx,
+  huge: 48rpx,
+  massive: 96rpx,
+  global-text: 24rpx,
+  global-button: 24rpx
+);
 
 // ====== 间距系统 ======
-$spacing-xs: 8rpx;
-$spacing-sm: 12rpx;
-$spacing-md: 16rpx;
-$spacing-lg: 20rpx;
-$spacing-xl: 24rpx;
-$spacing-xxl: 30rpx;
-$spacing-xxxl: 40rpx;
-$spacing-huge: 48rpx;
-$spacing-massive: 64rpx;
+$spacing: (
+  xs: 8rpx,
+  sm: 12rpx,
+  md: 16rpx,
+  lg: 20rpx,
+  xl: 24rpx,
+  xxl: 30rpx,
+  xxxl: 40rpx,
+  huge: 48rpx,
+  massive: 64rpx
+);
 
 // ====== 圆角系统 ======
-$border-radius-sm: 4rpx;
-$border-radius-md: 8rpx;
-$border-radius-lg: 12rpx;
-$border-radius-xl: 14rpx;
-$border-radius-xxl: 16rpx;
-$border-radius-xxxl: 20rpx;
-$border-radius-full: 50rpx;
-$border-radius-round: 999px;
+$border-radius: (
+  sm: 4rpx,
+  md: 8rpx,
+  lg: 12rpx,
+  xl: 14rpx,
+  xxl: 16rpx,
+  xxxl: 20rpx,
+  full: 50rpx,
+  round: 999px
+);
 
 // ====== 阴影系统 ======
-$shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
-$shadow-md: 0 4px 16px rgba(0, 0, 0, 0.2);
-$shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.25);
-$shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.3);
-$shadow-mystical: 0 12px 40px rgba(0, 0, 0, 0.35);
-$shadow-gold: 0 8px 24px rgba(251, 191, 36, 0.15);
-$shadow-gold-strong: 0 12px 32px rgba(251, 191, 36, 0.25);
+$shadow: (
+  sm: 0 2px 8px rgba(0, 0, 0, 0.15),
+  md: 0 4px 16px rgba(0, 0, 0, 0.2),
+  lg: 0 10px 30px rgba(0, 0, 0, 0.25),
+  xl: 0 20px 40px rgba(0, 0, 0, 0.3),
+  mystical: 0 12px 40px rgba(0, 0, 0, 0.35),
+  gold: 0 8px 24px rgba(251, 191, 36, 0.15),
+  gold-strong: 0 12px 32px rgba(251, 191, 36, 0.25)
+);
 
 // ====== 渐变系统 ======
-$gradient-mystical-gold: linear-gradient(120deg, #f5daaa, #e9b85c);
-$gradient-mystical-bg: radial-gradient(
-  ellipse 180% 100% at 50% 0%,
-  #101a33 0%,
-  #080d19 55%,
-  #020308 100%
+$gradient: (
+  mystical-gold: linear-gradient(120deg, #f5daaa, #e9b85c),
+  mystical-bg: radial-gradient(ellipse 180% 100% at 50% 0%, #101a33 0%, #080d19 55%, #020308 100%),
+  dark-card: linear-gradient(180deg, rgba(15, 21, 38, 0.85), rgba(10, 15, 25, 0.95)),
+  primary: linear-gradient(120deg, #f5daaa, #e9b85c),
+  secondary: linear-gradient(180deg, rgba(15, 21, 38, 0.85), rgba(10, 15, 25, 0.95)),
+  accent: linear-gradient(135deg, #f3c86b, #b48a4f)
 );
-$gradient-dark-card: linear-gradient(
-  180deg,
-  rgba(15, 21, 38, 0.85),
-  rgba(10, 15, 25, 0.95)
-);
-
-// 全局兼容别名（兼容旧样式变量命名）
-$gradient-primary: $gradient-mystical-gold;
-$gradient-secondary: $gradient-dark-card;
-$gradient-accent: linear-gradient(135deg, $color-accent, $color-accent-dark);
 
 // ====== 玻璃态效果 ======
-$glass-bg: rgba(255, 255, 255, 0.04);
-$glass-bg-hover: rgba(255, 255, 255, 0.06);
-$glass-border: rgba(255, 255, 255, 0.08);
-$glass-blur: 8px;
+$glass: (
+  bg: rgba(255, 255, 255, 0.04),
+  bg-hover: rgba(255, 255, 255, 0.06),
+  border: rgba(255, 255, 255, 0.08),
+  blur: 8px
+);
 
 // ====== 文字效果 ======
-$text-shadow-glow: 0 0 10rpx rgba(255, 215, 0, 0.3);
-$text-shadow-gold: 0 0 12rpx rgba(245, 216, 158, 0.4);
+$text-shadow: (
+  glow: 0 0 10rpx rgba(255, 215, 0, 0.3),
+  gold: 0 0 12rpx rgba(245, 216, 158, 0.4)
+);
+
+// ====== 动画系统 ======
+$transition: (
+  fast: 180ms ease,
+  base: 300ms ease,
+  slow: 420ms ease
+);
+
+$animation: (
+  breathe: 5.5s ease-in-out infinite,
+  rotate: 24s linear infinite,
+  gradient: 24s ease-in-out infinite
+);

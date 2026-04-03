@@ -140,7 +140,6 @@ export const useLiuyaoStore = create<LiuyaoState>((set, get) => {
         set({ result })
         return result
       } catch (err) {
-        console.error('Failed to compute divination', err)
         set({ result: null })
         return null
       }
@@ -201,7 +200,6 @@ export const useLiuyaoStore = create<LiuyaoState>((set, get) => {
       try {
         caseData = await fetchCaseDetail(id, loadingText)
       } catch (err) {
-        console.error('Failed to fetch case detail:', err)
         return false
       }
       // 基础校验：存在性与结构完整
@@ -245,7 +243,6 @@ export const useLiuyaoStore = create<LiuyaoState>((set, get) => {
         await deleteCaseById(id, loadingText)
         return true
       } catch (err) {
-        console.error('Failed to delete case:', err)
         return false
       }
     },

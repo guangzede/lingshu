@@ -1,7 +1,7 @@
 @mixin runtime-panel($padding, $radius: 12px) {
   border: 1px solid var(--bazi-border);
   border-radius: $radius;
-  background: #ffffff;
+  background: var(--color-text-primary);
   padding: $padding;
 }
 

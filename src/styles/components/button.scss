@@ -1,0 +1,167 @@
+// ============================================
+// 灵枢设计系统 - 按钮组件
+// ============================================
+
+@use "../variables" as v;
+@use "../mixins" as m;
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: v.$spacing-sm;
+  padding: v.$spacing-md v.$spacing-xl;
+  border-radius: map-get(v.$border-radius, round);
+  font-size: map-get(v.$font-size, lg);
+  font-weight: 600;
+  font-family: map-get(v.$font-family, serif);
+  cursor: pointer;
+  transition: all map-get(v.$transition, fast);
+  border: none;
+  white-space: nowrap;
+  
+  &:active {
+    transform: scale(0.98);
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  &-primary {
+    @include m.mystical-button(v.$spacing-md v.$spacing-xl, v.$font-size-lg);
+  }
+  
+  &-secondary {
+    @include m.button-secondary(v.$spacing-md v.$spacing-xl, v.$font-size-lg);
+  }
+  
+  &-ghost {
+    background: transparent;
+    border: 1.5px solid map-get(v.$color-gold, DEFAULT);
+    border-radius: map-get(v.$border-radius, round);
+    padding: v.$spacing-md v.$spacing-xl;
+    font-size: map-get(v.$font-size, lg);
+    color: map-get(v.$color-gold, DEFAULT);
+    font-family: map-get(v.$font-family, serif);
+    cursor: pointer;
+    transition: all map-get(v.$transition, base);
+    
+    &:hover {
+      border-color: map-get(v.$color-gold, light);
+      color: map-get(v.$color-gold, light);
+      box-shadow: 0 0 30px rgba(map-get(v.$color-gold, DEFAULT), 0.15);
+    }
+    
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+  
+  &-sm {
+    padding: v.$spacing-sm v.$spacing-md;
+    font-size: map-get(v.$font-size, sm);
+  }
+  
+  &-lg {
+    padding: v.$spacing-lg v.$spacing-xxl;
+    font-size: map-get(v.$font-size, xl);
+  }
+  
+  &-icon {
+    padding: v.$spacing-md;
+    aspect-ratio: 1;
+    
+    &.btn-sm { padding: v.$spacing-sm; }
+    &.btn-lg { padding: v.$spacing-lg; }
+  }
+  
+  &-text {
+    background: transparent;
+    border: none;
+    padding: v.$spacing-sm v.$spacing-md;
+    color: map-get(v.$color-accent, DEFAULT);
+    font-size: map-get(v.$font-size, base);
+    cursor: pointer;
+    transition: all map-get(v.$transition, fast);
+    
+    &:hover {
+      color: map-get(v.$color-accent, dark);
+    }
+    
+    &:active {
+      opacity: 0.7;
+    }
+  }
+  
+  &-danger {
+    background: rgba(map-get(v.$color-state, error), 0.15);
+    border: 1px solid rgba(map-get(v.$color-state, error), 0.3);
+    color: map-get(v.$color-state, error);
+    
+    &:hover {
+      background: rgba(map-get(v.$color-state, error), 0.25);
+      border-color: rgba(map-get(v.$color-state, error), 0.5);
+    }
+  }
+  
+  &-success {
+    background: rgba(map-get(v.$color-state, success), 0.15);
+    border: 1px solid rgba(map-get(v.$color-state, success), 0.3);
+    color: map-get(v.$color-state, success);
+    
+    &:hover {
+      background: rgba(map-get(v.$color-state, success), 0.25);
+      border-color: rgba(map-get(v.$color-state, success), 0.5);
+    }
+  }
+  
+  &-block {
+    width: 100%;
+    display: flex;
+  }
+  
+  &-loading {
+    position: relative;
+    color: transparent !important;
+    pointer-events: none;
+    
+    &::after {
+      content: "";
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border: 2px solid transparent;
+      border-top-color: currentColor;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.btn-group {
+  display: inline-flex;
+  gap: v.$spacing-sm;
+  
+  &--vertical {
+    flex-direction: column;
+  }
+}
+
+// ====== 响应式 ======
+@include m.respond-to(small) {
+  .btn {
+    padding: v.$spacing-sm v.$spacing-lg;
+    font-size: map-get(v.$font-size, base);
+    
+    &-lg {
+      padding: v.$spacing-md v.$spacing-xl;
+      font-size: map-get(v.$font-size, lg);
+    }
+  }
+}

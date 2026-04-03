@@ -10,7 +10,7 @@
 @mixin dlr-surface(
   $radius,
   $padding,
-  $bg: #ffffff,
+  $bg: var(--color-text-primary),
   $border: var(--dlr-border)
 ) {
   background: $bg;

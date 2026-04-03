@@ -604,7 +604,6 @@ export default function Index() {
         if (!compassRef.current) return;
         setPhase('ending');
         compassRef.current.endAnimation(() => {
-            console.log("=== 破阵入世触发，动画进入高能循环模式 ===");
         });
     };
 

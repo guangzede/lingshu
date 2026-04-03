@@ -49,7 +49,6 @@ export const navigateWithH5Fade = (url: string, options: H5FadeOptions = {}) => 
           JSON.stringify({ duration, background })
         )
       } catch (err) {
-        console.warn('[H5 Fade] Failed to set storage', err)
       }
       Taro.navigateTo({ url })
     }, duration)
@@ -79,7 +78,6 @@ export const initH5FadeInOnce = (options: H5FadeOptions = {}) => {
       return
     }
   } catch (err) {
-    console.warn('[H5 Fade] Failed to read storage', err)
     return
   }
 

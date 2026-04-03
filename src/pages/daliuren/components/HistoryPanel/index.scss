@@ -1,7 +1,7 @@
 @mixin history-surface($radius, $padding) {
   border: 1px solid var(--dlr-border);
   border-radius: $radius;
-  background: #ffffff;
+  background: var(--color-text-primary);
   padding: $padding;
 }
 
@@ -58,7 +58,7 @@
   .history-clear {
     border: 1px solid var(--dlr-border);
     border-radius: 999px;
-    background: #ffffff;
+    background: var(--color-text-primary);
     color: var(--dlr-sub);
     font-size: 0.75rem;
   }

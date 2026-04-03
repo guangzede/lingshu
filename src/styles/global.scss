@@ -1,17 +1,21 @@
-@use './variables.scss' as *;
-@use './mixins.scss' as *;
+// ============================================
+// 灵枢设计系统 - 全局样式
+// ============================================
 
+@use "variables" as v;
+@use "mixins" as m;
 
+// ====== 基础重置 ======
 page, body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   min-height: 100%;
   background:
-    radial-gradient(1200rpx 900rpx at 50% 0%, rgba($color-accent, 0.08), transparent 62%),
-    linear-gradient(180deg, $color-bg-secondary 0%, $color-bg-primary 42%, #020308 100%);
-  color: $color-text-primary;
-  font-family: $font-family-sans;
+    radial-gradient(1200rpx 900rpx at 50% 0%, rgba(map-get(v.$color-accent, DEFAULT), 0.08), transparent 62%),
+    linear-gradient(180deg, map-get(v.$color-bg, secondary) 0%, map-get(v.$color-bg, primary) 42%, #020308 100%);
+  color: map-get(v.$color-text, primary);
+  font-family: map-get(v.$font-family, sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -19,21 +23,13 @@ page, body {
   overflow-x: hidden;
 }
 
-// 通用元素样式
-view,
-text,
-button,
-input,
-textarea,
-image,
-swiper,
-swiper-item {
+view, text, button, input, textarea, image, swiper, swiper-item {
   box-sizing: border-box;
 }
 
 text {
-  font-size: $font-size-global-text;
-  color: $color-text-primary;
+  font-size: map-get(v.$font-size, global-text);
+  color: map-get(v.$color-text, primary);
 }
 
 button {
@@ -42,230 +38,214 @@ button {
   border: none;
   background: none;
   color: inherit;
-  font-size: $font-size-global-button;
+  font-size: map-get(v.$font-size, global-button);
   font-family: inherit;
   line-height: inherit;
+  
   &::after {
     border: none;
   }
 }
 
-input,
-textarea {
+input, textarea {
   font-family: inherit;
-  font-size: $font-size-lg;
+  font-size: map-get(v.$font-size, lg);
 }
 
 ::selection {
-  background: rgba($color-accent, 0.25);
-  color: $color-text-primary;
+  background: rgba(map-get(v.$color-accent, DEFAULT), 0.25);
+  color: map-get(v.$color-text, primary);
 }
 
-/* H5 only: subtle custom scrollbar. Unsupported platforms ignore this safely. */
 ::-webkit-scrollbar {
   width: 12px;
   height: 12px;
+  
+  &-track {
+    background: rgba(255, 255, 255, 0.02);
+  }
+  
+  &-thumb {
+    border: 3px solid transparent;
+    border-radius: 999px;
+    background: rgba(map-get(v.$color-accent, DEFAULT), 0.22);
+    background-clip: content-box;
+    
+    &:hover {
+      background: rgba(map-get(v.$color-accent, DEFAULT), 0.3);
+      background-clip: content-box;
+    }
+  }
 }
 
-::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.02);
+// ====== 工具类 ======
+.text {
+  &-primary { color: map-get(v.$color-text, primary); }
+  &-secondary { color: map-get(v.$color-text, secondary); }
+  &-tertiary { color: map-get(v.$color-text, tertiary); }
+  &-accent { color: map-get(v.$color-accent, DEFAULT); }
+  &-success { color: map-get(v.$color-state, success); }
+  &-error { color: map-get(v.$color-state, error); }
 }
 
-::-webkit-scrollbar-thumb {
-  border: 3px solid transparent;
-  border-radius: 999px;
-  background: rgba($color-accent, 0.22);
-  background-clip: content-box;
+.bg {
+  &-primary { background-color: map-get(v.$color-bg, primary); }
+  &-secondary { background-color: map-get(v.$color-bg, secondary); }
+  &-tertiary { background-color: map-get(v.$color-bg, tertiary); }
+  &-card { background-color: map-get(v.$color-bg, card); }
+  &-glass { @include m.glass-effect; }
+  &-success { background-color: map-get(v.$color-state, success-bg); }
+  &-error { background-color: map-get(v.$color-state, error-bg); }
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: rgba($color-accent, 0.3);
-  background-clip: content-box;
+.mt {
+  &-xs { margin-top: map-get(v.$spacing, xs); }
+  &-sm { margin-top: map-get(v.$spacing, sm); }
+  &-md { margin-top: map-get(v.$spacing, md); }
+  &-lg { margin-top: map-get(v.$spacing, lg); }
+  &-xl { margin-top: map-get(v.$spacing, xl); }
 }
 
-// 通用工具类
-// 文本颜色
-.text-primary {
-  color: $color-text-primary;
+.mb {
+  &-xs { margin-bottom: map-get(v.$spacing, xs); }
+  &-sm { margin-bottom: map-get(v.$spacing, sm); }
+  &-md { margin-bottom: map-get(v.$spacing, md); }
+  &-lg { margin-bottom: map-get(v.$spacing, lg); }
+  &-xl { margin-bottom: map-get(v.$spacing, xl); }
 }
 
-.text-secondary {
-  color: $color-text-secondary;
+.ml {
+  &-xs { margin-left: map-get(v.$spacing, xs); }
+  &-sm { margin-left: map-get(v.$spacing, sm); }
+  &-md { margin-left: map-get(v.$spacing, md); }
+  &-lg { margin-left: map-get(v.$spacing, lg); }
+  &-xl { margin-left: map-get(v.$spacing, xl); }
 }
 
-.text-tertiary {
-  color: $color-text-tertiary;
+.mr {
+  &-xs { margin-right: map-get(v.$spacing, xs); }
+  &-sm { margin-right: map-get(v.$spacing, sm); }
+  &-md { margin-right: map-get(v.$spacing, md); }
+  &-lg { margin-right: map-get(v.$spacing, lg); }
+  &-xl { margin-right: map-get(v.$spacing, xl); }
 }
 
-.text-accent {
-  color: $color-accent;
+.p {
+  &-xs { padding: map-get(v.$spacing, xs); }
+  &-sm { padding: map-get(v.$spacing, sm); }
+  &-md { padding: map-get(v.$spacing, md); }
+  &-lg { padding: map-get(v.$spacing, lg); }
+  &-xl { padding: map-get(v.$spacing, xl); }
 }
 
-// 背景颜色
-.bg-primary {
-  background-color: $color-bg-primary;
+.rounded {
+  &-sm { border-radius: map-get(v.$border-radius, sm); }
+  &-md { border-radius: map-get(v.$border-radius, md); }
+  &-lg { border-radius: map-get(v.$border-radius, lg); }
+  &-xl { border-radius: map-get(v.$border-radius, xl); }
+  &-xxl { border-radius: map-get(v.$border-radius, xxl); }
+  &-full { border-radius: map-get(v.$border-radius, full); }
 }
 
-.bg-card {
-  background-color: $color-bg-card;
+.shadow {
+  &-sm { box-shadow: map-get(v.$shadow, sm); }
+  &-md { box-shadow: map-get(v.$shadow, md); }
+  &-lg { box-shadow: map-get(v.$shadow, lg); }
+  &-xl { box-shadow: map-get(v.$shadow, xl); }
+  &-gold { box-shadow: map-get(v.$shadow, gold); }
 }
 
-.bg-glass {
-  @include glass-effect;
+.gradient {
+  &-primary { background: map-get(v.$gradient, primary); }
+  &-secondary { background: map-get(v.$gradient, secondary); }
+  &-accent { background: map-get(v.$gradient, accent); }
+  &-mystical { background: map-get(v.$gradient, mystical-bg); }
 }
 
-// 间距类
-.mt-xs { margin-top: $spacing-xs; }
-.mt-sm { margin-top: $spacing-sm; }
-.mt-md { margin-top: $spacing-md; }
-.mt-lg { margin-top: $spacing-lg; }
-.mt-xl { margin-top: $spacing-xl; }
+.text-glow { @include m.text-glow; }
+.text-gold { @include m.mystical-text; }
 
-.mb-xs { margin-bottom: $spacing-xs; }
-.mb-sm { margin-bottom: $spacing-sm; }
-.mb-md { margin-bottom: $spacing-md; }
-.mb-lg { margin-bottom: $spacing-lg; }
-.mb-xl { margin-bottom: $spacing-xl; }
+.flex { display: flex; }
+.flex-col { display: flex; flex-direction: column; }
+.flex-row { display: flex; flex-direction: row; }
+.flex-1 { flex: 1; }
+.items-center { align-items: center; }
+.items-start { align-items: flex-start; }
+.items-end { align-items: flex-end; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.justify-start { justify-content: flex-start; }
+.justify-end { justify-content: flex-end; }
 
-.ml-xs { margin-left: $spacing-xs; }
-.ml-sm { margin-left: $spacing-sm; }
-.ml-md { margin-left: $spacing-md; }
-.ml-lg { margin-left: $spacing-lg; }
-.ml-xl { margin-left: $spacing-xl; }
-
-.mr-xs { margin-right: $spacing-xs; }
-.mr-sm { margin-right: $spacing-sm; }
-.mr-md { margin-right: $spacing-md; }
-.mr-lg { margin-right: $spacing-lg; }
-.mr-xl { margin-right: $spacing-xl; }
-
-.p-xs { padding: $spacing-xs; }
-.p-sm { padding: $spacing-sm; }
-.p-md { padding: $spacing-md; }
-.p-lg { padding: $spacing-lg; }
-.p-xl { padding: $spacing-xl; }
-
-// 圆角类
-.rounded-sm { border-radius: $border-radius-sm; }
-.rounded-md { border-radius: $border-radius-md; }
-.rounded-lg { border-radius: $border-radius-lg; }
-.rounded-xl { border-radius: $border-radius-xl; }
-.rounded-full { border-radius: $border-radius-full; }
-
-// 阴影类
-.shadow-sm { box-shadow: $shadow-sm; }
-.shadow-md { box-shadow: $shadow-md; }
-.shadow-lg { box-shadow: $shadow-lg; }
-
-// 渐变类
-.gradient-primary { background: $gradient-primary; }
-.gradient-secondary { background: $gradient-secondary; }
-.gradient-accent { background: $gradient-accent; }
-
-// 文字效果类
-.text-glow {
-  @include text-glow;
+.gap {
+  &-xs { gap: map-get(v.$spacing, xs); }
+  &-sm { gap: map-get(v.$spacing, sm); }
+  &-md { gap: map-get(v.$spacing, md); }
+  &-lg { gap: map-get(v.$spacing, lg); }
+  &-xl { gap: map-get(v.$spacing, xl); }
 }
 
-.cyberpunk-border {
-  border: 2rpx solid $color-accent;
+.text {
+  &-left { text-align: left; }
+  &-center { text-align: center; }
+  &-right { text-align: right; }
 }
 
-.glow-effect {
-  @include text-glow;
+.text {
+  &-xs { font-size: map-get(v.$font-size, xs); }
+  &-sm { font-size: map-get(v.$font-size, sm); }
+  &-base { font-size: map-get(v.$font-size, base); }
+  &-md { font-size: map-get(v.$font-size, md); }
+  &-lg { font-size: map-get(v.$font-size, lg); }
+  &-xl { font-size: map-get(v.$font-size, xl); }
+  &-xxl { font-size: map-get(v.$font-size, xxl); }
+  &-xxxl { font-size: map-get(v.$font-size, xxxl); }
 }
 
-// 布局类
-.flex {
-  display: flex;
+.font {
+  &-normal { font-weight: normal; }
+  &-medium { font-weight: 500; }
+  &-semibold { font-weight: 600; }
+  &-bold { font-weight: bold; }
 }
 
-.flex-col {
-  display: flex;
-  flex-direction: column;
-}
-
-.items-center {
-  align-items: center;
-}
-
-.justify-center {
-  justify-content: center;
-}
-
-.justify-between {
-  justify-content: space-between;
-}
-
-.flex-1 {
-  flex: 1;
-}
-
-// 文本对齐类
-.text-left { text-align: left; }
-.text-center { text-align: center; }
-.text-right { text-align: right; }
-
-// 字体大小类
-.text-xs { font-size: $font-size-xs; }
-.text-sm { font-size: $font-size-sm; }
-.text-base { font-size: $font-size-base; }
-.text-md { font-size: $font-size-md; }
-.text-lg { font-size: $font-size-lg; }
-.text-xl { font-size: $font-size-xl; }
-.text-xxl { font-size: $font-size-xxl; }
-.text-xxxl { font-size: $font-size-xxxl; }
-.text-huge { font-size: $font-size-huge; }
-
-// 字体粗细类
-.font-normal { font-weight: normal; }
-.font-medium { font-weight: 500; }
-.font-semibold { font-weight: 600; }
-.font-bold { font-weight: bold; }
-
-// 显示/隐藏类
 .hidden { display: none; }
 .block { display: block; }
 .inline-block { display: inline-block; }
 
-// 定位类
 .relative { position: relative; }
 .absolute { position: absolute; }
 .fixed { position: fixed; }
 
-// 溢出类
-.overflow-hidden { overflow: hidden; }
-.overflow-auto { overflow: auto; }
-.overflow-x-auto { overflow-x: auto; }
-.overflow-y-auto { overflow-y: auto; }
-
-// 轻量交互反馈
-button,
-a,
-[role="button"] {
-  transition:
-    transform 180ms ease,
-    opacity 180ms ease,
-    box-shadow 180ms ease,
-    border-color 180ms ease,
-    background-color 180ms ease,
-    color 180ms ease;
+.overflow {
+  &-hidden { overflow: hidden; }
+  &-auto { overflow: auto; }
+  &-x-auto { overflow-x: auto; }
+  &-y-auto { overflow-y: auto; }
 }
 
-button:active,
-[role="button"]:active {
+// ====== 交互反馈 ======
+button, a, [role="button"] {
+  transition:
+    transform map-get(v.$transition, fast),
+    opacity map-get(v.$transition, fast),
+    box-shadow map-get(v.$transition, fast),
+    border-color map-get(v.$transition, fast),
+    background-color map-get(v.$transition, fast),
+    color map-get(v.$transition, fast);
+}
+
+button:active, [role="button"]:active {
   transform: scale(0.985);
 }
 
 :focus-visible {
-  outline: 2px solid rgba($color-accent, 0.6);
+  outline: 2px solid rgba(map-get(v.$color-accent, DEFAULT), 0.6);
   outline-offset: 2px;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
@@ -273,17 +253,17 @@ button:active,
   }
 }
 
-// H5 页面淡入过渡遮罩
+// ====== H5 页面淡入过渡 ======
 .h5-fade-overlay {
   position: fixed;
   inset: 0;
   background: #050510;
   opacity: 0;
   pointer-events: none;
-  transition: opacity var(--h5-fade-duration, 280ms) ease;
+  transition: opacity map-get(v.$transition, slow) ease;
   z-index: 9999;
-}
-
-.h5-fade-overlay.is-active {
-  opacity: 1;
+  
+  &.is-active {
+    opacity: 1;
+  }
 }

@@ -1,8 +1,8 @@
 @use "../../styles/mixins.scss" as *;
 
 @mixin auth-gold-action($padding, $font-size: null) {
-  background: linear-gradient(180deg, #1b1714 0%, #0f0d0b 100%);
-  color: #f7d69c;
+  background: linear-gradient(180deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%);
+  color: var(--color-gold-default);
   border-radius: 999px;
   padding: $padding;
 
@@ -12,7 +12,7 @@
 }
 
 @mixin auth-white-outline($padding, $font-size) {
-  background: #ffffff;
+  background: var(--color-text-primary);
   border: 1px solid var(--auth-border);
   color: var(--auth-sub);
   border-radius: 999px;
@@ -96,7 +96,7 @@
   padding: 6px 14px;
   border-radius: 999px;
   border: 1px solid var(--auth-border);
-  background: #ffffff;
+  background: var(--color-text-primary);
   font-size: 22px;
   letter-spacing: 2px;
   color: var(--auth-sub);
@@ -188,7 +188,7 @@
   padding: 6px;
 
   .active {
-    color: #ffffff;
+    color: var(--color-text-primary);
     font-weight: 600;
     background: var(--auth-accent);
     border-radius: 999px;
@@ -218,7 +218,7 @@
   padding: 16px;
   border: 1px solid var(--auth-border);
   border-radius: 12px;
-  background: #ffffff;
+  background: var(--color-text-primary);
   color: var(--auth-text);
 }
 
@@ -249,7 +249,7 @@
   border: 1px solid var(--auth-border);
   border-radius: 6px;
   margin-right: 12px;
-  background: #ffffff;
+  background: var(--color-text-primary);
 
   &.checked {
     background: var(--auth-accent);
@@ -282,7 +282,7 @@
   width: 80vw;
   max-width: 520px;
   max-height: 70vh;
-  background: #ffffff;
+  background: var(--color-text-primary);
   border-radius: 16px;
   padding: 24px;
   display: flex;

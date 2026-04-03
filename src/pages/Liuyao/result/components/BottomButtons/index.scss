@@ -19,14 +19,14 @@
   }
 
   .btn-save-case {
-    background: linear-gradient(180deg, #1b1714 0%, #0f0d0b 100%) !important;
-    color: #f7d69c !important;
+    background: linear-gradient(180deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%) !important;
+    color: var(--color-gold-default) !important;
     border: none !important;
     box-shadow: 0 8px 18px rgba(20, 15, 10, 0.22);
   }
 
   .btn-view-history {
-    background: #ffffff !important;
+    background: var(--color-text-primary) !important;
     color: var(--bazi-sub) !important;
     border: 1px solid var(--bazi-border) !important;
   }

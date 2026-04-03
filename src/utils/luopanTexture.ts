@@ -137,7 +137,6 @@ export function canvasToDataURL(canvas: HTMLCanvasElement): string {
  */
 export function generateRingTexture(layerId: number): any {
   if (typeof document === 'undefined') {
-    console.warn('小程序环境暂不支持 Canvas 纹理生成')
     return null
   }
 
@@ -147,7 +146,6 @@ export function generateRingTexture(layerId: number): any {
     const THREE = require('three')
     return new THREE.CanvasTexture(canvas)
   } catch (e) {
-    console.error('无法加载 Three.js:', e)
     return null
   }
 }
@@ -159,7 +157,6 @@ export function generateRingTexture(layerId: number): any {
  */
 export function generateTaijiTexture(size: number = 512): HTMLCanvasElement {
   if (typeof document === 'undefined') {
-    console.warn('小程序环境暂不支持 Canvas 纹理生成')
     return null as any
   }
 
@@ -248,7 +245,6 @@ export function generateTaijiThreeTexture(): any {
     texture.anisotropy = 16
     return texture
   } catch (e) {
-    console.error('无法加载 Three.js:', e)
     return null
   }
 }

@@ -4,7 +4,7 @@
   min-height: 100vh;
   background: radial-gradient(1200px 600px at 50% -10%, rgba(255, 215, 136, 0.12), transparent),
     linear-gradient(180deg, #030406 0%, #05090f 45%, #070b12 100%);
-  color: #f5f2e9;
+  color: var(--color-text-secondary);
   padding-bottom: 80px;
 }
 
@@ -66,7 +66,7 @@
     margin-top: 8px;
     font-size: 36px;
     font-weight: 600;
-    color: #ffd990;
+    color: var(--color-gold-light);
   }
 
   &__hint {
@@ -188,7 +188,7 @@
   &__price-num {
     font-size: 30px;
     font-weight: 600;
-    color: #ffd990;
+    color: var(--color-gold-light);
   }
 
   &__price-unit {

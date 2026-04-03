@@ -87,7 +87,6 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
 
   // 流式（Web）与非流式（小程序等）统一封装调用
   const callDeepSeekAPIStream = async (prompt: string) => {
-    console.log('[AIAssistant] callDeepSeekAPIStream 被调用，stream=true');
     setAiResponse('🔮 AI 正在为您分析卦象...\n\n');
     fullResponseRef.current = '🔮 AI 正在为您分析卦象...\n\n';
     try {
@@ -96,20 +95,17 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
         stream: true,
         maxTokens: 1800,
         onDelta: (text) => {
-          console.log('[AIAssistant] onDelta 收到数据:', text.substring(0, 50));
           fullResponseRef.current += text;
           // 使用函数式更新确保每次都能触发重新渲染
           setAiResponse(prev => prev + text);
         },
       });
-      console.log('[AIAssistant] deepseekChat 返回，总长度:', result.length);
       // 确保最终结果展示（小程序会一次性回调）
       if (result && result !== fullResponseRef.current) {
         setAiResponse(result);
       }
       return (fullResponseRef.current || result).replace('🔮 AI 正在为您分析卦象...\n\n', '');
     } catch (err: any) {
-      console.error('[AIAssistant] callDeepSeekAPIStream 错误:', err);
       throw err;
     }
   };
@@ -125,11 +121,9 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
   };
 
   const handleGenerateAIAnalysis = React.useCallback(async () => {
-    console.log('[AIAssistant] handleGenerateAIAnalysis 开始，question:', question, 'stream:', stream);
 
     // 防止重复点击
     if (isGenerating) {
-      console.log('[AIAssistant] 正在生成中，忽略重复点击');
       return;
     }
 
@@ -177,7 +171,6 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
     fullResponseRef.current = '';
     try {
       const prompt = generatePrompt();
-      console.log('[AIAssistant] 生成的 prompt 长度:', prompt.length);
       let finalAnalysis = '';
       if (stream) {
         finalAnalysis = await callDeepSeekAPIStream(prompt);
@@ -192,7 +185,6 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ question, result, generatePro
         onAnalysisGenerated(finalAnalysis);
       }
     } catch (err: any) {
-      console.error('[AIAssistant] 生成失败:', err);
       const normalizedError = normalizeAiError(err?.message);
       setError(normalizedError);
       setAiResponse('');
