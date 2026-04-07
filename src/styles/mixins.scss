@@ -3,55 +3,61 @@
 // ============================================
 
 @use "variables" as v;
+@use "sass:map";
 
 // ====== 玻璃态效果 ======
 @mixin glass-effect($bg: null, $border: null, $blur: null) {
-  background: $bg or map-get(v.$glass, bg);
-  border: 1px solid $border or map-get(v.$glass, border);
-  backdrop-filter: blur($blur or map-get(v.$glass, blur));
-  -webkit-backdrop-filter: blur($blur or map-get(v.$glass, blur));
+  background: $bg or map.get(v.$glass, bg);
+  border: 1px solid $border or map.get(v.$glass, border);
+  backdrop-filter: blur($blur or map.get(v.$glass, blur));
+  -webkit-backdrop-filter: blur($blur or map.get(v.$glass, blur));
 
   &:hover {
-    background: map-get(v.$glass, bg-hover);
+    background: map.get(v.$glass, bg-hover);
   }
 }
 
+// ====== 通用卡片（兼容旧命名） ======
+@mixin card-style($padding: map.get(v.$spacing, md), $radius: map.get(v.$border-radius, lg)) {
+  @include mystical-card($padding, $radius);
+}
+
 // ====== 神秘卡片 ======
-@mixin mystical-card($padding: v.$spacing-lg, $radius: v.$border-radius-lg) {
-  @include glass-effect(v.$color-mystical-card-bg, v.$color-mystical-border, v.$glass-blur);
-  
+@mixin mystical-card($padding: map.get(v.$spacing, lg), $radius: map.get(v.$border-radius, lg)) {
+  @include glass-effect(map.get(v.$color-mystical, card-bg), map.get(v.$color-mystical, border), map.get(v.$glass, blur));
+
   border-radius: $radius;
   padding: $padding;
-  box-shadow: map-get(v.$shadow, mystical);
-  transition: all map-get(v.$transition, base);
+  box-shadow: map.get(v.$shadow, mystical);
+  transition: all map.get(v.$transition, base);
 
   &:hover {
-    background: v.$color-mystical-card-hover;
-    border-color: map-get(v.$color-mystical, border-strong);
-    box-shadow: map-get(v.$shadow, xl);
+    background: map.get(v.$color-mystical, card-hover);
+    border-color: map.get(v.$color-mystical, border-strong);
+    box-shadow: map.get(v.$shadow, xl);
   }
 }
 
 // ====== 神秘按钮 ======
 @mixin mystical-button($padding: null, $size: null) {
   $padding: $padding or (v.$spacing-md v.$spacing-xl);
-  $size: $size or map-get(v.$font-size, lg);
-  
-  background: map-get(v.$gradient, mystical-gold);
-  color: map-get(v.$color-bg, primary);
+  $size: $size or map.get(v.$font-size, lg);
+
+  background: map.get(v.$gradient, mystical-gold);
+  color: map.get(v.$color-bg, primary);
   border: none;
-  border-radius: map-get(v.$border-radius, round);
+  border-radius: map.get(v.$border-radius, round);
   padding: $padding;
   font-size: $size;
   font-weight: 600;
-  font-family: map-get(v.$font-family, serif);
+  font-family: map.get(v.$font-family, serif);
   cursor: pointer;
-  box-shadow: map-get(v.$shadow, gold);
+  box-shadow: map.get(v.$shadow, gold);
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: map-get(v.$shadow, gold-strong);
+    box-shadow: map.get(v.$shadow, gold-strong);
   }
 
   &:active {
@@ -62,22 +68,22 @@
 // ====== 次要按钮 ======
 @mixin button-secondary($padding: null, $size: null) {
   $padding: $padding or (v.$spacing-md v.$spacing-xl);
-  $size: $size or map-get(v.$font-size, lg);
-  
+  $size: $size or map.get(v.$font-size, lg);
+
   background: transparent;
-  border: 1.5px solid map-get(v.$color-gold, DEFAULT);
-  border-radius: map-get(v.$border-radius, round);
+  border: 1.5px solid map.get(v.$color-gold, DEFAULT);
+  border-radius: map.get(v.$border-radius, round);
   padding: $padding;
   font-size: $size;
-  color: map-get(v.$color-gold, DEFAULT);
-  font-family: map-get(v.$font-family, serif);
+  color: map.get(v.$color-gold, DEFAULT);
+  font-family: map.get(v.$font-family, serif);
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 
   &:hover {
-    border-color: map-get(v.$color-gold, light);
-    color: map-get(v.$color-gold, light);
-    box-shadow: 0 0 30px rgba(map-get(v.$color-gold, DEFAULT), 0.15);
+    border-color: map.get(v.$color-gold, light);
+    color: map.get(v.$color-gold, light);
+    box-shadow: 0 0 30px rgba(map.get(v.$color-gold, DEFAULT), 0.15);
   }
 
   &:active {
@@ -85,18 +91,81 @@
   }
 }
 
+// ====== 幽灵按钮（兼容旧命名） ======
+@mixin ghost-button($padding: null, $size: null) {
+  @include button-secondary($padding, $size);
+}
+
 // ====== 文字发光 ======
 @mixin text-glow($shadow: null) {
-  text-shadow: $shadow or map-get(v.$text-shadow, glow);
+  text-shadow: $shadow or map.get(v.$text-shadow, glow);
 }
 
 // ====== 神秘文字 ======
-@mixin mystical-text($size: v.$font-size-lg, $color: v.$color-gold-DEFAULT) {
+@mixin mystical-text($size: map.get(v.$font-size, lg), $color: map.get(v.$color-gold, DEFAULT)) {
   font-size: $size;
   color: $color;
-  font-family: map-get(v.$font-family, serif);
+  font-family: map.get(v.$font-family, serif);
   font-weight: 600;
-  text-shadow: map-get(v.$text-shadow, gold);
+  text-shadow: map.get(v.$text-shadow, gold);
+}
+
+// ====== Markdown 标题 ======
+@mixin heading-style($size, $color, $glow: false) {
+  font-size: $size;
+  color: $color;
+  font-weight: 700;
+  line-height: 1.3;
+  @if $glow {
+    text-shadow: map.get(v.$text-shadow, gold);
+  }
+}
+
+// ====== Markdown 引用 ======
+@mixin quote-block {
+  padding: map.get(v.$spacing, md);
+  border-left: 6rpx solid map.get(v.$color-accent, DEFAULT);
+  border-radius: map.get(v.$border-radius, md);
+  background: map.get(v.$color-bg, quote);
+  color: map.get(v.$color-text, secondary);
+}
+
+// ====== Markdown 代码块 ======
+@mixin code-block {
+  padding: map.get(v.$spacing, md);
+  border-radius: map.get(v.$border-radius, md);
+  background: map.get(v.$color-bg, code);
+  border: 1px solid map.get(v.$color-border, DEFAULT);
+  color: map.get(v.$color-text, primary);
+  overflow-x: auto;
+}
+
+// ====== 顶部磨砂导航容器 ======
+@mixin frosted-top-nav-shell {
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  gap: 10px;
+  padding: 8px;
+  border-radius: 999px;
+  background: rgba(10, 15, 25, 0.55);
+  border: 1px solid rgba(map.get(v.$color-gold, DEFAULT), 0.14);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.24);
+}
+
+// ====== 顶部磨砂导航标签 ======
+@mixin frosted-top-nav-tab {
+  flex: 1;
+  min-height: 40px;
+  padding: 9px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+  color: map.get(v.$color-text, secondary);
+  font-size: 0.9rem;
+  text-align: center;
+  line-height: 1.2;
+  transition: all map.get(v.$transition, base);
 }
 
 // ====== 响应式断点 ======
@@ -118,27 +187,46 @@
   padding-right: calc(#{$right} + env(safe-area-inset-right));
 }
 
+// ====== 页面壳层（兼容旧命名） ======
+@mixin unified-page-shell($theme: "mystical", $padding-bottom: null, $padding: null) {
+  min-height: 100vh;
+  background: map.get(v.$gradient, mystical-bg);
+  color: map.get(v.$color-text, primary);
+  @if $padding != null {
+    padding: $padding;
+  }
+  @if $padding-bottom != null {
+    padding-bottom: $padding-bottom;
+  }
+}
+
+// ====== 深色神秘主题（兼容旧命名） ======
+@mixin mystical-dark-theme {
+  background: map.get(v.$gradient, mystical-bg);
+  color: map.get(v.$color-text, primary);
+}
+
 // ====== 统一主题变量 ======
 @mixin unified-dark-theme-vars($prefix) {
-  --#{$prefix}-bg: #{map-get(v.$color-bg, primary)};
-  --#{$prefix}-text: #{map-get(v.$color-text, primary)};
-  --#{$prefix}-sub: #{map-get(v.$color-text, secondary)};
-  --#{$prefix}-muted: #{map-get(v.$color-text, muted)};
-  --#{$prefix}-accent: #{map-get(v.$color-accent, DEFAULT)};
+  --#{$prefix}-bg: #{map.get(v.$color-bg, primary)};
+  --#{$prefix}-text: #{map.get(v.$color-text, primary)};
+  --#{$prefix}-sub: #{map.get(v.$color-text, secondary)};
+  --#{$prefix}-muted: #{map.get(v.$color-text, muted)};
+  --#{$prefix}-accent: #{map.get(v.$color-accent, DEFAULT)};
   --#{$prefix}-accent-soft: rgba(251, 191, 36, 0.16);
   --#{$prefix}-border: rgba(255, 255, 255, 0.16);
   --#{$prefix}-soft: rgba(255, 255, 255, 0.06);
   --#{$prefix}-card: rgba(15, 21, 38, 0.86);
-  --#{$prefix}-shadow: #{map-get(v.$shadow, mystical)};
+  --#{$prefix}-shadow: #{map.get(v.$shadow, mystical)};
 }
 
 // ====== 统一表面卡片 ======
 @mixin unified-surface-card($theme: null, $radius: 16px, $padding: 16px) {
   border-radius: $radius;
   padding: $padding;
-  border: 1px solid var(--#{$theme}-border, map-get(v.$color-border, DEFAULT));
+  border: 1px solid var(--#{$theme}-border, map.get(v.$color-border, DEFAULT));
   background: var(--#{$theme}-card, rgba(255, 255, 255, 0.08));
-  box-shadow: var(--#{$theme}-shadow, map-get(v.$shadow, sm));
-  color: var(--#{$theme}-text, map-get(v.$color-text, primary));
+  box-shadow: var(--#{$theme}-shadow, map.get(v.$shadow, sm));
+  color: var(--#{$theme}-text, map.get(v.$color-text, primary));
   box-sizing: border-box;
 }

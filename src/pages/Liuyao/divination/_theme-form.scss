@@ -1,6 +1,7 @@
 // ====== 六爻占卜页面 - 神秘深色主题 ======
 @use "../../../styles/variables.scss" as *;
 @use "../../../styles/mixins.scss" as *;
+@use "sass:map";
 
 .liuyao-divination-page {
   @include unified-page-shell("mystical", $padding-bottom: $spacing-xl);
@@ -46,7 +47,7 @@
     }
 
     .arrow-icon {
-      color: $color-accent;
+      color: map.get($color-accent, DEFAULT);
     }
   }
 
@@ -92,7 +93,7 @@
     background:
       radial-gradient(
         circle at 50% 30%,
-        rgba($color-accent, 0.1),
+          rgba(map.get($color-accent, DEFAULT), 0.1),
         transparent 62%
       ),
       $gradient-dark-card;

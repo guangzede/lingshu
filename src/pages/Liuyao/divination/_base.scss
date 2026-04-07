@@ -1,6 +1,7 @@
 // ====== 六爻占卜基础样式 ======
 @use "../../../styles/variables.scss" as *;
 @use "../../../styles/mixins.scss" as *;
+@use "sass:map";
 
 .liuyao-divination-page {
   padding-bottom: $spacing-xl;
@@ -42,7 +43,7 @@
     border: 1px solid rgba($color-accent-dark, 0.34);
     background: linear-gradient(
       135deg,
-      $color-accent 0%,
+      map.get($color-accent, DEFAULT) 0%,
       $color-accent-dark 52%,
       $color-mystical-gold-dark 100%
     );

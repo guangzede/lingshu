@@ -4,6 +4,7 @@
 
 @use "variables" as v;
 @use "mixins" as m;
+@use "sass:map";
 
 // ====== 基础重置 ======
 page, body {
@@ -12,10 +13,10 @@ page, body {
   box-sizing: border-box;
   min-height: 100%;
   background:
-    radial-gradient(1200rpx 900rpx at 50% 0%, rgba(map-get(v.$color-accent, DEFAULT), 0.08), transparent 62%),
-    linear-gradient(180deg, map-get(v.$color-bg, secondary) 0%, map-get(v.$color-bg, primary) 42%, #020308 100%);
-  color: map-get(v.$color-text, primary);
-  font-family: map-get(v.$font-family, sans);
+    radial-gradient(1200rpx 900rpx at 50% 0%, rgba(map.get(v.$color-accent, DEFAULT), 0.08), transparent 62%),
+    linear-gradient(180deg, map.get(v.$color-bg, secondary) 0%, map.get(v.$color-bg, primary) 42%, #020308 100%);
+  color: map.get(v.$color-text, primary);
+  font-family: map.get(v.$font-family, sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -28,8 +29,8 @@ view, text, button, input, textarea, image, swiper, swiper-item {
 }
 
 text {
-  font-size: map-get(v.$font-size, global-text);
-  color: map-get(v.$color-text, primary);
+  font-size: map.get(v.$font-size, global-text);
+  color: map.get(v.$color-text, primary);
 }
 
 button {
@@ -38,10 +39,10 @@ button {
   border: none;
   background: none;
   color: inherit;
-  font-size: map-get(v.$font-size, global-button);
+  font-size: map.get(v.$font-size, global-button);
   font-family: inherit;
   line-height: inherit;
-  
+
   &::after {
     border: none;
   }
@@ -49,30 +50,30 @@ button {
 
 input, textarea {
   font-family: inherit;
-  font-size: map-get(v.$font-size, lg);
+  font-size: map.get(v.$font-size, lg);
 }
 
 ::selection {
-  background: rgba(map-get(v.$color-accent, DEFAULT), 0.25);
-  color: map-get(v.$color-text, primary);
+  background: rgba(map.get(v.$color-accent, DEFAULT), 0.25);
+  color: map.get(v.$color-text, primary);
 }
 
 ::-webkit-scrollbar {
   width: 12px;
   height: 12px;
-  
+
   &-track {
     background: rgba(255, 255, 255, 0.02);
   }
-  
+
   &-thumb {
     border: 3px solid transparent;
     border-radius: 999px;
-    background: rgba(map-get(v.$color-accent, DEFAULT), 0.22);
+    background: rgba(map.get(v.$color-accent, DEFAULT), 0.22);
     background-clip: content-box;
-    
+
     &:hover {
-      background: rgba(map-get(v.$color-accent, DEFAULT), 0.3);
+      background: rgba(map.get(v.$color-accent, DEFAULT), 0.3);
       background-clip: content-box;
     }
   }
@@ -80,86 +81,86 @@ input, textarea {
 
 // ====== 工具类 ======
 .text {
-  &-primary { color: map-get(v.$color-text, primary); }
-  &-secondary { color: map-get(v.$color-text, secondary); }
-  &-tertiary { color: map-get(v.$color-text, tertiary); }
-  &-accent { color: map-get(v.$color-accent, DEFAULT); }
-  &-success { color: map-get(v.$color-state, success); }
-  &-error { color: map-get(v.$color-state, error); }
+  &-primary { color: map.get(v.$color-text, primary); }
+  &-secondary { color: map.get(v.$color-text, secondary); }
+  &-tertiary { color: map.get(v.$color-text, tertiary); }
+  &-accent { color: map.get(v.$color-accent, DEFAULT); }
+  &-success { color: map.get(v.$color-state, success); }
+  &-error { color: map.get(v.$color-state, error); }
 }
 
 .bg {
-  &-primary { background-color: map-get(v.$color-bg, primary); }
-  &-secondary { background-color: map-get(v.$color-bg, secondary); }
-  &-tertiary { background-color: map-get(v.$color-bg, tertiary); }
-  &-card { background-color: map-get(v.$color-bg, card); }
+  &-primary { background-color: map.get(v.$color-bg, primary); }
+  &-secondary { background-color: map.get(v.$color-bg, secondary); }
+  &-tertiary { background-color: map.get(v.$color-bg, tertiary); }
+  &-card { background-color: map.get(v.$color-bg, card); }
   &-glass { @include m.glass-effect; }
-  &-success { background-color: map-get(v.$color-state, success-bg); }
-  &-error { background-color: map-get(v.$color-state, error-bg); }
+  &-success { background-color: map.get(v.$color-state, success-bg); }
+  &-error { background-color: map.get(v.$color-state, error-bg); }
 }
 
 .mt {
-  &-xs { margin-top: map-get(v.$spacing, xs); }
-  &-sm { margin-top: map-get(v.$spacing, sm); }
-  &-md { margin-top: map-get(v.$spacing, md); }
-  &-lg { margin-top: map-get(v.$spacing, lg); }
-  &-xl { margin-top: map-get(v.$spacing, xl); }
+  &-xs { margin-top: map.get(v.$spacing, xs); }
+  &-sm { margin-top: map.get(v.$spacing, sm); }
+  &-md { margin-top: map.get(v.$spacing, md); }
+  &-lg { margin-top: map.get(v.$spacing, lg); }
+  &-xl { margin-top: map.get(v.$spacing, xl); }
 }
 
 .mb {
-  &-xs { margin-bottom: map-get(v.$spacing, xs); }
-  &-sm { margin-bottom: map-get(v.$spacing, sm); }
-  &-md { margin-bottom: map-get(v.$spacing, md); }
-  &-lg { margin-bottom: map-get(v.$spacing, lg); }
-  &-xl { margin-bottom: map-get(v.$spacing, xl); }
+  &-xs { margin-bottom: map.get(v.$spacing, xs); }
+  &-sm { margin-bottom: map.get(v.$spacing, sm); }
+  &-md { margin-bottom: map.get(v.$spacing, md); }
+  &-lg { margin-bottom: map.get(v.$spacing, lg); }
+  &-xl { margin-bottom: map.get(v.$spacing, xl); }
 }
 
 .ml {
-  &-xs { margin-left: map-get(v.$spacing, xs); }
-  &-sm { margin-left: map-get(v.$spacing, sm); }
-  &-md { margin-left: map-get(v.$spacing, md); }
-  &-lg { margin-left: map-get(v.$spacing, lg); }
-  &-xl { margin-left: map-get(v.$spacing, xl); }
+  &-xs { margin-left: map.get(v.$spacing, xs); }
+  &-sm { margin-left: map.get(v.$spacing, sm); }
+  &-md { margin-left: map.get(v.$spacing, md); }
+  &-lg { margin-left: map.get(v.$spacing, lg); }
+  &-xl { margin-left: map.get(v.$spacing, xl); }
 }
 
 .mr {
-  &-xs { margin-right: map-get(v.$spacing, xs); }
-  &-sm { margin-right: map-get(v.$spacing, sm); }
-  &-md { margin-right: map-get(v.$spacing, md); }
-  &-lg { margin-right: map-get(v.$spacing, lg); }
-  &-xl { margin-right: map-get(v.$spacing, xl); }
+  &-xs { margin-right: map.get(v.$spacing, xs); }
+  &-sm { margin-right: map.get(v.$spacing, sm); }
+  &-md { margin-right: map.get(v.$spacing, md); }
+  &-lg { margin-right: map.get(v.$spacing, lg); }
+  &-xl { margin-right: map.get(v.$spacing, xl); }
 }
 
 .p {
-  &-xs { padding: map-get(v.$spacing, xs); }
-  &-sm { padding: map-get(v.$spacing, sm); }
-  &-md { padding: map-get(v.$spacing, md); }
-  &-lg { padding: map-get(v.$spacing, lg); }
-  &-xl { padding: map-get(v.$spacing, xl); }
+  &-xs { padding: map.get(v.$spacing, xs); }
+  &-sm { padding: map.get(v.$spacing, sm); }
+  &-md { padding: map.get(v.$spacing, md); }
+  &-lg { padding: map.get(v.$spacing, lg); }
+  &-xl { padding: map.get(v.$spacing, xl); }
 }
 
 .rounded {
-  &-sm { border-radius: map-get(v.$border-radius, sm); }
-  &-md { border-radius: map-get(v.$border-radius, md); }
-  &-lg { border-radius: map-get(v.$border-radius, lg); }
-  &-xl { border-radius: map-get(v.$border-radius, xl); }
-  &-xxl { border-radius: map-get(v.$border-radius, xxl); }
-  &-full { border-radius: map-get(v.$border-radius, full); }
+  &-sm { border-radius: map.get(v.$border-radius, sm); }
+  &-md { border-radius: map.get(v.$border-radius, md); }
+  &-lg { border-radius: map.get(v.$border-radius, lg); }
+  &-xl { border-radius: map.get(v.$border-radius, xl); }
+  &-xxl { border-radius: map.get(v.$border-radius, xxl); }
+  &-full { border-radius: map.get(v.$border-radius, full); }
 }
 
 .shadow {
-  &-sm { box-shadow: map-get(v.$shadow, sm); }
-  &-md { box-shadow: map-get(v.$shadow, md); }
-  &-lg { box-shadow: map-get(v.$shadow, lg); }
-  &-xl { box-shadow: map-get(v.$shadow, xl); }
-  &-gold { box-shadow: map-get(v.$shadow, gold); }
+  &-sm { box-shadow: map.get(v.$shadow, sm); }
+  &-md { box-shadow: map.get(v.$shadow, md); }
+  &-lg { box-shadow: map.get(v.$shadow, lg); }
+  &-xl { box-shadow: map.get(v.$shadow, xl); }
+  &-gold { box-shadow: map.get(v.$shadow, gold); }
 }
 
 .gradient {
-  &-primary { background: map-get(v.$gradient, primary); }
-  &-secondary { background: map-get(v.$gradient, secondary); }
-  &-accent { background: map-get(v.$gradient, accent); }
-  &-mystical { background: map-get(v.$gradient, mystical-bg); }
+  &-primary { background: map.get(v.$gradient, primary); }
+  &-secondary { background: map.get(v.$gradient, secondary); }
+  &-accent { background: map.get(v.$gradient, accent); }
+  &-mystical { background: map.get(v.$gradient, mystical-bg); }
 }
 
 .text-glow { @include m.text-glow; }
@@ -178,11 +179,11 @@ input, textarea {
 .justify-end { justify-content: flex-end; }
 
 .gap {
-  &-xs { gap: map-get(v.$spacing, xs); }
-  &-sm { gap: map-get(v.$spacing, sm); }
-  &-md { gap: map-get(v.$spacing, md); }
-  &-lg { gap: map-get(v.$spacing, lg); }
-  &-xl { gap: map-get(v.$spacing, xl); }
+  &-xs { gap: map.get(v.$spacing, xs); }
+  &-sm { gap: map.get(v.$spacing, sm); }
+  &-md { gap: map.get(v.$spacing, md); }
+  &-lg { gap: map.get(v.$spacing, lg); }
+  &-xl { gap: map.get(v.$spacing, xl); }
 }
 
 .text {
@@ -192,14 +193,14 @@ input, textarea {
 }
 
 .text {
-  &-xs { font-size: map-get(v.$font-size, xs); }
-  &-sm { font-size: map-get(v.$font-size, sm); }
-  &-base { font-size: map-get(v.$font-size, base); }
-  &-md { font-size: map-get(v.$font-size, md); }
-  &-lg { font-size: map-get(v.$font-size, lg); }
-  &-xl { font-size: map-get(v.$font-size, xl); }
-  &-xxl { font-size: map-get(v.$font-size, xxl); }
-  &-xxxl { font-size: map-get(v.$font-size, xxxl); }
+  &-xs { font-size: map.get(v.$font-size, xs); }
+  &-sm { font-size: map.get(v.$font-size, sm); }
+  &-base { font-size: map.get(v.$font-size, base); }
+  &-md { font-size: map.get(v.$font-size, md); }
+  &-lg { font-size: map.get(v.$font-size, lg); }
+  &-xl { font-size: map.get(v.$font-size, xl); }
+  &-xxl { font-size: map.get(v.$font-size, xxl); }
+  &-xxxl { font-size: map.get(v.$font-size, xxxl); }
 }
 
 .font {
@@ -227,12 +228,12 @@ input, textarea {
 // ====== 交互反馈 ======
 button, a, [role="button"] {
   transition:
-    transform map-get(v.$transition, fast),
-    opacity map-get(v.$transition, fast),
-    box-shadow map-get(v.$transition, fast),
-    border-color map-get(v.$transition, fast),
-    background-color map-get(v.$transition, fast),
-    color map-get(v.$transition, fast);
+    transform map.get(v.$transition, fast),
+    opacity map.get(v.$transition, fast),
+    box-shadow map.get(v.$transition, fast),
+    border-color map.get(v.$transition, fast),
+    background-color map.get(v.$transition, fast),
+    color map.get(v.$transition, fast);
 }
 
 button:active, [role="button"]:active {
@@ -240,7 +241,7 @@ button:active, [role="button"]:active {
 }
 
 :focus-visible {
-  outline: 2px solid rgba(map-get(v.$color-accent, DEFAULT), 0.6);
+  outline: 2px solid rgba(map.get(v.$color-accent, DEFAULT), 0.6);
   outline-offset: 2px;
 }
 
@@ -260,9 +261,9 @@ button:active, [role="button"]:active {
   background: #050510;
   opacity: 0;
   pointer-events: none;
-  transition: opacity map-get(v.$transition, slow) ease;
+  transition: opacity map.get(v.$transition, slow) ease;
   z-index: 9999;
-  
+
   &.is-active {
     opacity: 1;
   }

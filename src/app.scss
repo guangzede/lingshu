@@ -5,6 +5,8 @@
 // ============================================
 
 @use './styles/index.scss' as *;
+@use './styles/mixins' as m;
+@use './styles/variables' as v;
 
 // 根元素
 html,
@@ -14,8 +16,8 @@ page {
   height: 100%;
   margin: 0;
   padding: 0;
-  background: $gradient-mystical-bg;
-  color: $color-text-primary;
+  background: map-get(v.$gradient, mystical-bg);
+  color: map-get(v.$color-text, primary);
   color-scheme: dark;
 }
 
@@ -28,7 +30,8 @@ body {
 
 // 应用级通用样式
 .app-container {
-  @include unified-page-shell("mystical");
-  @include safe-area-padding(0, 0, 0, 0);
+  min-height: 100%;
+  box-sizing: border-box;
+  @include m.safe-area-padding(0, 0, 0, 0);
 }
 

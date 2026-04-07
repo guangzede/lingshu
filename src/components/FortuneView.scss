@@ -18,7 +18,7 @@
   }
 
   .fortune-button {
-    @include button-primary;
+    @include mystical-button;
     padding: $spacing-lg $spacing-xl;
     border-radius: $border-radius-full;
     margin-top: $spacing-lg;

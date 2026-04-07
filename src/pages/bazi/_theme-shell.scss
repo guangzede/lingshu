@@ -1,4 +1,5 @@
 @use "../../styles/mixins.scss" as *;
+@use "sass:map";
 
 // ====== 八字页面 - 神秘深色主题 ======
 @use "../../styles/variables.scss" as *;
@@ -150,15 +151,15 @@
   .bazi-input-col select,
   .bazi-pillar-controls select {
     background: $color-bg-card;
-    border: 1px solid $color-border;
+    border: 1px solid map.get($color-border, DEFAULT);
     color: $color-text-primary;
     border-radius: $border-radius-lg;
     padding: $spacing-sm;
     font-family: $font-family-serif;
 
     &:focus {
-      border-color: $color-accent;
-      box-shadow: 0 0 0 2px rgba($color-accent, 0.2);
+      border-color: map.get($color-accent, DEFAULT);
+      box-shadow: 0 0 0 2px rgba(map.get($color-accent, DEFAULT), 0.2);
     }
   }
 
@@ -175,11 +176,11 @@
   .bazi-ghost-btn {
     @include ghost-button(9px $spacing-md, $font-size-lg);
     color: $color-text-secondary;
-    border-color: $color-border;
+    border-color: map.get($color-border, DEFAULT);
 
     &:hover {
       color: $color-text-primary;
-      border-color: $color-accent;
+      border-color: map.get($color-accent, DEFAULT);
     }
   }
 

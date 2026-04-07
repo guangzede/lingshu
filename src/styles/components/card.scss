@@ -4,6 +4,7 @@
 
 @use "../variables" as v;
 @use "../mixins" as m;
+@use "sass:map";
 
 .card {
   @include m.mystical-card(v.$spacing-lg, v.$border-radius-lg);
@@ -12,7 +13,7 @@
   &--lg { @include m.mystical-card(v.$spacing-xl, v.$border-radius-xl); }
   &--hoverable {
     cursor: pointer;
-    transition: all map-get(v.$transition, base);
+    transition: all map.get(v.$transition, base);
 
     &:active {
       transform: scale(0.985);
@@ -26,22 +27,22 @@
     gap: v.$spacing-md;
     padding-bottom: v.$spacing-md;
     margin-bottom: v.$spacing-md;
-    border-bottom: 1px solid map-get(v.$color-border, DEFAULT);
+    border-bottom: 1px solid map.get(v.$color-border, DEFAULT);
 
     &__title {
-      font-size: map-get(v.$font-size, lg);
+      font-size: map.get(v.$font-size, lg);
       font-weight: 600;
-      color: map-get(v.$color-text, primary);
+      color: map.get(v.$color-text, primary);
     }
 
     &__subtitle {
-      font-size: map-get(v.$font-size, sm);
-      color: map-get(v.$color-text, secondary);
+      font-size: map.get(v.$font-size, sm);
+      color: map.get(v.$color-text, secondary);
     }
   }
 
   &-body {
-    color: map-get(v.$color-text, primary);
+    color: map.get(v.$color-text, primary);
     line-height: 1.6;
 
     &--no-padding {
@@ -56,7 +57,7 @@
     gap: v.$spacing-md;
     padding-top: v.$spacing-md;
     margin-top: v.$spacing-md;
-    border-top: 1px solid map-get(v.$color-border, DEFAULT);
+    border-top: 1px solid map.get(v.$color-border, DEFAULT);
   }
 }
 
@@ -67,23 +68,23 @@
   gap: v.$spacing-sm;
 
   &__label {
-    font-size: map-get(v.$font-size, sm);
-    color: map-get(v.$color-text, secondary);
+    font-size: map.get(v.$font-size, sm);
+    color: map.get(v.$color-text, secondary);
   }
 
   &__value {
-    font-size: map-get(v.$font-size, xl);
+    font-size: map.get(v.$font-size, xl);
     font-weight: 700;
-    color: map-get(v.$color-text, primary);
+    color: map.get(v.$color-text, primary);
 
-    &--accent { color: map-get(v.$color-accent, DEFAULT); }
-    &--success { color: map-get(v.$color-state, success); }
-    &--error { color: map-get(v.$color-state, error); }
+    &--accent { color: map.get(v.$color-accent, DEFAULT); }
+    &--success { color: map.get(v.$color-state, success); }
+    &--error { color: map.get(v.$color-state, error); }
   }
 }
 
 .menu-card {
-  @include m.glass-effect(rgba(255, 255, 255, 0.05), rgba(map-get(v.$color-gold, DEFAULT), 0.12), 16px);
+  @include m.glass-effect(rgba(255, 255, 255, 0.05), rgba(map.get(v.$color-gold, DEFAULT), 0.12), 16px);
   position: relative;
   width: 100%;
   min-height: 98px;
@@ -92,12 +93,12 @@
   display: flex;
   flex-direction: column;
   gap: v.$spacing-sm;
-  box-shadow: map-get(v.$shadow, lg);
-  color: map-get(v.$color-text, primary);
+  box-shadow: map.get(v.$shadow, lg);
+  color: map.get(v.$color-text, primary);
   text-align: left;
   overflow: hidden;
   cursor: pointer;
-  transition: all map-get(v.$transition, base);
+  transition: all map.get(v.$transition, base);
 
   &::after {
     content: "";
@@ -106,7 +107,7 @@
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(map-get(v.$color-gold, DEFAULT), 0.12) 0%, transparent 72%);
+    background: radial-gradient(circle, rgba(map.get(v.$color-gold, DEFAULT), 0.12) 0%, transparent 72%);
     pointer-events: none;
   }
 
@@ -122,25 +123,25 @@
   }
 
   &__title {
-    font-size: map-get(v.$font-size, xl);
+    font-size: map.get(v.$font-size, xl);
     font-weight: 600;
     letter-spacing: 0.12em;
-    color: map-get(v.$color-text, primary);
+    color: map.get(v.$color-text, primary);
   }
 
   &__badge {
     flex-shrink: 0;
     padding: 6px 10px;
-    border-radius: map-get(v.$border-radius, round);
-    border: 1px solid rgba(map-get(v.$color-gold, DEFAULT), 0.18);
-    background: rgba(map-get(v.$color-gold, DEFAULT), 0.08);
-    color: rgba(map-get(v.$color-gold, DEFAULT), 0.95);
-    font-size: map-get(v.$font-size, sm);
+    border-radius: map.get(v.$border-radius, round);
+    border: 1px solid rgba(map.get(v.$color-gold, DEFAULT), 0.18);
+    background: rgba(map.get(v.$color-gold, DEFAULT), 0.08);
+    color: rgba(map.get(v.$color-gold, DEFAULT), 0.95);
+    font-size: map.get(v.$font-size, sm);
     letter-spacing: 0.12em;
   }
 
   &__desc {
-    font-size: map-get(v.$font-size, base);
+    font-size: map.get(v.$font-size, base);
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.72);
     letter-spacing: 0.06em;
@@ -152,23 +153,23 @@
   text-align: center;
 
   &__value {
-    font-size: map-get(v.$font-size, xxl);
+    font-size: map.get(v.$font-size, xxl);
     font-weight: 700;
-    color: map-get(v.$color-accent, DEFAULT);
+    color: map.get(v.$color-accent, DEFAULT);
     margin-bottom: v.$spacing-xs;
   }
 
   &__label {
-    font-size: map-get(v.$font-size, sm);
-    color: map-get(v.$color-text, secondary);
+    font-size: map.get(v.$font-size, sm);
+    color: map.get(v.$color-text, secondary);
   }
 
   &__change {
-    font-size: map-get(v.$font-size, sm);
+    font-size: map.get(v.$font-size, sm);
     margin-top: v.$spacing-sm;
 
-    &--up { color: map-get(v.$color-state, success); }
-    &--down { color: map-get(v.$color-state, error); }
+    &--up { color: map.get(v.$color-state, success); }
+    &--down { color: map.get(v.$color-state, error); }
   }
 }
 
@@ -182,10 +183,10 @@
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
-    transition: all map-get(v.$transition, base);
+    transition: all map.get(v.$transition, base);
 
     &:active {
-      background: map-get(v.$color-bg, card-hover);
+      background: map.get(v.$color-bg, card-hover);
     }
   }
 
@@ -193,7 +194,7 @@
     padding: 0 v.$spacing-lg v.$spacing-lg;
     max-height: 0;
     overflow: hidden;
-    transition: max-height map-get(v.$transition, slow) ease;
+    transition: max-height map.get(v.$transition, slow) ease;
 
     &.is-open {
       max-height: 1000px;
@@ -212,7 +213,7 @@
     padding: 20px v.$spacing-xl 18px;
 
     &__title {
-      font-size: map-get(v.$font-size, lg);
+      font-size: map.get(v.$font-size, lg);
     }
   }
 }
@@ -227,11 +228,11 @@
     padding: 16px v.$spacing-md 14px;
 
     &__title {
-      font-size: map-get(v.$font-size, md);
+      font-size: map.get(v.$font-size, md);
     }
 
     &__desc {
-      font-size: map-get(v.$font-size, sm);
+      font-size: map.get(v.$font-size, sm);
     }
   }
 }

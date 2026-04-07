@@ -1,5 +1,6 @@
 @use "../../styles/variables.scss" as *;
 @use "../../styles/mixins.scss" as *;
+@use "sass:map";
 
 .stock-page {
   @include unified-page-shell("mystical");
@@ -10,15 +11,15 @@
   --stock-down: #22c55e;
   --stock-flat: #{$color-text-muted};
   // 文字色
-  --stock-accent: #{$color-accent};
+  --stock-accent: #{map.get($color-accent, DEFAULT)};
   --stock-accent-deep: #8f6837;
   --stock-text-main: #{$color-text-primary};
   --stock-text-sub: #{$color-text-secondary};
   --stock-muted: #{$color-text-muted};
   --stock-sub: #{$color-text-secondary};
   // 边框/背景
-  --stock-border: #{$color-border};
-  --stock-border-soft: #{$color-border};
+  --stock-border: #{map.get($color-border, DEFAULT)};
+  --stock-border-soft: #{map.get($color-border, light)};
   --stock-soft: #{$color-bg-card};
   --stock-bg-soft: #{$color-bg-card};
   // 卡片背景（深色毛玻璃）
@@ -70,9 +71,9 @@
 }
 
 .stock-top-tab.active {
-  background: linear-gradient(180deg, rgba($color-accent, 0.96), rgba($color-accent-dark, 0.92));
+  background: linear-gradient(180deg, rgba(map.get($color-accent, DEFAULT), 0.96), rgba($color-accent-dark, 0.92));
   color: $color-bg-primary;
-  border-color: rgba($color-accent, 0.92);
+  border-color: rgba(map.get($color-accent, DEFAULT), 0.92);
   box-shadow: 0 8px 18px rgba($color-accent-dark, 0.22);
 }
 

@@ -1,5 +1,6 @@
 @use '../../styles/variables.scss' as *;
 @use '../../styles/mixins.scss' as *;
+@use "sass:map";
 
 .markdown-renderer {
   display: flex;
@@ -14,12 +15,12 @@
 
   // 标题样式
   h1 {
-    @include heading-style($font-size-huge, $color-accent, true);
+    @include heading-style($font-size-huge, map.get($color-accent, DEFAULT), true);
     margin: $spacing-xl 0 $spacing-lg 0;
   }
 
   h2 {
-    @include heading-style($font-size-xxxl, $color-accent, true);
+    @include heading-style($font-size-xxxl, map.get($color-accent, DEFAULT), true);
     margin: $spacing-lg 0 $spacing-md 0;
   }
 
@@ -64,7 +65,7 @@
     padding: 2px 4px;
     border-radius: $border-radius-sm;
     font-size: $font-size-lg;
-    color: $color-accent;
+    color: map.get($color-accent, DEFAULT);
   }
 
   pre code {
@@ -88,14 +89,14 @@
 
   // 链接样式
   a {
-    color: $color-accent;
+    color: map.get($color-accent, DEFAULT);
     text-decoration: none;
     transition: all 0.3s ease;
   }
 
   a:hover {
     text-decoration: underline;
-    text-shadow: 0 0 8rpx rgba($color-accent, 0.4);
+    text-shadow: 0 0 8rpx rgba(map.get($color-accent, DEFAULT), 0.4);
   }
 
   // 分隔线样式

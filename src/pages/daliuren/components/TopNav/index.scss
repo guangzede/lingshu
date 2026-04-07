@@ -1,5 +1,6 @@
 @use "../../../../styles/variables.scss" as *;
 @use "../../../../styles/mixins.scss" as *;
+@use "sass:map";
 
 .daliuren-top-nav {
   position: sticky;
@@ -25,9 +26,9 @@
 }
 
 .daliuren-top-tab.active {
-  background: linear-gradient(180deg, rgba($color-accent, 0.96), rgba($color-accent-dark, 0.92));
+  background: linear-gradient(180deg, rgba(map.get($color-accent, DEFAULT), 0.96), rgba($color-accent-dark, 0.92));
   color: $color-bg-primary;
-  border-color: rgba($color-accent, 0.92);
+  border-color: rgba(map.get($color-accent, DEFAULT), 0.92);
   box-shadow: 0 8px 18px rgba($color-accent-dark, 0.22);
 }
 

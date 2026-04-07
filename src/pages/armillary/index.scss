@@ -48,7 +48,7 @@
     }
 
     .desc {
-      @include mystical-text($font-size-lg, $color-accent);
+      @include mystical-text($font-size-lg, map-get($color-accent, DEFAULT));
       margin-bottom: $spacing-xxxl;
     }
 
@@ -57,13 +57,13 @@
       width: 100%;
       height: 88rpx;
       border-radius: $border-radius-lg;
-      background: $color-accent;
+      background: map-get($color-accent, DEFAULT);
       color: $color-bg-primary;
       font-weight: bold;
       border: none;
 
       &:hover {
-        background: lighten($color-accent, 10%);
+        background: lighten(map-get($color-accent, DEFAULT), 10%);
         transform: translateY(-2px);
       }
 

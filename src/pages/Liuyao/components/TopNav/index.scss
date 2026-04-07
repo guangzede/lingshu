@@ -1,5 +1,6 @@
 @use "../../../../styles/variables.scss" as *;
 @use "../../../../styles/mixins.scss" as *;
+@use "sass:map";
 
 .liuyao-top-nav {
   position: sticky;
@@ -28,7 +29,7 @@
   font-weight: 500;
   color: $color-text-secondary;
   background: transparent;
-  border: 1px solid $color-border;
+  border: 1px solid map.get($color-border, DEFAULT);
   transition: all 0.3s ease;
   cursor: pointer;
 
@@ -39,8 +40,8 @@
 }
 
 .liuyao-top-tab.active {
-  background: $color-accent;
+  background: map.get($color-accent, DEFAULT);
   color: $color-bg-primary;
-  border-color: $color-accent;
+  border-color: map.get($color-accent, DEFAULT);
   box-shadow: 0 6px 14px rgba($color-accent-dark, 0.2);
 }

@@ -4,6 +4,7 @@
 
 @use "../variables" as v;
 @use "../mixins" as m;
+@use "sass:map";
 
 .btn {
   display: inline-flex;
@@ -11,12 +12,12 @@
   justify-content: center;
   gap: v.$spacing-sm;
   padding: v.$spacing-md v.$spacing-xl;
-  border-radius: map-get(v.$border-radius, round);
-  font-size: map-get(v.$font-size, lg);
+  border-radius: map.get(v.$border-radius, round);
+  font-size: map.get(v.$font-size, lg);
   font-weight: 600;
-  font-family: map-get(v.$font-family, serif);
+  font-family: map.get(v.$font-family, serif);
   cursor: pointer;
-  transition: all map-get(v.$transition, fast);
+  transition: all map.get(v.$transition, fast);
   border: none;
   white-space: nowrap;
   
@@ -39,19 +40,19 @@
   
   &-ghost {
     background: transparent;
-    border: 1.5px solid map-get(v.$color-gold, DEFAULT);
-    border-radius: map-get(v.$border-radius, round);
+    border: 1.5px solid map.get(v.$color-gold, DEFAULT);
+    border-radius: map.get(v.$border-radius, round);
     padding: v.$spacing-md v.$spacing-xl;
-    font-size: map-get(v.$font-size, lg);
-    color: map-get(v.$color-gold, DEFAULT);
-    font-family: map-get(v.$font-family, serif);
+    font-size: map.get(v.$font-size, lg);
+    color: map.get(v.$color-gold, DEFAULT);
+    font-family: map.get(v.$font-family, serif);
     cursor: pointer;
-    transition: all map-get(v.$transition, base);
+    transition: all map.get(v.$transition, base);
     
     &:hover {
-      border-color: map-get(v.$color-gold, light);
-      color: map-get(v.$color-gold, light);
-      box-shadow: 0 0 30px rgba(map-get(v.$color-gold, DEFAULT), 0.15);
+      border-color: map.get(v.$color-gold, light);
+      color: map.get(v.$color-gold, light);
+      box-shadow: 0 0 30px rgba(map.get(v.$color-gold, DEFAULT), 0.15);
     }
     
     &:active {
@@ -61,12 +62,12 @@
   
   &-sm {
     padding: v.$spacing-sm v.$spacing-md;
-    font-size: map-get(v.$font-size, sm);
+    font-size: map.get(v.$font-size, sm);
   }
   
   &-lg {
     padding: v.$spacing-lg v.$spacing-xxl;
-    font-size: map-get(v.$font-size, xl);
+    font-size: map.get(v.$font-size, xl);
   }
   
   &-icon {
@@ -81,13 +82,13 @@
     background: transparent;
     border: none;
     padding: v.$spacing-sm v.$spacing-md;
-    color: map-get(v.$color-accent, DEFAULT);
-    font-size: map-get(v.$font-size, base);
+    color: map.get(v.$color-accent, DEFAULT);
+    font-size: map.get(v.$font-size, base);
     cursor: pointer;
-    transition: all map-get(v.$transition, fast);
+    transition: all map.get(v.$transition, fast);
     
     &:hover {
-      color: map-get(v.$color-accent, dark);
+      color: map.get(v.$color-accent, dark);
     }
     
     &:active {
@@ -96,24 +97,24 @@
   }
   
   &-danger {
-    background: rgba(map-get(v.$color-state, error), 0.15);
-    border: 1px solid rgba(map-get(v.$color-state, error), 0.3);
-    color: map-get(v.$color-state, error);
+    background: rgba(map.get(v.$color-state, error), 0.15);
+    border: 1px solid rgba(map.get(v.$color-state, error), 0.3);
+    color: map.get(v.$color-state, error);
     
     &:hover {
-      background: rgba(map-get(v.$color-state, error), 0.25);
-      border-color: rgba(map-get(v.$color-state, error), 0.5);
+      background: rgba(map.get(v.$color-state, error), 0.25);
+      border-color: rgba(map.get(v.$color-state, error), 0.5);
     }
   }
   
   &-success {
-    background: rgba(map-get(v.$color-state, success), 0.15);
-    border: 1px solid rgba(map-get(v.$color-state, success), 0.3);
-    color: map-get(v.$color-state, success);
+    background: rgba(map.get(v.$color-state, success), 0.15);
+    border: 1px solid rgba(map.get(v.$color-state, success), 0.3);
+    color: map.get(v.$color-state, success);
     
     &:hover {
-      background: rgba(map-get(v.$color-state, success), 0.25);
-      border-color: rgba(map-get(v.$color-state, success), 0.5);
+      background: rgba(map.get(v.$color-state, success), 0.25);
+      border-color: rgba(map.get(v.$color-state, success), 0.5);
     }
   }
   
@@ -157,11 +158,11 @@
 @include m.respond-to(small) {
   .btn {
     padding: v.$spacing-sm v.$spacing-lg;
-    font-size: map-get(v.$font-size, base);
+    font-size: map.get(v.$font-size, base);
     
     &-lg {
       padding: v.$spacing-md v.$spacing-xl;
-      font-size: map-get(v.$font-size, lg);
+      font-size: map.get(v.$font-size, lg);
     }
   }
 }

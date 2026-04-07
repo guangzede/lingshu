@@ -155,8 +155,8 @@
 
 .progress-bar {
   height: 100%;
-  background: linear-gradient(90deg, $color-accent, $color-mystical-gold);
-  box-shadow: 0 0 10px rgba($color-accent, 0.5);
+    background: linear-gradient(90deg, map-get($color-accent, DEFAULT), $color-mystical-gold);
+    box-shadow: 0 0 10px rgba(map-get($color-accent, DEFAULT), 0.5);
   transition: width 0.1s ease-out;
   border-radius: 2px;
 }

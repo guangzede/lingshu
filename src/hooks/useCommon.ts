@@ -3,6 +3,7 @@
  */
 
 import React from 'react'
+import Taro from '@tarojs/taro'
 
 /**
  * Canvas 初始化 Hook

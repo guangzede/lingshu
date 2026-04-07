@@ -1,4 +1,5 @@
 @use "../../styles/variables.scss" as *;
+@use "sass:map";
 
 .ai-assistant {
   padding: 0;
@@ -21,7 +22,7 @@
       padding: $spacing-md;
       border-radius: $border-radius-lg;
       min-height: 200rpx;
-      border: 1px solid var(--bazi-border, $color-border);
+      border: 1px solid var(--bazi-border, map.get($color-border, DEFAULT));
       width: 100%;
       max-width: 100%;
       min-width: 0;
@@ -177,7 +178,7 @@
 
   .streaming-indicator {
     margin-top: $spacing-xs;
-    color: var(--bazi-accent, $color-accent);
+    color: var(--bazi-accent, map.get($color-accent, DEFAULT));
     font-size: $font-size-sm;
   }
 

@@ -2,6 +2,7 @@
 @use "../../styles/variables.scss" as *;
 @use "../../styles/mixins.scss" as *;
 @use "../../components/FortuneView.scss" as *;
+@use "sass:map";
 
 .fortune-page {
   @include unified-page-shell("mystical");
@@ -39,7 +40,7 @@
         justify-content: space-between;
         align-items: center;
         padding: $spacing-md 0;
-        border-top: 1px solid $color-border;
+        border-top: 1px solid map.get($color-border, DEFAULT);
 
         .fortune-date {
           font-size: $font-size-sm;
@@ -47,7 +48,7 @@
         }
 
         .fortune-type {
-          @include mystical-text($font-size-sm, $color-accent);
+          @include mystical-text($font-size-sm, map.get($color-accent, DEFAULT));
         }
       }
     }
@@ -95,7 +96,7 @@
             display: flex;
             justify-content: space-between;
             padding: $spacing-sm 0;
-            border-bottom: 1px solid $color-border;
+            border-bottom: 1px solid map.get($color-border, DEFAULT);
 
             &:last-child {
               border-bottom: none;
